@@ -1,0 +1,8 @@
+<a href="#" class="set_duration" tid="<%= @task.id %>" dur="15">15 minutes</a> <br>
+<a href="#" class="set_duration" tid="<%= @task.id %>" dur="30">30 minutes</a> <br>
+<a href="#" class="set_duration" tid="<%= @task.id %>" dur="60">1 hour</a> <br>
+<a href="#" class="set_duration" tid="<%= @task.id %>" dur="">No Duration</a>
+
+<%= form_for(@task) do |f| %>
+	<%= f.text_field :duration, :autocomplete => :off, :id => "task_duration_#{@task.id}" %>
+<% end %>

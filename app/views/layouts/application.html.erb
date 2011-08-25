@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> RPM </title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag :defaults, 'jquery-ui-1.8.16.min', 'jquery.jeditable.min', 'jquery.cluetip' %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+
+	<div id="nav">
+	  <% if user_signed_in? %>
+			<%= image_tag current_user.image.thumb.url %> <br>
+	    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %> <br>
+			<%= link_to('Edit account', edit_user_registration_path) %> <br>
+	  <% else %>
+	    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+	  <% end %>
+	</div>
+	
+	<div id="sub_nav">
+		<%= yield :sub_nav %>
+	</div>
+	
+	<div id="content">
+		<span class="notice"><%= notice %></span>
+		<span class="alert"><%= alert %></span>
+		<%= yield %>
+	</div>
+
+	<%= yield :javascript %>
+	
+</body>
+</html>

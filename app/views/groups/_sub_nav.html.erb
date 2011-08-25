@@ -1,0 +1,12 @@
+<% content_for :sub_nav do %>
+
+	<% @groups.each do |group| %>
+	<div class="group" id="group_<%= group.id %>">
+		<%= link_to group.title, group_path(group) %>
+	</div>
+	<% end %>
+
+	<%= form_for(Group.new) do |f| %>
+			<%= f.text_field :title, :autocomplete => :off, :value => "New group...", :onfocus => '(this.value == "New group...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New group..." : this.value' %>
+	<% end %>
+<% end %>

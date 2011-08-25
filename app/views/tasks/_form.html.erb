@@ -1,0 +1,6 @@
+<%= form_for(Task.new) do |f| %>
+	<div id="task_task_wrap">
+		<%= f.text_field :task, :autocomplete => :off, :value => "New task...", :onfocus => '(this.value == "New task...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New task..." : this.value' %>
+	</div>
+	<%= f.hidden_field :group_id, :value => group.id %>
+<% end %>
