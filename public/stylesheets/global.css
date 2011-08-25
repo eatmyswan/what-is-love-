@@ -101,3 +101,7 @@ p.error {
 	color:#FFF;
 	font-size: 16px;
 }
+span.alert, span.notice {
+	color:#FFF;
+	font-size: 16px;
+}
