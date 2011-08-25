@@ -18,8 +18,22 @@ body {
 	top: 0;
 	left: 0;
 	background: #424344;
+	background: -moz-linear-gradient(left, #3c3d3e, #545759);
 	overflow-y: auto;
 	overflow-x: hidden;
+	padding: 20px 0 0 0;
+}
+#nav a {
+	display: block;
+	width: 44px;
+	height: 44px;
+	overflow: hidden;
+	margin: 0 auto 20px;
+	border-radius: 3px;
+}
+#nav a img {
+	width: 44px;
+	border-radius: 3px;
 }
 #sub_nav {
 	height: 100%;
@@ -27,9 +41,11 @@ body {
 	position: fixed;
 	top: 0;
 	left: 60px;
-	background: #e5e9eb;
+	background: url('/images/sub_nav_bg.png') repeat-y center center #e5e9eb;
 	overflow-y: auto;
 	overflow-x: hidden;
+	box-shadow: 3px 0 6px rgba(0,0,0,0.5);
+	border-left: 1px solid #222222;
 }
 #content {
     padding: 25px;
@@ -72,4 +88,8 @@ h1 {
 	padding: 0;
 	color: #FFF;
 	text-align:center;
+}
+a {
+	color: #1d6fd5;
+	text-decoration: none;
 }

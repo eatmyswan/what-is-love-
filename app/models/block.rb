@@ -9,5 +9,10 @@ class Block
   belongs_to :user
   belongs_to :group
   has_many :tasks
+  
+  index :user_id
+  index :group_id
+  
+  validates_length_of :outcome, minimum: 1, message: "outcome cannot be blank."
 
 end

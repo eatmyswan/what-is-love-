@@ -13,6 +13,12 @@ class Task
   belongs_to :block
   belongs_to :group
   
+  index :user_id
+  index :block_id
+  index :group_id
+  
+  validates_length_of :task, minimum: 1, message: "task cannot be blank."
+  
   before_save :nil_if_blank
   
   protected

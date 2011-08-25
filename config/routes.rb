@@ -16,6 +16,8 @@ Rpm::Application.routes.draw do
   match 'blocks/sort_blocks' => 'blocks#sort_blocks'
   match 'block/update/:id' => 'blocks#update'
   
+  match 'account/settings' => 'accounts#settings', :as => :account_settings
+  
   root :to => "groups#index"
 
   # The priority is based upon order of creation:

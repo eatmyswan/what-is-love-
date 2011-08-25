@@ -256,3 +256,15 @@ h2.block_title_purpose {
 	font:bold 13px/1.0 Helvetica, Arial, sans-serif;
 	border-bottom: 1px solid #CCC;
 }
+input#group_title {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: medium none;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 1px 1px 3px #999999 inset;
+    color: #4E4E4E;
+    display: block;
+    font: 12px/1 Helvetica,Arial,sans-serif;
+	margin: 20px auto;
+    padding: 5px 8px 4px;
+    width: 50%;
+}
