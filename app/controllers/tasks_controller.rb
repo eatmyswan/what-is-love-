@@ -47,12 +47,16 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-
-    if @task.update_attributes(params[:task])
-      if params[:task][:task]
-        render :text => params[:task][:task]
-      else
-        redirect_to( group_path(@task.group) )
+    respond_to do |format|
+      if @task.update_attributes(params[:task])
+        if params[:task][:task]
+          render :text => params[:task][:task]
+        elsif params[:task][:complete] == "true"
+          logger.debug 'herhewrewa'
+          format.js
+        else
+          format.html { redirect_to(group_path(@task.group)) }
+        end
       end
     end
   end

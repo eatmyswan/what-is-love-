@@ -8,7 +8,8 @@ class GroupsController < ApplicationController
   
   def show
     @group = Group.find(params[:id])
-    @tasks = Task.where(block_id: nil).and(group_id: params[:id]).order_by([:sort, :asc])
+    @tasks = Task.where(group_id: params[:id]).and(block_id: nil).order_by([:sort, :asc])
+  
     @blocks = Block.where(group_id: params[:id]).order_by([:sort, :asc])
     @groups = Group.where(user_id: current_user.id)
 

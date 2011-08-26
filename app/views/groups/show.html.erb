@@ -6,17 +6,19 @@
 <%= render :partial => 'sub_nav', :locals => {:groups => @groups} %>
 
 <div id="tasks-list">
+	<div class="poof"></div> 
 	<% @tasks.each do |task| %>
-		<div id="task_<%= task.id %>" class="task_wrap">
+		<div id="task_<%= task.id %>" class="task_wrap <%= 'complete' if task.complete == true %>">
 			<div class="task_drag">
 				<%= link_to '', task_path(task, :task => { :must => false }), :method => :put, :class => 'must_on' if task.must == true %>
 				<%= link_to '', task_path(task, :task => { :must => true }), :method => :put, :class => 'must_off' if task.must == false %>
-				<%= link_to '', task_path(task, :task => { :complete => false }), :method => :put, :class => 'complete_on' if task.complete == true %>
-				<%= link_to '', task_path(task, :task => { :complete => true }), :method => :put, :class => 'complete_off' if task.complete == false %>
+				<%= link_to '', task_path(task, :task => { :complete => false, :sort => 0 }), :method => :put, :class => 'complete_on' if task.complete == true %>
+				<%= link_to '', task_path(task, :task => { :complete => true, :sort => 99 }), :method => :put, :remote => true, :class => 'complete_off' if task.complete == false %>
 				<%= editable_field task, :task, { :event => "dblclick", :onblur => "cancel", :width => "none", :height => "none" } %>
 				<%= link_to '', block_create_path(task.id), :class => 'target' %>
 				<%= link_to '', task_path(task), :method => :delete, :class => 'delete' %>
 			</div>
+			<% if task.complete == false %>
 			<div class="tabs">
 				<span class="leverage_tab" rel="/task/leverage/<%=task.id%>">
 					<span class="leverage_img"></span> 
@@ -33,9 +35,12 @@
 					<span class="text"> <%= task.scheduled %> </span>
 				</span>
 			</div>
+			<% end %>
 		</div>
 	<% end %>
 </div>
+
+
 
 <br><br>
 
@@ -106,6 +111,38 @@
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
+
+	$('a.complete_off').click(function(e) { 
+        
+				var xOffset = 24 + 285; 
+        var yOffset = 24; 
+  
+        $(this).parent().parent().fadeOut('fast'); 
+  
+        $('.poof').css({ 
+            left: e.pageX - xOffset + 'px', 
+            top: e.pageY - yOffset + 'px' 
+        }).show(); 
+  
+        animatePoof();
+    }); 
+
+	function animatePoof() { 
+	    var bgTop = 0; 
+	    var frames = 5; 
+	    var frameSize = 32; 
+	    var frameRate = 80; 
+  
+	    for(i = 1; i < frames; i ++) { 
+	        $('.poof').animate({ 
+	            backgroundPosition: '0 ' + (bgTop - frameSize) + 'px' 
+	        }, frameRate); 
+  
+	        bgTop -= frameSize; 
+	    } 
+  
+	    setTimeout("$('.poof').hide()", frames * frameRate); 
+	}
 
 		$(".group").droppable({
 			tolerance: 'pointer',
