@@ -1,6 +1,4 @@
 # encoding: utf-8
-require 'carrierwave/processing/image_science'
-  
 class AvatarUploader < CarrierWave::Uploader::Base
   include CarrierWave::ImageScience
 
