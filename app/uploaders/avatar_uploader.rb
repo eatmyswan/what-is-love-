@@ -1,9 +1,11 @@
 # encoding: utf-8
+
+  
 class AvatarUploader < CarrierWave::Uploader::Base
-  include CarrierWave::ImageScience
+  
 
   # Include RMagick or ImageScience support:
-  # include CarrierWave::RMagick
+  include CarrierWave::RMagick
   # include CarrierWave::ImageScience
 
   # Choose what kind of storage to use for this uploader:
