@@ -1,8 +1,15 @@
 <% content_for :sub_nav do %>
 
+
 	<% @groups.each do |group| %>
 	<div class="group" id="group_<%= group.id %>">
-		<%= link_to group.title, group_path(group) %>
+		<h2> <%= group.title %> </h2>
+		<div class="sub_group_wrap">
+			<%= link_to group_path(group), :class => (id?(group.id.to_s)) ? "active" : "" do %>
+				<span class="inbox"></span>
+				<span class="title">Inbox</span>
+			<% end %>
+		</div>
 	</div>
 	<% end %>
 

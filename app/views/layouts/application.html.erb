@@ -10,8 +10,10 @@
 
 	<div id="nav">
 	  <% if user_signed_in? %>
-			<%= link_to image_tag(current_user.image.thumb.url), edit_user_registration_path %>
-			<%= link_to 'Planner', root_path %>
+			<%= link_to image_tag(current_user.image.thumb.url), edit_user_registration_path, :class => "user" %>
+			<%= link_to '', root_path, :class => (controller?("groups") && action?("show")) ? "planner_active" : "planner"  %>
+			<%= link_to '', root_path, :class => "calendar" %>
+			<%= link_to '', root_path, :class => "contacts" %>
 	  <% end %>
 	</div>
 	

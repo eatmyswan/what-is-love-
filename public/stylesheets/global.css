@@ -26,14 +26,31 @@ body {
 #nav a {
 	display: block;
 	width: 44px;
-	height: 44px;
+	height: 41px;
 	overflow: hidden;
-	margin: 0 auto 20px;
+	margin: 0 auto 15px;
 	border-radius: 3px;
 }
 #nav a img {
 	width: 44px;
 	border-radius: 3px;
+}
+#nav a.user {
+	width: 42px;
+	border: 1px solid #222;
+	box-shadow: 0 1px 0 rgba(255,255,255,0.2);
+}
+#nav a.planner {
+	background: url(/images/sprite.png) no-repeat 0 -143px;
+}
+#nav a.planner_active {
+	background: url(/images/sprite.png) no-repeat 0 -186px;
+}
+#nav a.calendar {
+	background: url(/images/sprite.png) no-repeat -46px -143px;
+}
+#nav a.contacts {
+	background: url(/images/sprite.png) no-repeat -93px -143px;
 }
 #sub_nav {
 	height: 100%;
@@ -46,6 +63,14 @@ body {
 	overflow-x: hidden;
 	box-shadow: 3px 0 6px rgba(0,0,0,0.5);
 	border-left: 1px solid #222222;
+	padding: 20px 0 0 0;
+}
+#sub_nav h2 {
+	font: normal 15px/1.0 Helvetica, Arial, sans-serif;
+	margin: 0 0 5px 0;
+	color: #4e5152;
+	text-shadow: 0 1px 0 #FFF;
+	text-align: left;
 }
 #content {
     padding: 25px;
