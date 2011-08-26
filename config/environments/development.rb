@@ -17,14 +17,14 @@ Rpm::Application.configure do
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
   
-  config.action_mailer.default_url_options = { :host => '173.203.199.48:3000' }
+  config.action_mailer.default_url_options = { :host => 'rapidplanapp.com' }
   
   config.action_mailer.delivery_method = :smtp
   
   config.action_mailer.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
-    :domain               => "173.203.199.48:3000",
+    :domain               => "rapidplanapp.com",
     :authentication       => "plain",
     :user_name            => "stevendoyledesign@gmail.com",
     :password             => "SPD12c5!",
