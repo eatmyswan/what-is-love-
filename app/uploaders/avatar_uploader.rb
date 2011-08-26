@@ -1,11 +1,11 @@
 # encoding: utf-8
-
+require 'carrierwave/processing/mini_magick'
   
 class AvatarUploader < CarrierWave::Uploader::Base
-  
+  include CarrierWave::MiniMagick
 
   # Include RMagick or ImageScience support:
-  include CarrierWave::RMagick
+  # include CarrierWave::RMagick
   # include CarrierWave::ImageScience
 
   # Choose what kind of storage to use for this uploader:
