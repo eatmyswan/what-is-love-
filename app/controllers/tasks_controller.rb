@@ -50,9 +50,8 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.update_attributes(params[:task])
         if params[:task][:task]
-          render :text => params[:task][:task]
+          format.html { render :text => params[:task][:task] }
         elsif params[:task][:complete] == "true"
-          logger.debug 'herhewrewa'
           format.js
         else
           format.html { redirect_to(group_path(@task.group)) }
@@ -74,7 +73,6 @@ class TasksController < ApplicationController
   
   def sort_tasks
     tasks = Task.find(params[:task])
-     logger.debug tasks.inspect
     tasks.each do |task|
       task.sort = params['task'].index(task.id.to_s) + 1
       task.save

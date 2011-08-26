@@ -28,6 +28,21 @@
 	background: #FFF;
 	border-radius: 3px;
 	max-height: 29px;
+	margin: 0 0 0 17px;
+}
+.task_count {
+	float: left;
+	width: 7px;
+	padding: 8px 0 0 0;
+	color: #FFF;
+	font-weight: bold;
+}
+.task_count_dark {
+	float: left;
+	width: 7px;
+	padding: 8px 0 0 0;
+	color: #333;
+	font-weight: bold;
 }
 .must_on {
 	background: url('/images/sprite.png') no-repeat 0 0 transparent ;
@@ -87,7 +102,7 @@
 }
 .task_drag .editable {
     height: 27px;
-    left: 63px;
+    left: 76px;
     overflow: hidden;
     padding-top: 8px;
     position: absolute;
@@ -121,7 +136,7 @@
 	float: right;
 	display: inline-block;
 	margin: 0 2px 0 0;
-	background: rgba(0,0,0,0.3);
+	background: rgba(0,0,0,0.5);
 	padding:3px 5px 2px 5px;
 	border-radius: 0 0 3px 3px;
 	position: relative;
@@ -138,7 +153,7 @@
 	float: right;
 	display: inline-block;
 	margin: 0 2px 0 0;
-	background: rgba(0,0,0,0.3);
+	background: rgba(0,0,0,0.5);
 	padding:3px 5px 2px 5px;
 	border-radius: 0 0 3px 3px;
 	position: relative;
@@ -155,7 +170,7 @@
 	float: right;
 	display: inline-block;
 	margin: 0 2px 0 0;
-	background: rgba(0,0,0,0.3);
+	background: rgba(0,0,0,0.5);
 	padding:3px 5px 2px 5px;
 	border-radius: 0 0 3px 3px;
 	position: relative;

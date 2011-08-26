@@ -4,43 +4,8 @@
 
 <%= render :partial => '/tasks/form', :locals => {:group => @group} %>
 <%= render :partial => 'sub_nav', :locals => {:groups => @groups} %>
-
-<div id="tasks-list">
-	<div class="poof"></div> 
-	<% @tasks.each do |task| %>
-		<div id="task_<%= task.id %>" class="task_wrap <%= 'complete' if task.complete == true %>">
-			<div class="task_drag">
-				<%= link_to '', task_path(task, :task => { :must => false }), :method => :put, :class => 'must_on' if task.must == true %>
-				<%= link_to '', task_path(task, :task => { :must => true }), :method => :put, :class => 'must_off' if task.must == false %>
-				<%= link_to '', task_path(task, :task => { :complete => false, :sort => 0 }), :method => :put, :class => 'complete_on' if task.complete == true %>
-				<%= link_to '', task_path(task, :task => { :complete => true, :sort => 99 }), :method => :put, :remote => true, :class => 'complete_off' if task.complete == false %>
-				<%= editable_field task, :task, { :event => "dblclick", :onblur => "cancel", :width => "none", :height => "none" } %>
-				<%= link_to '', block_create_path(task.id), :class => 'target' %>
-				<%= link_to '', task_path(task), :method => :delete, :class => 'delete' %>
-			</div>
-			<% if task.complete == false %>
-			<div class="tabs">
-				<span class="leverage_tab" rel="/task/leverage/<%=task.id%>">
-					<span class="leverage_img"></span> 
-					<span class="text"> <%= task.leverage %> </span>
-				</span>
-				<span class="duration_tab" rel="/task/duration/<%=task.id%>">
-					<span class="duration_img"></span> 
-					<span class="text"> <%= "#{task.duration} min" if task.duration %> </span>
-				</span>
-				<span class="schedule_tab" tid="<%= task.id %>">
-					<%= form_for(task, :html => {:class => 'schedule_form'}) do |f| %>
-						<%= f.text_field :scheduled, :autocomplete => :off, :id => "task_scheduled_#{task.id}", :class => "hidden task_scheduled" %>
-					<% end %>
-					<span class="text"> <%= task.scheduled %> </span>
-				</span>
-			</div>
-			<% end %>
-		</div>
-	<% end %>
-</div>
-
-
+<%= render :partial => '/tasks/tasks', :locals => {:tasks => @tasks} %>
+<div class="poof"></div> 
 
 <br><br>
 
@@ -57,8 +22,9 @@
 				<div class="block_body">
 					<div class="tasks"> 
 						<div class="task_padding">
-						<% block.tasks.order_by([:sort, :asc]).each do |task| %>
+						<% block.tasks.order_by([:sort, :asc]).each_with_index do |task, index| %>
 							<div id="task_<%= task.id %>" class="task_wrap">
+								<div class="task_count_dark"> <%= index + 1 %> </div>
 								<div class="task_drag">
 									<%= link_to '', task_path(task, :task => { :must => false }), :method => :put, :class => 'must_on' if task.must == true %>
 									<%= link_to '', task_path(task, :task => { :must => true }), :method => :put, :class => 'must_off' if task.must == false %>
@@ -112,12 +78,12 @@
 <% content_for :javascript do %>
   <%= javascript_tag do %>
 
-	$('a.complete_off').click(function(e) { 
+	$('#tasks-list a.complete_off').click(function(e) { 
         
 				var xOffset = 24 + 285; 
         var yOffset = 24; 
   
-        $(this).parent().parent().fadeOut('fast'); 
+        $(this).parent().parent().fadeOut(300, function() { $(this).remove(); });
   
         $('.poof').css({ 
             left: e.pageX - xOffset + 'px', 
@@ -182,9 +148,13 @@
           update: function(){
             $.ajax({
                 type: 'post', 
-                data: $(this).sortable('serialize'), 
+                data: $(this).sortable('serialize')+'&group_id='+$(this).attr('gid'), 
                 dataType: 'script', 
-                complete: function(request){ },
+                complete: function(request){ 
+									$('#tasks-list').children().each(function(index, div){
+										$("#"+div.id+ " .task_count").html(index + 1);
+									});
+								},
                 url: '/tasks/sort_tasks'})
             }
          });
@@ -218,7 +188,11 @@
                 type: 'post', 
                 data: $(this).sortable('serialize'), 
                 dataType: 'script', 
-                complete: function(request){ },
+                complete: function(request){
+										$('.task_padding').children().each(function(index, div){
+										$("#"+div.id+ " .task_count_dark").html(index + 1);
+									});
+								},
                 url: '/tasks/sort_tasks'})
             }
          });

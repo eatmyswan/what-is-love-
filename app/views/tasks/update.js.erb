@@ -1,1 +1,4 @@
-$("#tasks-list").append("<%= escape_javascript(render :partial => "task", :locals => {:task => @task}) %>");
+$("#tasks-list").append("<%= escape_javascript(render :partial => "task", :locals => {:task => @task, :index => 99}) %>");
+$('#tasks-list').children().each(function(index, div){
+										$("#"+div.id+ " .task_count").html(index + 1);
+									});
