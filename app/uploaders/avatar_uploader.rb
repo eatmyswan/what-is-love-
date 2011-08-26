@@ -3,8 +3,6 @@ require 'carrierwave/processing/mini_magick'
   
 class AvatarUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
-  
-  add_config :ignore_processing_errors => false
 
   # Include RMagick or ImageScience support:
   # include CarrierWave::RMagick
