@@ -9,7 +9,7 @@ gem 'cloudfiles'
 gem 'mini_magick'
 gem 'devise'
 gem 'mime-types'
-gem 'remotipart', :git => 'git://github.com/JangoSteve/remotipart.git', :branch => 'latest-and-greatest'
+#gem 'remotipart', :git => 'git://github.com/JangoSteve/remotipart.git', :branch => 'latest-and-greatest'
 gem "jquery-rails"
 gem 'jeditable-rails'
 
