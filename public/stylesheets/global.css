@@ -54,7 +54,7 @@ body {
 }
 #sub_nav {
 	height: 100%;
-	width: 235px;
+	width: 215px;
 	position: fixed;
 	top: 0;
 	left: 60px;
@@ -63,14 +63,68 @@ body {
 	overflow-x: hidden;
 	box-shadow: 3px 0 6px rgba(0,0,0,0.5);
 	border-left: 1px solid #222222;
-	padding: 20px 0 0 0;
+	padding: 30px 12px 0;
+	font:bold 13px/1.0 Helvetica, Arial, sans-serif;
 }
 #sub_nav h2 {
 	font: normal 15px/1.0 Helvetica, Arial, sans-serif;
-	margin: 0 0 5px 0;
+	margin: 2px 0 8px 3px;
 	color: #4e5152;
 	text-shadow: 0 1px 0 #FFF;
 	text-align: left;
+	display: inline-block;
+}
+.sub_group_wrap {
+	background: #d5d6d7;
+	border-radius: 4px;
+    box-shadow: 0 1px 2px #777 inset;
+	overflow:hidden;
+	padding: 4px 0;
+}
+.sub_group_wrap a{
+	padding: 16px 10px 14px 10px;
+	display:block;
+	color: #4f5253;
+	font: bold 13px/1.0 Helvetica, Arial, sans-serif;
+	text-shadow: 0 1px 0 #EEE;
+	border-bottom: 1px solid #aeaeae;
+	border-top: 1px solid #e9e9e9;
+	border-right: 1px solid #aeaeae;
+	border-left: 1px solid #aeaeae;
+}
+.sub_group_wrap a:hover {
+	background: #c4c7ca;
+}
+div.sub_group_wrap>:first-child {
+	border-top: none;
+}
+div.sub_group_wrap>:last-child {
+	border-bottom: none;
+}
+.sub_group_wrap a span.inbox {
+	width:21px;
+	height: 18px;
+	background: url(/images/sprite.png) no-repeat -2px -231px transparent;
+	float: left;
+	margin-top:-3px;
+}
+.sub_group_wrap a span.title {
+	display: inline-block;
+    margin: 0 0 0 8px;
+    vertical-align: top;
+}
+.sub_group_wrap a.active {
+	background: -moz-linear-gradient(top, #6f98e1, #256aca);
+	color: #FFF;
+	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+	border-right: 1px solid #AAA;
+	border-left: 1px solid #AAA;
+}
+.sub_group_wrap a.active span.inbox {
+	width:21px;
+	height: 18px;
+	background: url(/images/sprite.png) no-repeat -31px -231px transparent;
+	display: inline-block;
 }
 #content {
     padding: 25px;
@@ -136,4 +190,18 @@ p.error {
 span.alert, span.notice {
 	color:#FFF;
 	font-size: 16px;
+}
+a.signout {
+	display: block;
+	float: right;
+	width: 17px;
+	height: 20px;
+	background: url(/images/sprite.png) no-repeat -4px -253px transparent;
+	margin: 0 2px 0 0;
+}
+a.signout:hover {
+	background-position: -34px -253px;
+}
+strong {
+	font-weight: bold;
 }

@@ -27,6 +27,5 @@ class Task
     self.duration.blank? ? self.duration = nil : return
     self.scheduled.blank? ? self.scheduled = nil : return
   end
-
   
 end

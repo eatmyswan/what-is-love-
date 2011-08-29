@@ -1,5 +1,4 @@
 class BlocksController < ApplicationController
-  before_filter :authenticate_user!
   
   def index
     @blocks = Block.all.order_by([:sort, :asc])

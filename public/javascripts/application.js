@@ -1,6 +1,32 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 $(function() {
+	
+	$('a.complete_off').click(function(e) { 
+		var xOffset = 24 + 285; 
+        var yOffset = 24; 
+        $(this).parent().parent().fadeOut(300, function() { $(this).remove(); });
+        $('.poof').css({ 
+            left: e.pageX - xOffset + 'px', 
+            top: e.pageY - yOffset + 'px' 
+        }).show(); 
+        animatePoof();
+    }); 
+
+	function animatePoof() { 
+	    var bgTop = 0; 
+	    var frames = 5; 
+	    var frameSize = 32; 
+	    var frameRate = 80; 
+	    for(i = 1; i < frames; i ++) { 
+        $('.poof').animate({ 
+            backgroundPosition: '0 ' + (bgTop - frameSize) 
+        }, frameRate); 
+        bgTop -= frameSize; 
+    } 
+    setTimeout("$('.poof').hide()", frames * frameRate); 
+	}
+	
 	$('input[id^="task_scheduled"]').datepicker({
 		dateFormat: 'yy-mm-dd',
 		showButtonPanel: true, 

@@ -1,5 +1,4 @@
 class TasksController < ApplicationController
-  before_filter :authenticate_user!
   
   def index
     @tasks = Task.where(block_id: nil).and(group_id: nil).order_by([:sort, :asc])
@@ -47,6 +46,7 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
+
     respond_to do |format|
       if @task.update_attributes(params[:task])
         if params[:task][:task]

@@ -5,7 +5,7 @@
 <%= render :partial => '/tasks/form', :locals => {:group => @group} %>
 <%= render :partial => 'sub_nav', :locals => {:groups => @groups} %>
 <%= render :partial => '/tasks/tasks', :locals => {:tasks => @tasks} %>
-<div class="poof"></div> 
+<div class="poof" style="background-position: 0 0"></div> 
 
 <br><br>
 
@@ -22,46 +22,30 @@
 				<div class="block_body">
 					<div class="tasks"> 
 						<div class="task_padding">
+						<% total_time = 0 %>
+						<% must_time = 0 %>
 						<% block.tasks.order_by([:sort, :asc]).each_with_index do |task, index| %>
-							<div id="task_<%= task.id %>" class="task_wrap">
-								<div class="task_count_dark"> <%= index + 1 %> </div>
-								<div class="task_drag">
-									<%= link_to '', task_path(task, :task => { :must => false }), :method => :put, :class => 'must_on' if task.must == true %>
-									<%= link_to '', task_path(task, :task => { :must => true }), :method => :put, :class => 'must_off' if task.must == false %>
-									<%= link_to '', task_path(task, :task => { :complete => false }), :method => :put, :class => 'complete_on' if task.complete == true %>
-									<%= link_to '', task_path(task, :task => { :complete => true }), :method => :put, :class => 'complete_off' if task.complete == false %>
-									<%= editable_field task, :task, { :event => "dblclick", :onblur => "cancel", :width => "none", :height => "none" } %>
-									<%= link_to '', task_path(task), :method => :delete, :class => 'delete' %>
-								</div>
-								<div class="tabs">
-									<span class="leverage_tab" rel="/task/leverage/<%=task.id%>">
-										<span class="leverage_img"></span> 
-										<span class="text"> <%= task.leverage %> </span>
-									</span>
-									<span class="duration_tab" rel="/task/duration/<%=task.id%>">
-										<span class="duration_img"></span> 
-										<span class="text"> <%= "#{task.duration} min" if task.duration %> </span>
-									</span>
-									<span class="schedule_tab" tid="<%= task.id %>">
-										<%= form_for(task, :html => {:class => 'schedule_form'}) do |f| %>
-											<%= f.text_field :scheduled, :autocomplete => :off, :id => "task_scheduled_#{task.id}", :class => "hidden task_scheduled" %>
-										<% end %>
-										<span class="text"> <%= task.scheduled %> </span>
-									</span>
-								</div>
-							</div>
-						<% end %>
-						<%= form_for(Task.new) do |f| %>
-								<%= f.text_field :task, :autocomplete => :off, :id => "task_task_#{block.id}", :value => "New task...", :onfocus => '(this.value == "New task...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New task..." : this.value' %>
-								<%= f.hidden_field :block_id, :value => block.id %>
-								<%= f.hidden_field :group_id, :value => @group.id %>
-								<%= f.hidden_field :sort, :value => '99' %>
+						<% total_time = total_time + task.duration if task.duration && task.complete == false %>
+						<% must_time = must_time + task.duration if task.duration && task.must == true && task.complete == false %>
+							<%= render :partial => '/tasks/task_dark', :locals => {:task => task, :index => index} %>
 						<% end %>
 						</div>
+						<%= form_for(Task.new) do |f| %>
+							<%= f.text_field :task, :autocomplete => :off, :id => "task_task_#{block.id}", :value => "New task...", :onfocus => '(this.value == "New task...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New task..." : this.value' %>
+							<%= f.hidden_field :block_id, :value => block.id %>
+							<%= f.hidden_field :group_id, :value => @group.id %>
+							<%= f.hidden_field :sort, :value => '99' %>
+						<% end %>
 					</div>
 					<div class="outcome"> 
 						<div class="outcome_padding">
 							<%= editable_field block, :outcome, { :event => "dblclick", :onblur => "cancel", :width => "none", :height => "none"} %>
+							<div class="min_max_time">
+								<strong>Must:</strong> 
+									<span class="must_time"><%= must_time %> </span>  min <br> 
+								<strong>Total:</strong> 
+									<span class="total_time"> <%= total_time %> </span> min
+							</div>
 						</div>
 					</div>
 					<div class="purpose"> 
@@ -77,38 +61,6 @@
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
-
-	$('#tasks-list a.complete_off').click(function(e) { 
-        
-				var xOffset = 24 + 285; 
-        var yOffset = 24; 
-  
-        $(this).parent().parent().fadeOut(300, function() { $(this).remove(); });
-  
-        $('.poof').css({ 
-            left: e.pageX - xOffset + 'px', 
-            top: e.pageY - yOffset + 'px' 
-        }).show(); 
-  
-        animatePoof();
-    }); 
-
-	function animatePoof() { 
-	    var bgTop = 0; 
-	    var frames = 5; 
-	    var frameSize = 32; 
-	    var frameRate = 80; 
-  
-	    for(i = 1; i < frames; i ++) { 
-	        $('.poof').animate({ 
-	            backgroundPosition: '0 ' + (bgTop - frameSize) + 'px' 
-	        }, frameRate); 
-  
-	        bgTop -= frameSize; 
-	    } 
-  
-	    setTimeout("$('.poof').hide()", frames * frameRate); 
-	}
 
 		$(".group").droppable({
 			tolerance: 'pointer',

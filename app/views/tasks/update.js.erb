@@ -1,4 +1,23 @@
+<% if @task.block_id %>
+$("#block_<%=@task.block_id%> .task_padding").append("<%= escape_javascript(render :partial => "task_dark", :locals => {:task => @task, :index => 99}) %>");
+$("#block_<%=@task.block_id%> .task_padding").children().each(function(index, div){
+										$("#"+div.id+ " .task_count_dark").html(index + 1);
+									});
+	<% if @task.must == true %>
+		var must_time = $("#block_<%=@task.block_id%> span.must_time").text();
+		var total_time = $("#block_<%=@task.block_id%> span.total_time").text();
+		var must_time = must_time - <%= @task.duration %>
+		var total_time = total_time - <%= @task.duration %>
+		$("#block_<%=@task.block_id%> span.must_time").html(must_time);
+		$("#block_<%=@task.block_id%> span.total_time").html(total_time);
+	<% else %>
+		var total_time = $("#block_<%=@task.block_id%> span.total_time").text();
+		var total_time = total_time - <%= @task.duration %>
+		$("#block_<%=@task.block_id%> span.total_time").html(total_time);
+	<% end %>
+<% else %>
 $("#tasks-list").append("<%= escape_javascript(render :partial => "task", :locals => {:task => @task, :index => 99}) %>");
 $('#tasks-list').children().each(function(index, div){
 										$("#"+div.id+ " .task_count").html(index + 1);
 									});
+<% end %>

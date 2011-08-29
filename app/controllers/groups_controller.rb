@@ -1,5 +1,4 @@
 class GroupsController < ApplicationController
-  before_filter :authenticate_user!
   
   def index
     @group = Group.where(user_id: current_user.id).first
@@ -8,9 +7,9 @@ class GroupsController < ApplicationController
   
   def show
     @group = Group.find(params[:id])
-    @tasks = Task.where(group_id: params[:id]).and(block_id: nil).order_by([:sort, :asc])
+    @tasks = Task.where(group_id: params[:id]).and(block_id: nil).order_by([:sort, :asc],[:created_at, :desc])
   
-    @blocks = Block.where(group_id: params[:id]).order_by([:sort, :asc])
+    @blocks = Block.where(group_id: params[:id]).order_by([:sort, :asc],[:created_at, :desc])
     @groups = Group.where(user_id: current_user.id)
 
     respond_to do |format|
@@ -37,7 +36,7 @@ class GroupsController < ApplicationController
     @group.user_id = current_user.id
     respond_to do |format|
       if @group.save
-        format.html { redirect_to(root_path) }  
+        format.html { redirect_to(group_path(@group.id)) }  
         format.js
       end
     end
@@ -60,7 +59,7 @@ class GroupsController < ApplicationController
     group.destroy
 
     respond_to do |format|
-      format.html { redirect_to(root_url) }
+      format.html { groups_path }
       format.xml  { head :ok }
     end
   end

@@ -1,6 +1,7 @@
 Rpm::Application.routes.draw do
   
-  devise_for :users
+  root :to => "home#index"
+  
   resources :tasks
   resources :blocks
   
@@ -15,10 +16,10 @@ Rpm::Application.routes.draw do
   match 'block/create/:id' => 'blocks#create', :as => :block_create
   match 'blocks/sort_blocks' => 'blocks#sort_blocks'
   match 'block/update/:id' => 'blocks#update'
-  
   match 'account/settings' => 'accounts#settings', :as => :account_settings
+  match '/auth/:provider/callback' => 'sessions#create'
+  match '/signout' => 'sessions#destroy', :as => :signout
   
-  root :to => "groups#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

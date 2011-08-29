@@ -1,8 +1,9 @@
 class HomeController < ApplicationController
-  before_filter :authenticate_user!
-  
-  def index
 
+  def index
+    if session[:user_id]
+      redirect_to account_settings_path
+    end
   end
 
 end

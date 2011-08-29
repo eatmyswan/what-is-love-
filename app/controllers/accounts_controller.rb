@@ -1,5 +1,4 @@
 class AccountsController < ApplicationController
-  before_filter :authenticate_user!
   
   def settings
     respond_to do |format|
