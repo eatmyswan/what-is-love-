@@ -25,8 +25,8 @@
 						<% total_time = 0 %>
 						<% must_time = 0 %>
 						<% block.tasks.order_by([:sort, :asc]).each_with_index do |task, index| %>
-						<% total_time = total_time + task.duration if task.duration && task.complete == false %>
-						<% must_time = must_time + task.duration if task.duration && task.must == true && task.complete == false %>
+						<% total_time = total_time.to_i + task.duration.to_i if task.duration.to_i && task.complete == false %>
+						<% must_time = must_time.to_i + task.duration.to_i if task.duration.to_i && task.must == true && task.complete == false %>
 							<%= render :partial => '/tasks/task_dark', :locals => {:task => task, :index => index} %>
 						<% end %>
 						</div>
