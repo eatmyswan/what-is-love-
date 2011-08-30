@@ -1,14 +1,22 @@
-div.ui-cluetip {
-  font-size: 1em;
-}
-.ui-cluetip-header,
-.ui-cluetip-content {
-  padding: 12px;
+#cluetip {
+	z-index: 9999999;
+	color: #FFF;
 }
 .ui-cluetip-header {
-  font-size: 1em;
-  margin: 0;
-  overflow: hidden;
+  display: none !important;
+}
+#cluetip.ui-widget-content {
+	padding: 8px;
+	background: #282d32 !important;
+	color: #FFF !important;
+	border-radius: 5px;
+}
+#cluetip a {
+	color: #FFF !important;
+}
+.cluetip-inner {
+	color: #FFF !important;
+	background: transparent !important;
 }
 .cluetip-title .cluetip-close {
   float: right;

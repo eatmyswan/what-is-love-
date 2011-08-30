@@ -2,10 +2,7 @@ class SessionsController < ApplicationController
   
   def create
     auth = request.env["omniauth.auth"]
-    user = User.first(conditions: { provider: auth["provider"], uid: auth["uid"]})
-    unless user
-      user = User.create_with_omniauth(auth)
-    end
+    user = User.first(conditions: { provider: auth["provider"], uid: auth["uid"]}) || User.create_with_omniauth(auth)
     session[:user_id] = user.id
     redirect_to account_settings_path
   end

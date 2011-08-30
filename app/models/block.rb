@@ -14,5 +14,5 @@ class Block
   index :group_id
   
   validates_length_of :outcome, minimum: 1, message: "outcome cannot be blank."
-
+  
 end

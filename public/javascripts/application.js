@@ -53,7 +53,6 @@ $(function() {
 		topOffset: 27,
 		leftOffset: -277,
 		activation: 'click',
-		arrows: true,
 		cluezIndex: 9999
 	});
 	
@@ -62,7 +61,14 @@ $(function() {
 		topOffset: 27,
 		leftOffset: -277,
 		activation: 'click',
-		arrows: true,
+		cluezIndex: 9999
+	});
+	
+	$('.group_icon').cluetip({
+		positionBy: 'fixed',
+		topOffset: 27,
+		leftOffset: -20,
+		activation: 'click',
 		cluezIndex: 9999
 	});
 	
@@ -73,5 +79,24 @@ $(function() {
 		$('#task_duration_'+id).parent('form').submit();
 		$(document).trigger('hideCluetip');
 		return false;
+	});
+	
+	$('a#add_personal_group').live('click', function() {
+		$('form#new_group_personal').slideDown();
+		$('form#new_group_personal').next().css({'border-top':'1px solid #e9e9e9'});
+		
+	});
+	
+	$('a#add_professional_group').live('click', function() {
+		$('form#new_group_professional').slideDown();
+		$('form#new_group_professional').next().css({'border-top':'1px solid #e9e9e9'});
+	});
+	
+	$('#select_icon .group_icon').live('click',function() {
+		var icon = $(this).attr('class');
+		icon = icon.split(" ");
+		icon = icon[1]
+		$("form#group_icon input#hidden_icon").val(icon);
+		$("form#group_icon").submit();
 	});
 });

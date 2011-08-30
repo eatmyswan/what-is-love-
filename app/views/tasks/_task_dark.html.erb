@@ -6,7 +6,6 @@
 				<%= link_to '', task_path(task, :task => { :complete => false, :sort => 0 }), :method => :put, :class => 'complete_on' if task.complete == true %>
 				<%= link_to '', task_path(task, :task => { :complete => true, :sort => 99 }), :method => :put, :remote => true, :class => 'complete_off' if task.complete == false %>
 				<%= editable_field task, :task, { :event => "dblclick", :onblur => "cancel", :width => "none", :height => "none" } %>
-				<%= link_to '', block_create_path(task.id), :class => 'target' %>
 				<%= link_to '', task_path(task), :method => :delete, :class => 'delete' %>
 			</div>
 			<% if task.complete == false %>

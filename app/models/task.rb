@@ -19,7 +19,6 @@ class Task
   
   validates_length_of :task, minimum: 1, message: "task cannot be blank."
   
-  before_save :nil_if_blank
   
   protected
   def nil_if_blank
@@ -28,4 +27,5 @@ class Task
     self.scheduled.blank? ? self.scheduled = nil : return
   end
   
+
 end

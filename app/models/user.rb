@@ -13,7 +13,8 @@ class User
   has_many :tasks
   has_many :blocks
   
-  after_create :create_inbox
+  after_create :create_personal
+  after_create :create_professional
   
   def self.create_with_omniauth(auth)
     create! do |user|
@@ -25,9 +26,18 @@ class User
   end
   
   protected
-  def create_inbox
+  def create_personal
     group = Group.new
-    group.title = 'Personal'
+    group.master_title = 'Personal'
+    group.title = 'Capture'
+    group.user_id = self.id
+    group.save
+  end
+  
+  def create_professional
+    group = Group.new
+    group.master_title = 'Professional'
+    group.title = 'Capture'
     group.user_id = self.id
     group.save
   end

@@ -10,7 +10,8 @@ class GroupsController < ApplicationController
     @tasks = Task.where(group_id: params[:id]).and(block_id: nil).order_by([:sort, :asc],[:created_at, :desc])
   
     @blocks = Block.where(group_id: params[:id]).order_by([:sort, :asc],[:created_at, :desc])
-    @groups = Group.where(user_id: current_user.id)
+    @personal_groups = Group.where(user_id: current_user.id).and(master_title: 'Personal')
+    @professional_groups = Group.where(user_id: current_user.id).and(master_title: 'Professional')
 
     respond_to do |format|
       format.html # show.html.erb
@@ -49,7 +50,7 @@ class GroupsController < ApplicationController
       if params[:group][:group]
         render :text => params[:group][:group]
       else
-        redirect_to(root_path)
+        redirect_to(group_path(params[:id]))
       end
     end
   end
@@ -57,16 +58,11 @@ class GroupsController < ApplicationController
   def destroy
     group = Group.find(params[:id])
     group.destroy
-
-    respond_to do |format|
-      format.html { groups_path }
-      format.xml  { head :ok }
-    end
+      redirect_to groups_path
   end
   
   def sort_groups
     groups = Group.find(params[:group])
-     logger.debug groups.inspect
     groups.each do |group|
       group.sort = params['group'].index(group.id.to_s) + 1
       group.save
@@ -74,5 +70,8 @@ class GroupsController < ApplicationController
     render :nothing => true
   end
   
+  def icon
+    @group = Group.find(params[:id])
+  end 
 
 end

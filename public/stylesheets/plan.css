@@ -41,7 +41,7 @@
 	float: left;
 	width: 7px;
 	padding: 8px 0 0 0;
-	color: #333;
+	color: #333g;
 	font-weight: bold;
 }
 .must_on {
@@ -238,11 +238,12 @@ h2.block_title_purpose {
 	border-radius: 0 0 3px 3px;
 	position: relative;
 	height: auto;
-	min-height: 60px;
 }
 .block_body .tasks {
     border-right: 1px solid #CCCCCC;
     margin: 0 320px 0 0;
+	min-height: 100px;
+	padding: 0 0 10px 0;
 }
 .block_body .tasks .task_padding {
 	padding: 10px;
@@ -269,8 +270,24 @@ h2.block_title_purpose {
 .block_body .purpose .purpose_padding {
 	padding: 10px;
 }
-
+.block_body form.new_task input[type="text"] {
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: medium none;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 1px 1px 3px #999999 inset;
+    color: #4E4E4E;
+    display: block;
+    font: 12px/1 Helvetica,Arial,sans-serif;
+    margin: 10px auto 0;
+    padding: 5px 8px 4px;
+    width: 90%;
+}
 .group {	
+}
+form.new_group {
+	border-bottom: 1px solid #aeaeae;
+	padding: 5px 0 8px;
+	display:none;
 }
 input#group_title {
     background: none repeat scroll 0 0 #FFFFFF;
@@ -280,9 +297,9 @@ input#group_title {
     color: #4E4E4E;
     display: block;
     font: 12px/1 Helvetica,Arial,sans-serif;
-	margin: 20px auto;
     padding: 5px 8px 4px;
-    width: 50%;
+    width: 75%;
+	margin: 0 auto;
 }
 .poof { 
     background: transparent url(/images/poof.png) no-repeat 0 0; 
@@ -295,4 +312,41 @@ input#group_title {
 } 
 .min_max_time {
 	margin: 10px 0 0 0;
+}
+a.add_group {
+	display: block;
+	float: right;
+	width: 16px;
+	height: 18px;
+	background: url(/images/sprite.png) no-repeat -62px -254px transparent;
+	margin: 0 2px 0 0;
+}
+a.add_group:hover {
+	background-position: -88px -254px;
+}
+a.delete_group {
+	float: right;
+	display:none !important;
+}
+div.group:hover a.delete_group {
+	display:block !important;
+}
+span.group_icon {
+	width:20px;
+	height: 25px;
+	float: left;
+	margin-top:-5px;
+	background: url(/images/icon_sprite.png) no-repeat -4px -4px transparent;
+}
+#cluetip #select_icon {
+	margin: 10px 0 0 0;
+}
+#cluetip #select_icon span {
+	margin: 0 10px 10px 0;
+	cursor: pointer;
+}
+.sub_group_wrap a span.title {
+    display: block;
+    padding: 0 0 0 27px;
+    vertical-align: top;
 }

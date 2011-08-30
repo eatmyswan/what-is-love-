@@ -46,7 +46,6 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-
     respond_to do |format|
       if @task.update_attributes(params[:task])
         if params[:task][:task]
@@ -90,7 +89,6 @@ class TasksController < ApplicationController
   
   def to_rpm
     @task = Task.find(params[:id])
-    logger.debug @task
     render :nothing => true
   end
 

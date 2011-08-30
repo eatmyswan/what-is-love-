@@ -2,12 +2,12 @@
 		<h2> Hello <%= current_user.name %> </h2>
 		<%= link_to '', signout_path, :class => 'signout' %>
 		<div class="sub_group_wrap">
-
-			<%= link_to 'Dashboard', root_path, :class => 'active' %>
-			<%= link_to 'Background', root_path %>
-			<%= link_to 'Settings', root_path %>
-			<%= link_to 'Preferences', root_path %>
-			<%= link_to 'Tips & Tutorials', root_path %>
-
+			<div class="group active" >
+				<%= link_to 'Dashboard', root_path %>
+			</div>
+			<div class="group" > <%= link_to 'Background', root_path %> </div>
+			<div class="group" > <%= link_to 'Settings', root_path %> </div>
+			<div class="group" > <%= link_to 'Preferences', root_path %> </div>
+			<div class="group" > <%= link_to 'Tips & Tutorials', root_path %> </div>
 		</div>
 <% end %>

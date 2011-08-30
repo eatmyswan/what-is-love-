@@ -1,19 +1,42 @@
 <% content_for :sub_nav do %>
 
-
-	<% @groups.each do |group| %>
-	<div class="group" id="group_<%= group.id %>">
-		<h2> <%= group.title %> </h2>
-		<div class="sub_group_wrap">
-			<%= link_to group_path(group), :class => (id?(group.id.to_s)) ? "active" : "" do %>
-				<span class="inbox"></span>
-				<span class="title">Inbox</span>
+	<h2> Personal </h2>
+	<a href="#" id="add_personal_group" class="add_group"></a>
+	<div class="sub_group_wrap">
+		<%= form_for(Group.new, :html => { :id => "new_group_personal" }) do |f| %>
+			<%= f.text_field :title, :autocomplete => :off, :value => "New group...", :onfocus => '(this.value == "New group...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New group..." : this.value' %>
+			<%= f.hidden_field :master_title, :value => 'Personal' %>
+		<% end %>
+	<% @personal_groups.each_with_index do |group, index| %>
+		<div class="<%= id?(group.id.to_s) ? "group active" : "group" %>" id="group_<%= group.id %>">
+			<%= link_to 'X', group_path(group), :method => :delete, :class => 'delete_group' if index > 0 %>
+			<%= link_to group_path(group) do %>
+				<span class="group_icon <%= group.icon %>" rel="/group/icon/<%= group.id %>"></span>
+				<span class="title"><%= group.title %></span>
 			<% end %>
 		</div>
+	<% end %>
 	</div>
-	<% end %>
 
-	<%= form_for(Group.new) do |f| %>
+	<h2> Professional </h2>
+	<a href="#" id="add_professional_group" class="add_group"></a>
+	<div class="sub_group_wrap">
+		<%= form_for(Group.new, :html => { :id => "new_group_professional" }) do |f| %>
 			<%= f.text_field :title, :autocomplete => :off, :value => "New group...", :onfocus => '(this.value == "New group...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New group..." : this.value' %>
+			<%= f.hidden_field :master_title, :value => 'Professional' %>
+		<% end %>
+	<% @professional_groups.each_with_index do |group, index| %>
+		<div class="<%= id?(group.id.to_s) ? "group active" : "group" %>" id="group_<%= group.id %>">
+			<%= link_to 'X', group_path(group), :method => :delete, :class => 'delete_group' if index > 0 %>
+			<%= link_to group_path(group) do %>
+				<span class="group_icon <%= group.icon %>" rel="/group/icon/<%= group.id %>"></span>
+				<span class="title"><%= group.title %></span>
+			<% end %>
+		</div>
 	<% end %>
+	
+	</div>
+
+
+
 <% end %>

@@ -19,6 +19,7 @@ Rpm::Application.routes.draw do
   match 'account/settings' => 'accounts#settings', :as => :account_settings
   match '/auth/:provider/callback' => 'sessions#create'
   match '/signout' => 'sessions#destroy', :as => :signout
+  match 'group/icon/:id' => 'groups#icon'
   
 
   # The priority is based upon order of creation:

@@ -14,7 +14,7 @@
 		<div id="block_<%= block.id %>" class="block_wrap">
 			<div class="block_drag">
 				<div class="block_title">
-					<%= link_to '', block_path(block), :method => :delete, :class => 'delete' %>
+					<%= link_to '', block_path(block), :method => :delete, :class => 'delete', :confirm => 'Are you sure?' %>
 					<h2 class="block_title_tasks">Massive Action Plan</h2>
 					<h2 class="block_title_outcome">Result / Outcome</h2>
 					<h2 class="block_title_purpose">Purpose</h2>
