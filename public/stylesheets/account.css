@@ -1,0 +1,14 @@
+#select_background {
+	background: #333;
+	color: #FFF;
+	padding: 10px;
+	border-radius: 8px;
+}
+#select_background span.thumbnail {
+	width: 120px;
+	height: 120px;
+	background: #111;
+	margin: 15px;
+	display: inline-block;
+	border-radius: 6px;
+}

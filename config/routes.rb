@@ -4,6 +4,7 @@ Rpm::Application.routes.draw do
   
   resources :tasks
   resources :blocks
+  resources :users
   
   resources :groups do
     resources :subgroups
@@ -17,6 +18,7 @@ Rpm::Application.routes.draw do
   match 'blocks/sort_blocks' => 'blocks#sort_blocks'
   match 'block/update/:id' => 'blocks#update'
   match 'account/settings' => 'accounts#settings', :as => :account_settings
+  match 'account/background' => 'accounts#background', :as => :account_background
   match '/auth/:provider/callback' => 'sessions#create'
   match '/signout' => 'sessions#destroy', :as => :signout
   match 'group/icon/:id' => 'groups#icon'

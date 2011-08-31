@@ -1,0 +1,10 @@
+<%= render :partial => 'sub_nav' %>
+
+<div id="select_background">
+	<span class="thumbnail reeds"></span>
+	<span class="thumbnail space"></span>
+	<span class="thumbnail grey"></span>
+	<%= form_for(@user, :html => { :id => "account_background" }) do |f| %>
+		<%= f.hidden_field :background, :value => 'reeds', :id => 'hidden_background' %>
+	<% end %>
+</div>
