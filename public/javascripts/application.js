@@ -99,4 +99,12 @@ $(function() {
 		$("form#group_icon input#hidden_icon").val(icon);
 		$("form#group_icon").submit();
 	});
+	
+	$('#select_background .thumbnail').live('click',function() {
+		var bg = $(this).attr('class');
+		bg = bg.split(" ");
+		bg = bg[1]
+		$("form#account_background input#hidden_background").val(bg);
+		$("form#account_background").submit();
+	});
 });

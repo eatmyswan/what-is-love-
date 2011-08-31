@@ -9,7 +9,7 @@ class User
   field :email, type: String
   field :name, type: String
   field :image_url, type: String
-  field :background, type: String, default: "reeds.jpg"
+  field :background, type: String, default: "reeds"
   
   has_many :tasks
   has_many :blocks
