@@ -1,7 +1,17 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
-$(function() {
+function load_email_audio(ids) {
+	ids = ids.split(' ');
+	$('#recorder').load('/task/' + ids[0] + '/email/' + ids[1] + '/mini_player');
+	$('#new_email').attr("action", '/email/update/' + ids[1]);
+	$('<input>').attr({
+    	type: 'hidden',
+    	name: 'task_id',
+		value: ids[0]
+	}).prependTo('#new_email');
+}
 	
+	
+$(function() {
+		
 	$('a.complete_off').click(function(e) { 
 		var xOffset = 24 + 285; 
         var yOffset = 24; 
@@ -56,12 +66,16 @@ $(function() {
 		cluezIndex: 9999
 	});
 	
-	$('.leverage_tab').cluetip({
-		positionBy: 'fixed',
-		topOffset: 27,
-		leftOffset: -277,
-		activation: 'click',
-		cluezIndex: 9999
+	$('.leverage_tab').live('click', function(){
+		$("#leverage_modal").dialog({
+			modal:true, 
+			width:'800', 
+			height:'400',
+			zIndex: 999999,
+			position: 'top',
+			title: 'Leverage Email',
+			show: 'slideDown'
+		});
 	});
 	
 	$('.group_icon').cluetip({
@@ -107,4 +121,5 @@ $(function() {
 		$("form#account_background input#hidden_background").val(bg);
 		$("form#account_background").submit();
 	});
+	
 });

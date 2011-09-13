@@ -28,3 +28,28 @@
 			</div>
 			<% end %>
 		</div>
+		
+		<div id="email_history">
+			<% task.emails.each do |email| %>
+				<%= email.recipient %> <br>
+				<% if email.audio.url %>
+					<%= render :partial => '/emails/mini_player', :locals => { :email => email } %>
+				<% end %>
+			<% end %>
+		</div>
+		
+<div id="leverage_modal">
+	<%= form_for ([task, Email.new]) do |f| %>
+	To: <%= f.text_field :recipient %>
+	From: <%= f.text_field :sender %>
+	Subject: <%= f.text_field :sender %>
+	Body: <%= f.text_field :body_html %>
+
+	<div id="recorder">
+		<% session_key_name = Rails.application.config.session_options[:key] %>
+		<%= swf_tag "/swfs/VOCWordToYourMp3.swf", :id => 'VOCWordToYourMp3', :width => '400', :height => '200', :flash_version => '10', :flashvars => { :authVar => "#{u(form_authenticity_token)}", :sessionVar => "#{u(cookies[session_key_name])}", :taskId => "#{task.id}" } %>
+	</div>
+	
+	<%= f.submit %>
+	<% end %>
+</div>		

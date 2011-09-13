@@ -52,6 +52,10 @@ class TasksController < ApplicationController
           format.html { render :text => params[:task][:task] }
         elsif params[:task][:complete] == "true"
           format.js
+        elsif params[:task][:leverage]
+          email = params[:task][:leverage]
+          UserMailer.leverage_task(email).deliver
+          format.html { redirect_to(group_path(@task.group)) }
         else
           format.html { redirect_to(group_path(@task.group)) }
         end
@@ -89,6 +93,14 @@ class TasksController < ApplicationController
   
   def to_rpm
     @task = Task.find(params[:id])
+    render :nothing => true
+  end
+  
+  def save_audio
+    @task = Task.find(params[:id])
+    @task.audio = params[:audio]
+    @task.save!
+    
     render :nothing => true
   end
 

@@ -1,8 +1,6 @@
 # encoding: utf-8
-require 'carrierwave/processing/mini_magick'
   
-class AvatarUploader < CarrierWave::Uploader::Base
-  include CarrierWave::MiniMagick
+class AudioUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or ImageScience support:
   # include CarrierWave::RMagick
@@ -12,40 +10,23 @@ class AvatarUploader < CarrierWave::Uploader::Base
    storage :cloud_files
    
   def cloud_files_container
-    "rpm"
+    "rails"
   end
   
   def cloud_files_cdn_host
-    "c3348864.r64.cf0.rackcdn.com"
+    "c3338787.r87.cf0.rackcdn.com"
   end
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-   "image"
+   "audio"
   end
-
-  # Provide a default URL as a default if there hasn't been a file uploaded:
-  def default_url
-     "/images/default.jpg"
-  end
-
-  # Process files as they are uploaded:
-  # process :scale => [200, 300]
-  #
-  # def scale(width, height)
-  #   # do something
-  # end
-
-  # Create different versions of your uploaded files:
-   version :thumb do
-     process :resize_to_fill => [50,50]
-   end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_white_list
-    %w(jpg jpeg gif png)
+    %w(mp3)
   end
 
   # Override the filename of the uploaded files:

@@ -1,0 +1,97 @@
+<input type="hidden" id="hidden_url" value="<%= email.audio.url %>">
+<input type="hidden" id="hidden_duration" value="<%= email.duration %>">
+<input type="hidden" id="hidden_id" value="<%= email.id.to_s %>">
+
+<div id="player_wrap">
+	<span class="time_wrap">
+		<span class="time">0.00</span> / <span class="duration"><%= email.duration_time %></span>
+	</span>
+	<div id="progress_wrap">
+		<div id="play_wrap">
+			<a id="play_pause" class="play"> </a> 
+		</div>
+ 		<div id="player_outer">
+      <div id="player_loading" class="loaded"> </div>
+      <div id="player_playing" class="playing"> </div>
+    </div>
+	</div>
+</div>
+
+<script src="/javascripts/soundmanager2.js"></script>
+
+<script>
+soundManager.url = '/swfs/';
+	
+	soundManager.onready(function() {	
+	var sound = soundManager.createSound({
+			id: $('#hidden_id').val(),
+			url: $('#hidden_url').val(),
+			onplay: function() {
+				$('.time').text('0.00');
+				$('.playing').css('width','0');
+				$('#play_pause').removeClass('play');
+				$('#play_pause').addClass('pause');
+			},
+			onresume: function() {
+				$('#play_pause').removeClass('play');
+				$('#play_pause').addClass('pause');
+			},
+			onpause: function() {
+				$('#play_pause').removeClass('pause');
+				$('#play_pause').addClass('play');
+			},
+			onfinish: function() {
+				$('.playing').css('width','0');
+				$('.time').text('0.00');
+				$('#play_pause').removeClass('pause');
+				$('#play_pause').addClass('play');
+				this.position = 0;
+			},
+			whileloading: function() {
+				var loaded = this.bytesLoaded;
+				var total = this.bytesTotal;
+				var loadedp = loaded/total;
+				var loadedp = loadedp*100;
+				$('.loaded').css('width',loadedp+'%');
+			},
+			whileplaying: function() {
+				var nSec = Math.floor(this.position/1000);
+				var min = Math.floor(nSec/60);
+				var sec = nSec-(min*60);
+				if(sec<10){ sec = '0'+sec; }
+				$('.time').text(min+'.'+sec);
+				
+				var loaded = this.bytesLoaded;
+				var total = this.bytesTotal;
+				var loadedp = loaded/total;
+				var loadedp = loadedp*100;
+				$('.loaded').css('width',loadedp+'%');
+
+				var duration = $('#hidden_duration').val();
+				var position = this.position;
+				var playing = position/duration;
+				var playingp = playing*100;
+				$('.playing').css('width',playingp+'%');	
+				
+			  }
+		});
+
+
+		$('#play_pause').live('click', function(){
+			sound.togglePause();	
+		});
+		
+		$('#player_outer').click(function(e){
+			if (sound.position > 0) {
+				var x = parseInt(e.pageX - $(this).offset().left);
+				var outer = $('#player_outer').css('width');
+				var outer = parseInt(outer);
+				var pct = x/outer;
+				var duration = $('#hidden_duration').val();
+				var where = duration*pct;
+				sound.setPosition(where);
+			}
+		});
+		
+	});
+</script>

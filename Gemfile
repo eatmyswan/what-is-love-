@@ -13,6 +13,7 @@ gem 'mime-types'
 gem "jquery-rails"
 gem 'jeditable-rails'
 gem 'omniauth'
+gem 'ruby-mp3info'
 
 
 # Bundle edge Rails instead:

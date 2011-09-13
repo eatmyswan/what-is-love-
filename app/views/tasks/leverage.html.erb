@@ -1,4 +1,5 @@
 <h3>Leverage Task</h3>
 <%= form_for(@task) do |f| %>
-	<%= f.text_field :leverage, :autocomplete => :off, :value => "Enter an email" %>
+	<%= f.email_field :leverage, :autocomplete => :off %>
 <% end %>
+

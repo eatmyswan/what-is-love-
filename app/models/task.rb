@@ -1,3 +1,5 @@
+require 'carrierwave/orm/mongoid'
+
 class Task
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -12,13 +14,13 @@ class Task
   belongs_to :user
   belongs_to :block
   belongs_to :group
+  embeds_many :emails
   
   index :user_id
   index :block_id
   index :group_id
   
   validates_length_of :task, minimum: 1, message: "task cannot be blank."
-  
   
   protected
   def nil_if_blank

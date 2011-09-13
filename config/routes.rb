@@ -1,8 +1,14 @@
 Rpm::Application.routes.draw do
+  match 'rubyamf/gateway', :to => 'rubyamf#gateway'
+
   
   root :to => "home#index"
   
-  resources :tasks
+  resources :tasks do 
+    resources :emails
+  end
+  
+  resources :audios
   resources :blocks
   resources :users
   
@@ -22,8 +28,12 @@ Rpm::Application.routes.draw do
   match '/auth/:provider/callback' => 'sessions#create'
   match '/signout' => 'sessions#destroy', :as => :signout
   match 'group/icon/:id' => 'groups#icon'
+  match 'task/save_audio/:id' => 'tasks#save_audio'
+  match 'task/:task_id/email/:email_id/mini_player' => 'emails#mini_player'
+  match 'email/update/:id' => 'emails#update'
+  match 'emails/create_from_flash/:id' => 'emails#create_from_flash'
   
-
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
