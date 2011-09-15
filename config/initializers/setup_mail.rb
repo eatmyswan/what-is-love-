@@ -1,7 +1,7 @@
 ActionMailer::Base.smtp_settings = {
   :address              => "smtp.gmail.com",
   :port                 => 587,
-  :domain               => "localhost:3000",
+  :domain               => "rapidplanapp.com",
   :authentication       => "plain",
   :user_name            => "stevendoyledesign@gmail.com",
   :password             => "SPD12c5!",
