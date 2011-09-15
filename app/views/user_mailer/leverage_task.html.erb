@@ -5,7 +5,7 @@
   </head>
   <body>
 		<% if @email.audio.url %>
-			<p><%= @current_user.name %> has sent you a voice message: <a href="http://localhost:3000/task/<%= @task.id.to_s %>/email/<%= @email.id.to_s %>/view_email"> Listen to Message </a></p>
+			<p><%= @current_user.name %> has sent you a voice message: <a href="http://rapidplanapp.com/task/<%= @task.id.to_s %>/email/<%= @email.id.to_s %>/view_email"> Listen to Message </a></p>
 		<% end %>
 		<p><%= @email.body_html.gsub(/\n/, '<br>').html_safe %></p>
 	</body>
