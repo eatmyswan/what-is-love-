@@ -33,7 +33,7 @@ class EmailsController < ApplicationController
     respond_to do |format|
       if @task.save
         UserMailer.leverage_task(@email, @task, current_user).deliver 
-        format.html { redirect_to(root_path) }  
+        format.html { redirect_to(group_path(@task.group)) }  
         format.js
       end
     end
@@ -60,7 +60,7 @@ class EmailsController < ApplicationController
     respond_to do |format|
       if @email.update_attributes(params[:email])
         UserMailer.leverage_task(@email, @task, current_user).deliver 
-        format.html { redirect_to(root_path) }
+        format.html { redirect_to(group_path(@task.group)) }
       end
     end
   end
