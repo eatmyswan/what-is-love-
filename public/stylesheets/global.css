@@ -213,3 +213,6 @@ a.signout:hover {
 strong {
 	font-weight: bold;
 }
+.no_disp {
+	display: none;
+}

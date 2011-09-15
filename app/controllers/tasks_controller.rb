@@ -87,10 +87,6 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
   
-  def leverage
-    @task = Task.find(params[:id])
-  end
-  
   def to_rpm
     @task = Task.find(params[:id])
     render :nothing => true

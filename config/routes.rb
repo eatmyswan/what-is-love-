@@ -18,7 +18,6 @@ Rpm::Application.routes.draw do
   
   match 'tasks/sort_tasks' => 'tasks#sort_tasks'
   match 'task/duration/:id' => 'tasks#duration'
-  match 'task/leverage/:id' => 'tasks#leverage'
   match 'task/update/:id' => 'tasks#update'
   match 'block/create/:id' => 'blocks#create', :as => :block_create
   match 'blocks/sort_blocks' => 'blocks#sort_blocks'
@@ -32,6 +31,8 @@ Rpm::Application.routes.draw do
   match 'task/:task_id/email/:email_id/mini_player' => 'emails#mini_player'
   match 'email/update/:id' => 'emails#update'
   match 'emails/create_from_flash/:id' => 'emails#create_from_flash'
+  match 'email/email_form/:id' => 'emails#email_form'
+  match 'task/:task_id/email/:email_id/view_email' => 'emails#view_email'
   
   
   # The priority is based upon order of creation:

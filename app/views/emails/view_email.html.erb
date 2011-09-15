@@ -1,0 +1,19 @@
+<div id="header">
+	<%= image_tag @sender.image_url %>
+	<h1><%= @sender.name %> has left you a voicemail</h1>
+</div>
+
+<% if @email.audio.url %>
+	<%= render :partial => '/emails/mini_player', :locals => { :email => @email } %>
+<% end %>
+
+<div id="email_body">
+	<h2><%= @email.subject %></h2>
+	<%= @email.body_html.gsub(/\n/, '<br>').html_safe %>
+</div>
+
+<div id="email_meta">
+	<strong>Sent to</strong> &nbsp;<%= @email.recipient %> &nbsp;&nbsp;
+	<strong>From</strong> &nbsp;<%= @email.sender %> &nbsp;&nbsp;
+	<strong>At</strong> &nbsp;<%= @email.updated_at.strftime('%m/%d/%Y %I:%M%p') %>
+</div>

@@ -8,6 +8,10 @@ function load_email_audio(ids) {
 		value: ids[0]
 	}).prependTo('#new_email');
 }
+
+function resize_for_microphone_access() {
+	$('#VOCWordToYourMp3').height(137);
+}
 	
 	
 $(function() {
@@ -66,16 +70,17 @@ $(function() {
 		cluezIndex: 9999
 	});
 	
-	$('.leverage_tab').live('click', function(){
-		$("#leverage_modal").dialog({
-			modal:true, 
-			width:'800', 
-			height:'400',
-			zIndex: 999999,
-			position: 'top',
-			title: 'Leverage Email',
-			show: 'slideDown'
-		});
+	
+	$(".leverage_tab").fancybox({
+		'width' : 560,
+		'height' : 340,
+		'overlayColor' : '#000',
+		'overlayOpacity' : 0.3,
+		'showCloseButton' : false
+	});
+	
+	$('#close_fancybox').live('click', function() {
+		$.fancybox.close();
 	});
 	
 	$('.group_icon').cluetip({

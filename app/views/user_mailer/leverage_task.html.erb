@@ -4,9 +4,9 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-		<p><%= @email %></p>
-		<p>Test via html</p>
-		<p><%= link_to "Visit site", root_url %></p>
-		-how did this work??
+		<% if @email.audio.url %>
+			<p><%= @current_user.name %> has sent you a voice message: <a href="http://localhost:3000/task/<%= @task.id.to_s %>/email/<%= @email.id.to_s %>/view_email"> Listen to Message </a></p>
+		<% end %>
+		<p><%= @email.body_html.gsub(/\n/, '<br>').html_safe %></p>
 	</body>
 </html>

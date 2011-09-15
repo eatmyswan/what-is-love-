@@ -1,3 +1,7 @@
+<% if @email %>
+	<% email = @email %>
+<% end %>
+
 <input type="hidden" id="hidden_url" value="<%= email.audio.url %>">
 <input type="hidden" id="hidden_duration" value="<%= email.duration %>">
 <input type="hidden" id="hidden_id" value="<%= email.id.to_s %>">

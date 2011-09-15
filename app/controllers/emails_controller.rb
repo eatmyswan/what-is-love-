@@ -28,9 +28,11 @@ class EmailsController < ApplicationController
 
   def create
     @task = Task.find(params[:task_id]) 
-    @task.emails << Email.new(params[:email])
+    @email = Email.new(params[:email])
+    @task.emails << @email
     respond_to do |format|
       if @task.save
+        UserMailer.leverage_task(@email, @task, current_user).deliver 
         format.html { redirect_to(root_path) }  
         format.js
       end
@@ -57,6 +59,7 @@ class EmailsController < ApplicationController
     @email = @task.emails.find(params[:id])
     respond_to do |format|
       if @email.update_attributes(params[:email])
+        UserMailer.leverage_task(@email, @task, current_user).deliver 
         format.html { redirect_to(root_path) }
       end
     end
@@ -76,6 +79,18 @@ class EmailsController < ApplicationController
     task = Task.find(params[:task_id])
     @email = task.emails.find(params[:email_id])
     render '/emails/_mini_player'
+  end
+  
+  def email_form
+    @task = Task.find(params[:id])
+    render '/emails/_form'
+  end
+  
+  def view_email
+    @task = Task.find(params[:task_id])
+    @email = @task.emails.find(params[:email_id])
+    @sender = User.find(@email.sender_uid)
+    render :layout => 'view_email'
   end
 
 end

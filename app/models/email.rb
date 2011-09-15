@@ -10,6 +10,7 @@ class Email
   field :body_text, type: String
   field :duration, type: Integer
   field :duration_time, type: String
+  field :sender_uid, type: String
   
   mount_uploader :audio, AudioUploader
 
