@@ -89,6 +89,7 @@ class EmailsController < ApplicationController
   def view_email
     @task = Task.find(params[:task_id])
     @email = @task.emails.find(params[:email_id])
+    Rails.logger.debug @email.to_yaml
     @sender = User.find(@email.sender_uid)
     render :layout => 'view_email'
   end
