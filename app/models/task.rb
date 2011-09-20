@@ -8,7 +8,8 @@ class Task
   field :complete, type: Boolean, default: false
   field :sort, type: Integer, default: 0
   field :duration, type: Integer, default: nil
-  field :scheduled, type: Date, default: nil
+  field :starts_at, type: DateTime, default: nil
+  field :ends_at, type: DateTime, default: Time.now + 3.hours
   field :leverage, type: String, default: nil
 
   belongs_to :user

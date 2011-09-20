@@ -16,6 +16,8 @@ Rpm::Application.routes.draw do
     resources :subgroups
   end
   
+  match 'forecast/index' => 'forecast#index'
+  
   match 'tasks/sort_tasks' => 'tasks#sort_tasks'
   match 'task/duration/:id' => 'tasks#duration'
   match 'task/update/:id' => 'tasks#update'

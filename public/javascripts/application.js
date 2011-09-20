@@ -126,5 +126,72 @@ $(function() {
 		$("form#account_background input#hidden_background").val(bg);
 		$("form#account_background").submit();
 	});
+
+	$(".week_event").draggable({
+		helper: 'clone'
+	});
+	$(".week_event").resizable({
+		stop : function(event,ui) {
+			var time = ((ui.position.left + ui.size.width + 12)/ 75).toFixed(2);
+			hour = Math.floor(time.toString().split('.')[0]).toString();
+			min = Math.floor(time.toString().split('.')[1] * 0.6).toString();
+			if(min.length == 1) {
+				 min = '0' + min;
+			};
+			time = hour + ':' + min + ':' + '00 +0000';
+			var date = $(this).parent().attr('date');
+			var endsAt = date + " " + time;
+			
+			$.ajax({
+				url: "/tasks/" +  $(this).attr('id'),
+				type: 'PUT',
+				data: $.param({task : { ends_at: endsAt }}),
+				success: function(d) {  }
+			});
+		}
+	});
+	$(".full_day_row").droppable({
+		drop: function(event, ui) {
+			$(ui.draggable).appendTo(this);
+			$(ui.draggable).css({ 'left' : ui.position.left });
+			
+			var date = $(this).attr('date');
+			
+			var startTime = (ui.position.left / 75).toFixed(2);
+			hour = Math.floor(startTime.toString().split('.')[0]).toString();
+			min = Math.floor(startTime.toString().split('.')[1] * 0.6).toString();
+			if(min.length == 1) { min = '0' + min; };
+			startTime = hour + ':' + min + ':' + '00 +0000';
+			var startsAt = date + " " + startTime;
+			var startTimeDisplay = hour + ":" + min;
+			
+			if(hour < 12 && hour != 0) {
+				startTimeDisplay = hour + ":" + min + "AM";
+			} else if (hour == 12) {
+				startTimeDisplay = hour + ":" + min + "PM";
+			} else if (hour == 0) {
+				startTimeDisplay = "12:" + min + "AM";
+			} else {
+				var newHour = hour - 12
+				startTimeDisplay = newHour + ":" + min + "PM";
+			}
+			
+			ui.draggable.find('.start_time').html(startTimeDisplay);
+			
+			var endTime = ((ui.position.left + parseInt(ui.draggable.css('width')) + 12)/ 75).toFixed(2);
+			hour = Math.floor(endTime.toString().split('.')[0]).toString();
+			min = Math.floor(endTime.toString().split('.')[1] * 0.6).toString();
+			if(min.length == 1) { min = '0' + min; };
+			endTime = hour + ':' + min + ':' + '00 +0000';
+			var endsAt = date + " " + endTime;
+				
+			$.ajax({
+				url: "/tasks/" +  ui.draggable.attr('id'),
+				type: 'PUT',
+				data: $.param({task : { starts_at: startsAt, ends_at: endsAt }}),
+				success: function(d) {  }
+			});
+		}
+	});
 	
 });

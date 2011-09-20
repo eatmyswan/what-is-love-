@@ -20,9 +20,9 @@
 				</span>
 				<span class="schedule_tab" tid="<%= task.id %>">
 					<%= form_for(task, :html => {:class => 'schedule_form'}) do |f| %>
-						<%= f.text_field :scheduled, :autocomplete => :off, :id => "task_scheduled_#{task.id}", :class => "hidden task_scheduled" %>
+						<%= f.text_field :starts_at, :autocomplete => :off, :id => "task_scheduled_#{task.id}", :class => "hidden task_scheduled" %>
 					<% end %>
-					<span class="text"> <%= task.scheduled %> </span>
+					<span class="text"> <%= task.starts_at %> </span>
 				</span>
 			</div>
 			<% end %>
