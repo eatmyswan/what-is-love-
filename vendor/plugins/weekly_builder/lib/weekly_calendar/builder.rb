@@ -8,7 +8,7 @@ class WeeklyCalendar::Builder
   
   def days      
     concat(tag("div", :class => "days"))
-      concat(content_tag("div", "Weekly View", :class => "placeholder"))
+      concat(content_tag("div", "Forecast (7 day)", :class => "placeholder"))
       for day in @start_date..@end_date        
         concat(tag("div", :class => "day"))
         concat(content_tag("b", day.strftime('%A')))

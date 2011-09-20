@@ -45,6 +45,7 @@ h3 {
 	overflow-y: auto;
 	overflow-x: hidden;
 	padding: 20px 0 0 0;
+	display: none;
 }
 #nav a {
 	display: block;
@@ -77,21 +78,20 @@ h3 {
 }
 #sub_nav {
 	height: 100%;
-	width: 215px;
 	position: fixed;
 	top: 0;
-	left: 60px;
+	left: -1px;
 	background: url('/images/sub_nav_bg.png') repeat-y center center #e5e9eb;
 	overflow-y: auto;
 	overflow-x: hidden;
 	box-shadow: 3px 0 6px rgba(0,0,0,0.5);
 	border-left: 1px solid #222222;
-	padding: 30px 12px 0;
+	padding: 30px 0 0;
 	font:bold 13px/1.0 Helvetica, Arial, sans-serif;
 }
 #sub_nav h2 {
 	font: normal 15px/1.0 Helvetica, Arial, sans-serif;
-	margin: 2px 0 8px 3px;
+	margin: 2px 0 8px 12px;
 	color: #4e5152;
 	text-shadow: 0 1px 0 #FFF;
 	text-align: left;
@@ -103,7 +103,8 @@ h3 {
     box-shadow: 0 1px 2px #777 inset;
 	overflow:hidden;
 	padding: 4px 0;
-	margin: 0 0 20px 0;
+	margin: 0 12px 20px;
+	width: 210px;
 }
 .sub_group_wrap div.group{
 	border-bottom: 1px solid #aeaeae;
@@ -153,7 +154,7 @@ div.sub_group_wrap > :last-child {
 	height: 100%;
 	position: fixed;
 	top: 0;
-	left: 295px;
+	left: 240px;
 	right: 0;
 	overflow: auto;
 }

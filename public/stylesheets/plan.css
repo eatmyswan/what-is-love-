@@ -20,6 +20,7 @@
 	z-index: 9999;
 	position: relative;
 	overflow: hidden;
+	font-weight: normal;
 }
 .complete {
 	opacity: 0.5;
@@ -319,7 +320,7 @@ a.add_group {
 	width: 16px;
 	height: 18px;
 	background: url(/images/sprite.png) no-repeat -62px -254px transparent;
-	margin: 0 2px 0 0;
+	margin: 0 12px 0 0;
 }
 a.add_group:hover {
 	background-position: -88px -254px;
@@ -349,4 +350,16 @@ span.group_icon {
     display: block;
     padding: 0 0 0 27px;
     vertical-align: top;
+}
+#calendar_wrap {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 234px;
+	height: 230px;
+}
+#calendar_wrap .divider {
+	height: 3px;
+	width: 100%;
+	background: url(/images/sprite.png) no-repeat 0 -318px transparent;
 }

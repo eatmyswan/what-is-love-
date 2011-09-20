@@ -41,26 +41,12 @@ $(function() {
     setTimeout("$('.poof').hide()", frames * frameRate); 
 	}
 	
-	$('input[id^="task_scheduled"]').datepicker({
-		dateFormat: 'yy-mm-dd',
-		showButtonPanel: true, 
-		closeText: 'No Date', 
-		showOn: 'button',
-		buttonImage: '/images/mini_cal.png',
-		buttonImageOnly: true,
-		onSelect: function (dateText, inst) {
-				$(this).parent('form').submit();
-		}
-	});
 	
 	$('.schedule_tab').live('click', function() {
 		var id = $(this).attr('tid');
 		$('#task_scheduled_'+id).datepicker("show");
 	});
 	
-	$.datepicker._generateHTML_Old = $.datepicker._generateHTML; $.datepicker._generateHTML = function(inst) {
-    	res = this._generateHTML_Old(inst); res = res.replace("_hideDatepicker()","_clearDate('#"+inst.id+"')"); return res;
-	} 
 	
 	$('.duration_tab').cluetip({
 		positionBy: 'fixed',
@@ -127,18 +113,27 @@ $(function() {
 		$("form#account_background").submit();
 	});
 
-	$(".week_event").draggable({
-		helper: 'clone'
-	});
+
 	$(".week_event").resizable({
 		stop : function(event,ui) {
-			var time = ((ui.position.left + ui.size.width + 12)/ 75).toFixed(2);
-			hour = Math.floor(time.toString().split('.')[0]).toString();
-			min = Math.floor(time.toString().split('.')[1] * 0.6).toString();
-			if(min.length == 1) {
-				 min = '0' + min;
-			};
-			time = hour + ':' + min + ':' + '00 +0000';
+			var startTime = (ui.position.left / 75).toFixed(2);
+			shour = Math.floor(startTime.toString().split('.')[0]).toString();
+			smin = Math.floor(startTime.toString().split('.')[1] * 0.6).toString();
+			if(smin.length == 1) { smin = '0' + smin; };
+			startTime = shour + ':' + smin + ':' + '00 +0000';
+			var startsAt = date + " " + startTime;
+			
+			var endTime = ((ui.position.left + parseInt($(this).css('width')) + 12)/ 75).toFixed(2);
+			ehour = Math.floor(endTime.toString().split('.')[0]).toString();
+			emin = Math.floor(endTime.toString().split('.')[1] * 0.6).toString();
+			if(emin.length == 1) { emin = '0' + emin; };
+			endTime = ehour + ':' + emin + ':' + '00 +0000';
+			var endsAt = date + " " + endTime;
+			
+			var timeDisplay = shour + ":" + smin + " - " + ehour + ":" + emin;
+			$(this).find('.start_time').html(timeDisplay);
+			
+			time = ehour + ':' + emin + ':' + '00 +0000';
 			var date = $(this).parent().attr('date');
 			var endsAt = date + " " + time;
 			
@@ -149,7 +144,10 @@ $(function() {
 				success: function(d) {  }
 			});
 		}
+	}).draggable({
+		helper: 'clone'
 	});
+	
 	$(".full_day_row").droppable({
 		drop: function(event, ui) {
 			$(ui.draggable).appendTo(this);
@@ -158,32 +156,21 @@ $(function() {
 			var date = $(this).attr('date');
 			
 			var startTime = (ui.position.left / 75).toFixed(2);
-			hour = Math.floor(startTime.toString().split('.')[0]).toString();
-			min = Math.floor(startTime.toString().split('.')[1] * 0.6).toString();
-			if(min.length == 1) { min = '0' + min; };
-			startTime = hour + ':' + min + ':' + '00 +0000';
+			shour = Math.floor(startTime.toString().split('.')[0]).toString();
+			smin = Math.floor(startTime.toString().split('.')[1] * 0.6).toString();
+			if(smin.length == 1) { smin = '0' + smin; };
+			startTime = shour + ':' + smin + ':' + '00 +0000';
 			var startsAt = date + " " + startTime;
-			var startTimeDisplay = hour + ":" + min;
-			
-			if(hour < 12 && hour != 0) {
-				startTimeDisplay = hour + ":" + min + "AM";
-			} else if (hour == 12) {
-				startTimeDisplay = hour + ":" + min + "PM";
-			} else if (hour == 0) {
-				startTimeDisplay = "12:" + min + "AM";
-			} else {
-				var newHour = hour - 12
-				startTimeDisplay = newHour + ":" + min + "PM";
-			}
-			
-			ui.draggable.find('.start_time').html(startTimeDisplay);
 			
 			var endTime = ((ui.position.left + parseInt(ui.draggable.css('width')) + 12)/ 75).toFixed(2);
-			hour = Math.floor(endTime.toString().split('.')[0]).toString();
-			min = Math.floor(endTime.toString().split('.')[1] * 0.6).toString();
-			if(min.length == 1) { min = '0' + min; };
-			endTime = hour + ':' + min + ':' + '00 +0000';
+			ehour = Math.floor(endTime.toString().split('.')[0]).toString();
+			emin = Math.floor(endTime.toString().split('.')[1] * 0.6).toString();
+			if(emin.length == 1) { emin = '0' + emin; };
+			endTime = ehour + ':' + emin + ':' + '00 +0000';
 			var endsAt = date + " " + endTime;
+			
+			var timeDisplay = shour + ":" + smin + " - " + ehour + ":" + emin;
+			ui.draggable.find('.start_time').html(timeDisplay);
 				
 			$.ajax({
 				url: "/tasks/" +  ui.draggable.attr('id'),
@@ -193,5 +180,93 @@ $(function() {
 			});
 		}
 	});
+	
+    $('#tasks-list').sortable({
+		helper: 'clone',
+        dropOnEmpty: false, 
+        handle: '.task_drag', 
+        items: '.task_wrap',
+        opacity: 0.4,
+        scroll: true,
+        update: function(){
+          $.ajax({
+              type: 'post', 
+              data: $(this).sortable('serialize'), 
+              dataType: 'script', 
+              complete: function(request){ },
+              url: '/tasks/sort_tasks'});
+          }
+       }).draggable();
+
+   $('#blocks-list').sortable({
+        dropOnEmpty: false, 
+        handle: '.block_drag', 
+        items: '.block_wrap',
+        opacity: 0.4,
+        scroll: true,
+        update: function(){
+          $.ajax({
+              type: 'post', 
+              data: $(this).sortable('serialize'), 
+              dataType: 'script', 
+              complete: function(request){ },
+              url: '/blocks/sort_blocks'});
+          }
+       });
+
+   $('.task_padding').sortable({
+        dropOnEmpty: false, 
+        handle: '.task_drag', 
+        items: '.task_wrap',
+        opacity: 0.4,
+        scroll: true,
+        update: function(){
+          $.ajax({
+              type: 'post', 
+              data: $(this).sortable('serialize'), 
+              dataType: 'script', 
+              complete: function(request){ },
+              url: '/tasks/sort_tasks'});
+          }
+    });
+	
+	var t = 0;
+	
+	$('#datepicker').datepicker({
+		dateFormat: 'yy-mm-dd',
+		dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+		inline: true,
+		defaultDate: $('#start_date').val(),
+		showOtherMonths: true,
+
+		onSelect: function(dateText, inst) {
+			if(t > 0){
+			window.location = '/forecast/index?business_hours=false&start_date=' + dateText
+			}
+			t++;
+		}
+	});
+	
+	$(".ui-state-default").droppable({
+        hoverClass:'hovered',
+		tolerance: 'pointer',
+        drop:function(event,ui){
+			var str= $(this).parent().attr('onclick');
+			var patt=/\(+.+\)/;
+			var match = str.match(patt).toString();
+			match = match.split(',');
+			var month = parseInt(match[1]) + 1;
+			var year = match[2]
+			var day = $(this).text();
+			var date = year + '-' + month + '-' + day;	
+			var taskId = $(ui.draggable).attr('id');
+			taskId = taskId.split('_')[1];
+			alert('Schedule ' + taskId + ' for ' + date);
+        }
+    });
+	
+	if($('#start_date').length == 0) {
+		$('.ui-datepicker-current-day').removeClass('ui-datepicker-current-day');
+	}
 	
 });
