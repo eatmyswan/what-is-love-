@@ -1,7 +1,7 @@
 # WeeklyCalendar by Dan McGrady 2011 http://dmix.ca
 module WeeklyCalendar
   def weekly_calendar(objects, *args)
-    #view helper to build the weekly calendar
+
     options = args.last.is_a?(Hash) ? args.pop : {}
     date = options[:date] || Time.now
     start_date = Date.new(date.year, date.month, date.day)

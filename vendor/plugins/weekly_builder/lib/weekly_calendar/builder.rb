@@ -6,7 +6,9 @@ class WeeklyCalendar::Builder
     @objects, @template, @options, @start_date, @end_date = objects, template, options, start_date, end_date
   end
   
-  def days      
+  
+  def week(options = {})   
+     
     concat(tag("div", :class => "days"))
       concat(content_tag("div", "Forecast (7 day)", :class => "placeholder"))
       for day in @start_date..@end_date        
@@ -17,10 +19,24 @@ class WeeklyCalendar::Builder
         concat("</div>")
       end
     concat("</div>")
-  end
-  
-  def week(options = {})    
-    days
+    
+    concat(tag("div", :class => "queue"))
+      concat(content_tag("div", "Queue", :class => "placeholder"))
+      for day in @start_date..@end_date        
+        concat(tag("div", :class => "queue_day", :date => day))
+          for event in @objects
+            if event.starts_at.strftime('%j').to_s == day.strftime('%j').to_s 
+             if event.starts_at.strftime('%H').to_i == event.ends_at.strftime('%H').to_i
+                concat(tag("div", :class => 'queue_item', :id => event.id))
+                  yield(event)
+                concat("</div>")
+              end
+            end
+          end
+        concat("</div>")
+      end
+    concat("</div>")
+    
     if options[:business_hours] == "true" or options[:business_hours].blank?
       hours = ["6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm","8pm"]
       header_row = "header_row"
@@ -50,10 +66,9 @@ class WeeklyCalendar::Builder
           concat(tag("div", :class => day_row, :date => day))
           for event in @objects
             if event.starts_at.strftime('%j').to_s == day.strftime('%j').to_s 
-             if event.starts_at.strftime('%H').to_i >= start_hour and event.ends_at.strftime('%H').to_i <= end_hour
+             if event.starts_at.strftime('%H').to_i >= start_hour and event.starts_at.strftime('%H').to_i != event.ends_at.strftime('%H').to_i
                 concat(tag("div", :class => "week_event", :id => event.id, :style =>"left:#{left(event.starts_at,options[:business_hours])}px;width:#{width(event.starts_at,event.ends_at)}px;"))
-                  truncate = truncate_width(width(event.starts_at,event.ends_at))
-                  yield(event,truncate)
+                  yield(event)
                 concat("</div>")
               end
             end
@@ -97,8 +112,4 @@ class WeeklyCalendar::Builder
     end
   end
 
-  def truncate_width(width)
-    hours = width / 63
-    truncate_width = 20 * hours
-  end 
 end

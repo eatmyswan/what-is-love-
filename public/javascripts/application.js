@@ -13,7 +13,6 @@ function resize_for_microphone_access() {
 	$('#VOCWordToYourMp3').height(137);
 }
 	
-	
 $(function() {
 		
 	$('a.complete_off').click(function(e) { 
@@ -112,66 +111,40 @@ $(function() {
 		$("form#account_background input#hidden_background").val(bg);
 		$("form#account_background").submit();
 	});
-
-
-	$(".week_event").resizable({
-		stop : function(event,ui) {
-			var startTime = (ui.position.left / 75).toFixed(2);
-			shour = Math.floor(startTime.toString().split('.')[0]).toString();
-			smin = Math.floor(startTime.toString().split('.')[1] * 0.6).toString();
-			if(smin.length == 1) { smin = '0' + smin; };
-			startTime = shour + ':' + smin + ':' + '00 +0000';
-			var startsAt = date + " " + startTime;
-			
-			var endTime = ((ui.position.left + parseInt($(this).css('width')) + 12)/ 75).toFixed(2);
-			ehour = Math.floor(endTime.toString().split('.')[0]).toString();
-			emin = Math.floor(endTime.toString().split('.')[1] * 0.6).toString();
-			if(emin.length == 1) { emin = '0' + emin; };
-			endTime = ehour + ':' + emin + ':' + '00 +0000';
-			var endsAt = date + " " + endTime;
-			
-			var timeDisplay = shour + ":" + smin + " - " + ehour + ":" + emin;
-			$(this).find('.start_time').html(timeDisplay);
-			
-			time = ehour + ':' + emin + ':' + '00 +0000';
-			var date = $(this).parent().attr('date');
-			var endsAt = date + " " + time;
-			
-			$.ajax({
-				url: "/tasks/" +  $(this).attr('id'),
-				type: 'PUT',
-				data: $.param({task : { ends_at: endsAt }}),
-				success: function(d) {  }
-			});
-		}
-	}).draggable({
-		helper: 'clone'
-	});
 	
 	$(".full_day_row").droppable({
+		greedy: false,
+		tolerance: 'pointer',
 		drop: function(event, ui) {
-			$(ui.draggable).appendTo(this);
-			$(ui.draggable).css({ 'left' : ui.position.left });
 			
+			if($(ui.draggable).hasClass('queue_item')){
+				$(ui.draggable).appendTo(this);
+				$(ui.draggable).css({ 'left' : ui.position.left - 100, 'top' : '0', 'width' : '75' });
+				$(ui.draggable).addClass('week_event').removeClass('queue_item')
+			} else {
+				$(ui.draggable).appendTo(this);
+				$(ui.draggable).css({ 'left' : ui.position.left });
+			}
+	
 			var date = $(this).attr('date');
-			
+	
 			var startTime = (ui.position.left / 75).toFixed(2);
 			shour = Math.floor(startTime.toString().split('.')[0]).toString();
 			smin = Math.floor(startTime.toString().split('.')[1] * 0.6).toString();
 			if(smin.length == 1) { smin = '0' + smin; };
 			startTime = shour + ':' + smin + ':' + '00 +0000';
 			var startsAt = date + " " + startTime;
-			
+	
 			var endTime = ((ui.position.left + parseInt(ui.draggable.css('width')) + 12)/ 75).toFixed(2);
 			ehour = Math.floor(endTime.toString().split('.')[0]).toString();
 			emin = Math.floor(endTime.toString().split('.')[1] * 0.6).toString();
 			if(emin.length == 1) { emin = '0' + emin; };
 			endTime = ehour + ':' + emin + ':' + '00 +0000';
 			var endsAt = date + " " + endTime;
-			
+	
 			var timeDisplay = shour + ":" + smin + " - " + ehour + ":" + emin;
 			ui.draggable.find('.start_time').html(timeDisplay);
-				
+		
 			$.ajax({
 				url: "/tasks/" +  ui.draggable.attr('id'),
 				type: 'PUT',
@@ -180,6 +153,65 @@ $(function() {
 			});
 		}
 	});
+	
+	$('.week_event').live("mouseover", function() {
+		if (!$(this).data("init")) {
+			$(this).data("init", true);
+				$(this).resizable({
+				stop : function(event,ui) {
+					var startTime = (ui.position.left / 75).toFixed(2);
+					shour = Math.floor(startTime.toString().split('.')[0]).toString();
+					smin = Math.floor(startTime.toString().split('.')[1] * 0.6).toString();
+					if(smin.length == 1) { smin = '0' + smin; };
+					startTime = shour + ':' + smin + ':' + '00 +0000';
+					var startsAt = date + " " + startTime;
+		
+					var endTime = ((ui.position.left + parseInt($(this).css('width')) + 12)/ 75).toFixed(2);
+					ehour = Math.floor(endTime.toString().split('.')[0]).toString();
+					emin = Math.floor(endTime.toString().split('.')[1] * 0.6).toString();
+					if(emin.length == 1) { emin = '0' + emin; };
+					endTime = ehour + ':' + emin + ':' + '00 +0000';
+					var endsAt = date + " " + endTime;
+		
+					var timeDisplay = shour + ":" + smin + " - " + ehour + ":" + emin;
+					$(this).find('.start_time').html(timeDisplay);
+		
+					time = ehour + ':' + emin + ':' + '00 +0000';
+					var date = $(this).parent().attr('date');
+					var endsAt = date + " " + time;
+		
+					$.ajax({
+						url: "/tasks/" +  $(this).attr('id'),
+						type: 'PUT',
+						data: $.param({task : { ends_at: endsAt }}),
+						success: function(d) {  }
+					});
+				}
+			}).draggable({
+       			helper: 'clone'
+			});
+		}
+	});
+	
+	$('.queue_item').draggable({ });
+	
+	$('.queue_day').droppable({
+		tolerance: 'pointer',
+		greedy: true,
+        drop:function(event,ui){
+			date = $(this).attr('date');
+			var taskId = $(ui.draggable).attr('id');
+			
+			$.ajax({
+				url: "/tasks/" + taskId,
+				type: 'PUT',
+				data: $.param({task : { starts_at: date, ends_at: date }}),
+				success: function(d) { }
+			});
+			
+		}
+	});
+	
 	
     $('#tasks-list').sortable({
 		helper: 'clone',
@@ -261,7 +293,15 @@ $(function() {
 			var date = year + '-' + month + '-' + day;	
 			var taskId = $(ui.draggable).attr('id');
 			taskId = taskId.split('_')[1];
-			alert('Schedule ' + taskId + ' for ' + date);
+			
+			$.ajax({
+				url: "/tasks/" + taskId,
+				type: 'PUT',
+				data: $.param({task : { starts_at: date, ends_at: date }}),
+				success: function(d) {
+					window.location = '/forecast/index?business_hours=false&start_date=' + date
+				}
+			});
         }
     });
 	
