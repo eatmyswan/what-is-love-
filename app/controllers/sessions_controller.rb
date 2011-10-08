@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
     auth = request.env["omniauth.auth"]
     user = User.first(conditions: { provider: auth["provider"], uid: auth["uid"]}) || User.create_with_omniauth(auth)
     session[:user_id] = user.id
-    redirect_to account_settings_path
+    redirect_to groups_path
   end
   
   def destroy
