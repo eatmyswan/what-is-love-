@@ -1,9 +1,13 @@
+#datepicker {
+	margin: 5px 12px 5px;
+}
 .ui-datepicker { 
 	width: 100%;
 }
 .ui-datepicker .ui-datepicker-header { 
 	position:relative;
-	height: 30px;
+	height: 24px;
+	margin: 0 0 4px;
 }
 .ui-datepicker .ui-datepicker-prev, 
 .ui-datepicker .ui-datepicker-next { 
@@ -20,17 +24,17 @@
 }
 .ui-datepicker .ui-datepicker-prev { 
 	left:0; 
-	background:#AAA;
+	background: url(/images/sprite.png) no-repeat -3px -323px transparent;
+}
+.ui-datepicker .ui-datepicker-prev:hover {
+	background-position: -3px -343px;
 }
 .ui-datepicker .ui-datepicker-next { 
 	right:0; 
-	background:#AAA;
+	background: url(/images/sprite.png) no-repeat -22px -323px transparent;
 }
-.ui-datepicker .ui-datepicker-prev-hover { 
-	background:#CCC;
-}
-.ui-datepicker .ui-datepicker-next-hover { 
-	background:#CCC;
+.ui-datepicker .ui-datepicker-next:hover {
+	background-position: -22px -343px;
 }
 .ui-datepicker .ui-datepicker-prev span, 
 .ui-datepicker .ui-datepicker-next span { 
@@ -38,7 +42,10 @@
 }
 .ui-datepicker .ui-datepicker-title {
 	text-align: center;
-	line-height: 20px;
+	line-height: 24px;
+	font-weight: normal;
+	font-size: 14px;
+	color: #555;
 }
 .ui-datepicker table {
 	width: 100%; 
@@ -46,29 +53,53 @@
 	border-collapse: collapse; 
 }
 .ui-datepicker td { 
-	border: 0; 
-	padding: 2px; 
 }
 .ui-datepicker th {
 	text-align: center;
+	font-weight: normal;
+	font-size: 11px;
+	color: #999;
+	padding: 0 0 4px;
 }
 .ui-datepicker td a { 
-	display: block; 
-	text-align: right; 
-	text-decoration: none; 
+	font-size: 12px;
+	display: block;
+	margin: 0 auto;
+	border: 1px solid transparent;
+    border-radius: 2px 2px 2px 2px;
+    height: 16px;
+    width: 21px;
+	text-align: center;
+	padding: 5px 0 0 0;
+	font-weight: normal;
+	color:#555;
+}
+.ui-datepicker td a:hover {
+	background: #CCC;
 }
 td.ui-datepicker-current-day {
-	background: red;
+
 }
 td.ui-datepicker-current-day a {
+	background-color: #B2B2B2;
+    border: 1px solid #B2B2B2;
 	color: #FFF;
 }
 td.ui-datepicker-today {
-	border: 1px solid blue;
 }
 td.ui-datepicker-today a {
+	color: #0076E3;
 }
-td.ui-datepicker-other-month {
-	text-align: right;
-	color: #AAA;
+td.ui-datepicker-other-month span {
+	font-size: 12px;
+	display: block;
+	margin: 0 auto;
+	border: 1px solid transparent;
+    border-radius: 2px 2px 2px 2px;
+    height: 16px;
+    width: 21px;
+	text-align: center;
+	padding: 5px 0 0 0;
+	font-weight: normal;
+	color: #CCC;
 }

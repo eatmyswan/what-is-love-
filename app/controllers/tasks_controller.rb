@@ -38,8 +38,12 @@ class TasksController < ApplicationController
     @task.user_id = current_user.id
     respond_to do |format|
       if @task.save
-        format.html { redirect_to( group_path(@task.group)) }  
-        format.js
+        if params[:forecast]
+          format.html { render :nothing => true }
+        else
+          format.html { redirect_to( group_path(@task.group)) }  
+          format.js
+        end
       end
     end
   end
@@ -56,6 +60,8 @@ class TasksController < ApplicationController
           email = params[:task][:leverage]
           UserMailer.leverage_task(email).deliver
           format.html { redirect_to(group_path(@task.group)) }
+        elsif params[:task][:reminder]
+          format.html { render :nothing => true }
         else
           format.html { redirect_to(group_path(@task.group)) }
         end
@@ -99,5 +105,11 @@ class TasksController < ApplicationController
     
     render :nothing => true
   end
+  
+  def edit_notes
+    @task = Task.find(params[:id])
+    render 'tasks/edit_notes'
+  end
+
 
 end

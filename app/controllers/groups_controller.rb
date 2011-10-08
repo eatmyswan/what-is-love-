@@ -10,8 +10,8 @@ class GroupsController < ApplicationController
     @tasks = Task.where(group_id: params[:id]).and(block_id: nil).order_by([:sort, :asc],[:created_at, :desc])
   
     @blocks = Block.where(group_id: params[:id]).order_by([:sort, :asc],[:created_at, :desc])
-    @personal_groups = Group.where(user_id: current_user.id).and(master_title: 'Personal').order_by([:created_at, :asc])
-    @professional_groups = Group.where(user_id: current_user.id).and(master_title: 'Professional').order_by([:created_at, :asc])
+    @personal_groups = Group.where(user_id: current_user.id).and(master_title: 'Personal')
+    @professional_groups = Group.where(user_id: current_user.id).and(master_title: 'Professional')
 
     respond_to do |format|
       format.html # show.html.erb

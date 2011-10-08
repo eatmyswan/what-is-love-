@@ -1,0 +1,20 @@
+<div id="notes_wrap">
+	
+<%= form_for @task do |f| %>
+	<input type="hidden" name="email[sender_uid]" value="<%= current_user.id %>">
+	<div class="modal_title_wrap">
+			<div class="modal_cancel_wrap">
+				<div id="close_fancybox"><span class="no_disp">Cancel</span></div>
+			</div>
+			<div class="modal_submit_wrap">
+				<%= image_submit_tag("/images/blank.gif", :class => 'send') %>
+			</div>
+			<div class="modal_title"> Notes </div>
+	</div>
+	<div class="body_wrap">
+		<%= f.text_area :notes %>
+	</div>
+	
+<% end %>
+
+</div>

@@ -4,8 +4,9 @@ module WeeklyCalendar
 
     options = args.last.is_a?(Hash) ? args.pop : {}
     date = options[:date] || Time.now
+    range = options[:range].to_i - 1
     start_date = Date.new(date.year, date.month, date.day)
-    end_date = Date.new(date.year, date.month, date.day) + 6
+    end_date = Date.new(date.year, date.month, date.day) + range
     
     #if options[:include_24_hours] == true
       #safe_concat("<a href='?business_hours=true&start_date=#{start_date}'>Business Hours</a> | <a href='?business_hours=false&start_date=#{start_date}'>24-Hours</a> | ")

@@ -7,10 +7,13 @@ class Task
   field :must, type: Boolean, default: false
   field :complete, type: Boolean, default: false
   field :sort, type: Integer, default: 0
-  field :duration, type: Integer, default: nil
+  field :min_duration, type: Integer, default: nil
+  field :max_duration, type: Integer, default: nil
   field :starts_at, type: DateTime, default: nil
-  field :ends_at, type: DateTime, default: Time.now + 3.hours
+  field :ends_at, type: DateTime, default: nil
   field :leverage, type: String, default: nil
+  field :reminder, type: DateTime, default: nil
+  field :notes, type: String, default: nil
 
   belongs_to :user
   belongs_to :block
@@ -23,12 +26,74 @@ class Task
   
   validates_length_of :task, minimum: 1, message: "task cannot be blank."
   
-  protected
+  before_save :calculate_reminder
+  before_save :check_starts_at
+  before_save :check_duration
+  before_save :check_must
+  
+  private
   def nil_if_blank
     self.leverage.blank? ? self.leverage = nil : return
     self.duration.blank? ? self.duration = nil : return
-    self.scheduled.blank? ? self.scheduled = nil : return
+    self.ends_at.blank? ? self.ends_at = nil : return
   end
   
-
+  def calculate_reminder
+    if self.reminder && self.starts_at
+      self.reminder = self.starts_at -  5.minutes
+    end
+  end
+  
+  def check_starts_at
+    if self.task.match("#today")
+      self.starts_at = Date.today.beginning_of_day
+      self.task.slice! "#today"
+    elsif self.task.match("#tomorrow")
+      self.starts_at = Date.tomorrow.beginning_of_day
+      self.task.slice! "#tomorrow"
+    elsif self.task.match("#nextweek")
+      self.starts_at = Date.today.next_week
+      self.task.slice! "#nextweek"
+    elsif self.task.match("#nextmonth")
+      self.starts_at = Date.today.next_month
+      self.task.slice! "#nextmonth"
+    elsif m = self.task.match(/#(\d+)days/)  
+      self.starts_at = Date.today.beginning_of_day + m[1].to_i.days
+      self.task.slice! m[0].to_s
+    end
+  end
+  
+  def check_duration
+    if m = self.task.match(/#((\d+)h)?((\d+)m)?(-)?((\d+)h)?((\d+)m)?/)  
+      min_duration = 0
+      max_duration = 0
+      if m[2]
+        min_duration = min_duration + (m[2].to_i * 60)
+      end
+      if m[4]
+        min_duration = min_duration + m[4].to_i
+      end
+      if min_duration > 0
+        self.min_duration = min_duration
+      end
+      if m[7]
+        max_duration = max_duration + (m[7].to_i * 60)
+      end
+      if m[9]
+        max_duration = max_duration + m[9].to_i
+      end
+      if max_duration > 0 && min_duration > 0 && min_duration < max_duration
+        self.max_duration = max_duration
+      end
+      self.task.slice! m[0].to_s
+    end
+  end
+  
+  def check_must
+    if self.task.match(/\A\*/)
+      self.must = true
+      self.task.slice! '*'
+    end
+  end
+  
 end

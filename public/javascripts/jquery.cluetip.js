@@ -550,7 +550,20 @@
 -------------------------------------- */
   // activate by click
       if ( (/click|toggle/).test(opts.activation) ) {
+
         $link.bind('click.cluetip', function(event) {
+          if ($cluetip.is(':hidden') || !$link.is('.cluetip-clicked')) {
+            activate(event);
+            $('.cluetip-clicked').removeClass('cluetip-clicked');
+            $link.addClass('cluetip-clicked');
+          } else {
+            inactivate(event);
+          }
+          return false;
+        });
+	  } else if (opts.activation == 'dbclick') {
+		
+		 $link.bind('dblclick.cluetip', function(event) {
           if ($cluetip.is(':hidden') || !$link.is('.cluetip-clicked')) {
             activate(event);
             $('.cluetip-clicked').removeClass('cluetip-clicked');

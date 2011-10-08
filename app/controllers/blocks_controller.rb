@@ -35,7 +35,9 @@ class BlocksController < ApplicationController
     task = Task.find(params[:id])
     @block = Block.new
     @block.outcome = task.task
-    @block.group_id = task.group_id
+    @group = Group.find(task.group_id)
+    @block.group = @group
+    @block.purpose_group = @group.title
     task.destroy
     @block.user_id = current_user.id
     respond_to do |format|
@@ -55,7 +57,7 @@ class BlocksController < ApplicationController
       elsif params[:block][:purpose]
         render :text => params[:block][:purpose]
       else
-        redirect_to(root_path)
+        redirect_to(group_path(@block.group))
       end
     end
   end

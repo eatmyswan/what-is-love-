@@ -14,6 +14,7 @@ gem "jquery-rails"
 gem 'jeditable-rails'
 gem 'omniauth'
 gem 'ruby-mp3info'
+gem 'time_diff'
 
 
 # Bundle edge Rails instead:

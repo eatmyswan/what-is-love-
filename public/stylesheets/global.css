@@ -6,12 +6,12 @@ body {
 	line-height: 1.2;
 	font-size: 12px;
 	color:#333333;
-	background: url('/images/reeds.jpg') no-repeat bottom left #424344;
+	background: url('/images/chambray.jpg') repeat 0 0 #333;
 	height: 100%;
 	overflow: hidden;
 	width: 100%;
 }
-h1 {
+h1#plan_title {
 	font: bold 30px/1.0 Helvetica, Arial, sans-serif;
 	margin: 0 0 20px 0;
 	padding: 0;
@@ -19,13 +19,7 @@ h1 {
 	text-align:center;
 	text-shadow: 0 1px 1px #555;
 }
-h2 {
-	font: bold 14px/1.0 Helvetica, Arial, sans-serif;
-	margin: 0 0 20px 0;
-	padding: 0;
-	color: #FFF;
-	text-align:center;
-}
+
 h3 {
 	font-family: Helvetica, Arial, sans-serif;
 	line-height: 1.2;
@@ -82,12 +76,16 @@ h3 {
 	top: 0;
 	left: -1px;
 	background: url('/images/sub_nav_bg.png') repeat-y center center #e5e9eb;
-	overflow-y: auto;
-	overflow-x: hidden;
+	overflow:hidden;
 	box-shadow: 3px 0 6px rgba(0,0,0,0.5);
 	border-left: 1px solid #222222;
 	padding: 30px 0 0;
 	font:bold 13px/1.0 Helvetica, Arial, sans-serif;
+}
+#groups_wrap {
+	overflow-y: auto;
+	overflow-x: hidden;
+	margin: 0 0 300px 0;
 }
 #sub_nav h2 {
 	font: normal 15px/1.0 Helvetica, Arial, sans-serif;
@@ -111,6 +109,7 @@ h3 {
 	border-top: 1px solid #e9e9e9;
 	border-right: 1px solid #aeaeae;
 	border-left: 1px solid #aeaeae;
+	position: relative;
 }
 .sub_group_wrap div.group:hover {
 	background: #c4c7ca;
@@ -124,12 +123,13 @@ div.sub_group_wrap > :nth-child(2) {
 div.sub_group_wrap > :last-child {
 	border-bottom: none;
 }
-.sub_group_wrap div.group a {
+.sub_group_wrap div.group a.block {
 	display:block;
 	color: #4f5253;
 	font: bold 13px/1.0 Helvetica, Arial, sans-serif;
 	text-shadow: 0 1px 0 #EEE;
 	padding: 16px 10px 14px 10px;
+	min-height: 16px
 }
 
 .sub_group_wrap div.active, .sub_group_wrap div.active:hover  {
@@ -138,7 +138,7 @@ div.sub_group_wrap > :last-child {
 	border-right: 1px solid #AAA;
 	border-left: 1px solid #AAA;
 }
-.sub_group_wrap div.active a {
+.sub_group_wrap div.active a.block {
 	color: #FFF;
 	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
 }

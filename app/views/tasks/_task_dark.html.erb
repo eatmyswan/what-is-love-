@@ -16,13 +16,8 @@
 				</span>
 				<span class="duration_tab" rel="/task/duration/<%=task.id%>">
 					<span class="duration_img"></span> 
-					<span class="text"> <%= "#{task.duration} min" if task.duration %> </span>
-				</span>
-				<span class="schedule_tab" tid="<%= task.id %>">
-					<%= form_for(task, :html => {:class => 'schedule_form'}) do |f| %>
-						<%= f.text_field :starts_at, :autocomplete => :off, :id => "task_scheduled_#{task.id}", :class => "hidden task_scheduled" %>
-					<% end %>
-					<span class="text"> <%= task.starts_at %> </span>
+					<span class="text">Min: <%= "#{task.min_duration}" if task.min_duration %> </span> /
+					<span class="text">Max: <%= "#{task.max_duration}" if task.max_duration %> </span>
 				</span>
 			</div>
 			<% end %>

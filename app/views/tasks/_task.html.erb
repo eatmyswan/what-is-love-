@@ -3,9 +3,10 @@
 			<div class="task_drag">
 				<%= link_to '', task_path(task, :task => { :must => false }), :method => :put, :class => 'must_on' if task.must == true %>
 				<%= link_to '', task_path(task, :task => { :must => true }), :method => :put, :class => 'must_off' if task.must == false %>
-				<%= link_to '', task_path(task, :task => { :complete => false, :sort => 0 }), :method => :put, :class => 'complete_on' if task.complete == true %>
-				<%= link_to '', task_path(task, :task => { :complete => true, :sort => 99 }), :method => :put, :remote => true, :class => 'complete_off' if task.complete == false %>
+				<%= link_to '', task_path(task, :task => { :complete => false }), :method => :put, :class => 'complete_on' if task.complete == true %>
+				<%= link_to '', task_path(task, :task => { :complete => true }), :method => :put, :remote => true, :class => 'complete_off' if task.complete == false %>
 				<%= editable_field task, :task, { :event => "dblclick", :onblur => "cancel", :width => "none", :height => "none" } %>
+				<span class="task_date"><%= schedule_date(task.starts_at) if task.starts_at %> <%= min_duration(task.min_duration) if task.min_duration %><%= max_duration(task.max_duration) if task.max_duration %></span>
 				<%= link_to '', block_create_path(task.id), :class => 'target' %>
 				<%= link_to '', task_path(task), :method => :delete, :class => 'delete' %>
 			</div>
@@ -17,7 +18,11 @@
 				</a>
 				<span class="duration_tab" rel="/task/duration/<%=task.id%>">
 					<span class="duration_img"></span> 
-					<span class="text"> <%= "#{task.duration} min" if task.duration %> </span>
+					<span class="text">Min: <%= "#{task.min_duration}" if task.min_duration %> </span> /
+					<span class="text">Max: <%= "#{task.max_duration}" if task.max_duration %> </span>
+				</span>
+				<span class="notes_tab" href="/task/edit_notes/<%=task.id%>">
+					Notes
 				</span>
 			</div>
 			<% end %>

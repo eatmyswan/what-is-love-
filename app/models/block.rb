@@ -3,8 +3,10 @@ class Block
   include Mongoid::Timestamps
   field :outcome, type: String
   field :purpose, type: String
+  field :purpose_group, type: String
   field :complete, type: Boolean, default: false
   field :sort, type: Integer, default: 0
+  field :collapsed, type: Boolean, default: true
 
   belongs_to :user
   belongs_to :group

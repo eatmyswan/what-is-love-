@@ -10,29 +10,15 @@ class WeeklyCalendar::Builder
   def week(options = {})   
      
     concat(tag("div", :class => "days"))
-      concat(content_tag("div", "Forecast (7 day)", :class => "placeholder"))
+      concat(tag("div", :class => "header_row_days"))
+      concat("</div>")
       for day in @start_date..@end_date        
         concat(tag("div", :class => "day"))
-        concat(content_tag("b", day.strftime('%A')))
-        concat(tag("br"))
-        concat(day.strftime('%B %d'))
-        concat("</div>")
-      end
-    concat("</div>")
-    
-    concat(tag("div", :class => "queue"))
-      concat(content_tag("div", "Queue", :class => "placeholder"))
-      for day in @start_date..@end_date        
-        concat(tag("div", :class => "queue_day", :date => day))
-          for event in @objects
-            if event.starts_at.strftime('%j').to_s == day.strftime('%j').to_s 
-             if event.starts_at.strftime('%H').to_i == event.ends_at.strftime('%H').to_i
-                concat(tag("div", :class => 'queue_item', :id => event.id))
-                  yield(event)
-                concat("</div>")
-              end
-            end
-          end
+        if day.strftime('%d') == '01'
+          concat(content_tag("div", day.strftime('%B'), :class => "month"))
+        end
+        concat(content_tag("span", day.strftime('%d'), :class => "day_number"))
+        concat(content_tag("span", day.strftime('%A'), :class => "day_name"))
         concat("</div>")
       end
     concat("</div>")
@@ -45,7 +31,7 @@ class WeeklyCalendar::Builder
       start_hour = 6
       end_hour = 20
     else
-      hours = ["12am","1am","2am","3am","4am","5am","6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm","8pm","9pm","10pm","11pm"]
+      hours = ['12 <span class="smaller">AM</span>','1 <span class="smaller">AM</span>','2 <span class="smaller">AM</span>','3 <span class="smaller">AM</span>','4 <span class="smaller">AM</span>','5 <span class="smaller">AM</span>','6 <span class="smaller">AM</span>','7 <span class="smaller">AM</span>','8 <span class="smaller">AM</span>','9 <span class="smaller">AM</span>','10 <span class="smaller">AM</span>','11 <span class="smaller">AM</span>','12 <span class="smaller">PM</span>','1 <span class="smaller">PM</span>','2 <span class="smaller">PM</span>','3 <span class="smaller">PM</span>','4 <span class="smaller">PM</span>','5 <span class="smaller">PM</span>','6 <span class="smaller">PM</span>','7 <span class="smaller">PM</span>','8 <span class="smaller">PM</span>','9 <span class="smaller">PM</span>','10 <span class="smaller">PM</span>','11 <span class="smaller">PM</span>']
       header_row = "full_header_row"
       day_row = "full_day_row"
       grid = "full_grid"
@@ -54,9 +40,9 @@ class WeeklyCalendar::Builder
     end
     
     concat(tag("div", :class => "hours"))
-      concat(tag("div", :class => header_row))
+      concat(tag("div", :class => "header_row"))
         for hour in hours
-          header_box = "<b>#{hour}</b>".html_safe
+          header_box = "#{hour}".html_safe
           concat(content_tag("div", header_box, :class => "header_box"))
         end
       concat("</div>")
@@ -66,8 +52,8 @@ class WeeklyCalendar::Builder
           concat(tag("div", :class => day_row, :date => day))
           for event in @objects
             if event.starts_at.strftime('%j').to_s == day.strftime('%j').to_s 
-             if event.starts_at.strftime('%H').to_i >= start_hour and event.starts_at.strftime('%H').to_i != event.ends_at.strftime('%H').to_i
-                concat(tag("div", :class => "week_event", :id => event.id, :style =>"left:#{left(event.starts_at,options[:business_hours])}px;width:#{width(event.starts_at,event.ends_at)}px;"))
+             if event.starts_at.strftime('%H').to_i >= start_hour and event.ends_at
+                concat(tag("div", :class => "week_event_wrap", :id => event.id, :style =>"left:#{left(event.starts_at,options[:business_hours])}px;width:#{width(event.starts_at,event.ends_at)}px;"))
                   yield(event)
                 concat("</div>")
               end

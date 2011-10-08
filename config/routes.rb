@@ -29,12 +29,14 @@ Rpm::Application.routes.draw do
   match '/auth/:provider/callback' => 'sessions#create'
   match '/signout' => 'sessions#destroy', :as => :signout
   match 'group/icon/:id' => 'groups#icon'
+  match 'groups/sort_groups' => 'groups#sort_groups'
   match 'task/save_audio/:id' => 'tasks#save_audio'
   match 'task/:task_id/email/:email_id/mini_player' => 'emails#mini_player'
   match 'email/update/:id' => 'emails#update'
   match 'emails/create_from_flash/:id' => 'emails#create_from_flash'
   match 'email/email_form/:id' => 'emails#email_form'
   match 'task/:task_id/email/:email_id/view_email' => 'emails#view_email'
+  match 'task/edit_notes/:id' => 'tasks#edit_notes'
   
   
   # The priority is based upon order of creation:
