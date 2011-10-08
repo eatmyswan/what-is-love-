@@ -1,4 +1,11 @@
-<h3>Change Icon</h3>
+
+
+<div>
+<%= form_for(@group, :html => { :id => "group_icon" }) do |f| %>
+	<%= f.text_field :title %>
+	<%= f.hidden_field :icon, :value => 'icon_check', :id => 'hidden_icon' %>
+</div>
+
 <div id="select_icon">
 	<span class="group_icon icon_check"></span>
 	<span class="group_icon icon_gold_medal"></span>
@@ -24,6 +31,8 @@
 	<span class="group_icon icon_strawberry_cake"></span>
 	<span class="group_icon icon_chocolate_cake"></span>
 </div>
-<%= form_for(@group, :html => { :id => "group_icon" }) do |f| %>
-	<%= f.hidden_field :icon, :value => 'icon_check', :id => 'hidden_icon' %>
+
+<div>
+		<%= f.submit %>
 <% end %>
+</div>

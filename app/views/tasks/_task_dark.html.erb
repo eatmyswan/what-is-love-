@@ -10,14 +10,16 @@
 			</div>
 			<% if task.complete == false %>
 			<div class="tabs">
-				<span class="leverage_tab" rel="/task/leverage/<%=task.id%>">
-					<span class="leverage_img"></span> 
+				<a class="leverage_tab" href="/email/email_form/<%=task.id%>">
+					Leverage 
 					<span class="text"> <%= task.leverage %> </span>
-				</span>
+				</a>
 				<span class="duration_tab" rel="/task/duration/<%=task.id%>">
-					<span class="duration_img"></span> 
 					<span class="text">Min: <%= "#{task.min_duration}" if task.min_duration %> </span> /
 					<span class="text">Max: <%= "#{task.max_duration}" if task.max_duration %> </span>
+				</span>
+				<span class="notes_tab" href="/task/edit_notes/<%=task.id%>">
+					Notes
 				</span>
 			</div>
 			<% end %>

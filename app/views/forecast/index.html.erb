@@ -67,6 +67,7 @@
 			<div class="week_event">
 					<div class="task">
 			    	<%= event.task %>
+						<%= link_to 'x', task_path(event, :task => { :starts_at => nil, :ends_at => nil }), :method => :put, :remote => true, :class => 'delete_event' %>
 					</div>
 			</div>
 			<span class="lock"></span>
@@ -78,6 +79,5 @@
 		<% end %>
 		
 	<% end %>
-</div>
 </div>
 </div>

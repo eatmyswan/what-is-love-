@@ -432,7 +432,7 @@ $(function() {
 			$.ajax({
 				url: "/tasks/" + taskId,
 				type: 'PUT',
-				data: $.param({task : { starts_at: date, ends_at: date }}),
+				data: $.param({task : { starts_at: date, ends_at: '' }}),
 				success: function(d) {
 					window.location = '/forecast/index?business_hours=false&start_date=' + date
 				}
@@ -519,6 +519,10 @@ $(function() {
 		$(this).parent().parent().parent().remove();
 	});
 	
+	$('.delete_event').live('click',function() {
+		$(this).parent().parent().parent().remove();
+	});
+	
 	$('#new_forecast_task').live('submit', function(e) {
 		e.preventDefault();
 		var startsAt = $(this).find('#starts_at').val();
@@ -587,6 +591,20 @@ $(function() {
 		$('#set_range .form').show();
 	});
 	
+	
+    $("#myDialog").dialog({
+        autoOpen: false,
+        show: 'fade',
+        hide: 'fade',
+        modal: false,
+        width: 200,
+        minHeight: 200,
+        buttons: {
+            "Close": function() {
+                $(this).dialog("close");
+            }
+        }
+    });
 
 	//$('.hours').scrollLeft(500);
 

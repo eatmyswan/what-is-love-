@@ -13,7 +13,7 @@
 			<%= link_to group, (options = { :class => "block" }) do %>
 				<span class="group_icon <%= group.icon %>" rel="/group/icon/<%= group.id %>"></span>
 				<span class="title"><%= group.title %></span>
-				<span class="count"><%= group.tasks.where(complete: false).count + group.blocks.where(complete: false).count %></span>
+				<span class="count"><%= group.tasks.where(complete: false, block_id: nil).count + group.blocks.where(complete: false).count %></span>
 			<% end %>
 		</div>
 	<% end %>

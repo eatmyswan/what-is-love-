@@ -424,6 +424,7 @@ span.group_icon {
 }
 #cluetip #select_icon {
 	margin: 10px 0 0 0;
+	overflow: hidden;
 }
 #cluetip #select_icon span {
 	margin: 0 10px 10px 0;
