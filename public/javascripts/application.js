@@ -593,17 +593,18 @@ $(function() {
 	
 
 	$(".edit_tab").click( function() {
-		var left = $(this).offset().left + $(window).scrollLeft();
-		var top = $(this).offset().top + $(window).scrollTop();
+		$("#edit_action").remove();
+		var left = $(this).offset().left;
+		var top = $(this).offset().top;
 		var href = $(this).attr('href');
 		$('body').append('<div id="edit_action"></div>');
 		$("#edit_action").dialog({
-        	modal: true,
+        	modal: false,
         	autoOpen: false,
         	height: 500,
         	width: 500,
 			zIndex: 99999,
-			position: [left, top],
+			position: [500, top],
         	open: function() {
         		$("#edit_action").load(href);
 			},

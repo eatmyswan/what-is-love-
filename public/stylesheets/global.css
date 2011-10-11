@@ -81,11 +81,14 @@ h3 {
 	border-left: 1px solid #222222;
 	padding: 30px 0 0;
 	font:bold 13px/1.0 Helvetica, Arial, sans-serif;
+	width: 234px;
 }
 #groups_wrap {
-	overflow-y: auto;
-	overflow-x: hidden;
-	margin: 0 0 300px 0;
+	bottom: 210px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: fixed;
+    top: 30px;
 }
 #sub_nav h2 {
 	font: normal 15px/1.0 Helvetica, Arial, sans-serif;
