@@ -17,6 +17,7 @@ Rpm::Application.routes.draw do
   end
   
   match 'forecast/index' => 'forecast#index'
+  match 'masterplan' => 'home#masterplan'
   
   match 'tasks/sort_tasks' => 'tasks#sort_tasks'
   match 'task/duration/:id' => 'tasks#duration'
