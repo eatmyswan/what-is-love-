@@ -593,10 +593,10 @@ $(function() {
 	
 
 	$(".edit_tab").click( function() {
-		var left = $(this).offset().left;
-		var top = $(this).offset().top;
+		var left = $(this).offset().left + $(window).scrollLeft();
+		var top = $(this).offset().top + $(window).scrollTop();
 		var href = $(this).attr('href');
-		$('#content').append('<div id="edit_action"></div>');
+		$('body').append('<div id="edit_action"></div>');
 		$("#edit_action").dialog({
         	modal: true,
         	autoOpen: false,
@@ -606,6 +606,9 @@ $(function() {
 			position: [left, top],
         	open: function() {
         		$("#edit_action").load(href);
+			},
+			close: function() {
+				$("#edit_action").remove();
 			}
 		}); 
 		$("#edit_action").dialog("open");
