@@ -591,29 +591,24 @@ $(function() {
 		$('#set_range .form').show();
 	});
 	
-	
-    $("#myDialog").dialog({
-        autoOpen: false,
-        show: 'fade',
-        hide: 'fade',
-        modal: false,
-        width: 200,
-        minHeight: 200,
-        buttons: {
-            "Close": function() {
-                $(this).dialog("close");
-            }
-        }
+
+	$(".edit_tab").click( function() {
+		var left = $(this).offset().left;
+		var top = $(this).offset().top;
+		var href = $(this).attr('href');
+		$('#content').append('<div id="edit_action"></div>');
+		$("#edit_action").dialog({
+        	modal: true,
+        	autoOpen: false,
+        	height: 500,
+        	width: 500,
+			zIndex: 99999,
+			position: [left, top],
+        	open: function() {
+        		$("#edit_action").load(href);
+			}
+		}); 
+		$("#edit_action").dialog("open");
     });
 
-	//$('.hours').scrollLeft(500);
-
 });
-
-function getUrlVars() {
-	var vars = {};
-	var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-		vars[key] = value;
-	});
-	return vars;
-}

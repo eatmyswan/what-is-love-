@@ -192,7 +192,7 @@
 	height: 10px;
 	background: url('/images/sprite.png') no-repeat -8px -120px transparent;
 }
-.notes_tab {
+.edit_tab {
 	float: right;
 	display: inline-block;
 	margin: 0 2px 0 0;
@@ -203,11 +203,16 @@
 	color: #FFF;
 	font: normal 11px/1.0 Helvetica, Arial, sans-serif;
 }
-.notes_tab .notes_img {
-	display:inline-block;
-	width: 9px;
-	height: 10px;
-	background: url('/images/sprite.png') no-repeat -8px -120px transparent;
+.notes_tab {
+	float: right;
+	display: inline-block;
+	margin: 0 2px 0 0;
+	background: rgba(0,0,0,0.5);
+	padding:3px 5px 2px 5px;
+	border-radius: 0 0 3px 3px;
+	position: relative;
+	color: #FFF;
+	font: normal 11px/1.0 Helvetica, Arial, sans-serif;
 }
 .schedule_tab {
 	float: right;
@@ -220,9 +225,6 @@
 	color: #FFF;
 	font: normal 11px/1.0 Helvetica, Arial, sans-serif;
 	vertical-align:top;
-}
-.schedule_tab img {
-	margin: 0 2px 0 0;
 }
 .task_scheduled {
 	background: transparent;
@@ -504,4 +506,9 @@ span.group_icon {
 	font-size: 12px;
 	line-height: 1.2;
 	font-family: 'Lucida Sans Unicode', 'Lucida Grande', Helvetica, Arial, sans-serif;
+}
+#edit_action {
+	background: #FFF;
+	overflow: hidden;
+	border: 3px solid red;
 }
