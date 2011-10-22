@@ -7,41 +7,41 @@ class Task
   field :must, type: Boolean, default: false
   field :complete, type: Boolean, default: false
   field :sort, type: Integer, default: 0
+  field :starts_at, type: DateTime, default: nil
   field :min_duration, type: Integer, default: nil
   field :max_duration, type: Integer, default: nil
-  field :starts_at, type: DateTime, default: nil
-  field :ends_at, type: DateTime, default: nil
+  field :queued, type: Boolean, default: false
+  field :scheduled, type: Boolean, default: false
   field :leverage, type: String, default: nil
-  field :reminder, type: DateTime, default: nil
   field :notes, type: String, default: nil
+  field :color, type: String, default: nil
 
   belongs_to :user
   belongs_to :block
   belongs_to :group
   embeds_many :emails
+  embeds_many :notes
+  
+  has_many :reminders
   
   index :user_id
   index :block_id
   index :group_id
   
+  scope :unplanned, where(queued: false).and(scheduled: false)
+  
   validates_length_of :task, minimum: 1, message: "task cannot be blank."
   
-  before_save :calculate_reminder
   before_save :check_starts_at
   before_save :check_duration
   before_save :check_must
+  before_save :nil_if_blank
   
   private
   def nil_if_blank
     self.leverage.blank? ? self.leverage = nil : return
-    self.duration.blank? ? self.duration = nil : return
-    self.ends_at.blank? ? self.ends_at = nil : return
-  end
-  
-  def calculate_reminder
-    if self.reminder && self.starts_at
-      self.reminder = self.starts_at -  5.minutes
-    end
+    self.min_duration.blank? ? self.min_duration = nil : return
+    self.starts_at.blank? ? self.starts_at = nil : return
   end
   
   def check_starts_at

@@ -1,0 +1,10 @@
+<% task = @task ? @task : task %>
+<% 	minutes = task.starts_at.strftime('%M').to_f * 1.25
+		hour = task.starts_at.strftime('%H').to_i
+		top = (hour * 75) + minutes
+		height = task.min_duration ? ((task.min_duration.to_f/60)*75) : 75
+%>
+<div class="max_bg"  mindur="<%= task.min_duration ? task.min_duration : '60' %>" maxdur="<%= task.max_duration ? task.max_duration : '60' %>"  must="<%= task.must %>" id="<%= task.id.to_s %>" style="height: <%= height %>px; top: <%= top %>px; border: 1px solid <%= task.color ? task.color : 'blue' %>;" start_time="<%= task.starts_at.strftime('%H:%M') %>">
+	<div class="min_bg" style="background-color: <%= task.color ? task.color : 'blue' %>; opacity: 0.7;"></div>
+	<div class="text"><%= task.task %></div>
+</div>

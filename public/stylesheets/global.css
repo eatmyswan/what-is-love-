@@ -8,7 +8,6 @@ body {
 	color:#333333;
 	background: url('/images/chambray.jpg') repeat 0 0 #333;
 	height: 100%;
-	overflow: hidden;
 	width: 100%;
 }
 h1#plan_title {
@@ -153,13 +152,6 @@ div.sub_group_wrap > :last-child {
 	display: inline-block;
 }
 #content {
-    padding: 25px;
-	height: 100%;
-	position: fixed;
-	top: 0;
-	left: 240px;
-	right: 0;
-	overflow: auto;
 }
 #content .test {
 	position: absolute;

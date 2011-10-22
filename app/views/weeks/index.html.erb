@@ -1,6 +1,3 @@
-	<div id="sub_nav">
-		<%= render '/groups/sub_nav' %>
-	</div>
 
 
 <input type="hidden" id="hidden_auth" value="<%= form_authenticity_token %>">
@@ -48,39 +45,10 @@
 					<%= @start_date.strftime('%B %d') %> - <%= @end_date.strftime('%B %d') %> 
 				<% end %>
 			</h1>
-			<div id="set_range" >
-				<div class="text">
-  				<span class="edit"></span>
-					<h2 class="cal_subtitle"><%= @range %> Day Forecast</h2>
-				</div>
-				<div class="form no_disp">
-					<form action="/forecast/index">
-						<input type="text" name="range">
-						<h2 class="cal_subtitle"> Day Forecast</h2>
-						<input type="hidden" name="start_date" value="<%= @start_date %>">
-					</form>
-				</div>
-			</div>
+			
 		</div>
 
-	<%= weekly_calendar(@events, :date => @date, :range => @range, :include_24_hours => true) do |w| %>
-
-		<%= w.week(:business_hours => 'false', :clickable_hours => true) do |event| %>
-
-			<div class="week_event">
-					<div class="task">
-			    	<%= event.task %>
-						<%= link_to 'x', task_path(event, :task => { :starts_at => nil, :ends_at => nil }), :method => :put, :remote => true, :class => 'delete_event' %>
-					</div>
-			</div>
-			<span class="lock"></span>
-			<div class="start_time">    
-				<%= event.starts_at.strftime('%l:%M%p') %> - <%= event.ends_at.strftime('%l:%M%p') %>
-			</div>
-
-
-		<% end %>
-		
-	<% end %>
+	<%= render 'calendar' %>
+	
 </div>
 </div>

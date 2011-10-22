@@ -89,36 +89,6 @@ h2.cal_subtitle {
 	margin: 3px 0 0 0;
 	color: #4f5253;
 }
-#queue_title {
-	height: 10px;
-}
-#queue {
-	right: 0;
-    position: absolute;
-    top: 0;
-    width: 200px;
-	height: 100%;
-	background: #f1f4f6;
-	border-left: 1px solid #b6b6b6;
-	z-index: 999;
-	border-radius: 0 0 5px 0;
-}
-.queue_day { 
-    position: relative;
-}
-.queue_day .queue_day_title {
-	background:#898b8d;
-	color: #FFF;
-	font-size: 11px;
-	line-height: 20px;
-	padding: 0 0 0 5px;
-	margin: 0 0 1px 0;
-}
-.queue_day .queue_droppable {
-}
-.queue_hover {
-	min-height: 75px;
-}
 #set_range {
 	float: right;
 }

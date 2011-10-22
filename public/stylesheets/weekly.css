@@ -129,11 +129,12 @@ input#new_task_input {
 	margin: 5px 0 0 5px;
 	width: 95%;
 }
-.full_header_row {
+.full_header_row {	
 	width:1800px;
 	background:#898b8d;
 	z-index: 1;
 	overflow:hidden;
+	height: 20px;
 }
 .full_grid {
 	background-color:#FFF;

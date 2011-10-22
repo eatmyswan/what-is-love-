@@ -2,8 +2,8 @@
 <html>
 <head>
   <title> RPM </title>
-  <%= stylesheet_link_tag '0_reset.css', 'cluetip.css', 'resizable.css', 'datepicker.css', 'global.css', 'plan.css', 'icons.css', 'account.css', 'mini_player.css', 'fancybox.css', 'email.css', 'weekly.css', 'calendar.css' %>
-  <%= javascript_include_tag :defaults, 'jquery-ui-1.8.16.min.js', 'jquery.jeditable.min', 'jquery.cluetip', '/jscam/jquery.webcam.js', 'swfobject.js', 'jquery.fancybox-1.3.4.js' %>
+  <%= stylesheet_link_tag '0_reset.css', 'cluetip.css', 'resizable.css', 'datepicker.css', 'global.css', 'plan.css', 'icons.css', 'account.css', 'mini_player.css', 'fancybox.css', 'email.css', 'weekly.css', 'calendar.css', 'week.css' %>
+  <%= javascript_include_tag :defaults, 'jquery-ui-1.8.16.min.js', 'outside.js', 'jquery.jeditable.min', 'jquery.cluetip', '/jscam/jquery.webcam.js', 'swfobject.js', 'jquery.fancybox-1.3.4.js', 'modal.js', 'week.js' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
@@ -20,9 +20,7 @@
 		<% end %>
 	</div>
 	
-	<div id="sub_nav">
-		<%= yield :sub_nav %>
-	</div>
+
 	
 	<div id="content">
 		<span class="notice"><%= notice %></span>

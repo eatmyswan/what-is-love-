@@ -1,4 +1,4 @@
-#task_task_wrap {
+#new_task #task_task_wrap {
     background: url('/images/new_task_bg.png') repeat-x 0 0 transparent;
 	height: 32px;
     width: 100%;
@@ -7,7 +7,7 @@
 	border-right: 1px solid rgba(0,0,0,0.3);
 	margin: 0 0 20px 0;
 }
-#task_task {
+#new_task #task_task {
 	background: transparent;
 	border: 0 none;
 	width: 95%;
@@ -508,7 +508,316 @@ span.group_icon {
 	font-family: 'Lucida Sans Unicode', 'Lucida Grande', Helvetica, Arial, sans-serif;
 }
 #edit_action {
+	background: rgba(242,243,247,0.96);
+	border-radius: 10px;
+	padding: 10px 10px 44px 10px;
+	position: relative;
+	width: 220px;
+	height: auto;
+	border: 1px solid #DDD;
+}
+#edit_action .task_input_wrap {
+	width: 188px;
+	height: 30px;
+	border-radius: 3px;
+	background:#FFF;
+	box-shadow: 0 1px 4px rgba(0,0,0,0.75);
+	margin: 0 0 12px 0;
+	position: relative;
+}
+#edit_action .task_input_wrap #color_picker {
+	position: absolute;
+	top: 10px;
+	left: 6px;
+	width: 11px;
+	height: 11px;
+	border-radius: 11px;
+}
+#edit_action .task_input_wrap .popup .select_color {
+	display: block;
+	white-space: nowrap;
+	padding: 3px 15px 3px 20px;
+	line-height: 1.0;
+	font-size: 11px;
+	position: relative;
+}
+#edit_action .task_input_wrap .popup .select_color .circle {
+	position: absolute;
+	top: 4px;
+	left: 5px;
+	width: 9px;
+	height: 9px;
+	border-radius: 7px;
+}
+#edit_action .task_input_wrap .popup .select_color:hover, #edit_action .task_input_wrap .popup .active {
+	color: #FFF;
+	background: #2565f3;
+	background: -webkit-gradient(linear, left top, left bottom, from(#5a84f4), to(#2565f3));
+}
+#edit_action .task_input_wrap input#task_task {
+	font-family: Helvetica, arial, sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	color: #333;
+	height: 25px;
+	position: absolute;
+	top: 3px;
+	left: 18px;
+	right: 0px;
+	border: 0 none;
+	background: transparent;
+}
+#edit_action .section_wrap {
+	margin: 0 0 12px 0;
+}
+#edit_action .section_wrap .line_wrap {
+	display: block;
+	margin: 0 0 2px 0;
+}
+#edit_action span.modal_label {
+	color: #676767;
+	font-weight: bold;
+	font-size: 11px;
+	line-height: 16px;
+	text-align: right;
+	width: 55px;
+	display: inline-block;
+	white-space: nowrap;
+	margin: 0 8px 0 0;
+	vertical-align: top;
+}
+#edit_action span.category_select_wrap {
+	display: inline-block;
+	font-size: 11px;
+	color: #474747;
+	line-height: 16px;
+	height: 16px;
+	cursor: pointer;
+	position: relative;
+}
+
+#edit_action .popup {
+	position: absolute;
+	top: -2px;
+	left: -2px;
+	width: auto;
+	height: auto;
 	background: #FFF;
+	border-radius: 3px;
+	box-shadow: 0 1px 6px rgba(0,0,0,0.75);
+	z-index: 9999;
+	padding: 5px 0;
+}
+#edit_action span.category_select_wrap .popup .category_title {
+	display: block;
+	white-space: nowrap;
+	padding: 0 7px 2px;
+	color: #AAA;
+	line-height: 1.0;
+	font-size: 11px;
+}
+#edit_action span.category_select_wrap .popup .seperator {
+	display: block;
+	border-bottom: 1px solid #DDD;
+	padding: 0 0 5px 0;
+	margin: 0 0 5px 0
+}
+#edit_action span.category_select_wrap .popup .category_list {
+	display: block;
+	white-space: nowrap;
+	padding: 3px 15px;
+	line-height: 1.0;
+	font-size: 11px;
+}
+#edit_action span.category_select_wrap .popup .category_list:hover, #edit_action span.category_select_wrap .popup .active {
+	color: #FFF;
+	background: #2565f3;
+	background: -webkit-gradient(linear, left top, left bottom, from(#5a84f4), to(#2565f3));
+}
+#edit_action #add_contact {
+	color: #0060ff;
+	font-size: 11px;
+	line-height: 16px;
+	cursor: pointer;
+}
+#edit_action #add_contact:hover {
+	text-decoration: underline;
+}
+#edit_action .set_date_wrap {
+	display: inline-block;
+	font-size: 11px;
+	color: #474747;
+	line-height: 16px;
+	height: 16px;
+	cursor: pointer;
+	position: relative;
+}
+#edit_action .set_duration_wrap {
+	display: inline-block;
+	font-size: 11px;
+	color: #474747;
+	line-height: 16px;
+	height: 16px;
+	cursor: pointer;
+	position: relative;
+}
+#edit_action .set_reminder_wrap {
+	display: inline-block;
+	font-size: 11px;
+	color: #474747;
+	line-height: 16px;
+	cursor: pointer;
+	position: relative;
+}
+#edit_action .set_reminder_wrap .add_reminder {
+	color: #0060ff;
+}
+#edit_action .set_reminder_wrap .add_reminder:hover {
+	text-decoration: underline;
+}
+#edit_action .set_reminder_wrap .delete_reminder {
+	display: none;
+	color: #0060ff;
+}
+#edit_action .set_reminder_wrap:hover .delete_reminder {
+	display: inline;
+}
+#edit_action .note_wrap .delete_note {
+	display: none;
+	color: #0060ff;
+}
+#edit_action .note_wrap:hover .delete_note {
+	display: inline;
+}
+#edit_action #min_duration {
+}
+#edit_action #max_duration {
+}
+#edit_action #min_duration .set_min_duration {
+	display: block;
+	white-space: nowrap;
+	padding: 3px 15px;
+	line-height: 1.0;
+	font-size: 11px;
+}
+#edit_action #min_duration .set_min_duration:hover {
+	color: #FFF;
+	background: #2565f3;
+	background: -webkit-gradient(linear, left top, left bottom, from(#5a84f4), to(#2565f3));
+}
+#edit_action #max_duration .set_max_duration {
+	display: block;
+	white-space: nowrap;
+	padding: 3px 15px;
+	line-height: 1.0;
+	font-size: 11px;
+}
+#edit_action #max_duration .set_max_duration:hover {
+	color: #FFF;
+	background: #2565f3;
+	background: -webkit-gradient(linear, left top, left bottom, from(#5a84f4), to(#2565f3));
+}
+#edit_action #reminder_popup .set_reminder {
+	display: block;
+	white-space: nowrap;
+	padding: 3px 15px;
+	line-height: 1.0;
+	font-size: 11px;
+}
+#edit_action #reminder_popup .set_reminder:hover {
+	color: #FFF;
+	background: #2565f3;
+	background: -webkit-gradient(linear, left top, left bottom, from(#5a84f4), to(#2565f3));
+}
+#edit_action #notes_wrap {
+	width: 196px;
+	height: 64px;
+	background: #FFF;
+	border: 1px solid #b3b4b7;
+	border-radius: 3px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+#edit_action #notes_wrap .note_wrap {
+	border-bottom: 1px solid #f3f3f7;
+	position: relative;
+}
+#edit_action #notes_wrap .note_wrap .index {
+	width: 20px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
 	overflow: hidden;
-	border: 3px solid red;
+	color: #AAA;
+	background: #f3f3f7;
+	font-weight: bold;
+	text-align: center;
+	padding: 5px 0 0 0;
+	font-size: 11px;
+}
+#edit_action #notes_wrap .note_wrap .note {
+	margin: 0 0 0 25px;
+	color: #474747;
+	font-size: 12px;
+	padding: 4px 0;
+}
+#edit_action #notes_wrap input {
+	border: 0 none;
+	margin: 3px;
+	width: 180px;
+	padding: 5px;
+	font-size: 12px;
+	font-family: Helvetica, arial, sans-serif;
+	font-weight: bold;
+	color: #474747;
+}
+#edit_action #done_modal {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	border: 1px solid #549ed6;
+	background: #5fb6ef;
+	background: -webkit-gradient(linear, left top, left bottom, from(#98dafd), to(#5fb6ef));
+	box-shadow: 0 0 1px rgba(255,255,255,1.0) inset;
+	font-size: 12px;
+	font-family: Helvetica, arial, sans-serif;
+	font-weight: bold;
+	color: #0d4078;
+	height: 22px;
+	line-height: 22px;
+	width: 92px;
+	text-align: center;
+	border-radius: 12px;
+	text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+	cursor: pointer;
+}
+#edit_action #cancel_modal {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	border: 1px solid #b3b4b7;
+	background: #e2e3e7;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f3f4f7), to(#e2e3e7));
+	box-shadow: 0 0 1px rgba(255,255,255,1.0) inset;
+	font-size: 12px;
+	font-family: Helvetica, arial, sans-serif;
+	font-weight: bold;
+	color: #474747;
+	height: 22px;
+	line-height: 22px;
+	width: 92px;
+	text-align: center;
+	border-radius: 12px;
+	text-shadow: 0 1px 0 rgba(255,255,255,1.0);
+	cursor: pointer;
+}
+#edit_action #nub_modal {
+	display: block;
+	background: url(/images/sprite.png) no-repeat -2px -427px transparent;
+	width: 14px;
+	height: 26px;
+	position: absolute;
+	top: 53px;
+	right: -14px;
 }

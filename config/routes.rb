@@ -6,6 +6,8 @@ Rpm::Application.routes.draw do
   
   resources :tasks do 
     resources :emails
+    resources :notes, :only => :destroy
+    resources :reminders, :only => :destroy
   end
   
   resources :audios
@@ -17,9 +19,12 @@ Rpm::Application.routes.draw do
   end
   
   match 'forecast/index' => 'forecast#index'
+  match 'week' => 'weeks#index'
+  match 'week/new' => 'weeks#new'
   match 'masterplan' => 'home#masterplan'
   
   match 'tasks/sort_tasks' => 'tasks#sort_tasks'
+  match 'task/new_from_cal/:group_id' => 'tasks#new_from_cal'
   match 'task/duration/:id' => 'tasks#duration'
   match 'task/update/:id' => 'tasks#update'
   match 'block/create/:id' => 'blocks#create', :as => :block_create
