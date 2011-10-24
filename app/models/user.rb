@@ -13,7 +13,6 @@ class User
   field :ult_outcome, type: String
   field :ult_purpose, type: String
   
-  has_many :goals
   has_many :groups
   
   after_create :create_personal

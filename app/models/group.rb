@@ -8,7 +8,7 @@ class Group
 
   belongs_to :user
   has_many :tasks
-  has_many :blocks
+  embeds_many :goals
 
   index :user_id
   

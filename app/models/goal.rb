@@ -4,7 +4,7 @@ class Goal
   field :text, type: String
   field :range, type: Integer, default: 30
 
-  belongs_to :user
+  embedded_in :group
 
   index :user_id
   

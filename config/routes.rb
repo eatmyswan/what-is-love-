@@ -17,12 +17,11 @@ Rpm::Application.routes.draw do
   
   resources :audios
   resources :blocks
-  resources :users do
-    resources :goals
-  end
+  resources :users
   
   resources :groups do
     resources :subgroups
+    resources :goals
   end
   
   match 'forecast/index' => 'forecast#index'
@@ -44,6 +43,7 @@ Rpm::Application.routes.draw do
   match '/signout' => 'sessions#destroy', :as => :signout
   match 'group/icon/:id' => 'groups#icon'
   match 'groups/sort_groups' => 'groups#sort_groups'
+  match 'groups/long_term/:id' => 'groups#long_term', :as => :group_long_term
   match 'task/save_audio/:id' => 'tasks#save_audio'
   match 'task/:task_id/email/:email_id/mini_player' => 'emails#mini_player'
   match 'email/update/:id' => 'emails#update'

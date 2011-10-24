@@ -73,5 +73,9 @@ class GroupsController < ApplicationController
   def icon
     @group = Group.find(params[:id])
   end 
+  
+  def long_term
+    @group = Group.find(params[:id])
+  end
 
 end

@@ -1,0 +1,39 @@
+<div style="color:#FFF;">
+	<h1><%= @group.title %> </h1>
+	<%= @group.icon %>
+	<%= link_to 'Short Term planning', group_path(@group) %>
+	<br><br>
+
+	<h2>30 day Goals</h2>
+	<% @group.goals.where(range: '30').each_with_index do |goal, index| %>
+	<div>
+		<%= index + 1 %> <%= goal.range %> <%= goal.text %>
+	</div>
+	<% end %>
+	<%= form_for([@group, Goal.new]) do |f| %>
+			<%= f.text_field :text %>
+			<%= f.hidden_field :range, :value => '30' %>
+	<% end %>
+	<br><br>
+	<h2>90 day Goals</h2>
+	<% @group.goals.where(range: '90').each_with_index do |goal, index| %>
+	<div>
+		<%= index + 1 %> <%= goal.range %> <%= goal.text %>
+	</div>
+	<% end %>
+	<%= form_for([@group, Goal.new]) do |f| %>
+			<%= f.text_field :text %>
+			<%= f.hidden_field :range, :value => '90' %>
+	<% end %>
+	<br><br>
+	<h2>Yearly Goals</h2>
+	<% @group.goals.where(range: '365').each_with_index do |goal, index| %>
+	<div>
+		<%= index + 1 %> <%= goal.range %> <%= goal.text %>
+	</div>
+	<% end %>
+	<%= form_for([@group, Goal.new]) do |f| %>
+			<%= f.text_field :text %>
+			<%= f.hidden_field :range, :value => '365' %>
+	<% end %>
+</div>

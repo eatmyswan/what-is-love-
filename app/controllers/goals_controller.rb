@@ -1,14 +1,12 @@
 class GoalsController < ApplicationController
   
-
   def create
-    @user = User.find(params[:user_id])
+    @group = Group.find(params[:group_id])
     goal = Goal.new(params[:goal])
-    @user.goals << goal
-    @user.save
+    @group.goals << goal
+    @group.save
 
-    redirect_to('/users')
+    redirect_to(group_long_term_path(@group))
   end
-
 
 end
