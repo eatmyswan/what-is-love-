@@ -4,5 +4,6 @@ class Reminder
   field :delivers_at, type: DateTime
 
   belongs_to :task
+  belongs_to :subtask
   
 end

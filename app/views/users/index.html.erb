@@ -1,0 +1,67 @@
+<h2>Ultimate Outcome</h2>
+<%= @user.ult_outcome %>
+	<%= form_for(@user) do |f| %>
+		<%= f.text_field :ult_outcome %>
+	<% end %>
+<h2>Ultimate Purpose</h2>
+<%= @user.ult_purpose %>
+	<%= form_for(@user) do |f| %>
+		<%= f.text_field :ult_purpose %>
+	<% end %>
+
+<br><br>
+<h2>Personal Group</h2>
+<% @personal_groups.each do |group| %>
+<div>
+	<%= link_to group.title, group_path(group) %>
+</div>
+<% end %>
+		<%= form_for(Group.new, :html => { :class => "asd" }) do |f| %>
+			<%= f.text_field :title, :id => 'asdf', :autocomplete => :off, :value => "New group...", :onfocus => '(this.value == "New group...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New group..." : this.value' %>
+			<%= f.hidden_field :master_title, :value => 'Personal' %>
+		<% end %>
+<br><br>
+<h2>Professional Group</h2>
+<% @professional_groups.each do |group| %>
+<div>
+	<%= link_to group.title, group_path(group) %>
+</div>
+<% end %>
+		<%= form_for(Group.new, :html => { :class => "asdf" }) do |f| %>
+			<%= f.text_field :title, :id => 'asdf', :autocomplete => :off, :value => "New group...", :onfocus => '(this.value == "New group...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New group..." : this.value' %>
+			<%= f.hidden_field :master_title, :value => 'Professional' %>
+		<% end %>
+
+<br><br>
+<h2>30 day Goals</h2>
+<% @user.goals.where(range: '30').each_with_index do |goal, index| %>
+<div>
+	<%= index + 1 %> <%= goal.range %> <%= goal.text %>
+</div>
+<% end %>
+<%= form_for([@user, Goal.new]) do |f| %>
+		<%= f.text_field :text %>
+		<%= f.hidden_field :range, :value => '30' %>
+<% end %>
+<br><br>
+<h2>90 day Goals</h2>
+<% @user.goals.where(range: '90').each_with_index do |goal, index| %>
+<div>
+	<%= index + 1 %> <%= goal.range %> <%= goal.text %>
+</div>
+<% end %>
+<%= form_for([@user, Goal.new]) do |f| %>
+		<%= f.text_field :text %>
+		<%= f.hidden_field :range, :value => '90' %>
+<% end %>
+<br><br>
+<h2>Yearly Goals</h2>
+<% @user.goals.where(range: '365').each_with_index do |goal, index| %>
+<div>
+	<%= index + 1 %> <%= goal.range %> <%= goal.text %>
+</div>
+<% end %>
+<%= form_for([@user, Goal.new]) do |f| %>
+		<%= f.text_field :text %>
+		<%= f.hidden_field :range, :value => '365' %>
+<% end %>

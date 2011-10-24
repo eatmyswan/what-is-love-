@@ -1,6 +1,6 @@
-class TasksController < ApplicationController
+class SubtasksController < ApplicationController
   
-  #before_filter :find_or_build_task, :except => [ :index, :create_bm ]
+  before_filter :find_task
   
   def index
     @tasks = Task.where(block_id: nil).and(group_id: nil).order_by([:sort, :asc])
@@ -43,8 +43,8 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(params[:task])
-    @task.user_id = current_user.id
+    subtask = Subtask.new(params[:subtask])
+    @task.subtasks << subtask
     respond_to do |format|
       if @task.save
         if params[:forecast]
@@ -58,22 +58,23 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task = Task.find(params[:id])
+    @subtask = Subtask.find(params[:id])
+    
     respond_to do |format|
-      if @task.update_attributes(params[:task])
-        if params[:task][:leverage]
-          email = params[:task][:leverage]
+      if @subtask.update_attributes(params[:subtask])
+        if params[:subtask][:leverage]
+          email = params[:subtask][:leverage]
           UserMailer.leverage_task(email).deliver
         end
         if params[:reminders]
           params[:reminders].each do |r|
-            reminder_dt = @task.starts_at - r.to_i.minutes
-            @task.reminders.create!( delivers_at: reminder_dt )
+            reminder_dt = @subtask.starts_at - r.to_i.minutes
+            @subtask.reminders.create!( delivers_at: reminder_dt )
           end
         end
         if params[:notes]
           params[:notes].each do |note|
-            @task.notes.create!( note: note )
+            @subtask.notes.create!( note: note )
           end
         end
         format.js
@@ -82,9 +83,9 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    task = Task.find(params[:id])
+    task = Task.find(params[:task_id])
     group = task.group
-    task.destroy
+    task.subtasks.find(params[:id]).destroy
 
     respond_to do |format|
       format.html { redirect_to(group_path(group)) }
@@ -122,6 +123,9 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     render 'tasks/edit_notes'
   end
-
+  
+  def find_task
+    @task = Task.find(params[:task_id])
+  end
 
 end

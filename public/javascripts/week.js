@@ -1,4 +1,30 @@
 $(function() {
+	
+	$('#add_task').live('click', function() {
+		$('#edit_action').remove();
+		var height = 0;
+		var width = 220;
+		var y = $(this).offset().top + 20;
+		var x = $(this).offset().left - width/2;
+		id = $(this).attr('id');
+		var href = '/tasks/new';
+		$('<div id="edit_action"></div>').dialog({
+        	modal: false,
+        	autoOpen: true,
+        	width: width,
+			height: height,
+			zIndex: 99999,
+			position: [x, y],
+        	open: function() {
+        		$("#edit_action").load(href, function() {
+					attach_datepicker();
+				});
+			},
+			close: function() {
+				$("#edit_action").remove();
+			}
+		}); 
+	});
 		
 	$('.max_bg').live("mouseover", function() {
 		$(this).draggable({
@@ -71,7 +97,7 @@ $(function() {
 	});
 	
 	$('.new_full_hour_row').droppable({
-		tolerance: 'pointer',
+		tolerance: 'intersect',
         drop:function(event,ui){
 			var height = $(ui.draggable).attr('mindur') ? ($(ui.draggable).attr('mindur')*1.25) : 75;
 			var top = ui.position.top - 220 + parseInt($('.new_week').scrollTop());
@@ -92,7 +118,7 @@ $(function() {
 	});
 	
 	$('.items').droppable({
-		tolerance: 'pointer',
+		tolerance: 'touch',
         drop:function(event,ui){
 			$(ui.draggable).attr('style','');
 			$(ui.draggable).appendTo(this).show();

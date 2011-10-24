@@ -1,24 +1,24 @@
-<div id="task_<%= task.id %>" class="task_wrap <%= 'complete' if task.complete == true %>">
+<div id="subtask_<%= subtask.id %>" class="task_wrap <%= 'complete' if subtask.complete == true %>">
 			<div class="task_count_dark"> <%= index + 1 %> </div>
 			<div class="task_drag">
-				<%= link_to '', task_path(task, :task => { :must => false }), :method => :put, :class => 'must_on' if task.must == true %>
-				<%= link_to '', task_path(task, :task => { :must => true }), :method => :put, :class => 'must_off' if task.must == false %>
-				<%= link_to '', task_path(task, :task => { :complete => false, :sort => 0 }), :method => :put, :class => 'complete_on' if task.complete == true %>
-				<%= link_to '', task_path(task, :task => { :complete => true, :sort => 99 }), :method => :put, :remote => true, :class => 'complete_off' if task.complete == false %>
-				<%= editable_field task, :task, { :event => "dblclick", :onblur => "cancel", :width => "none", :height => "none" } %>
-				<%= link_to '', task_path(task), :method => :delete, :class => 'delete' %>
+				<%= link_to '', task_subtask_path(task, subtask), :method => :put, :class => 'must_on' if subtask.must == true %>
+				<%= link_to '', task_subtask_path(task, subtask), :method => :put, :class => 'must_off' if subtask.must == false %>
+				<%= link_to '', task_subtask_path(task, subtask), :method => :put, :class => 'complete_on' if subtask.complete == true %>
+				<%= link_to '', task_subtask_path(task, subtask), :method => :put, :remote => true, :class => 'complete_off' if subtask.complete == false %>
+				<%= subtask.text %>
+				<%= link_to '', task_subtask_path(task, subtask), :method => :delete, :class => 'delete' %>
 			</div>
-			<% if task.complete == false %>
+			<% if subtask.complete == false %>
 			<div class="tabs">
-				<a class="leverage_tab" href="/email/email_form/<%=task.id%>">
+				<a class="leverage_tab" href="/email/email_form/<%=subtask.id%>">
 					Leverage 
-					<span class="text"> <%= task.leverage %> </span>
+					<span class="text"> <%= subtask.leverage %> </span>
 				</a>
-				<span class="duration_tab" rel="/task/duration/<%=task.id%>">
-					<span class="text">Min: <%= "#{task.min_duration}" if task.min_duration %> </span> /
-					<span class="text">Max: <%= "#{task.max_duration}" if task.max_duration %> </span>
+				<span class="duration_tab" rel="/subtask/duration/<%=subtask.id%>">
+					<span class="text">Min: <%= "#{subtask.min_duration}" if subtask.min_duration %> </span> /
+					<span class="text">Max: <%= "#{subtask.max_duration}" if subtask.max_duration %> </span>
 				</span>
-				<span class="notes_tab" href="/task/edit_notes/<%=task.id%>">
+				<span class="notes_tab" href="/subtask/edit_notes/<%=subtask.id%>">
 					Notes
 				</span>
 			</div>

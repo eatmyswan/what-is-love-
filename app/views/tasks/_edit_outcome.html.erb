@@ -1,0 +1,113 @@
+<%= form_for @task, :remote => true do |f| %>
+	<div class="task_input_wrap">
+		<span id="color_picker" style="background: <%= @task.color ? @task.color : '#1679c3' %>"></span>
+		<%= f.text_field :task %>
+		<div class="popup" style="display: none; top: 0; left: 0;">
+			<span class="select_color" color="#1679c3"><span class="circle" style="background:#1679c3"></span>Action</span>
+			<span class="select_color" color="#58b11b"><span class="circle" style="background:#58b11b"></span>Outcome</span>
+			<span class="select_color" color="#f7651a"><span class="circle" style="background:#f7651a"></span>Must</span>
+			<span class="select_color" color="#c42438"><span class="circle" style="background:#c42438"></span>Meeting / Appt</span>
+			<span class="select_color" color="#833288"><span class="circle" style="background:#833288"></span>Other</span>
+		</div>
+	</div>
+	<%= f.hidden_field :group_id %>
+	<%= f.hidden_field :starts_at %>
+	<%= f.hidden_field :due_by %>
+	<%= f.hidden_field :color %>
+	<div class="section_wrap">
+		<span class="modal_label">Category</span>
+		<span class="category_select_wrap">
+			
+			<span class="category_select">
+				<span class="category_name"><%= @task.group.title %></span>
+			</span>
+			
+			<div class="popup" style="display: none;">
+				<span class="category_list" id="">Capture</span>
+				<span class="seperator"></span>
+				<span class="category_title">Personal</span>
+				<% @personal_groups.each do |category| %>
+					<span class="category_list <%= @task.group.id.to_s == category.id.to_s ? 'active' : '' %>" id="<%= category.id.to_s %>"><%= category.title %></span>
+				<% end %>
+				<span class="seperator"></span>
+				<span class="category_title">Professional</span>
+				<% @professional_groups.each do |category| %>
+					<span class="category_list <%= @task.group.id.to_s == category.id.to_s ? 'active' : '' %>" id="<%= category.id.to_s %>"><%= category.title %></span>
+				<% end %>
+			</div>
+		</span>
+	</div>
+	<div class="section_wrap">
+		<span class="modal_label">Complete</span>
+		<%= f.check_box :complete %>
+		<span class="modal_label">Must</span>
+		<%= f.check_box :must %>
+		<span class="modal_label">Outcome</span>
+		<%= f.check_box :outcome %>
+	</div>
+	<div class="section_wrap">
+			<span class="modal_label">Leverage</span>
+			<span id="add_contact" href="/email/email_form/<%= @task.id.to_s %>">Add contact</span>
+	</div>
+	<div class="section_wrap">
+		<div class="line_wrap">
+			<span class="modal_label">Starts at</span>
+			<span class="set_date_wrap">
+				<span id="set_start_date">
+					<%= @task.starts_at ?  @task.starts_at.strftime('%m/%d/%Y') : 'Set date' %>
+				</span>
+				<div id="start_calendar" class="popup" style="display: none;">
+					<div id="no_start_date">No Date</div>
+					<div id="select_start_date">Done</div>
+				</div>
+			</span>
+		</div>
+		<div class="line_wrap">
+			<span class="modal_label">Due by</span>
+			<span class="set_date_wrap">
+				<span id="set_due_date">
+					<%= @task.due_by ?  @task.due_by.strftime('%m/%d/%Y') : 'Set date' %>
+				</span>
+				<div id="due_calendar" class="popup" style="display: none;">
+					<div id="no_due_date">No Date</div>
+					<div id="select_due_date">Done</div>
+				</div>
+			</span>
+		</div>
+		<div id="reminders_wrap" class="line_wrap" style="display: <%= @task.starts_at ? 'block' : 'none' %>">
+			<span class="modal_label">Reminder</span>
+			<span class="set_reminder_wrap">
+				<% @task.reminders.each do |reminder| %>
+					<div>
+						<%= Time.diff(reminder.delivers_at, @task.starts_at, '%N')[:diff] %> before <%= link_to 'x', task_reminder_path(@task, reminder.id), :method => 'delete', :remote => true, :class => 'delete_reminder' %>
+					</div>
+				<% end %>
+				<span class="add_reminder">
+					Add reminder
+				</span>
+				<div id="reminder_popup" class="popup" style="display: none;">
+					<span class="set_reminder" dur="5">5 minutes before</span> 
+					<span class="set_reminder" dur="30">30 minutes before</span> 
+					<span class="set_reminder" dur="60">60 minutes before</span> 
+				</div>
+			</span>
+		</div>
+	</div>
+	
+	<div id="notes_wrap">
+		<div id="notes">
+			<% @task.notes.each_with_index do |note,index| %>
+				<div class="note_wrap">
+					<div class="index"><%= index+1 %></div>
+					<div class="note"><%= note.note %> <%= link_to 'x', task_note_path(@task, note.id), :method => 'delete', :remote => true, :class => 'delete_note' %></div>
+				</div>
+			<% end %>
+		</div>
+		<input type="text" id="new_note">
+	</div>
+	
+	<span id="done_modal" task="<%= @task.id.to_s %>">Done</span>
+	<span id="cancel_modal">Cancel</span>
+<% end %>
+<span id="nub_modal">
+</span>

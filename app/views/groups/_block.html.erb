@@ -1,8 +1,9 @@
-<div id="block_<%= block.id %>" class="block_wrap">
+<div id="block_<%= task.id %>" class="block_wrap">
+	<div class="task_count"> <%= index + 1 %> </div>
 			<div class="block_drag">
 				<div class="block_title">
-					<%= link_to '', block_path(block, :block => { :collapsed => true }), :method => :put, :class => 'target' %>
-					<%= link_to '', block_path(block), :method => :delete, :class => 'delete', :confirm => 'Are you sure?' %>
+					<%= link_to '', task_path(task, :task => { :collapsed => true }), :method => :put, :class => 'target' %>
+					<%= link_to '', task_path(task), :method => :delete, :class => 'delete', :confirm => 'Are you sure?' %>
 					<h2 class="block_title_tasks">Massive Action Plan</h2>
 					<h2 class="block_title_outcome">Result / Outcome</h2>
 					<h2 class="block_title_purpose">Purpose</h2>
@@ -13,23 +14,20 @@
 						<% total_min = 0 %>
 						<% total_max = 0 %>
 						<% must_time = 0 %>
-						<% block.tasks.order_by([:sort, :asc]).each_with_index do |task, index| %>
-						<% total_min = total_min.to_i + task.min_duration.to_i if task.min_duration.to_i && task.complete == false %>
-						<% total_max = total_max.to_i + task.max_duration.to_i if task.max_duration.to_i && task.complete == false %>
-						<% must_time = must_time.to_i + task.min_duration.to_i if task.min_duration.to_i && task.must == true && task.complete == false %>
-							<%= render :partial => '/tasks/task_dark', :locals => {:task => task, :index => index} %>
+						<% task.subtasks.order_by([:sort, :asc]).each_with_index do |subtask, index| %>
+						<% total_min = total_min.to_i + subtask.min_duration.to_i if subtask.min_duration.to_i && subtask.complete == false %>
+						<% total_max = total_max.to_i + subtask.max_duration.to_i if subtask.max_duration.to_i && subtask.complete == false %>
+						<% must_time = must_time.to_i + subtask.min_duration.to_i if subtask.min_duration.to_i && subtask.must == true && subtask.complete == false %>
+							<%= render :partial => '/tasks/task_dark', :locals => {:task => task, :subtask => subtask, :index => index} %>
 						<% end %>
 						</div>
-						<%= form_for(Task.new) do |f| %>
-							<%= f.text_field :task, :autocomplete => :off, :id => "task_task_#{block.id}", :value => "New task...", :onfocus => '(this.value == "New task...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New task..." : this.value' %>
-							<%= f.hidden_field :block_id, :value => block.id %>
-							<%= f.hidden_field :group_id, :value => @group.id %>
-							<%= f.hidden_field :sort, :value => '99' %>
+						<%= form_for([task, Subtask.new]) do |f| %>
+							<%= f.text_field :text, :autocomplete => :off, :value => "New task...", :onfocus => '(this.value == "New task...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New task..." : this.value' %>
 						<% end %>
 					</div>
 					<div class="outcome"> 
 						<div class="outcome_padding">
-							<%= editable_field block, :outcome, { :event => "dblclick", :onblur => "cancel", :width => "none", :height => "none", :type => "textarea", :submit => 'Save'} %>
+							asdfasdf
 							<div class="min_max_time">
 								<strong>Must:</strong> 
 									<span class="must_time"><%= must_time %> </span>  <br> 
@@ -40,9 +38,7 @@
 					</div>
 					<div class="purpose"> 
 						<div class="purpose_padding">
-						<%= editable_field block, :purpose, { :event => "dblclick", :onblur => "cancel", :width => "none", :height => "none" } %>
-						<br><br>
-						<%= block.purpose_group %>
+							sdf
 						</div>
 					</div>
 				</div>

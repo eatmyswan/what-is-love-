@@ -4,20 +4,20 @@
 
 <%= render :partial => '/tasks/form', :locals => {:group => @group} %>
 <%= render :partial => 'sub_nav', :locals => {:groups => @groups} %>
-<%= render :partial => '/tasks/tasks', :locals => {:tasks => @tasks} %>
-<div class="poof" style="background-position: 0 0"></div> 
 
-<br><br>
-
-<div id="blocks-list">
-	<% @blocks.each do |block| %>
-		<% if block.collapsed == false %>
-			<%= render :partial => 'block', :locals => { :block => block } %>
+<div id="tasks-list">
+	<% @tasks.each_with_index do |task, index| %>
+		<% if task.outcome == false %>
+			<%= render :partial => '/tasks/task', :locals => { :task => task, :index => index } %>
 		<% else %>
-			<%= render :partial => 'block_collapsed', :locals => { :block => block } %>
+			<%= render :partial => '/groups/block', :locals => { :task => task, :index => index } %>
 		<% end %>
 	<% end %>
 </div>
+
+<div class="poof" style="background-position: 0 0"></div> 
+
+<br><br>
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
@@ -53,8 +53,6 @@
      $('#tasks-list').sortable(
         {
           dropOnEmpty: false, 
-          handle: '.task_drag', 
-          items: '.task_wrap',
           opacity: 0.4,
           scroll: true,
           update: function(){
@@ -68,23 +66,6 @@
 									});
 								},
                 url: '/tasks/sort_tasks'})
-            }
-         });
-
-     $('#blocks-list').sortable(
-        {
-          dropOnEmpty: false, 
-          handle: '.block_drag', 
-          items: '.block_wrap',
-          opacity: 0.4,
-          scroll: true,
-          update: function(){
-            $.ajax({
-                type: 'post', 
-                data: $(this).sortable('serialize'), 
-                dataType: 'script', 
-                complete: function(request){ },
-                url: '/blocks/sort_blocks'})
             }
          });
 

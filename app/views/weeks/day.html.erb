@@ -3,8 +3,8 @@
 <input type="hidden" id="hidden_auth" value="<%= form_authenticity_token %>">
 <input type="hidden" id="start_date" value="<%= @start_date %>">
 
-<div id="week_cal_wrap">
-	<div id="week_cal_header">
+<div id="day_cal_wrap">
+	<div id="day_cal_header">
 		<div id="cal_links">
 			<a href="#" class="day_link"></a>
 			<a href="#" class="week_link"></a>
@@ -13,11 +13,10 @@
 		</div>
 		<span id="add_task">Add Task</span>
 	</div>
-	<div id="week_white_wrap">
+	<div id="day_white_wrap">
 		<div id="cal_tear"></div>
 		
 		<div id="cal_groups">
-			
 			<div class="master_title">Personal</div>
       <% @personal_groups.each do |role| %>     
        <div class="role_wrap" role="<%= role.id.to_s %>">
@@ -46,7 +45,7 @@
 			<% end %>
     </div>
 
-	<%= render 'calendar_new' %>
+	<%= render 'calendar_day' %>
 	
 </div>
 </div>

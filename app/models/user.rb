@@ -10,9 +10,11 @@ class User
   field :name, type: String
   field :image_url, type: String
   field :background, type: String, default: "reeds"
+  field :ult_outcome, type: String
+  field :ult_purpose, type: String
   
-  has_many :tasks
-  has_many :blocks
+  has_many :goals
+  has_many :groups
   
   after_create :create_personal
   after_create :create_professional

@@ -58,20 +58,35 @@ $(function() {
 	});
 	
 	function attach_datepicker() {
-		var date = $('#task_starts_at').val().split('T');
-		$('#calendar').datepicker({
+		var startDate = $('#task_starts_at').val().split('T');
+		$('#start_calendar').datepicker({
 			dateFormat: 'yy-mm-dd',
 			dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-			defaultDate: date[0],
+			defaultDate: startDate[0],
 			showOtherMonths: true,
 			onSelect: function(dateText, inst) {
-				$('#select_date').attr('date',dateText);
+				$('#select_start_date').attr('date',dateText);
+			}
+		});
+		
+		var dueDate = $('#task_due_by').val().split('T');
+		$('#due_calendar').datepicker({
+			dateFormat: 'yy-mm-dd',
+			dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+			defaultDate: startDate[0],
+			showOtherMonths: true,
+			onSelect: function(dateText, inst) {
+				$('#select_due_date').attr('date',dateText);
 			}
 		});
 	}
 	
-	$('#set_date').live('click', function(){
-		$('#calendar').show();
+	$('#set_start_date').live('click', function(){
+		$('#start_calendar').show();
+	});
+	
+	$('#set_due_date').live('click', function(){
+		$('#due_calendar').show();
 	});
 	
 	$('#set_min_duration').live('click', function(){
@@ -96,13 +111,21 @@ $(function() {
 		$(this).parent().hide();
 	});
 	
-	$('#select_date').live('click', function() {
+	$('#select_start_date').live('click', function() {
 		var dateText = $(this).attr('date');
 		var date = dateText.split('-');
-		$('#set_date').text(date[1]+'/'+date[2]+'/'+date[0]);
+		$('#set_start_date').text(date[1]+'/'+date[2]+'/'+date[0]);
 		$('#task_starts_at').val(dateText);
-		$('#calendar').hide();
+		$('#start_calendar').hide();
 		$('#reminders_wrap').show();
+	});
+	
+	$('#select_due_date').live('click', function() {
+		var dateText = $(this).attr('date');
+		var date = dateText.split('-');
+		$('#set_due_date').text(date[1]+'/'+date[2]+'/'+date[0]);
+		$('#task_due_by').val(dateText);
+		$('#due_calendar').hide();
 	});
 		
 	$('#no_date').live('click', function() {

@@ -1,12 +1,11 @@
-class Task
+class Subtask
   include Mongoid::Document
   include Mongoid::Timestamps
-  field :task, type: String
+  field :text, type: String
   field :must, type: Boolean, default: false
   field :complete, type: Boolean, default: false
   field :sort, type: Integer, default: 0
   field :starts_at, type: DateTime, default: nil
-  field :due_by, type: DateTime, default: nil
   field :min_duration, type: Integer, default: nil
   field :max_duration, type: Integer, default: nil
   field :queued, type: Boolean, default: false
@@ -14,30 +13,20 @@ class Task
   field :leverage, type: String, default: nil
   field :notes, type: String, default: nil
   field :color, type: String, default: '#1679c3'
-  field :outcome, type: Boolean, default: false
-  field :purpose, type: String, default: nil
-  field :collapsed, type: Boolean, default: true
 
-  belongs_to :user
-  belongs_to :block
-  belongs_to :group
+  belongs_to :task
   embeds_many :emails
   embeds_many :notes
-  has_many :subtasks
   has_many :reminders
   
   index :user_id
-  index :block_id
-  index :group_id
-  
-  scope :unplanned, where(queued: false).and(scheduled: false)
   
   validates_length_of :task, minimum: 1, message: "task cannot be blank."
   
-  before_save :check_starts_at
-  before_save :check_duration
-  before_save :check_must
-  before_save :nil_if_blank
+  #before_save :check_starts_at
+  #before_save :check_duration
+  #before_save :check_must
+  #before_save :nil_if_blank
   
   private
   def nil_if_blank

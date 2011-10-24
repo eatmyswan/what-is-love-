@@ -5,6 +5,11 @@ Rpm::Application.routes.draw do
   root :to => "home#index"
   
   resources :tasks do 
+    resources :subtasks do
+        resources :emails
+        resources :notes, :only => :destroy
+        resources :reminders, :only => :destroy
+    end
     resources :emails
     resources :notes, :only => :destroy
     resources :reminders, :only => :destroy
@@ -12,7 +17,9 @@ Rpm::Application.routes.draw do
   
   resources :audios
   resources :blocks
-  resources :users
+  resources :users do
+    resources :goals
+  end
   
   resources :groups do
     resources :subgroups
@@ -21,6 +28,7 @@ Rpm::Application.routes.draw do
   match 'forecast/index' => 'forecast#index'
   match 'week' => 'weeks#index'
   match 'week/new' => 'weeks#new'
+  match 'week/day' => 'weeks#day'
   match 'masterplan' => 'home#masterplan'
   
   match 'tasks/sort_tasks' => 'tasks#sort_tasks'

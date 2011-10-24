@@ -1,10 +1,8 @@
 	<div id="full_week_wrap">
 		<h1 id="week_title">
-				<% if( @start_date.strftime('%B') == @end_date.strftime('%B') ) %>
-					<%= @start_date.strftime('%B %d') %> - <%= @end_date.strftime('%d') %> 
-				<% else %>
-					<%= @start_date.strftime('%B %d') %> - <%= @end_date.strftime('%B %d') %> 
-				<% end %>
+
+					<%= @start_date.strftime('%B %d') %>
+
 			</h1>
 
 	<% hours = ['12 <span class="new_smaller">AM</span>','1 <span class="new_smaller">AM</span>','2 <span class="new_smaller">AM</span>','3 <span class="new_smaller">AM</span>','4 <span class="new_smaller">AM</span>','5 <span class="new_smaller">AM</span>','6 <span class="new_smaller">AM</span>','7 <span class="new_smaller">AM</span>','8 <span class="new_smaller">AM</span>','9 <span class="new_smaller">AM</span>','10 <span class="new_smaller">AM</span>','11 <span class="new_smaller">AM</span>','12 <span class="new_smaller">PM</span>','1 <span class="new_smaller">PM</span>','2 <span class="new_smaller">PM</span>','3 <span class="new_smaller">PM</span>','4 <span class="new_smaller">PM</span>','5 <span class="new_smaller">PM</span>','6 <span class="new_smaller">PM</span>','7 <span class="new_smaller">PM</span>','8 <span class="new_smaller">PM</span>','9 <span class="new_smaller">PM</span>','10 <span class="new_smaller">PM</span>','11 <span class="new_smaller">PM</span>'] %>
@@ -42,7 +40,7 @@
 	
      <div class="new_full_grid">
 	
-			<div class="new_hours">
+			<div class="new_hours col0">
      		<% for hour in hours %>
        		<div class="new_hour">
         		<%= hour.html_safe %>

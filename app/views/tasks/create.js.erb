@@ -1,0 +1,2 @@
+$("#edit_action").remove();
+$("[role='<%= @task.group.id %>']").find('.items').prepend("<%= escape_javascript(render "/weeks/task" ) %>");

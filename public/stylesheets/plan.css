@@ -273,6 +273,7 @@
 .block_drag {
     background: none repeat scroll 0 0 #FFFFFF;
     border-radius: 3px 3px 3px 3px;
+	margin: 0 0 0 17px;
 }
 .block_title {
 	background: #afb5b8;
@@ -515,6 +516,28 @@ span.group_icon {
 	width: 220px;
 	height: auto;
 	border: 1px solid #DDD;
+}
+#edit_action .new_task_input_wrap {
+	width: 198px;
+	height: 30px;
+	border-radius: 3px;
+	background:#FFF;
+	box-shadow: 0 1px 4px rgba(0,0,0,0.75);
+	margin: 0 0 0 0;
+	position: relative;
+}
+#edit_action .new_task_input_wrap #new_task_input {
+	font-family: Helvetica, arial, sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	color: #333;
+	height: 25px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	border: 0 none;
+	background: transparent;
 }
 #edit_action .task_input_wrap {
 	width: 188px;
