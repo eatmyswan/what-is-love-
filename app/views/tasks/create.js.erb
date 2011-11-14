@@ -1,2 +1,6 @@
-$("#edit_action").remove();
-$("[role='<%= @task.group.id %>']").find('.items').prepend("<%= escape_javascript(render "/weeks/task" ) %>");
+$("#task_task").val('New task...').blur();
+$('<%= escape_javascript render(@task) %>').prependTo('#incomplete');
+
+var countText = $('#categories .active').find('.count_text').first();
+count = parseInt( countText.text() ) + 1;
+countText.text(count);

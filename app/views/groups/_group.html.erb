@@ -1,0 +1,32 @@
+<% content_for :top do %>
+		<div class="cover"><%= image_tag @group.image.thumb.url %></div>
+		<div class="title"><%= @group.title %></div>
+		<div class="ribbon"></div>
+		<script src="/assets/group.js" type="text/javascript"></script>
+<% end %>
+
+<% content_for :page do %>
+	<div id="group">
+
+		<div id="input_wrap">
+			<%= form_for(Task.new, :remote => true) do |f| %>
+				<%= f.text_field :task, :autocomplete => :off, :value => "New task...", :onfocus => '(this.value == "New task...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New task..." : this.value' %>
+				<%= f.hidden_field :group_id, :value => group.id %>
+			<% end %>
+		</div>
+
+		<ul id="incomplete" class="connectedSortable main_list">
+		<% @group.tasks.incomplete.each_with_index do |task, index| %>
+				<%= render :partial => '/tasks/task', :locals => { :task => task, :index => index } %>
+		<% end %>
+		</ul>
+		<h3 class="page">Completed</h3>
+		<ul id="complete">
+			<% @group.tasks.complete.each_with_index do |task, index| %>
+				<%= render :partial => '/tasks/task', :locals => { :task => task, :index => index } %>
+			<% end %>
+		</ul>	
+	</div>
+<% end %>
+
+<%= render '/home/pad' %>

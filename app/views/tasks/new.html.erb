@@ -1,9 +1,11 @@
-<%= form_for @task, :remote => true do |f| %>
-	<div class="new_task_input_wrap">
-		<%= f.text_field :task, :id => 'new_task_input' %>
-		<%= f.hidden_field :group_id, :value => @personal_groups.first.id.to_s %>
-		<%= f.hidden_field :starts_at, :value => Date.today %>
+<div id="popup">
+	<div class="top">
+		<a class="close"></a> 
+		<div class="title">New Result / Action</div>
 	</div>
-<% end %>
-<span id="nub_new_modal">
-</span>
+	<div class="body">
+		<%= form_for @task, :remote => true do |f| %>
+				<%= f.text_field :task, :class => 'task_input' %>
+		<% end %>
+	</div>
+</div>

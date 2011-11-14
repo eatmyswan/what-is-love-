@@ -1,10 +1,10 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.9'
-gem 'rake', '0.8.7'
+gem 'rails', '3.1.0'
+gem 'rake'
 gem 'bson_ext'
 gem 'mongoid'
-gem 'carrierwave', '0.5.4'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'cloudfiles'
 gem 'mini_magick'
 #gem 'devise'
@@ -12,10 +12,14 @@ gem 'mime-types'
 #gem 'remotipart', :git => 'git://github.com/JangoSteve/remotipart.git', :branch => 'latest-and-greatest'
 gem "jquery-rails"
 gem 'jeditable-rails'
-gem 'omniauth'
-gem 'ruby-mp3info'
+gem 'omniauth', "~> 0.3.2"
 gem 'time_diff'
 
+group :assets do
+  gem 'sass-rails', "  ~> 3.1.0"
+  gem 'coffee-rails', "~> 3.1.0"
+  gem 'uglifier'
+end
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

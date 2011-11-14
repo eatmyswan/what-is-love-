@@ -1,4 +1,4 @@
-<div id="subtask_<%= subtask.id %>" class="task_wrap <%= 'complete' if subtask.complete == true %>">
+<li id="subtask_<%= subtask.id %>" class="task_wrap <%= 'complete' if subtask.complete == true %>">
 			<div class="task_count_dark"> <%= index + 1 %> </div>
 			<div class="task_drag">
 				<%= link_to '', task_subtask_path(task, subtask), :method => :put, :class => 'must_on' if subtask.must == true %>
@@ -23,4 +23,4 @@
 				</span>
 			</div>
 			<% end %>
-		</div>
+		</li>

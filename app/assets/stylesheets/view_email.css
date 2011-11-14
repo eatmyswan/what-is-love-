@@ -1,0 +1,47 @@
+body#view_email {
+	font-family: 'Lucida Grande', Helvetica, Arial, sans-serif;
+	background: #f0f0f0;
+}
+#view_email strong {
+	font-weight: bold;
+}
+#view_email #header {
+	margin: 0 0 30px 0;
+	overflow: hidden;
+}
+#view_email #header img{
+	float: left;
+	border-radius: 3px;
+}
+#view_email h1 {
+	font:normal 22px/1.2 'Lucida Grande', Helvetica, Arial, sans-serif;
+	padding: 7px 0 0 60px;
+}
+#view_email h2 {
+	font:normal 15px/1.2 'Lucida Grande', Helvetica, Arial, sans-serif;
+	margin: 0 0 10px 0;
+}
+#view_email #content {
+	width: 600px;
+	margin: 40px auto;
+	padding: 30px;
+	border-radius: 5px;
+	background: #FFF;
+}
+#view_email #player_wrap {
+    background: none repeat scroll 0 0 #CCCCCC;
+    margin: 20px auto;
+    position: relative;
+    width: 100%;
+}
+#view_email #email_body {
+	margin: 30px 0 20px 0;
+	font-size: 12px;
+	line-height: 1.4;
+}
+#view_email #email_meta {
+	font-size: 10px;
+	line-height: 1.8;
+	color: #555;
+	text-align: center;
+}

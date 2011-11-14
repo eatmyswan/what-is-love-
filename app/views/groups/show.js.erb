@@ -1,0 +1,4 @@
+$('#list').addClass('active');
+$('#categories .category').removeClass('active');
+$('#<%= escape_javascript @group.id.to_s %>').addClass('active');
+$('#pad').replaceWith('<%= escape_javascript render(@group)  %>');

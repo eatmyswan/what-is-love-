@@ -1,0 +1,41 @@
+<div id="categories">
+		<div class="inner_shadow"></div>
+		<div id="filter_bar">
+			<span class="inner_highlight"></span>
+			<div class="filters_wrap">
+				<a id="list" class="filter rounded_left">List</a>
+				<a id="day" class="filter">Day</a>
+				<a id="week" class="filter">Week</a>
+				<a id="month" class="filter rounded_right">Month</a>
+			</div>
+		</div>
+		<div class="categories_wrap">
+			<div class="category">
+				<span class="cover"></span>
+				<span class="title">Inbox</span>
+			</div>
+			
+			<div class="title_bar">Personal</div>
+			<div id="personal">
+				<% @personal.each do |category| %>
+					<%= link_to group_path(category.id.to_s), :class => 'category', :id => category.id.to_s,:remote => true do %>
+						<span class="cover"><%= image_tag category.image.thumb.url %></span>
+						<span class="title"><%= category.title %></span>
+						<span class="count"><span class="inner_shadow"></span><span class="count_text"><%= category.tasks.where(complete: false).count %></span><span>
+					<% end %>
+				<% end %>
+			</div>
+			
+			<div class="title_bar">Professional</div>
+			<div id="professional">
+				<% @professional.each do |category| %>
+					<a class="category">
+						<span class="cover"><%= image_tag category.image.thumb.url %></span>
+						<span class="title"><%= category.title %></span>
+						<span class="count"><span class="inner_shadow"></span><span class="count_text"><%= category.tasks.where(complete: false).count %></span><span>
+					</a>
+				<% end %>
+			</div>
+			
+		</div>
+</div>

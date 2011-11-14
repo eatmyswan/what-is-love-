@@ -1,0 +1,194 @@
+#categories {
+	position: absolute;
+	top: 70px;
+	right: 20px;
+	bottom: 20px;
+	width: 275px;
+	border-radius: 5px;
+	box-shadow: 0 1px 1px #5e5955;
+	border: 1px solid #1d1b1a;
+	background: rgba(0,0,0,0.2);
+	overflow: hidden;
+}
+#categories .inner_shadow {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	box-shadow: inset 0 0 4px #1d1b1a;
+	background: transparent;
+}
+#categories #filter_bar {
+	background: #363230;
+	background: -webkit-gradient(linear, left top, left bottom, from(#3b3634), to(#34302e));
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	border-radius: 5px 5px 0 0;
+	border-bottom: 1px solid #1d1b1a;
+	box-shadow: 0 0 4px #1d1b1a;
+	padding: 8px 0 0 0;
+	height: 29px;
+	z-index: 3;
+	text-align: center;
+}
+#categories #filter_bar .inner_highlight {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	box-shadow: inset 0 1px 0 #4f4945;
+	background: transparent;
+	border-radius: 5px 5px 0 0;
+	z-index: 3;
+}
+#categories #filter_bar .filters_wrap {
+	display: inline-block;
+}
+#categories #filter_bar .filter {
+	box-shadow: 0px 1px 1px #5e5955;
+	padding: 3px 10px 0;
+	text-shadow: #1d1b1a 0px 1px 2px;
+	background: url('/assets/categories_filter_bg.jpg') repeat-x top center #312d2b;
+	border-left: 1px solid #1d1b1a;
+	border-top: 1px solid #1d1b1a;
+	border-bottom: 1px solid #1d1b1a;
+	float: left;
+	color: #c4bebb;
+	display: block;
+	cursor: pointer;
+	height: 16px;
+	font-size: 11px;
+	z-index: 4;
+	position: relative;
+}
+#categories #filter_bar .rounded_left {
+	border-radius: 10px 0 0 10px;
+	padding-left: 12px;
+}
+#categories #filter_bar .rounded_right {
+	border-radius: 0 10px 10px 0;
+	border-right: 1px solid #1d1b1a;
+	padding-right: 12px;
+}
+#categories #filter_bar .active {
+	background: url('/assets/filter_active.png') repeat-x top left #1773b4;
+	color: #FFF;
+}
+#categories .title_bar {
+	background: #363230;
+	background: -webkit-gradient(linear, left top, left bottom, from(#3b3634), to(#34302e));
+	border-bottom: 1px solid #1d1b1a;
+	border-top: 1px solid #484442;
+	box-shadow: 0 1px 4px #1d1b1a;
+	padding: 5px 8px 0 8px;
+	height: 16px;
+	color: #928c89;
+	font-size: 10px;
+	text-transform: uppercase;
+	text-shadow: 0 1px 1px #000;
+	font-weight: bold;
+	z-index: 4;
+}
+#categories #personal {
+	margin-top: -1px;
+}
+#categories #professional {
+	margin-top: -1px;
+}
+#categories .categories_wrap {
+	position: absolute;
+	top: 37px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	z-index: 1;
+}
+#categories .category {
+	display: block;
+	height: 38px;
+	border-bottom: 1px solid #242220;
+	border-top: 1px solid #3c3734;
+	position: relative;
+	z-index: 3;
+	background: transparent;
+}
+#categories .category .cover {
+	float: left;
+	display: block;
+	width: 24px;
+	height: 24px;
+	margin: 6px 8px 0 8px;
+	background: #242120;
+	border-radius: 2px;
+	border: 1px solid #1d1b1a;
+	box-shadow: 0 1px 0 #4e4a46;
+	overflow: hidden;
+}
+#categories .category .cover img {
+	width: 100%;
+}
+#categories .category .title {
+	font-weight: bold;
+	color: #cdc8c6;
+	font-size: 12px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	display: inline-block;
+	float: left;
+	padding: 2px;
+	margin: 11px 0 0 0;
+	overflow: hidden;
+	text-shadow: 0 1px 2px #000;
+	max-width: 170px;
+	
+}
+#categories .category .count {
+	background: #282623;
+	border-radius: 10px;
+	font-weight: bold;
+	color: #cdc8c6;
+	font-size: 11px;
+	white-space: nowrap;
+	display: block;
+	padding-top: 2px;
+	margin: 10px 8px 0 0;
+	overflow: hidden;
+	width: 28px;
+	height: 14px;
+	text-shadow: 0 1px 2px #000;
+	text-align: center;
+	float: right;
+	border: 1px solid #1d1b1a;
+	box-shadow: 0 1px 0 #4e4a46;
+	position: relative;
+}
+#categories .category .count .inner_shadow {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	box-shadow: inset 0 1px 2px #131211;
+	background: transparent;
+	border-radius:10px;
+}
+#categories .active, #categories .drop_hover {
+	background: rgba(0,0,0,0.3);
+	border-top: 1px solid #151414;
+}
+#categories .active .title, #categories .drop_hover .title {
+	color: #FFF;
+}
+#categories .active .count, #categories .drop_hover .count {
+	color: #FFF;
+	background: #151414;
+}
+#categories .active .count .inner_shadow, #categories .drop_hover .count .inner_shadow {
+	box-shadow: inset 0 1px 2px #000;
+}

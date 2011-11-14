@@ -1,13 +1,12 @@
 class HomeController < ApplicationController
 
   def index
-    if session[:user_id]
-      redirect_to groups_path
+    if !session[:user_id]
+      render 'login'
+    else
+      @personal = Group.where(user_id: current_user.id).and(master_title: 'Personal')
+      @professional = Group.where(user_id: current_user.id).and(master_title: 'Professional')
     end
-  end
-  
-  def masterplan
-    render :layout => false
   end
 
 end

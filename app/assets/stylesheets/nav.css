@@ -1,0 +1,17 @@
+#nav {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	right: 20px;
+}
+#nav a.well {
+	display: inline-block;
+	background: url('/assets/nav_well_bg.jpg') repeat-x top center transparent;
+	border-radius: 5px;
+	box-shadow: 0 1px 1px #5e5955;
+	border: 1px solid #1d1b1a;
+	color: #FFF;
+	font-size: 12px;
+	padding: 7px 8px 0;
+	height: 18px;
+}

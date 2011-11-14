@@ -1,0 +1,95 @@
+#pad {
+	position: absolute;
+	top: 70px;
+	left: 20px;
+	right: 330px;
+	bottom: 20px;
+	background: transparent;
+}
+#pad #top {
+	background: url('/assets/pad_top_bg.jpg') repeat-x top left transparent;
+	height: 65px;
+	border-radius: 5px 5px 0 0;
+	z-index: 1;
+	box-shadow: 0 0 8px #000;
+}
+#pad #top .cover {
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+	margin: 9px 10px 0 13px;
+	background: rgba(42,40,36,0.4);
+	border: 1px solid #575042;
+	border-radius: 3px;
+	box-shadow: 0 1px 1px #f6cf91;
+	overflow: hidden;
+}
+#pad #top .cover img {
+	width: 100%;
+}
+#pad #top .title {
+	display: inline-block;
+	max-width: 400px;
+	margin: 20px 0 0 0;
+	color: #FFF;
+	font-size: 20px;
+	font-weight: bold;
+	text-shadow: 0 1px 2px #000;
+}
+#pad #top .ribbon {
+	position: absolute;
+	top: -4px;
+	right: 8px;
+	width: 53px;
+	height: 105px;
+	background: url('/assets/ribbon.png') no-repeat top left transparent;
+	z-index: 3;
+}
+#pad #top .torn {
+	background: url('/assets/torn.png') repeat-x top left transparent;
+	height: 14px;
+	position: absolute;
+	top: 65px;
+	left: 0;
+	right: 0;
+	z-index: 2;
+}
+#pad #page {
+	position: absolute;
+	top: 65px;
+	left: 0;
+	right: 0;
+	bottom: 29px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background: #f3f2f1;
+	z-index: 1;
+	box-shadow: 0 0 8px #000;
+}
+#pad .stack {
+	position: absolute;
+	bottom: 0;
+	height: 30px;
+	left: 6px;
+	right: 22px;
+	background: url('/assets/stack.png') repeat-x top left transparent;
+	z-index: 2;
+}
+#pad .stack .l {
+	background: url('/assets/stack_l.png') no-repeat top left transparent;
+	display: block;
+	position: absolute;
+	left: -13px;
+	bottom: 0;
+	width: 13px;
+	height: 30px;
+}
+#pad .stack .r {
+	background: url('/assets/stack_r.png') no-repeat top left transparent;
+	display: block;
+	position: absolute;
+	right: -23px;
+	bottom: 0;
+	width: 23px;
+	height: 30px;
+}

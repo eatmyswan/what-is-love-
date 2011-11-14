@@ -1,0 +1,48 @@
+/*
+*= require_self
+*= require_tree .
+*/
+* {	
+	margin:0px;
+	padding:0px;
+	outline:none !important;
+	text-decoration:none;
+	border: 0;
+	vertical-align: top;
+}
+body {
+	line-height: 1;
+}
+ol, ul, li {
+	list-style: none;
+}
+a {
+	cursor: pointer;
+}
+
+/**  Actual Styles  **/
+
+html {
+	height: 100%;
+}
+body {
+	font-family: Arial, sans-serif;
+	line-height: 1.0;
+	font-size: 13px;
+	color:#333333;
+	background: url('/assets/chambray.jpg') repeat 0 0 #3e3a38;
+	height: 100%;
+	width: 100%;
+}
+strong {
+	font-weight: bold;
+}
+.no_disp {
+	display: none;
+}
+.right {
+	float: right;
+}
+.left {
+	float: left;
+}

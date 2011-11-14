@@ -28,9 +28,8 @@ Rpm::Application.routes.draw do
   match 'week' => 'weeks#index'
   match 'week/new' => 'weeks#new'
   match 'week/day' => 'weeks#day'
-  match 'masterplan' => 'home#masterplan'
   
-  match 'tasks/sort_tasks' => 'tasks#sort_tasks'
+  match 'tasks/sort' => 'tasks#sort'
   match 'task/new_from_cal/:group_id' => 'tasks#new_from_cal'
   match 'task/duration/:id' => 'tasks#duration'
   match 'task/update/:id' => 'tasks#update'

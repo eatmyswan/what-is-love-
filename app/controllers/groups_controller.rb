@@ -2,20 +2,13 @@ class GroupsController < ApplicationController
   
   def index
     @group = Group.where(user_id: current_user.id).first
-    redirect_to(group_path(@group))
   end
   
   def show
     @group = Group.find(params[:id])
-    @tasks = Task.where(group_id: params[:id]).and(block_id: nil).order_by([:sort, :asc],[:created_at, :desc])
-  
-    @blocks = Block.where(group_id: params[:id]).order_by([:sort, :asc],[:created_at, :desc])
-    @personal_groups = Group.where(user_id: current_user.id).and(master_title: 'Personal')
-    @professional_groups = Group.where(user_id: current_user.id).and(master_title: 'Professional')
-
+    #@tasks = Task.where(group_id: params[:id]).and(block_id: nil).order_by([:sort, :asc],[:created_at, :desc])
     respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @group }
+        format.js { render :layout => false }
     end
   end
 
@@ -47,11 +40,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
 
     if @group.update_attributes(params[:group])
-      if params[:group][:group]
-        render :text => params[:group][:group]
-      else
-        redirect_to(group_path(params[:id]))
-      end
+        redirect_to(group_long_term_path(params[:id]))
     end
   end
 

@@ -17,6 +17,7 @@ class Task
   field :outcome, type: Boolean, default: false
   field :purpose, type: String, default: nil
   field :collapsed, type: Boolean, default: true
+  field :parent_id, type: String, drault: nil
 
   belongs_to :user
   belongs_to :block
@@ -29,8 +30,11 @@ class Task
   index :user_id
   index :block_id
   index :group_id
+  index :parent_id
   
   scope :unplanned, where(queued: false).and(scheduled: false)
+  scope :incomplete, where(complete: false).and(parent_id: nil)
+  scope :complete, where(complete: true).and(parent_id: nil)
   
   validates_length_of :task, minimum: 1, message: "task cannot be blank."
   
@@ -44,6 +48,7 @@ class Task
     self.leverage.blank? ? self.leverage = nil : return
     self.min_duration.blank? ? self.min_duration = nil : return
     self.starts_at.blank? ? self.starts_at = nil : return
+    self.parent_id.blank? ? self.parent_id = nil : return
   end
   
   def check_starts_at

@@ -1,0 +1,23 @@
+#group #input_wrap {
+	display: block;
+	padding: 5px;
+	border-radius: 3px;
+	background: #CCC;
+	margin-bottom: 5px;
+}
+#group #input_wrap input[type="text"] {
+	width: 100%;
+	font-family: Arial, sans-serif;
+	font-size: 13px;
+}
+#group {
+	padding: 20px;
+}
+#group h3.page {
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+	padding: 12px 0;
+	color: #555;
+	text-shadow: 1px 0 0 #FFF;
+}

@@ -1,5 +1,4 @@
-<div id="block_<%= task.id %>" class="block_wrap">
-	<div class="task_count"> <%= index + 1 %> </div>
+<li id="block_<%= task.id %>" class="block_wrap no_nest">
 			<div class="block_drag">
 				<div class="block_title">
 					<%= link_to '', task_path(task, :task => { :collapsed => true }), :method => :put, :class => 'target' %>
@@ -10,17 +9,17 @@
 				</div>
 				<div class="block_body">
 					<div class="tasks"> 
-						<div class="task_padding">
+						<ol class="task_padding block_task_list sortable">
 						<% total_min = 0 %>
 						<% total_max = 0 %>
 						<% must_time = 0 %>
-						<% task.subtasks.order_by([:sort, :asc]).each_with_index do |subtask, index| %>
-						<% total_min = total_min.to_i + subtask.min_duration.to_i if subtask.min_duration.to_i && subtask.complete == false %>
-						<% total_max = total_max.to_i + subtask.max_duration.to_i if subtask.max_duration.to_i && subtask.complete == false %>
-						<% must_time = must_time.to_i + subtask.min_duration.to_i if subtask.min_duration.to_i && subtask.must == true && subtask.complete == false %>
-							<%= render :partial => '/tasks/task_dark', :locals => {:task => task, :subtask => subtask, :index => index} %>
-						<% end %>
-						</div>
+							<% task.subtasks.order_by([:sort, :asc]).each_with_index do |subtask, index| %>
+								<%= render :partial => '/tasks/task', :locals => {:task => task, :subtask => subtask, :index => index} %>
+								<% total_min = total_min.to_i + subtask.min_duration.to_i if subtask.min_duration.to_i && subtask.complete == false %>
+								<% total_max = total_max.to_i + subtask.max_duration.to_i if subtask.max_duration.to_i && subtask.complete == false %>
+								<% must_time = must_time.to_i + subtask.min_duration.to_i if subtask.min_duration.to_i && subtask.must == true && subtask.complete == false %>
+							<% end %>
+						</ol>
 						<%= form_for([task, Subtask.new]) do |f| %>
 							<%= f.text_field :text, :autocomplete => :off, :value => "New task...", :onfocus => '(this.value == "New task...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New task..." : this.value' %>
 						<% end %>
@@ -43,4 +42,4 @@
 					</div>
 				</div>
 		</div>
-</div>
+</li>

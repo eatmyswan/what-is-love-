@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   layout proc{ |c| c.request.xhr? ? false : "application" }
   
   helper_method :current_user
-  helper_method :background
   
   private
   def current_user

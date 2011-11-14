@@ -5,6 +5,8 @@ class Group
   field :master_title, type: String
   field :sort, type: Integer, default: 0
   field :icon, type: String, default: "icon_check"
+  
+  mount_uploader :image, ImageUploader
 
   belongs_to :user
   has_many :tasks

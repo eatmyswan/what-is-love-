@@ -45,54 +45,46 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(params[:task])
     @task.user_id = current_user.id
+    @task.save
+    @group = @task.group
     respond_to do |format|
-      if @task.save
-        if params[:forecast]
-          format.html { render :nothing => true }
-        else
-          format.html { redirect_to( group_path(@task.group)) }  
-          format.js
-        end
-      end
+      format.js { render :layout => false }
     end
   end
 
   def update
     @task = Task.find(params[:id])
-    respond_to do |format|
-      if @task.update_attributes(params[:task])
-        if params[:task][:leverage]
-          email = params[:task][:leverage]
-          UserMailer.leverage_task(email).deliver
-        end
-        if params[:reminders]
-          params[:reminders].each do |r|
-            reminder_dt = @task.starts_at - r.to_i.minutes
-            @task.reminders.create!( delivers_at: reminder_dt )
-          end
-        end
-        if params[:notes]
-          params[:notes].each do |note|
-            @task.notes.create!( note: note )
-          end
-        end
-        format.js
+    @task.update_attributes(params[:task])
+    
+    if params[:task][:leverage]
+      email = params[:task][:leverage]
+      UserMailer.leverage_task(email).deliver
+    end
+    
+    if params[:reminders]
+      params[:reminders].each do |r|
+        reminder_dt = @task.starts_at - r.to_i.minutes
+        @task.reminders.create!( delivers_at: reminder_dt )
       end
     end
+    
+    if params[:notes]
+      params[:notes].each do |note|
+        @task.notes.create!( note: note )
+      end
+    end
+    
+    render :nothing => true
   end
 
   def destroy
     task = Task.find(params[:id])
-    group = task.group
     task.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(group_path(group)) }
-      format.xml  { head :ok }
-    end
+    render :nothing => true
   end
   
-  def sort_tasks
+  def sort
+    Rails.logger(params.inspect);
     tasks = Task.find(params[:task])
     tasks.each do |task|
       task.sort = params['task'].index(task.id.to_s) + 1
