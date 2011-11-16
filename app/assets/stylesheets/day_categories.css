@@ -1,0 +1,16 @@
+#day_categories {
+}
+#day_categories .category {
+	display: block;
+	min-height: 38px;
+	border-bottom: 1px solid #242220;
+	border-top: 1px solid #3C3734;
+	position: relative;
+	z-index: 3;
+}
+#day_categories .category .top {
+	overflow: hidden;
+}
+#day_categories .category_task_wrap {
+	min-height: 26px;
+}

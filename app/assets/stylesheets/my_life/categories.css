@@ -1,6 +1,6 @@
 #categories {
 	position: absolute;
-	top: 70px;
+	top: 30px;
 	right: 20px;
 	bottom: 20px;
 	width: 275px;
@@ -74,7 +74,7 @@
 	border-right: 1px solid #1d1b1a;
 	padding-right: 12px;
 }
-#categories #filter_bar .active {
+#categories #filter_bar .active, #categories #filter_bar .filter:hover {
 	background: url('/assets/filter_active.png') repeat-x top left #1773b4;
 	color: #FFF;
 }
@@ -84,20 +84,55 @@
 	border-bottom: 1px solid #1d1b1a;
 	border-top: 1px solid #484442;
 	box-shadow: 0 1px 4px #1d1b1a;
-	padding: 5px 8px 0 8px;
-	height: 16px;
+	height: 22px;
+	z-index: 4;
+}
+#categories .title_bar .title {
+	display: inline-block;
+	margin: 6px 0 0 8px;
 	color: #928c89;
 	font-size: 10px;
 	text-transform: uppercase;
 	text-shadow: 0 1px 1px #000;
 	font-weight: bold;
-	z-index: 4;
+}
+#categories .title_bar .add_category {
+	display: block;
+	float: right;
+	width: 16px;
+	height: 17px;
+	background: url('/assets/add_category.png') no-repeat;
+	margin: 3px 3px 0 0;
+	cursor: pointer;
+}
+#categories .title_bar .add_category:hover {
+	background-position: 0 -17px;
+}
+#categories .title_bar .toggle_category {
+	display: block;
+	float: right;
+	width: 16px;
+	height: 17px;
+	background: url('/assets/toggle_category.png') no-repeat;
+	margin: 3px 6px 0 0;
+	cursor: pointer;
+}
+#categories .title_bar .toggle_category:hover {
+	background-position: 0 -17px;
+}
+#categories .title_bar .toggle_category.down {
+	background-position: 0 -34px;
+}
+#categories .title_bar .toggle_category.down:hover {
+	background-position: 0 -51px;
 }
 #categories #personal {
 	margin-top: -1px;
+	min-height: 26px;
 }
 #categories #professional {
 	margin-top: -1px;
+	min-height: 26px;
 }
 #categories .categories_wrap {
 	position: absolute;
@@ -109,7 +144,7 @@
 	overflow-y: auto;
 	z-index: 1;
 }
-#categories .category {
+#plan_categories .category {
 	display: block;
 	height: 38px;
 	border-bottom: 1px solid #242220;
@@ -129,9 +164,22 @@
 	border: 1px solid #1d1b1a;
 	box-shadow: 0 1px 0 #4e4a46;
 	overflow: hidden;
+	position: relative;
 }
 #categories .category .cover img {
 	width: 100%;
+	border-radius: 2px;
+}
+#categories .category .inbox_cover {
+	float: left;
+	display: block;
+	width: 24px;
+	height: 24px;
+	margin: 6px 8px 0 8px;
+	background: url('/assets/inbox.png') no-repeat;
+	border-radius: 2px;
+	overflow: hidden;
+	position: relative; 
 }
 #categories .category .title {
 	font-weight: bold;
@@ -145,7 +193,7 @@
 	margin: 11px 0 0 0;
 	overflow: hidden;
 	text-shadow: 0 1px 2px #000;
-	max-width: 170px;
+	max-width: 140px;
 	
 }
 #categories .category .count {
@@ -178,17 +226,151 @@
 	background: transparent;
 	border-radius:10px;
 }
-#categories .active, #categories .drop_hover {
+#plan_categories .category .edit {
+	width: 15px;
+	height: 15px;
+	background: url('/assets/edit_white.png') no-repeat;
+	float: right;
+	cursor: pointer;
+	opacity: 0.5;
+	margin: 12px 6px 0 0;
+	display: none;
+}
+#plan_categories .category .edit:hover {
+	opacity: 1.0;
+}
+#plan_categories .category .edit_done {
+	width: 15px;
+	height: 15px;
+	background: url('/assets/edit_done_white.png') no-repeat;
+	float: right;
+	cursor: pointer;
+	opacity: 0.5;
+	margin: 12px 6px 0 0;
+	display: none;
+}
+#plan_categories .category .edit_done:hover {
+	opacity: 1.0;
+}
+#plan_categories .category .delete {
+	width: 15px;
+	height: 15px;
+	background: url('/assets/delete_white.png') no-repeat;
+	float: right;
+	cursor: pointer;
+	opacity: 0.5;
+	margin: 12px 6px 0 0;
+	display: none;
+}
+#plan_categories .category .delete:hover {
+	opacity: 1.0;
+}
+#plan_categories .category:hover .edit {
+	display: block;
+}
+#plan_categories .category .form {
+	display: none;
+}
+#plan_categories  .category.editing .edit, #plan_categories .category.editing .cover, #plan_categories .category.editing .title, #plan_categories .category.editing .count {
+	display: none;
+}
+#plan_categories .category.editing .form, #plan_categories .category.editing .edit_done, #plan_categories .category.editing .delete, #plan_categories .category.editing .form .cover {
+	display: block;
+}
+
+
+#categories .category.active, #categories .drop_hover {
 	background: rgba(0,0,0,0.3);
 	border-top: 1px solid #151414;
 }
-#categories .active .title, #categories .drop_hover .title {
+#categories .category.active .title, #categories .drop_hover .title {
 	color: #FFF;
 }
-#categories .active .count, #categories .drop_hover .count {
+#categories .category.active .count, #categories .drop_hover .count {
 	color: #FFF;
 	background: #151414;
 }
-#categories .active .count .inner_shadow, #categories .drop_hover .count .inner_shadow {
+#categories .category.active .count .inner_shadow, #categories .drop_hover .count .inner_shadow {
 	box-shadow: inset 0 1px 2px #000;
+}
+
+
+
+#categories .new_category {
+	overflow: hidden;
+	display: none;
+	background: #363230;
+	background: -webkit-gradient(linear, left top, left bottom, from(#3B3634), to(#34302E));
+	border-top: 1px solid #242220;
+}
+#categories .file_field_cover {
+	background: url('/assets/add_category_image.png') no-repeat;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	display: block;
+	border-radius: 2px;
+}
+#categories .file_field_cover.added {
+	background-position: 0 -24px;
+}
+#categories .cover input {
+	cursor: pointer;
+	height: 24px;
+	width: 24px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	font-size: 100px;
+	opacity: 0.01;
+}
+#categories input[type="text"] {
+color: #333;
+display: block;
+float: left;
+background: white;
+border: 1px solid #000;
+border-radius: 10px;
+box-shadow: inset 0 1px 2px #AAA;
+font-family: Arial, sans-serif;
+font-size: 12px;
+padding: 2px 7px;
+margin: 9px 0 0 0;
+width: 150px;
+}
+#categories .new_category .edit_done {
+	width: 15px;
+	height: 15px;
+	background: url('/assets/edit_done_white.png') no-repeat;
+	float: right;
+	cursor: pointer;
+	opacity: 0.5;
+	margin: 12px 10px 0 0;
+	display: block;
+}
+#categories .new_category .edit_done:hover {
+	opacity: 1.0;
+}
+#categories .new_category .cancel {
+	width: 15px;
+	height: 15px;
+	background: url('/assets/delete_white.png') no-repeat;
+	float: right;
+	cursor: pointer;
+	opacity: 0.5;
+	margin: 12px 10px 0 0;
+	display: block;
+}
+#categories .new_category .cancel:hover {
+	opacity: 1.0;
+}
+#categories .ui-sortable-helper * {
+	display: block;
+}
+#categories .ui-sortable-helper {
+	background: #363230;
+	background: -webkit-gradient(linear, left top, left bottom, from(#3B3634), to(#34302E));
+	width: 275px !important;
+	height: 38px !important;
+	border-radius: 0;
 }

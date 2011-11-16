@@ -16,34 +16,7 @@
 	<div id="day_white_wrap">
 		<div id="cal_tear"></div>
 		
-		<div id="cal_groups">
-			<div class="master_title">Personal</div>
-      <% @personal_groups.each do |role| %>     
-       <div class="role_wrap" role="<%= role.id.to_s %>">
-				<div class="role_title">
-					<%= role.title %> 
-				</div>
-				<div class="items">
-					<% role.tasks.unplanned.each do |task| %>
-						<%= render :partial => 'task', :locals => { :task => task } %>
-					<% end %>
-				</div>
-				</div>
-			<% end %>
-			<div class="master_title">Professional</div>
-			<% @professional_groups.each do |role| %>     
-       <div class="role_wrap" role="<%= role.id.to_s %>">
-				<div class="role_title">
-					<%= role.title %> 
-				</div>
-				<div class="items">
-					<% role.tasks.unplanned.each do |task| %>
-						<%= render :partial => 'task', :locals => { :task => task } %>
-					<% end %>
-				</div>
-				</div>
-			<% end %>
-    </div>
+	
 
 	<%= render 'calendar_day' %>
 	

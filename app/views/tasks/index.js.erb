@@ -1,0 +1,4 @@
+$('#list').addClass('active');
+$('#categories .category').removeClass('active');
+$('.category.inbox').addClass('active');
+$('#pad').replaceWith('<%= escape_javascript render(:partial => "index", :locals => { :complete_tasks => @complete_tasks, :incomplete_tasks => @incomplete_tasks })  %>');

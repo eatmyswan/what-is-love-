@@ -32,9 +32,9 @@ class Task
   index :group_id
   index :parent_id
   
-  scope :unplanned, where(queued: false).and(scheduled: false)
-  scope :incomplete, where(complete: false).and(parent_id: nil)
-  scope :complete, where(complete: true).and(parent_id: nil)
+  scope :unplanned, where(queued: false).and(scheduled: false).order_by([:sort, :asc])
+  scope :incomplete, where(complete: false).and(parent_id: nil).order_by([:sort, :asc])
+  scope :complete, where(complete: true).and(parent_id: nil).order_by([:sort, :asc])
   
   validates_length_of :task, minimum: 1, message: "task cannot be blank."
   

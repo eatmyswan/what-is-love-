@@ -1,31 +1,45 @@
 <% content_for :top do %>
-		<div class="cover"><%= image_tag @group.image.thumb.url %></div>
-		<div class="title"><%= @group.title %></div>
+		<% if @group.master_title %>
+			<div class="cover"><%= image_tag @group.images.forward.first.image.thumb if @group.images.first %></div>
+			<div class="title"><%= @group.title %></div>
+			<div class="filters_wrap">
+				<a id="plan" class="filter rounded_left active">Plan</a>
+				<a id="vision" class="filter rounded_right">Vision</a>
+			</div>
+		<% else %>
+			<div class="cover_inbox"></div>
+			<div class="title">Inbox</div>
+		<% end %>
 		<div class="ribbon"></div>
 		<script src="/assets/group.js" type="text/javascript"></script>
 <% end %>
 
 <% content_for :page do %>
 	<div id="group">
+		<div id="plan_wrap">
+			<div id="input_wrap">
+				<span class="inner_shadow"></span>
+				<%= form_for(Task.new, :remote => true) do |f| %>
+					<%= f.text_field :task, :autocomplete => :off, :value => "New task...", :onfocus => '(this.value == "New task...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New task..." : this.value' %>
+					<%= f.hidden_field :group_id, :value => group.id %>
+				<% end %>
+			</div>
 
-		<div id="input_wrap">
-			<%= form_for(Task.new, :remote => true) do |f| %>
-				<%= f.text_field :task, :autocomplete => :off, :value => "New task...", :onfocus => '(this.value == "New task...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New task..." : this.value' %>
-				<%= f.hidden_field :group_id, :value => group.id %>
+			<ul id="incomplete" class="sortable">
+			<% @group.tasks.incomplete.each_with_index do |task, index| %>
+					<%= render :partial => '/tasks/task', :locals => { :task => task, :index => index } %>
 			<% end %>
+			</ul>
+			<h3 class="page <%= "no_disp" if @group.tasks.complete.count == 0 %>">Completed</h3>
+			<ul id="complete">
+				<% @group.tasks.complete.each_with_index do |task, index| %>
+					<%= render :partial => '/tasks/task', :locals => { :task => task, :index => index } %>
+				<% end %>
+			</ul>	
 		</div>
-
-		<ul id="incomplete" class="connectedSortable main_list">
-		<% @group.tasks.incomplete.each_with_index do |task, index| %>
-				<%= render :partial => '/tasks/task', :locals => { :task => task, :index => index } %>
-		<% end %>
-		</ul>
-		<h3 class="page">Completed</h3>
-		<ul id="complete">
-			<% @group.tasks.complete.each_with_index do |task, index| %>
-				<%= render :partial => '/tasks/task', :locals => { :task => task, :index => index } %>
-			<% end %>
-		</ul>	
+		<div id="vision_wrap" class="no_disp">
+			<%= render :partial => 'vision', :locals => { :group => @group } %>
+		</div>
 	</div>
 <% end %>
 

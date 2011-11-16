@@ -3,22 +3,10 @@ class TasksController < ApplicationController
   #before_filter :find_or_build_task, :except => [ :index, :create_bm ]
   
   def index
-    @tasks = Task.where(block_id: nil).and(group_id: nil).order_by([:sort, :asc])
-    @blocks = Block.where(group_id: nil).order_by([:sort, :asc])
-    @groups = Group.all
-    
+    @incomplete_tasks = Task.where(group_id: nil).and(complete: false).order_by([:sort, :asc])
+    @complete_tasks = Task.where(group_id: nil).and(complete: true).order_by([:sort, :asc])
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @task }
-    end
-  end
-  
-  def show
-    @task = Task.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @task }
+        format.js { render :layout => false }
     end
   end
 

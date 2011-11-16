@@ -1,10 +1,11 @@
 
-$('.checkbox').live('click',function(){
+$('#group .checkbox').live('click',function(){
 	var checkbox = $(this);
 	var task = $(this).parents('li').first();
 	var taskId = task.attr('id');
 	
-	if(!task.parent().hasClass('action_plan')){
+	if(!task.parent().hasClass('in_outcome')){
+		
 		if(checkbox.hasClass('active')){
 			checkbox.removeClass('active');
 			$.ajax({
@@ -14,11 +15,13 @@ $('.checkbox').live('click',function(){
 				success: function() { 
 					task.fadeTo(100, 1.0).slideUp(200, function(){
 						task.appendTo('#incomplete').slideDown(200);
+						hideH3();
 						});
 					increaseCount();
 					}
 				});
 		} else {
+			$('h3.page').show();
 			checkbox.addClass('active');
 			$.ajax({
 				url: "/tasks/" +  taskId,
@@ -33,11 +36,38 @@ $('.checkbox').live('click',function(){
 				});
 		}
 	} else {
-		alert('completed a block task!');
+		var outcomeId = task.parents('li').first().attr('id');
+		if(checkbox.hasClass('active')){
+				checkbox.removeClass('active');
+				$.ajax({
+					url: "/tasks/" +  taskId,
+					type: 'PUT',
+					data: $.param({task : { complete: 'false' }}),
+					success: function() { 
+						task.fadeTo(100, 1.0).slideUp(200, function(){
+							task.appendTo('#'+outcomeId+'_incomplete').slideDown(200);
+							hideOutcomeH3(outcomeId);
+							});
+						}
+					});
+			} else {
+				$('#'+outcomeId+' h3.outcome_complete').show();
+				checkbox.addClass('active');
+				$.ajax({
+					url: "/tasks/" +  taskId,
+					type: 'PUT',
+					data: $.param({task : { complete: 'true' }}),
+					success: function() { 
+						task.fadeTo(100, 0.5).slideUp(200, function(){
+							task.prependTo('#'+outcomeId+'_complete').slideDown(200);
+							});
+						}
+					});
+			}
 	}
 });
 
-$('.star').live('click',function(){
+$('#incomplete .star').live('click',function(){
 	var star = $(this);
 	var task = $(this).parents('li').first();
 	var taskId = task.attr('id');
@@ -60,9 +90,18 @@ $('.star').live('click',function(){
 	}
 });
 
-$('.delete').live('click',function(){
+$('#incomplete .delete').live('click',function(){
 	var task = $(this).parents('li').first();
 	var taskId = task.attr('id');
+	//delete all li's inside
+	var subTask = $(task).find('li');
+	$(subTask).each(function(){
+		subTaskId = $(this).attr('id');
+		$.ajax({
+			url: "/tasks/" +  subTaskId,
+			type: 'DELETE'
+		});
+	});
 	$.ajax({
 		url: "/tasks/" +  taskId,
 		type: 'DELETE',
@@ -71,11 +110,11 @@ $('.delete').live('click',function(){
 				decreaseCount();
 			}
 			task.fadeOut(200,function(){ task.remove(); });
-			}
-		});
+		}
+	});
 });
 
-$('.edit').live('click',function(){
+$('#incomplete .edit').live('click',function(){
 	$(this).hide();
 	var task = $(this).parents('li').first();
 	task.addClass('editing');
@@ -83,7 +122,7 @@ $('.edit').live('click',function(){
 	task.find('.edit_task').removeClass('no_disp');
 });
 	
-$('.edit_done').live('click', function() {
+$('#incomplete .edit_done').live('click', function() {
 	editingDone();
 });
 
@@ -93,23 +132,22 @@ $('form.edit_task').live('submit',function(event){
 	return false;
 });
 
-$('.editing .target').live('click',function(){
+$('#incomplete .editing .target').live('click',function(){
 	$(this).toggleClass('active');
 });
 	
-$('.target.active').live('click', function(){
+$('#incomplete .target.active').live('click', function(){
 	var task = $(this).parents('li').first();
 	if(!task.hasClass('editing') && !$(this).hasClass('outcome')){
-		task.addClass('outcome');
-		task.find('.header').first().slideDown(200);		
+		task.addClass('outcome').find('.header').first().slideDown(200);
 	} 
 });
 
-$('.target.outcome').live('click', function(){
+$('#incomplete .target.outcome').live('click', function(){
 	var task = $(this).parents('li').first();
-	task.removeClass('outcome');
-	task.find('.header').first().slideUp(200);		
+	task.removeClass('outcome').find('.header').first().slideUp(200);		
 });
+
 
 function editingDone() {
 	var task = $('.editing');
@@ -145,4 +183,16 @@ function decreaseCount(){
 	var countText = $('#categories .active').find('.count_text').first();
 	count = parseInt( countText.text() ) - 1;
 	countText.text(count);
+}
+
+function hideH3(){
+	if($('#complete > li').size() == 0){
+		$('h3.page').hide();
+	}
+}
+
+function hideOutcomeH3(outcomeId){
+	if($('#'+outcomeId+'_complete > li').size() == 0){
+		$('#'+outcomeId+' h3.outcome_complete').hide();
+	}
 }

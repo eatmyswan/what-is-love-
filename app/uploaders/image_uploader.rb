@@ -29,11 +29,11 @@ class ImageUploader < CarrierWave::Uploader::Base
    "/assets/clear.gif"
   end
   
-  process :resize_to_limit => [1920, 1200]
+  process :resize_to_limit => [800, 600]
 
   version :thumb do
     process :convert => 'jpg'
-    process :resize_to_fill => [70, 70]
+    process :resize_to_fill => [40, 40]
   end
   
   version :tiny do

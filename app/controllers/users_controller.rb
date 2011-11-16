@@ -8,9 +8,14 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
-
-    if @user.update_attributes(params[:user])
-      redirect_to( '/users' )
+    @user.update_attributes(params[:user])
+    if (params[:image])
+        @image = Image.new(params[:image])
+        @user.images << @image
+        @user.save 
+    end
+    respond_to do |format|
+      format.js { render :layout => false }
     end
   end
   

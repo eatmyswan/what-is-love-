@@ -1,0 +1,29 @@
+<div class="categories_wrap" id="day_categories">
+
+	<div class="category" id="<%= @inbox.id.to_s %>">
+		<span class="inbox_cover"></span>
+		<span class="title">Inbox</span>
+		<span class="count"><span class="inner_shadow"></span><span class="count_text"><%= @inbox.tasks.incomplete.count %></span><span>
+	</div>
+	
+	<div class="title_bar">
+		<span class="title">Personal</span>
+		<span class="toggle_category" id="toggle_personal"></span>
+	</div>
+	<div id="personal" class="connectedSortable">
+		<% @personal.each do |category| %>
+			<%= render :partial => 'category', :locals => { :category => category, :active => false } %>
+		<% end %>
+	</div>
+	
+	<div class="title_bar">
+		<span class="title">Professional</span>
+		<span class="toggle_category" id="toggle_professional"></span>
+	</div>
+	<div id="professional" class="connectedSortable">
+		<% @professional.each do |category| %>
+			<%= render :partial => 'category', :locals => { :category => category } %>
+		<% end %>
+	</div>
+	
+</div>

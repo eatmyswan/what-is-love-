@@ -2,5 +2,11 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require_self
+//= require jquery.remotipart
+//= require swfobject
+//= require uploadify
 //= require group
 //= require group_task_updates
+//= require group_vision_updates
+//= require group_pad
+//= require categories

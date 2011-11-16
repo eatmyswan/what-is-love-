@@ -1,7 +1,4 @@
-#incomplete li.task_wrap {
-	opacity: 1.0;
-}
-#complete li.task_wrap {
+li.task_wrap.complete {
 	opacity: 0.5;
 }
 
@@ -66,6 +63,9 @@ li.task_wrap .task, li.task_wrap.outcome li.task_wrap .task {
 	display: block;
 	padding: 6px 50px 6px 43px;
 }
+li.task_wrap.outcome li.task_wrap {
+	border-radius: 0;
+}
 li.task_wrap .edit {
 	width: 15px;
 	height: 15px;
@@ -119,8 +119,8 @@ li.task_wrap .edit_task input[type="text"] {
 	padding: 1px 7px;
 }
 
-li.task_wrap.outcome ul {
-	min-height: 52px;
+li.task_wrap.outcome ul.sortable {
+	min-height: 26px;
 }
 li.task_wrap.outcome .actions_wrap {
 	margin: 0 400px 0 0;
@@ -149,13 +149,13 @@ li.task_wrap.outcome .purpose_wrap {
 	width: 200px;
 	border-left: 1px solid #CCC;
 }
-li.task_wrap.outcome ul.action_plan li.task_wrap .outcome_wrap{
+li.task_wrap.outcome ul.in_outcome li.task_wrap .outcome_wrap{
 	position: relative;
 	right: auto;
 	width: auto;
 	border-left: none;
 }
-li.task_wrap.outcome ul.action_plan li.task_wrap .outcome_wrap .target {
+li.task_wrap.outcome ul.in_outcome li.task_wrap .outcome_wrap .target {
 	display: none;
 }
 li.task_wrap .actions_wrap, li.task_wrap .purpose_wrap {
@@ -170,8 +170,17 @@ li.task_wrap.outcome li.task_wrap .actions_wrap, li.task_wrap.outcome li.task_wr
 li.task_wrap.outcome .checkbox, li.task_wrap.outcome .target.active, li.task_wrap.outcome .star, li.task_wrap.outcome .edit, li.task_wrap.outcome .delete {
 	display: none;
 }
-li.task_wrap.outcome li.task_wrap .checkbox, li.task_wrap.outcome li.task_wrap .star, li.task_wrap.outcome li.task_wrap .edit, li.task_wrap.outcome li.task_wrap .delete {
+li.task_wrap.outcome li.task_wrap .checkbox, li.task_wrap.outcome li.task_wrap .star {
 	display: block;
+}
+li.task_wrap.outcome li.task_wrap:hover .edit, li.task_wrap.outcome li.task_wrap:hover .delete {
+	display: block;
+}
+li.task_wrap.outcome li.task_wrap.editing .target {
+	display: none !important;
+}
+li.task_wrap.outcome li.task_wrap.editing .edit_task input[type="text"]{
+	left: 44px;
 }
 li.task_wrap.outcome .task {
 	padding: 10px;
@@ -184,15 +193,14 @@ li.task_wrap.outcome .task {
 	border-radius: 3px;
 	margin-bottom: 3px;
 }
-.ui-sortable-helper {
+.dragging_task {
 	width: 40px !important;
 	height: 40px !important;
 	border-radius: 5px;
 	box-shadow: 0 0 6px #222;
 	overflow: hidden;
-	background: yellow;
 }
-.ui-sortable-helper * {
+.dragging_task * {
 	display: none;
 }
 
@@ -232,4 +240,12 @@ li.task_wrap.outcome .header .purpose_title {
 	top: 7px;
 	right: 0;
 	width: 200px;
+}
+
+.actions_wrap h3.outcome_complete {
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	padding: 6px 0 0 0;
+	color: #555;
 }

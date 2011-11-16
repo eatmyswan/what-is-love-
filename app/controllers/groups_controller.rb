@@ -1,12 +1,8 @@
 class GroupsController < ApplicationController
   
-  def index
-    @group = Group.where(user_id: current_user.id).first
-  end
   
   def show
     @group = Group.find(params[:id])
-    #@tasks = Task.where(group_id: params[:id]).and(block_id: nil).order_by([:sort, :asc],[:created_at, :desc])
     respond_to do |format|
         format.js { render :layout => false }
     end
@@ -28,26 +24,37 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(params[:group])
     @group.user_id = current_user.id
-    respond_to do |format|
-      if @group.save
-        format.html { redirect_to(group_path(@group.id)) }  
-        format.js
+    @group.save
+    if (params[:image])
+      @image = Image.new(params[:image])
+      if (params[:cover])
+        @image.sort = 0
       end
+      @group.images << @image
+      @group.save 
+    end
+    respond_to do |format|
+      format.js { render :layout => false }
     end
   end
 
   def update
     @group = Group.find(params[:id])
-
-    if @group.update_attributes(params[:group])
-        redirect_to(group_long_term_path(params[:id]))
+    @group.update_attributes(params[:group])
+    if (params[:image])
+      @image = Image.new(params[:image])
+      @group.images << @image
+      @group.save 
+    end
+    respond_to do |format|
+      format.js { render :layout => false }
     end
   end
 
   def destroy
     group = Group.find(params[:id])
     group.destroy
-      redirect_to groups_path
+    render :nothing => true
   end
   
   def sort_groups

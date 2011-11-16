@@ -1,0 +1,103 @@
+#vision_wrap {
+	padding: 30px 0 0 0;
+}
+#vision_wrap .section {
+	margin: 0 0 30px 0;
+	overflow: hidden;
+}
+#vision_wrap .section .edit {
+	width: 15px;
+	height: 15px;
+	background: url('/assets/edit.png') no-repeat;
+	float: right;
+	cursor: pointer;
+	opacity: 0.5;
+	margin: 6px 4px 0 0;
+}
+#vision_wrap .section.editing .edit, #vision_wrap .section.editing .text {
+	display: none;
+}
+#vision_wrap .section .edit_done {
+	width: 15px;
+	height: 15px;
+	background: url('/assets/edit_done.png') no-repeat;
+	float: right;
+	cursor: pointer;
+	opacity: 0.5;
+	margin: 6px 4px 0 0;
+	display: none;
+}
+#vision_wrap .section .vision_form, #vision_wrap .section .purpose_form {
+	display: none;
+}
+#vision_wrap .section.editing .vision_form, #vision_wrap .section.editing .purpose_form, #vision_wrap .section.editing .edit_done {
+	display: block;
+}
+
+#vision_wrap .quarter_goals {
+	float: left;
+	width: 50%;
+}
+#vision_wrap .year_goals {
+	float: right;
+	width: 50%;
+}
+#vision_wrap #vision_images {
+	margin-right: -20px;
+}
+
+
+#vision_wrap #vision_images .image_wrap {
+	float: left;
+	margin: 0 40px 30px 0;
+	width: 190px;
+	height: 190px;
+}
+
+#vision_wrap #vision_images .image {
+	display: table-cell;
+	width: 190px;
+	height: 190px;
+	vertical-align: middle;
+	text-align: center;
+}
+#vision_wrap #vision_images .image .relative{
+	vertical-align: middle;
+	position: relative;
+	display: inline-block;
+}
+#vision_wrap #vision_images .image img {
+	margin: 0 auto;
+	display: block;
+	max-width: 190px;
+	max-height: 190px;
+	border: 5px solid #FFF;
+	box-shadow: 2px 2px 5px #888;
+}
+
+#vision_wrap #vision_images .image .delete_img {
+	position: absolute;
+	top: -8px;
+	right: -8px;
+	width: 22px;
+	height: 22px;
+	background: url('/assets/delete_circle.png') no-repeat;
+	display: none;
+}
+#vision_wrap #vision_images .image .delete_img:hover {
+	background-position: 0 -22px;
+}
+#vision_wrap #vision_images .image_wrap:hover .delete_img {
+	display: block;
+}
+#vision_wrap #vision_images .image_wrap .relative .tape {
+	position: absolute;
+	top: -8px;
+	left: -8px;
+	width: 40px;
+	height: 32px;
+	background: url('/assets/tape.png') no-repeat;
+}
+
+
+

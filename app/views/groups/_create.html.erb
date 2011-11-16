@@ -1,0 +1,5 @@
+<%= link_to group_path(@group.id.to_s), :class => 'category', :id => @group.id.to_s,:remote => true do %>
+	<span class="cover"><%= image_tag @group.image.thumb.url %></span>
+	<span class="title"><%= @group.title %></span>
+	<span class="count"><span class="inner_shadow"></span><span class="count_text"><%= @group.tasks.incomplete.count %></span><span>
+<% end %>

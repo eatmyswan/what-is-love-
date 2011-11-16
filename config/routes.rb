@@ -4,23 +4,20 @@ Rpm::Application.routes.draw do
   
   root :to => "home#index"
   
-  resources :tasks do 
-    resources :subtasks do
-        resources :emails
-        resources :notes, :only => :destroy
-        resources :reminders, :only => :destroy
-    end
+  resources :tasks do
     resources :emails
     resources :notes, :only => :destroy
     resources :reminders, :only => :destroy
   end
   
   resources :audios
-  resources :blocks
-  resources :users
+  resources :users do
+    resources :images
+    resources :goals
+  end
   
   resources :groups do
-    resources :subgroups
+    resources :images
     resources :goals
   end
   

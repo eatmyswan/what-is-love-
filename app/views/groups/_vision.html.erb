@@ -1,0 +1,68 @@
+
+
+<div class="section">
+	<span class="text"><%= group.vision %></span>
+	<span class="edit"></span>
+	<span class="edit_done"></span>
+	<span class="vision_form">
+		<%= form_for group, :remote => true do |f| %>
+			<%= f.text_field :vision %>
+		<% end %>
+	</span>
+</div>
+
+
+<div class="section">
+	<div class="text"><%= group.purpose %></div>
+	<span class="edit"></span>
+	<span class="edit_done"></span>
+	<span class="purpose_form">
+		<%= form_for group, :remote => true do |f| %>
+			<%= f.text_field :purpose %>
+			<% end %>
+	</span>
+</div>
+
+<div class="section">
+	<div class="quarter_goals">
+		<h3>90 day Goals</h3>
+		<div class="goals_wrap">
+			<% group.goals.where(range: '90').each_with_index do |goal, index| %>
+				<div class="goal">
+					<%= index + 1 %> <%= goal.text %>
+				</div>
+			<% end %>
+		</div>
+		<%= form_for([group, Goal.new], :remote => true) do |f| %>
+			<%= f.text_field :text %>
+			<%= f.hidden_field :range, :value => '90' %>
+		<% end %>
+	</div>
+	
+	<div class="year_goals">
+		<h3>One Year Goals</h3>
+		<div class="goals_wrap">
+			<% group.goals.where(range: '365').each_with_index do |goal, index| %>
+				<div class="goal">
+					<%= index + 1 %> <%= goal.text %>
+				</div>
+				<% end %>
+		</div>
+		<%= form_for([group, Goal.new], :remote => true) do |f| %>
+			<%= f.text_field :text %>
+			<%= f.hidden_field :range, :value => '365' %>
+		<% end %>
+	</div>
+</div>
+
+<div id="vision_images">
+	<% group.images.forward.each do |image| %>
+		<%= render :partial => '/images/image', :locals => { :image => image, :group => group } %>
+	<% end %>
+	<div id="uploadify_wrap">
+		<div id="queue"></div>
+		<div id="upload" class="image_wrap"></div>
+		<%= uploadify_user if current_user == group %>
+		<%= uploadify_group if current_user != group %>
+	</div>
+</div>
