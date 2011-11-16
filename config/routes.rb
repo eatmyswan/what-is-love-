@@ -22,9 +22,10 @@ Rpm::Application.routes.draw do
   end
   
   match 'forecast/index' => 'forecast#index'
-  match 'week' => 'weeks#index'
+  match 'week/index/:start_date' => 'weeks#index', :as => :week
   match 'week/new' => 'weeks#new'
-  match 'week/day' => 'weeks#day'
+  match 'week/day/:start_date' => 'weeks#day', :as => :week_day
+  match 'week/month/:start_date' => 'weeks#month', :as => :week_month
   
   match 'tasks/sort' => 'tasks#sort'
   match 'task/new_from_cal/:group_id' => 'tasks#new_from_cal'

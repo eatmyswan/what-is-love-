@@ -6,365 +6,83 @@
 	right: 0;
 	padding: 20px;
 }
-.day_header {
-    border-bottom: 1px solid red;
+#day_view .day_header {
+	margin-left: 10px;
 }
-.day_queue {
+#day_view .queue_wrap {
 	height: 50px;
-	background: green;
-	border-bottom: 1px solid red;
+	border: 1px solid #CCC;
 	position: relative;
+	margin-left: 10px;
 }
-.day_queue .queue_day {
-    color: #ACAEAF;
-    font-size: 12px;
-    overflow-y: auto;
-	overflow-x: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+#day_view .queue_wrap .queue {
 	position: absolute;
-	border-left: 1px solid #000;
-	border-bottom: 1px solid #000;
-	border-top: 1px solid #000;
 	bottom: 0;
 	left: 0;
 	top: 0;
 	right: 0;
-	background: blue;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 1px;
 }
-.hour_marker {
-	margin: 0 0 0 -20px;
-	width: 20px;
-	height:75px;
+#day_view .queue_wrap .queue_hour {
+	position: absolute;
+	width: 30px;
 	text-align: right;
 	font-size: 11px;
+	left: -30px;
 }
-.day_newname {
+#day_view .grid_hours_wrap {
 	position: absolute;
-	top: 90px;
+	top: 85px;
 	bottom: 0;
     left: 0;
     right: 0;
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
-.new_full_grid_newname {
+#day_view .grid_hours_wrap .grid_wrap {
+	background-image: url("/assets/gridh.png");
     height: 1800px;
     position: absolute;
-    left: 20px;
+    left: 30px;
     right: 20px;
     top: 0;
+	border: 1px solid #CCC;
 }
-.new_hours_newname {
+#day_view .grid_hours_wrap .hours {
 	left:-20px;
 	width: 20px;
     position: absolute;
 	text-align: right;
 	font-size: 11px;
 }
-.new_hour_newname { 
+#day_view .grid_hours_wrap .hours .hour { 
 	height:75px;
 	text-align: right;
 	position: relative;
 	font-size: 11px;
 }
-.new_full_hour_row_newname { 
-	background-color: #FFFFFF;
-    background-image: url("/assets/gridh.png");
+#day_view .grid_hours_wrap .grid { 
 	position: absolute;
 	height:1800px;
-	border-left: 1px solid #000;
 	left: 0;
 	right: 0;
 	top: 0;
 	bottom: 0;
 }
-
-
-
-#day_cal_wrap {
-    min-height: 100%;
-    position: relative;
+#day_view .time_drop_hover {
+	background: #CCC;
 }
-#day_cal_header {
-    background: url("/images/cal_header_bg.png") repeat-x scroll 0 0 #444444;
-    border: 1px solid #4A4E4E;
-    border-radius: 5px 5px 0 0;
-    height: 40px;
+#day_view .time_drop .drop_task {
+	display: none;
 }
-#day_white_wrap {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border-radius: 0 0 5px 5px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.7);
-    padding: 0 15px 15px;
+#day_view .time_drop li.task_wrap {
 	position: absolute;
-	top: 45px;
-	left: 0;
-	right: 0;
-	bottom: 0;
-}
-#full_day_wrap {
-	bottom: 20px;
-    left: 20px;
-    position: absolute;
-    right: 220px;
-    top: 0;
-}
-#day_title {
-	padding: 20px 0 8px;
-	color: #4F5253;
-    font-size: 30px;
-}
-.new_day {
-	bottom: 0;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 150px;
-	overflow-y: scroll;
-	overflow-x: hidden;
-}
-.new_grid { 
-	background-color:#FFEDCA;
-	background-image:url(/images/grid.png);
-	background-attachment:inherit;
-	width:1125px;
-}
-.new_header_row_hours { 
-	background:#898b8d;
-	height: 20px;
-	border-right:1px solid #CCC;
-}
-
-.queue_hour {
-	height:75px;
-	text-align: right;
-	position: relative;
-	font-size: 11px;
-}
-
-
-#day_cal_wrap .col0 {
-	left:-48px;
-	width: 48px;
-}
-#day_cal_wrap .col1 {
-	left: 0;
-    right: 0;
-}
-
-.new_header_box .new_smaller {
-	font-size: 9px;
-}
-.new_day { 
-	height:50px;
-	width:55px;
-	padding:25px 0px 0px 20px;
-	float:left;
-}
-.new_placeholder {
-	height:39px;
-	border-top:1px solid #fff;
-	border-right:1px solid #ccc;
-	padding:15px 0px 0px 18px;
-}
-.new_day_event_wrap {
-	position:absolute;
-	top: 0;
-	border-radius: 5px;
-	border: 1px solid #0f5bd7;
-	height: 58px;
-}
-.new_day_event {
-	height: 100%;
-	background:#0f5bd7;
-	color:#000;
-	opacity:0.new_75;
-}
-.new_new_day_event {
-	position:absolute;
-	top: 0;
-	border-radius: 5px;
-	border: 1px solid #0f5bd7;
-	height: 59px;
-	background:#0f5bd7;
-	color:#000;
-}
-.new_day_event a {
-	color:#000;
-}
-.new_day_event:hover {
-	opacity: 0.new_9;
-}
-
-
-
-.new_full_day_row .new_click_hour {
-	height:57px;
-	width:55px;
-	border-right:1px solid #cfe6ec;
-	padding:17px 1px 0px 18px;
-	float:left;
-}
-.new_full_day_row .new_click_hour a {
-	color:#000;
-}
-.new_full_day_row .new_click_hour:hover {
-	background:#C7F980;
-}
-.new_start_time {
-	color: #FFF;
-	font-weight: bold;
-	position: absolute;
-	bottom: 0;
-	right: 5px;
-}
-span.new_lock {
-	position: absolute;
-	top: 5px;
-	right: 5px;
-	background: url(/images/sprite.png) no-repeat -46px -327px transparent;
-	width: 13px;
-	height: 14px;
-	display: block;
-	cursor:pointer;
-}
-span.new_locked {
-	background-position: -46px -343px;
-}
-.new_day_event .new_task {
-	padding: 5px 0 0 5px;
-	color: #FFF;
-	font-weight: bold;
-	font-size: 13px;
-}
-
-
-#cal_groups {
-	right: 0;
-    position: absolute;
-    top: 0;
-    width: 200px;
-	height: 100%;
-	background: #f1f4f6;
-	border-left: 1px solid #b6b6b6;
-	z-index: 999;
-	border-radius: 0 0 5px 0;
-}
-#cal_groups .master_title {
-	margin: 20px 0 5px 5px;
-	font-weight: bold;
-}
-#cal_groups .role_wrap { 
-    position: relative;
-}
-#cal_groups .role_title {
-	background:#898b8d;
-	color: #FFF;
-	font-size: 11px;
-	line-height: 20px;
-	padding: 0 0 0 5px;
-	margin: 0 0 1px 0;
-}
-#cal_groups .items {
-	min-height: 20px;
-}
-.queue_day .add {
-	float: right;
-	cursor: pointer;
-	width: 20px;
-	line-height: 20px;
-	font-weight: bold;
-	text-align: center;
-	font-size: 12px;
-}
-.queue_day .items {
-	padding: 5px 0;
-}
-.queue_day .items .item {
-	background:#FFF;
-	height: 25px;
-	position: relative;
-	margin: 0 2px 1px;
-	border: 1px solid #CCC;
-	border-radius: 2px;
-}
-.queue_day .queue_droppable {
-}
-.queue_hover {
-	min-height: 75px;
-}
-.ui-dialog-titlebar {
-	display: none !important;
-}
-
-.items .max_bg {
-	position: relative !important;
-	top: auto !important;
-	height: 20px !important;
-}
-.items .max_bg .min_bg {
-	width: 100%;
-	height: 100%;
-}
-.items .max_bg .text {
-	position: absolute;
-	top: 2px;
-	left: 2px;
-	right: 2px;
-	bottom: 2px;
-	display: block;
-	color: #FFF;
-	font-weight: bold;
-	text-shadow: 0 1px 2px rgba(0,0,0,0.6);
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.queue_day .max_bg {
-	position: relative !important;
-	top: auto !important;
-	height: 20px !important;
-}
-.queue_day .max_bg .min_bg {
-	width: 100%;
-	height: 100%;
-}
-.queue_day .max_bg .text {
-	position: absolute;
-	top: 2px;
-	left: 2px;
-	right: 2px;
-	bottom: 2px;
-	display: block;
-	color: #FFF;
-	font-weight: bold;
-	text-shadow: 0 1px 2px rgba(0,0,0,0.6);
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.max_bg {
-	position: absolute;
-	left: 0;
+	left: 1px;
 	right: 1px;
-	border-radius:5px;
-	overflow:hidden;
+	opacity: 0.9;
 }
-.max_bg .min_bg {
-	width: 100%;
-	height: 100%;
-}
-.max_bg .text {
-	position: absolute;
-	top: 7px;
-	left: 7px;
-	right: 7px;
-	bottom: 7px;
-	display: block;
-	color: #FFF;
-	font-weight: bold;
-	text-shadow: 0 1px 2px rgba(0,0,0,0.6);
-	overflow: hidden;
-	text-overflow: ellipsis;
+#day_view .time_drop li.task_wrap:hover {
+	opacity: 1.0;
 }

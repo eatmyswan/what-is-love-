@@ -1,29 +1,48 @@
 
 <% content_for :top do %>
 
-		<div class="title"><%= @start_date.strftime('%B %d') %></div>
-		<%= link_to '<', week_day_path(@start_date - 1.day), :remote => true %>
-		<%= link_to 'Today', week_day_path(Date.today()), :remote => true %>
-		<%= link_to '>', week_day_path(@start_date + 1.day), :remote => true %>
+		<div class="title">
+				<% if( @start_date.strftime('%B') == @end_date.strftime('%B') ) %>
+					<%= @start_date.strftime('%B %d') %> - <%= @end_date.strftime('%d') %> 
+				<% else %>
+					<%= @start_date.strftime('%B %d') %> - <%= @end_date.strftime('%B %d') %> 
+				<% end %>	
+		</div>
+		<%= link_to '<', week_path(@start_date - 7.days), :remote => true %>
+		<%= link_to 'This Week', week_path(Date.today()), :remote => true %>
+		<%= link_to '>', week_path(@start_date + 8.days), :remote => true %>
 		<div class="ribbon"></div>
 
 <% end %>
 
 <% content_for :page do %>
-	<div id="day_view">
+
+	<div id="week_view">
 	<% hours = ['12 <span class="new_smaller">AM</span>','1 <span class="new_smaller">AM</span>','2 <span class="new_smaller">AM</span>','3 <span class="new_smaller">AM</span>','4 <span class="new_smaller">AM</span>','5 <span class="new_smaller">AM</span>','6 <span class="new_smaller">AM</span>','7 <span class="new_smaller">AM</span>','8 <span class="new_smaller">AM</span>','9 <span class="new_smaller">AM</span>','10 <span class="new_smaller">AM</span>','11 <span class="new_smaller">AM</span>','12 <span class="new_smaller">PM</span>','1 <span class="new_smaller">PM</span>','2 <span class="new_smaller">PM</span>','3 <span class="new_smaller">PM</span>','4 <span class="new_smaller">PM</span>','5 <span class="new_smaller">PM</span>','6 <span class="new_smaller">PM</span>','7 <span class="new_smaller">PM</span>','8 <span class="new_smaller">PM</span>','9 <span class="new_smaller">PM</span>','10 <span class="new_smaller">PM</span>','11 <span class="new_smaller">PM</span>'] %>
 		
-		<div class="day_header">
-			Must: <span class="must"></span>
-			Total: <span class="totalmin"></span> / <span class="totalmax"></span>
-		</div>
+		
+	<div class="week_header">
+		<% count = 0 %>
+		<% for day in @start_date..@end_date %>  
+		<% count = count+1 %>
+       <div class="day_header col<%= count %>">
+       	<%= day.strftime('%A') %>
+				<div class="time_wrap" date="<%= day %>">
+					Must: <span class="must"></span>
+					Total: <span class="totalmin"></span> / <span class="totalmax"></span>
+				</div>
+       </div>
+     <% end %>
+	</div>
 	
 		<div class="queue_wrap">
 			<div class="queue_hour"> 
 				No Time 
 			</div>
+			<% count = 0 %>
 			<% for day in @start_date..@end_date %>  
-	       <div class="queue droppable" date="<%= day %>">
+			<% count = count+1 %>
+	       <div class="queue droppable col<%= count %>" date="<%= day %>">
 	       	    <% for task in @tasks %>
 	            	<% if task.starts_at.strftime('%j').to_s == day.strftime('%j').to_s && task.queued == true %>
 									<%= render :partial => 'task_category', :locals => { :task => task } %>
@@ -45,8 +64,10 @@
 	     			<% end %>
 	    	</div>
 	
+				<% count = 0 %>
 		       <% for day in @start_date..@end_date %>
-	          <div class="grid time_drop droppable" date="<%= day %>">
+				<% count = count+1 %>
+	          <div class="grid time_drop droppable col<%= count %>" date="<%= day %>">
 	          <% for task in @tasks %>
 	            <% if task.starts_at.strftime('%j').to_s == day.strftime('%j').to_s && task.scheduled == true %>
 								<%= render :partial => 'task', :locals => { :task => task } %>

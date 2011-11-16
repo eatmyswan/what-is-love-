@@ -10,3 +10,4 @@
 //= require group_vision_updates
 //= require group_pad
 //= require categories
+//= require event_calendar

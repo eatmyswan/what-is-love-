@@ -1,12 +1,14 @@
+<script src="/assets/group.js" type="text/javascript"></script>
+
 <div id="categories">
 		<div class="inner_shadow"></div>
 		<div id="filter_bar">
 			<span class="inner_highlight"></span>
 			<div class="filters_wrap">
-				<a id="list" class="filter rounded_left active" href="/">Plan</a>
-				<%= link_to 'Day', week_day_path(), :id => 'day', :class => 'filter', :remote => true %>
-				<a id="week" class="filter">Week</a>
-				<a id="month" class="filter rounded_right">Month</a>
+				<%= link_to 'Plan', root_path(), :id => 'plan', :class => 'filter rounded_left active', :remote => true %>
+				<%= link_to 'Day', week_day_path(Date.today()), :id => 'day', :class => 'filter', :remote => true %>
+				<%= link_to 'Week', week_path(Date.today()), :id => 'week', :class => 'filter', :remote => true %>
+				<%= link_to 'Month', week_month_path(Date.today()), :id => 'month', :class => 'filter rounded_right', :remote => true %>
 			</div>
 		</div>
 		<div class="categories_wrap" id="plan_categories">

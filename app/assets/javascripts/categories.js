@@ -50,7 +50,7 @@ $('.new_group').live('submit',function(){
 	clearForm(newCategory);
 });
 
-$('.category .edit').live('click',function(){
+$('#plan_categories .category .edit').live('click',function(){
 	event.preventDefault();
 	var category = $(this).parents('.category').first();
 	var categoryId = category.attr('id');
@@ -60,11 +60,11 @@ $('.category .edit').live('click',function(){
 	return false;
 });
 
-$('.category .edit_done').live('click',function(){
+$('#plan_categories .category .edit_done').live('click',function(){
 	$('.edit_group').trigger('submit');
 });
 
-$('.edit_group').live('submit',function(){
+$('#plan_categories .edit_group').live('submit',function(){
 
 });
 

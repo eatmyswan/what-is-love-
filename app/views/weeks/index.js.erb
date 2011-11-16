@@ -1,0 +1,4 @@
+$('.filters_wrap a').removeClass('active');
+$('#week').addClass('active');
+$('#pad').replaceWith("<%= escape_javascript render('calendar_week')  %>");
+$('.categories_wrap').replaceWith("<%= escape_javascript render('categories')  %>");
