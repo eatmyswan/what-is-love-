@@ -22,6 +22,21 @@ a {
 
 /**  Actual Styles  **/
 
+
+@font-face {
+    font-family: 'JournalRegular';
+    src: url('<%= asset_path('journal-webfont.eot') %>');
+    src: url('<%= asset_path('journal-webfont.eot?') %>') format('embedded-opentype'),
+         url('<%= asset_path('journal-webfont.woff') %>') format('woff'),
+         url('<%= asset_path('journal-webfont.ttf') %>') format('truetype'),
+         url('<%= asset_path('journal-webfont.svg') %>') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+.journal {
+	font-family: 'JournalRegular';
+}
+
 html {
 	height: 100%;
 }

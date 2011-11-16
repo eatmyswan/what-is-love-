@@ -21,7 +21,9 @@
 			<input type="text" value="<%= task.task %>" class="edit_task_text">
 		</form>
 	</div>
-	<div class="purpose_wrap"><%= task.purpose %></div>
+	<div class="purpose_wrap">
+		<%= render :partial => '/tasks/task_purpose', :locals => { :task => task } %>
+	</div>
 	<div class="header">
 		<span class="target outcome"></span>
 		<div class="action_title">Massive Action Plan</div>
@@ -50,7 +52,7 @@
 						<span class="task drag result">
 							<%= task.task %>
 						</span>
-						<form class="edit_task no_disp" method="post" action="tits">
+						<form class="edit_task no_disp" method="post">
 							<input type="text" value="<%= task.task %>" class="edit_task_text">
 						</form>
 					</div>

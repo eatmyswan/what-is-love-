@@ -148,6 +148,18 @@ $('#incomplete .target.outcome').live('click', function(){
 	task.removeClass('outcome').find('.header').first().slideUp(200);		
 });
 
+$('#incomplete .add_purpose').live('submit',function(event){
+	event.preventDefault();
+	var purpose = $(this).find('input').val();
+	var taskId = $(this).parents('li').first().attr('id');
+	$(this).parents('li').first().find('.purpose').first().text(purpose);
+	$.ajax({
+		url: "/tasks/" +  taskId,
+		type: 'PUT',
+		data: $.param({task : { purpose: purpose }})
+	});
+	return false;
+});
 
 function editingDone() {
 	var task = $('.editing');

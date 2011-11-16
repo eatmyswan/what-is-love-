@@ -83,7 +83,32 @@ $('.category').live("mouseover", function() {
 	}
 });
 
+$('.goal .delete').live('click',function(){
+	$(this).parent().fadeOut(300,function(){
+		$(this).remove();
+	});
+});
+
+$('.add_goal').live('click',function(){
+	var what = $(this).attr('rel');
+	$('#'+what).slideDown(100);
+});
+
+$('.goals_wrap').sortable({
+	items: '.goal',
+	axis: 'y'
+});
+
 $(document).ready(function() {
+	
+	if ($('#group_vision').val() == ''){
+		$('#group_vision').val('What is your ultimate result / vision for this?')
+	}
+	
+	if ($('#group_purpose').val() == ''){
+		$('#group_purpose').val('What is your driving force behind this?')
+	}
+	
 	$('#personal,#professional').sortable({
 		connectWith: '.connectedSortable',
 		items: 'a',

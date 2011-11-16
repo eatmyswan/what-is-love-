@@ -1,6 +1,6 @@
 
 
-<div class="section">
+<div class="section <%= 'editing' if group.vision.blank? %>">
 	<span class="text"><%= group.vision %></span>
 	<span class="edit"></span>
 	<span class="edit_done"></span>
@@ -12,7 +12,7 @@
 </div>
 
 
-<div class="section">
+<div class="section <%= 'editing' if group.vision.blank? %>">
 	<div class="text"><%= group.purpose %></div>
 	<span class="edit"></span>
 	<span class="edit_done"></span>
@@ -23,35 +23,50 @@
 	</span>
 </div>
 
-<div class="section">
+<div class="goals_section">
 	<div class="quarter_goals">
-		<h3>90 day Goals</h3>
+		<div class="title_wrap">
+			<span class="title journal">90 Day Results</span>
+			<span class="add_goal" rel="quarter_goals_form">Add Result</span>
+		</div>
 		<div class="goals_wrap">
+			<div class="form_wrap no_disp" id="quarter_goals_form">
+				<%= form_for([group, Goal.new], :remote => true) do |f| %>
+					<%= f.text_field :text %>
+					<%= f.hidden_field :range, :value => '90' %>
+					<% end %>
+			</div>
+		
 			<% group.goals.where(range: '90').each_with_index do |goal, index| %>
 				<div class="goal">
-					<%= index + 1 %> <%= goal.text %>
+					<span class="count journal"><%= index + 1 %></span> 
+					<span class="text"><%= goal.text %></span>
+					<%= link_to '', [group, goal], :class => 'delete', :method => :delete, :remote => :true %>
 				</div>
 			<% end %>
 		</div>
-		<%= form_for([group, Goal.new], :remote => true) do |f| %>
-			<%= f.text_field :text %>
-			<%= f.hidden_field :range, :value => '90' %>
-		<% end %>
 	</div>
 	
 	<div class="year_goals">
-		<h3>One Year Goals</h3>
+		<div class="title_wrap">
+			<span class="title journal">One Year Results</span>
+			<span class="add_goal" rel="year_goals_form">Add Result</span>
+		</div>
 		<div class="goals_wrap">
+			<div class="form_wrap no_disp" id="year_goals_form">
+				<%= form_for([group, Goal.new], :remote => true) do |f| %>
+					<%= f.text_field :text %>
+					<%= f.hidden_field :range, :value => '365' %>
+				<% end %>
+			</div>
 			<% group.goals.where(range: '365').each_with_index do |goal, index| %>
 				<div class="goal">
-					<%= index + 1 %> <%= goal.text %>
+					<span class="count journal"><%= index + 1 %></span> 
+					<span class="text"><%= goal.text %></span>
+					<%= link_to '', [group, goal], :class => 'delete', :method => :delete, :remote => :true %>
 				</div>
 				<% end %>
 		</div>
-		<%= form_for([group, Goal.new], :remote => true) do |f| %>
-			<%= f.text_field :text %>
-			<%= f.hidden_field :range, :value => '365' %>
-		<% end %>
 	</div>
 </div>
 

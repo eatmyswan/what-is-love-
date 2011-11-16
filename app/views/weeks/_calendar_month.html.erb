@@ -1,17 +1,33 @@
 
 <% content_for :top do %>
 
-		<div class="title"><%= @start_date.strftime('%B') %> </div>
-		<%= link_to '<', week_month_path(@start_date - 5.days), :remote => true %>
-		<%= link_to 'This Month', week_month_path(Date.today()), :remote => true %>
-		<%= link_to '>', week_month_path(@end_date + 5.days), :remote => true %>
+		<div class="calendar_title"><%= @start_date.strftime('%B') %> </div>
+		<div id="calendar_controls">
+			<%= link_to '<', week_month_path(@start_date - 5.days), :class => 'button rounded_left', :remote => true %>
+			<%= link_to 'This Month', week_month_path(Date.today()), :class => 'button', :remote => true %>
+			<%= link_to '>', week_month_path(@end_date + 5.days), :class => 'button rounded_right', :remote => true %>
+		</div>
 		<div class="ribbon"></div>
 
 <% end %>
 
 <% content_for :page do %>
+
+<div id="calendar">
 	
-	<%#= raw(event_calendar) %>
+	<%= calendar_for @tasks, :year => @date.year, :month => @date.month do |calendar| %>
+    <%= calendar.head('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday') %>
+    <%= calendar.day(:day_method => :published_on) do |date, tasks| %>
+      <%= date.day %>
+      <ul class="droppable">
+        <% for task in tasks %>
+          <li><%= task.task %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  <% end %>
+
+</div>
 	
 <% end %>
 

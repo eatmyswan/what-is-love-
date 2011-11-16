@@ -19,7 +19,19 @@ class GoalsController < ApplicationController
       end
     end
 
-
+  end
+  
+  def destroy
+    if(params[:group_id])
+      @group = Group.find(params[:group_id])
+      @goal =  @group.goals.find(params[:id])
+    elsif(params[:user_id])
+      @user = User.find(params[:user_id])
+      @goal =  @user.goals.find(params[:id])
+    end
+    
+    @goal.destroy
+    render :nothing => true
   end
 
 end

@@ -1,10 +1,12 @@
 
 <% content_for :top do %>
 
-		<div class="title"><%= @start_date.strftime('%B %d') %></div>
-		<%= link_to '<', week_day_path(@start_date - 1.day), :remote => true %>
-		<%= link_to 'Today', week_day_path(Date.today()), :remote => true %>
-		<%= link_to '>', week_day_path(@start_date + 1.day), :remote => true %>
+		<div class="calendar_title"><%= @start_date.strftime('%d %A') %></div>
+		<div id="calendar_controls">
+			<%= link_to '<', week_day_path(@start_date - 1.day), :class => 'button rounded_left', :remote => true %>
+			<%= link_to 'Today', week_day_path(Date.today()), :class => 'button', :remote => true %>
+			<%= link_to '>', week_day_path(@start_date + 1.day), :class => 'button rounded_right', :remote => true %>
+		</div>
 		<div class="ribbon"></div>
 
 <% end %>
