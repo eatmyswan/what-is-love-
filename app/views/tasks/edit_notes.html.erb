@@ -1,20 +1,16 @@
-<div id="notes_wrap">
+<div style="width: 300px; height: 200px;">
 	
-<%= form_for @task do |f| %>
-	<input type="hidden" name="email[sender_uid]" value="<%= current_user.id %>">
-	<div class="modal_title_wrap">
-			<div class="modal_cancel_wrap">
-				<div id="close_fancybox"><span class="no_disp">Cancel</span></div>
-			</div>
-			<div class="modal_submit_wrap">
-				<%= image_submit_tag("/images/blank.gif", :class => 'send') %>
-			</div>
-			<div class="modal_title"> Notes </div>
-	</div>
-	<div class="body_wrap">
-		<%= f.text_area :notes %>
+	<div id="notes_wrap">
+		<div id="notes">
+			<% @task.notes.each_with_index do |note| %>
+				<%= render :partial => 'note', :locals => { :note => note } %> 
+			<% end %>
+		</div>
+		<input type="text" id="new_note" rel="<%= @task.id.to_s %>">
 	</div>
 	
-<% end %>
+	<div>
+		<span id="dialog_close">Done</span>
+	</div>
 
 </div>

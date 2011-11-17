@@ -5,9 +5,9 @@
 //= require jquery.remotipart
 //= require swfobject
 //= require uploadify
+//= require fancybox
 //= require group
 //= require group_task_updates
 //= require group_vision_updates
-//= require group_pad
 //= require categories
 //= require calendar

@@ -14,7 +14,7 @@ gem "jquery-rails"
 gem 'jeditable-rails'
 gem 'omniauth', "~> 0.3.2"
 gem 'time_diff'
-gem 'event-calendar', :require => 'event_calendar'
+gem 'swf_fu', '>=1.3.4', :git => "git://github.com/rodrigob/swf_fu"
 
 group :assets do
   gem 'sass-rails', "  ~> 3.1.0"

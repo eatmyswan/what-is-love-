@@ -89,6 +89,20 @@ $('.goal .delete').live('click',function(){
 	});
 });
 
+$('#vision').live('click',function(){
+	$(this).addClass('active');
+	$('#plan').removeClass('active');
+	$('#plan_wrap').hide();
+	$('#vision_wrap').show();
+});
+
+$('#plan').live('click',function(){
+	$(this).addClass('active');
+	$('#vision').removeClass('active');
+	$('#plan_wrap').show();
+	$('#vision_wrap').hide();
+});
+
 $('.add_goal').live('click',function(){
 	var what = $(this).attr('rel');
 	$('#'+what).slideDown(100);
@@ -100,6 +114,18 @@ $('.goals_wrap').sortable({
 });
 
 $(document).ready(function() {
+	
+	$('#incomplete .note').fancybox({
+		'overlayColor' : '#000',
+		'overlayOpacity' : 0.3,
+		'showCloseButton' : false
+	});
+	
+	$('#incomplete .email').fancybox({
+		'overlayColor' : '#000',
+		'overlayOpacity' : 0.3,
+		'showCloseButton' : false
+	});
 	
 	if ($('#group_vision').val() == ''){
 		$('#group_vision').val('What is your ultimate result / vision for this?')

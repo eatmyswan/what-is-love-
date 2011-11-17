@@ -1,3 +1,4 @@
+$(document).ready(function() {
 
 $('#group .checkbox').live('click',function(){
 	var checkbox = $(this);
@@ -160,6 +161,53 @@ $('#incomplete .add_purpose').live('submit',function(event){
 	});
 	return false;
 });
+
+$('#dialog_close').live('click', function(){
+	$.fancybox.close();
+});
+
+$('.delete_note').live('click', function() {
+	$(this).parent().parent().remove();
+	notes_index();
+});
+
+$('#notes_wrap').live('click',function() {
+	$('#new_note').focus();
+});
+
+$('#new_note').live('keyup',function(e) {
+	e.preventDefault;
+	if (e.keyCode == 13) {
+		var taskId = $(this).attr('rel');
+		insert_note(this.value, taskId);
+		$(this).val('');
+	}
+});
+	
+$('#close_fancybox').live('click', function() {
+	$.fancybox.close();
+});
+
+$('#incomplete .calendar').live('click',function(){
+	alert('show datepicker');
+});
+
+});
+
+function insert_note(note,taskId) {
+	$.ajax({
+		url: "/tasks/" +  taskId,
+		type: 'PUT',
+		data: $.param({notes : { note: note }})
+	});
+	notes_index();
+}
+
+function notes_index(){
+	$('#notes .note_wrap').each(function(index){
+		$(this).find('.index').text(index + 1);
+	});
+}
 
 function editingDone() {
 	var task = $('.editing');

@@ -17,7 +17,7 @@
 	
 	<%= calendar_for @tasks, :year => @date.year, :month => @date.month do |calendar| %>
     <%= calendar.head('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday') %>
-    <%= calendar.day(:day_method => :published_on) do |date, tasks| %>
+    <%= calendar.day(:day_method => :starts_at) do |date, tasks| %>
       <%= date.day %>
       <ul class="droppable">
         <% for task in tasks %>

@@ -42,11 +42,15 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    @task.update_attributes(params[:task])
     
-    if params[:task][:leverage]
-      email = params[:task][:leverage]
-      UserMailer.leverage_task(email).deliver
+    if params[:task]
+      @task.update_attributes(params[:task])
+      render :nothing => true
+    end
+    
+    if params[:email]
+      UserMailer.leverage_task(params[:email]).deliver
+      render :nothing => true
     end
     
     if params[:reminders]
@@ -54,15 +58,15 @@ class TasksController < ApplicationController
         reminder_dt = @task.starts_at - r.to_i.minutes
         @task.reminders.create!( delivers_at: reminder_dt )
       end
+      render :nothing => true
     end
     
     if params[:notes]
-      params[:notes].each do |note|
-        @task.notes.create!( note: note )
-      end
+        @note = @task.notes.new( params[:notes] )
+        @task.notes << @note
+        render 'task_note'
     end
     
-    render :nothing => true
   end
 
   def destroy

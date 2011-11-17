@@ -277,6 +277,16 @@
 #plan_categories .category.editing .form, #plan_categories .category.editing .edit_done, #plan_categories .category.editing .delete, #plan_categories .category.editing .form .cover {
 	display: block;
 }
+#day_categories li.task_wrap .date {
+	display: none;
+}
+#day_categories li.task_wrap .task {
+	display: block;
+	padding: 6px 4px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
 
 
 #categories .category.active, #categories .drop_hover {
