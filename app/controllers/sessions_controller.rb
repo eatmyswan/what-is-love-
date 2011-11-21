@@ -13,8 +13,7 @@ class SessionsController < ApplicationController
   end
   
   def failure
-    @auth = request.env["omniauth.auth"]
-    render '/users/failure'
+    render :text=>request.env["omniauth.auth"].to_yaml
   end
 
 end
