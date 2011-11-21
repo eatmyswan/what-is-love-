@@ -13,7 +13,7 @@ gem 'remotipart', '~> 1.0'
 gem 'jquery-rails'
 gem 'omniauth-twitter', :git => 'https://github.com/arunagw/omniauth-twitter.git'
 gem 'time_diff'
-#gem 'swf_fu', '>=1.3.4', :git => 'git://github.com/rodrigob/swf_fu'
+gem 'swf_fu', '>=1.3.4', :git => 'git://github.com/rodrigob/swf_fu'
 gem 'ruby-mp3info', '~> 0.6.16'
 
 group :assets do
