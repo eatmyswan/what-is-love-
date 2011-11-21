@@ -8,7 +8,7 @@ module GroupsHelper
           $('#upload').uploadify({
             script          : '#{ user_images_path(current_user) }',
             fileDataName    : 'image[image]',
-            uploader        : '/assets/uploadify.swf',
+            uploader        : '#{ asset_path('uploadify.swf') }',
             cancelImg       : '',
             fileDesc        : 'Images',
             fileExt         : '*.png;*.jpg;*.gif',
@@ -42,7 +42,7 @@ module GroupsHelper
           $('#upload').uploadify({
             script          : '#{ group_path(@group) }',
             fileDataName    : 'image[image]',
-            uploader        : '/assets/uploadify.swf',
+            uploader        : '#{ asset_path('uploadify.swf') }',
             cancelImg       : '',
             fileDesc        : 'Images',
             fileExt         : '*.png;*.jpg;*.gif',
