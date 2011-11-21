@@ -20,7 +20,7 @@ module ApplicationHelper
           $('#upload').uploadify({
             script          : '#{ user_images_path(current_user) }',
             fileDataName    : 'image[image]',
-            uploader        : '#{ asset_path('uploadify.swf') }',
+            uploader        : '#{ asset_path 'uploadify.swf' }',
             cancelImg       : '',
             fileDesc        : 'Images',
             fileExt         : '*.png;*.jpg;*.gif',
@@ -53,7 +53,7 @@ module ApplicationHelper
           $('#upload').uploadify({
             script          : '#{ group_path(@group) }',
             fileDataName    : 'image[image]',
-            uploader        : '#{ asset_path('uploadify.swf') }',
+            uploader        : '#{ asset_path 'uploadify.swf' }',
             cancelImg       : '',
             fileDesc        : 'Images',
             fileExt         : '*.png;*.jpg;*.gif',
