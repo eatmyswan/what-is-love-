@@ -5,7 +5,7 @@ class HomeController < ApplicationController
       @inbox = Group.all
       @personal = Group.all
       @professional = Group.all
-    end
+
   end
 
 end
