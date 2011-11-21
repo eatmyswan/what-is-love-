@@ -7,7 +7,7 @@
 				<div id="close_fancybox"><span class="no_disp">Cancel</span></div>
 			</div>
 			<div class="modal_submit_wrap">
-				<%= image_submit_tag("/assets/clear.gif", :class => 'send') %>
+				<%= image_submit_tag("<%= asset_tag 'clear.gif' %>", :class => 'send') %>
 			</div>
 			<div class="modal_title"> Email Item </div>
 	</div>
@@ -25,7 +25,7 @@
 			<label>Voice</label>
 			<div id="recorder">
 				<% session_key_name = Rails.application.config.session_options[:key] %>
-				<%= swf_tag "/assets/recorder.swf", :id => 'VOCWordToYourMp3', :width => '250', :height => '137', :flash_version => '10', :flashvars => { :authVar => "#{u(form_authenticity_token)}", :sessionVar => "#{u(cookies[session_key_name])}", :taskId => "#{@task.id}" } %>
+				<%= swf_tag "<%= asset_tag 'recorder.swf' %>", :id => 'VOCWordToYourMp3', :width => '250', :height => '137', :flash_version => '10', :flashvars => { :authVar => "#{u(form_authenticity_token)}", :sessionVar => "#{u(cookies[session_key_name])}", :taskId => "#{@task.id}" } %>
 			</div>
 		</div>
 	</div>

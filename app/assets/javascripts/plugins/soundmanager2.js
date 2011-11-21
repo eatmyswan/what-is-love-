@@ -2184,19 +2184,9 @@ function SoundManager(smURL, smID) {
     }
   };
 
-  _normalizeMovieURL = function(smURL) {
-    var urlParams = null;
-    if (smURL) {
-      if (smURL.match(/\.swf(\?.*)?$/i)) {
-        urlParams = smURL.substr(smURL.toLowerCase().lastIndexOf('.swf?') + 4);
-        if (urlParams) {
-          return smURL; // assume user knows what they're doing
-        }
-      } else if (smURL.lastIndexOf('/') !== smURL.length - 1) {
-        smURL = smURL + '/';
-      }
-    }
-    return (smURL && smURL.lastIndexOf('/') !== - 1?smURL.substr(0, smURL.lastIndexOf('/') + 1):'./') + _s.movieURL;
+  // Rails 3.1 Change to include asset path
+  _normalizeMovieURL = function(smURL) { 
+    return '/assets/' + _s.movieURL;
   };
 
   _setVersionInfo = function() {
