@@ -13,8 +13,8 @@ class SessionsController < ApplicationController
   end
   
   def failure
-    auth = request.env["omniauth.auth"]
-    Raise auth.inspect
+    @auth = request.env["omniauth.auth"]
+    render '/users/failure'
   end
 
 end
