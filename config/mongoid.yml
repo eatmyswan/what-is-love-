@@ -10,13 +10,13 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  database: rpm
+  database: famous
 
 test:
   <<: *defaults
-  database: rpm_test
+  database: famous_test
 
 # set these environment variables on your prod server
 production:
   <<: *defaults
-  database: rpm
+  database: famous
