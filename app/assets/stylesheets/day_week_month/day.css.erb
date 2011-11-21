@@ -1,0 +1,129 @@
+.calendar_title {
+	display: inline-block;
+	max-width: 400px;
+	margin: 20px 0 0 20px;
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+	text-shadow: 0 1px 2px black;
+}
+#calendar_controls {
+	position: absolute;
+	top: 21px;
+	right: 70px;
+}
+#calendar_controls .button {
+	box-shadow: 0px 1px 1px #DAD2C7;
+	padding: 3px 10px 0;
+	text-shadow: #222 0px 1px 2px;
+	background: url(<%= asset_path 'mylife_filter_bg_active.png' %>) repeat-x top left #927543;
+	color: #FFF;
+	border-left: 1px solid #7A6239;
+	border-top: 1px solid #7A6239;
+	border-bottom: 1px solid #7A6239;
+	float: left;
+	display: block;
+	cursor: pointer;
+	height: 15px;
+	font-size: 11px;
+	z-index: 4;
+	position: relative;
+}
+#calendar_controls .button.rounded_left {
+	border-radius: 10px 0 0 10px;
+	padding-left: 12px;
+}
+#calendar_controls .button.rounded_right {
+	border-radius: 0 10px 10px 0;
+	border-right: 1px solid #7A6239;
+	padding-right: 12px;
+}
+
+#day_view {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 20px;
+}
+#day_view .day_header {
+	margin-left: 10px;
+}
+#day_view .queue_wrap {
+	height: 50px;
+	border: 1px solid #CCC;
+	position: relative;
+	margin-left: 10px;
+}
+#day_view .queue_wrap .queue {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	top: 0;
+	right: 0;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 1px;
+}
+#day_view .queue_wrap .queue_hour {
+	position: absolute;
+	width: 30px;
+	text-align: right;
+	font-size: 11px;
+	left: -30px;
+}
+#day_view .grid_hours_wrap {
+	position: absolute;
+	top: 85px;
+	bottom: 0;
+    left: 0;
+    right: 0;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+#day_view .grid_hours_wrap .grid_wrap {
+	background-image: url(<%= asset_path 'gridh.png' %>);
+    height: 1800px;
+    position: absolute;
+    left: 30px;
+    right: 20px;
+    top: 0;
+	border: 1px solid #CCC;
+}
+#day_view .grid_hours_wrap .hours {
+	left:-20px;
+	width: 20px;
+    position: absolute;
+	text-align: right;
+	font-size: 11px;
+}
+#day_view .grid_hours_wrap .hours .hour { 
+	height:75px;
+	text-align: right;
+	position: relative;
+	font-size: 11px;
+}
+#day_view .grid_hours_wrap .grid { 
+	position: absolute;
+	height:1800px;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+#day_view .time_drop_hover {
+	background: #CCC;
+}
+#day_view .time_drop .drop_task {
+	display: none;
+}
+#day_view .time_drop li.task_wrap {
+	position: absolute;
+	left: 1px;
+	right: 1px;
+	opacity: 0.9;
+}
+#day_view .time_drop li.task_wrap:hover {
+	opacity: 1.0;
+}

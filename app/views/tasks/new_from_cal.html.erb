@@ -1,5 +1,0 @@
-<%= form_for @task, :remote => true, :html => { :id => 'task_modal_wrap' } do |f| %>
-	<%= f.text_field :task %>
-	<%= f.hidden_field :group_id, :value => "#{@task.group_id}" %>
-	<%= f.submit %>
-<% end %>

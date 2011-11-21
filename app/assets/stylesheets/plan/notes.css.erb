@@ -1,0 +1,63 @@
+#notes_wrap {
+	background: #EEE;
+	padding: 15px 15px 60px;
+	position: relative;
+	border-radius: 5px;
+	width: 600px;
+	height: 340px;
+}
+#notes_wrap #notes {
+	padding: 3px 0;
+	background: #FFF;
+	border: 1px solid #BBB;
+	font-size: 13px;
+	font-family: Arial, sans-serif;
+	line-height: 2.0;
+	border-radius: 5px;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+#notes_wrap #notes input {
+	width: 905%;
+	border: 0 none;
+	padding: 6px 8px;
+	font-size: 13px;
+	font-family: Arial, sans-serif;
+}
+#notes_wrap #dialog_close {
+	font-size: 12px;
+	padding: 7px 12px;
+	font-weight: bold;
+	text-shadow: 0px 1px 5px #F0F0F0;
+	float: right;
+	cursor: pointer;
+	box-shadow: inset 0px 1px 1px #84C7F4;
+	color: #FFF;
+	border: 1px solid #166FA9;
+	text-shadow: 1px 1px 1px #166FA9;
+	background: #32A3F0;
+	background: -webkit-gradient(linear, left top, left bottom, from(#32A3F0), to(#1389D3));
+	border-radius: 4px;
+	margin: 10px 0 0 0;
+}
+#notes_wrap #notes .note_wrap {
+	border-bottom: 1px solid #CCC;
+	padding: 1px 8px 0;
+}
+#notes_wrap #notes .note_wrap .delete_note {
+	width: 15px;
+	height: 15px;
+	background: url(<%= asset_path 'delete.png' %>) no-repeat;
+	float: right;
+	cursor: pointer;
+	opacity: 0.5;
+	margin: 5px 0 0 0;
+	display: none;
+}
+#notes_wrap #notes .note_wrap:hover .delete_note {
+	display: block;
+}
+#notes_wrap #notes .note_wrap .delete_note:hover {
+	opacity: 1.0;
+}

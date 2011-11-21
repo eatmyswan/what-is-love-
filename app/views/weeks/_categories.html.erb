@@ -1,7 +1,7 @@
-<script src="/assets/day.js" type="text/javascript"></script>
-<script src="/assets/week.js" type="text/javascript"></script>
+<script src="<%= asset_path 'day.js' %>" type="text/javascript"></script>
+<script src="<%= asset_path 'week.js' %>" type="text/javascript"></script>
 
-<div class="categories_wrap" id="day_categories">
+<div class="categories_wrap" id="calendar_categories">
 
 	<div class="category" id="<%= @inbox.id.to_s %>">
 		<span class="inbox_cover"></span>

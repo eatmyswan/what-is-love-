@@ -48,6 +48,7 @@ Rpm::Application.routes.draw do
   match 'email/email_form/:id' => 'emails#email_form'
   match 'task/:task_id/email/:email_id/view_email' => 'emails#view_email'
   match 'task/edit_notes/:id' => 'tasks#edit_notes'
+  match 'task/edit_calendar/:id' => 'tasks#edit_calendar'
   
   
   # The priority is based upon order of creation:

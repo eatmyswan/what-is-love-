@@ -25,11 +25,11 @@ a {
 
 @font-face {
     font-family: 'JournalRegular';
-    src: url('<%= asset_path('journal-webfont.eot') %>');
-    src: url('<%= asset_path('journal-webfont.eot?') %>') format('embedded-opentype'),
-         url('<%= asset_path('journal-webfont.woff') %>') format('woff'),
-         url('<%= asset_path('journal-webfont.ttf') %>') format('truetype'),
-         url('<%= asset_path('journal-webfont.svg') %>') format('svg');
+    src: url(<%= asset_path 'journal-webfont.eot' %>);
+    src: url(<%= asset_path 'journal-webfont.eot?' %>) format('embedded-opentype'),
+         url(<%= asset_path 'journal-webfont.woff' %>) format('woff'),
+         url(<%= asset_path 'journal-webfont.ttf' %>) format('truetype'),
+         url(<%= asset_path 'journal-webfont.svg' %>) format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -45,7 +45,7 @@ body {
 	line-height: 1.0;
 	font-size: 13px;
 	color:#333333;
-	background: url('/assets/chambray.jpg') repeat 0 0 #3e3a38;
+	background: url(<%= asset_path 'chambray.jpg' %>) repeat 0 0 #3e3a38;
 	height: 100%;
 	width: 100%;
 }

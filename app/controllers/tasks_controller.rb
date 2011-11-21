@@ -48,11 +48,6 @@ class TasksController < ApplicationController
       render :nothing => true
     end
     
-    if params[:email]
-      UserMailer.leverage_task(params[:email]).deliver
-      render :nothing => true
-    end
-    
     if params[:reminders]
       params[:reminders].each do |r|
         reminder_dt = @task.starts_at - r.to_i.minutes
@@ -105,6 +100,11 @@ class TasksController < ApplicationController
   def edit_notes
     @task = Task.find(params[:id])
     render 'tasks/edit_notes'
+  end
+  
+  def edit_calendar
+    @task = Task.find(params[:id])
+    render 'tasks/edit_calendar'
   end
 
 

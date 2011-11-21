@@ -1,6 +1,6 @@
 <div id="email_wrap">
 	
-<%= form_for ([@task, Email.new]) do |f| %>
+<%= form_for ([@task, Email.new]), :remote => true do |f| %>
 	<input type="hidden" name="email[sender_uid]" value="<%= current_user.id %>">
 	<div class="modal_title_wrap">
 			<div class="modal_cancel_wrap">

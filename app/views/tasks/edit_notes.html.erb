@@ -1,16 +1,9 @@
-<div style="width: 300px; height: 200px;">
-	
-	<div id="notes_wrap">
-		<div id="notes">
-			<% @task.notes.each_with_index do |note| %>
-				<%= render :partial => 'note', :locals => { :note => note } %> 
-			<% end %>
-		</div>
+<div id="notes_wrap">
+	<div id="notes">
+		<% @task.notes.each_with_index do |note| %>
+			<%= render :partial => 'note', :locals => { :note => note } %> 
+		<% end %>
 		<input type="text" id="new_note" rel="<%= @task.id.to_s %>">
 	</div>
-	
-	<div>
-		<span id="dialog_close">Done</span>
-	</div>
-
+	<div id="dialog_close">Done</div>
 </div>

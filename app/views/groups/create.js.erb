@@ -1,2 +1,2 @@
 var category = '<%= escape_javascript(@group.master_title) %>';
-$('#'+category.toLowerCase()+' .new_category').after('<%= escape_javascript render(:partial => "category", :locals => { :category => @group }) %>');
+$('#'+category.toLowerCase()+' .new_category').after('<%= escape_javascript render(:partial => "category", :locals => { :category => @group, :active => false }) %>');

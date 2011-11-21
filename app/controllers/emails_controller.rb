@@ -13,15 +13,6 @@ class EmailsController < ApplicationController
     end
   end
 
-  def new
-    @email = Email.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @email }
-    end
-  end
-
   def edit
     @email = Email.find(params[:id])
   end
@@ -30,13 +21,10 @@ class EmailsController < ApplicationController
     @task = Task.find(params[:task_id]) 
     @email = Email.new(params[:email])
     @task.emails << @email
-    respond_to do |format|
-      if @task.save
-        UserMailer.leverage_task(@email, @task, current_user).deliver 
-        format.html { redirect_to(group_path(@task.group)) }  
-        format.js
-      end
+    if @task.save
+      UserMailer.leverage_task(@email, @task, current_user).deliver 
     end
+    render :nothing => true
   end
   
   def create_from_flash
@@ -57,12 +45,12 @@ class EmailsController < ApplicationController
   def update
     @task = Task.find(params[:task_id]) 
     @email = @task.emails.find(params[:id])
-    respond_to do |format|
-      if @email.update_attributes(params[:email])
-        UserMailer.leverage_task(@email, @task, current_user).deliver 
-        format.html { redirect_to(group_path(@task.group)) }
-      end
+   
+    if @email.update_attributes(params[:email])
+      UserMailer.leverage_task(@email, @task, current_user).deliver 
     end
+    render :nothing => true
+
   end
 
   def destroy
