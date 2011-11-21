@@ -36,8 +36,8 @@ Rpm::Application.routes.draw do
   match 'block/update/:id' => 'blocks#update'
   match 'account/settings' => 'accounts#settings', :as => :account_settings
   match 'account/background' => 'accounts#background', :as => :account_background
-  match '/auth/:provider/callback' => 'sessions#create'
-  match '/signout' => 'sessions#destroy', :as => :signout
+  match 'auth/:provider(/callback)' => 'sessions#create'
+  match 'signout' => 'sessions#destroy', :as => :signout
   match 'group/icon/:id' => 'groups#icon'
   match 'groups/sort_groups' => 'groups#sort_groups'
   match 'groups/long_term/:id' => 'groups#long_term', :as => :group_long_term
