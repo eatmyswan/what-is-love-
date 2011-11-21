@@ -11,5 +11,10 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     redirect_to root_url
   end
+  
+  def failure
+    auth = request.env["omniauth.auth"]
+    Raise auth.inspect
+  end
 
 end
