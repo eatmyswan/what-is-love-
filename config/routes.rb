@@ -1,6 +1,4 @@
 Rpm::Application.routes.draw do
-  match 'rubyamf/gateway', :to => 'rubyamf#gateway'
-
   
   root :to => "home#index"
   
