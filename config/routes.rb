@@ -21,22 +21,16 @@ Rpm::Application.routes.draw do
     resources :goals
   end
   
-  match 'forecast/index' => 'forecast#index'
+
   match 'week/index/:start_date' => 'weeks#index', :as => :week
-  match 'week/new' => 'weeks#new'
   match 'week/day/:start_date' => 'weeks#day', :as => :week_day
   match 'week/month/:start_date' => 'weeks#month', :as => :week_month
   
   match 'tasks/sort' => 'tasks#sort'
-  match 'task/new_from_cal/:group_id' => 'tasks#new_from_cal'
-  match 'task/duration/:id' => 'tasks#duration'
   match 'task/update/:id' => 'tasks#update'
-  match 'block/create/:id' => 'blocks#create', :as => :block_create
-  match 'blocks/sort_blocks' => 'blocks#sort_blocks'
-  match 'block/update/:id' => 'blocks#update'
-  match 'account/settings' => 'accounts#settings', :as => :account_settings
-  match 'account/background' => 'accounts#background', :as => :account_background
-  match 'auth/:provider(/callback)' => 'sessions#create'
+
+
+  match 'auth/:provider/callback' => 'sessions#create'
   match 'signout' => 'sessions#destroy', :as => :signout
   match 'group/icon/:id' => 'groups#icon'
   match 'groups/sort_groups' => 'groups#sort_groups'
