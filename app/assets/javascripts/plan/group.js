@@ -135,10 +135,12 @@ $(document).ready(function() {
 		}
 	});
 	
-	$('#incomplete .note').fancybox({
-		'overlayColor' : '#000',
-		'overlayOpacity' : 0.5,
-		'showCloseButton' : false
+	$('#incomplete .note').live('mouseover',function(){
+		$('#incomplete .note').fancybox({
+			'overlayColor' : '#000',
+			'overlayOpacity' : 0.5,
+			'showCloseButton' : false
+		});
 	});
 	
 	$('#incomplete .email').fancybox({
