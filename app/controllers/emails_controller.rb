@@ -71,7 +71,7 @@ class EmailsController < ApplicationController
   
   def email_form
     @task = Task.find(params[:id])
-    render '/emails/_form'
+    render '/emails/_form', :layout => false
   end
   
   def view_email

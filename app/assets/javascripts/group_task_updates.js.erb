@@ -1,8 +1,54 @@
 $(document).ready(function() {
 	
+	$('#incomplete .calendar').live("mouseover", function() {
+		if (!$(this).data("init")) {
+			$(this).data("init", true);
+			$(this).cluetip({
+			positionBy: 'fixed',
+			topOffset: 26,
+			leftOffset: -110,
+			activation: 'click',
+			cluezIndex: 9999,
+			waitImage: false,
+			onShow: function() {
+				$(document).bind('mousedown',function(e) {
+					if(($(e.target).parents('#calendar_wrap').length == 0) && (e.target.id != 'calendar_wrap')){
+	      				console.log('save this data');
+						$(document).trigger('hideCluetip');	
+					}
+	    		});
+				$( "#datepicker" ).datepicker();
+			}
+		});
+	}
+});
+
+	$('#incomplete .note').live("mouseover", function() {
+		if (!$(this).data("init")) {
+			$(this).data("init", true);
+			$(this).fancybox({
+				'overlayColor' : '#000',
+				'overlayOpacity' : 0.5,
+				'showCloseButton' : false
+			});
+		}
+	});
+
+	$('#incomplete .email').live("mouseover", function() {
+		if (!$(this).data("init")) {
+			$(this).data("init", true);
+			$(this).fancybox({
+				'overlayColor' : '#000',
+				'overlayOpacity' : 0.5,
+				'showCloseButton' : false
+			});
+		}
+	});
+	
 $('#email_wrap .modal_submit_wrap').live('click',function() {
 	$.fancybox.close();
 });
+
 
 $('#group .checkbox').live('click',function(){
 	var checkbox = $(this);
@@ -72,6 +118,7 @@ $('#group .checkbox').live('click',function(){
 	}
 });
 
+
 $('#incomplete .star').live('click',function(){
 	var star = $(this);
 	var task = $(this).parents('li').first();
@@ -94,6 +141,7 @@ $('#incomplete .star').live('click',function(){
 			});
 	}
 });
+
 
 $('#incomplete .delete').live('click',function(){
 	var task = $(this).parents('li').first();
@@ -119,6 +167,7 @@ $('#incomplete .delete').live('click',function(){
 	});
 });
 
+
 $('#incomplete .edit').live('click',function(){
 	$(this).hide();
 	var task = $(this).parents('li').first();
@@ -127,9 +176,11 @@ $('#incomplete .edit').live('click',function(){
 	task.find('.edit_task').removeClass('no_disp');
 });
 	
+
 $('#incomplete .edit_done').live('click', function() {
 	editingDone();
 });
+
 
 $('form.edit_task').live('submit',function(event){
 	event.preventDefault();
@@ -137,10 +188,12 @@ $('form.edit_task').live('submit',function(event){
 	return false;
 });
 
+
 $('#incomplete .editing .target').live('click',function(){
 	$(this).toggleClass('active');
 });
 	
+
 $('#incomplete .target.active').live('click', function(){
 	var task = $(this).parents('li').first();
 	if(!task.hasClass('editing') && !$(this).hasClass('outcome')){
@@ -148,10 +201,12 @@ $('#incomplete .target.active').live('click', function(){
 	} 
 });
 
+
 $('#incomplete .target.outcome').live('click', function(){
 	var task = $(this).parents('li').first();
 	task.removeClass('outcome').find('.header').first().slideUp(200);		
 });
+
 
 $('#incomplete .add_purpose').live('submit',function(event){
 	event.preventDefault();
@@ -166,14 +221,12 @@ $('#incomplete .add_purpose').live('submit',function(event){
 	return false;
 });
 
-$('#dialog_close').live('click', function(){
-	$.fancybox.close();
-});
 
 $('.delete_note').live('click', function() {
 	$(this).parent().parent().remove();
 	notes_index();
 });
+
 
 $('#notes_wrap').live('click',function() {
 	$('#new_note').focus();
@@ -200,10 +253,6 @@ $('#dialog_close').live('click', function() {
 	$.fancybox.close();
 });
 
-
-$('#incomplete .calendar').live('click',function(){
-	alert('show datepicker');
-});
 
 });
 

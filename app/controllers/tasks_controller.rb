@@ -59,7 +59,7 @@ class TasksController < ApplicationController
     if params[:notes]
         @note = @task.notes.new( params[:notes] )
         @task.notes << @note
-        render 'task_note'
+        render 'task_note', :layout => false
     end
     
   end
@@ -99,12 +99,16 @@ class TasksController < ApplicationController
   
   def edit_notes
     @task = Task.find(params[:id])
-    render 'tasks/edit_notes'
+    respond_to do |format|
+      format.html { render :layout => false }
+    end
   end
   
   def edit_calendar
     @task = Task.find(params[:id])
-    render 'tasks/edit_calendar'
+    respond_to do |format|
+      format.html { render :layout => false }
+    end
   end
 
 

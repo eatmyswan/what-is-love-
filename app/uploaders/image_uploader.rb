@@ -11,11 +11,11 @@ class ImageUploader < CarrierWave::Uploader::Base
   storage :cloud_files
    
   def cloud_files_container
-    "rails"
+    "test"
   end
   
   def cloud_files_cdn_host
-    "c3338787.r87.cf0.rackcdn.com"
+    "c3403180.r80.cf0.rackcdn.com"
   end
 
   # Override the directory where uploaded files will be stored.
