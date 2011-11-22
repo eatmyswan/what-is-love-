@@ -59,7 +59,7 @@
 					<% end %>
 				</div>
 				<% @professional.each do |category| %>
-					<%= render :partial => '/groups/category', :locals => { :category => category } %>
+					<%= render :partial => '/groups/category', :locals => { :category => category, :active => false } %>
 				<% end %>
 			</div>
 			
