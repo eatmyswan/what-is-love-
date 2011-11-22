@@ -1,3 +1,35 @@
+$(document).ready(function() {
+	
+$('.goal .delete').live('click',function(){
+	$(this).parent().fadeOut(300,function(){
+		$(this).remove();
+	});
+});
+
+$('#vision').live('click',function(){
+	$(this).addClass('active');
+	$('#plan').removeClass('active');
+	$('#plan_wrap').hide();
+	$('#vision_wrap').show();
+});
+
+$('#plan').live('click',function(){
+	$(this).addClass('active');
+	$('#vision').removeClass('active');
+	$('#plan_wrap').show();
+	$('#vision_wrap').hide();
+});
+
+$('.add_goal').live('click',function(){
+	var what = $(this).attr('rel');
+	$('#'+what).slideDown(100);
+});
+
+$('.goals_wrap').sortable({
+	items: '.goal',
+	axis: 'y'
+});
+
 $('#vision_wrap .edit').live('click', function(){
 	$(this).parent().addClass('editing');
 });
@@ -40,7 +72,6 @@ $('#vision_images').live("mouseover", function() {
 	}
 });
 
-
 $('#vision_wrap .delete_img').live('click', function(){
 	var imgWrap = $(this).parents('.image_wrap').first();
 	imgWrap.fadeOut(300,function(){
@@ -48,3 +79,4 @@ $('#vision_wrap .delete_img').live('click', function(){
 	});
 });
 
+});

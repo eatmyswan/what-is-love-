@@ -1,9 +1,9 @@
 $(document).ready(function() {
 	
-	$('#incomplete .calendar').live("mouseover", function() {
-		if (!$(this).data("init")) {
-			$(this).data("init", true);
-			$(this).cluetip({
+$('#incomplete .calendar').live("mouseover", function() {
+	if (!$(this).data("init")) {
+		$(this).data("init", true);
+		$(this).cluetip({
 			positionBy: 'fixed',
 			topOffset: 26,
 			leftOffset: -110,
@@ -23,27 +23,27 @@ $(document).ready(function() {
 	}
 });
 
-	$('#incomplete .note').live("mouseover", function() {
-		if (!$(this).data("init")) {
-			$(this).data("init", true);
-			$(this).fancybox({
-				'overlayColor' : '#000',
-				'overlayOpacity' : 0.5,
-				'showCloseButton' : false
-			});
-		}
-	});
+$('#incomplete .note').live("mouseover", function() {
+	if (!$(this).data("init")) {
+		$(this).data("init", true);
+		$(this).fancybox({
+			'overlayColor' : '#000',
+			'overlayOpacity' : 0.5,
+			'showCloseButton' : false
+		});
+	}
+});
 
-	$('#incomplete .email').live("mouseover", function() {
-		if (!$(this).data("init")) {
-			$(this).data("init", true);
-			$(this).fancybox({
-				'overlayColor' : '#000',
-				'overlayOpacity' : 0.5,
-				'showCloseButton' : false
-			});
-		}
-	});
+$('#incomplete .email').live("mouseover", function() {
+	if (!$(this).data("init")) {
+		$(this).data("init", true);
+		$(this).fancybox({
+			'overlayColor' : '#000',
+			'overlayOpacity' : 0.5,
+			'showCloseButton' : false
+		});
+	}
+});
 	
 $('#email_wrap .modal_submit_wrap').live('click',function() {
 	$.fancybox.close();
@@ -118,7 +118,6 @@ $('#group .checkbox').live('click',function(){
 	}
 });
 
-
 $('#incomplete .star').live('click',function(){
 	var star = $(this);
 	var task = $(this).parents('li').first();
@@ -176,7 +175,6 @@ $('#incomplete .edit').live('click',function(){
 	task.find('.edit_task').removeClass('no_disp');
 });
 	
-
 $('#incomplete .edit_done').live('click', function() {
 	editingDone();
 });
@@ -221,7 +219,6 @@ $('#incomplete .add_purpose').live('submit',function(event){
 	return false;
 });
 
-
 $('.delete_note').live('click', function() {
 	$(this).parent().parent().remove();
 	notes_index();
@@ -236,8 +233,10 @@ $('#new_note').live('keyup',function(e) {
 	e.preventDefault;
 	if (e.keyCode == 13) {
 		var taskId = $(this).attr('rel');
-		insert_note(this.value, taskId);
-		$(this).val('');
+		if(this.value != '') {
+			insert_note(this.value, taskId);
+			$(this).val('');
+		}
 	}
 });
 	
@@ -252,7 +251,6 @@ $('#dialog_close').live('click', function() {
 	}
 	$.fancybox.close();
 });
-
 
 });
 

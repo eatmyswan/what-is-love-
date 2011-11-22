@@ -1,6 +1,6 @@
-
+$(document).ready(function() {
+	
 $('ul.sortable').live("mouseover", function() {
-
 	if (!$(this).data("init")) {
 		$(this).data("init", true);
 		$(this).sortable({
@@ -45,91 +45,51 @@ $('ul.sortable').live("mouseover", function() {
 		});
 	}
 });
-
-
-	$('.goal .delete').live('click',function(){
-		$(this).parent().fadeOut(300,function(){
-			$(this).remove();
-		});
-	});
-
-	$('#vision').live('click',function(){
-		$(this).addClass('active');
-		$('#plan').removeClass('active');
-		$('#plan_wrap').hide();
-		$('#vision_wrap').show();
-	});
-
-	$('#plan').live('click',function(){
-		$(this).addClass('active');
-		$('#vision').removeClass('active');
-		$('#plan_wrap').show();
-		$('#vision_wrap').hide();
-	});
-
-	$('.add_goal').live('click',function(){
-		var what = $(this).attr('rel');
-		$('#'+what).slideDown(100);
-	});
-
-	$('.goals_wrap').sortable({
-		items: '.goal',
-		axis: 'y'
-	});
-
-$(document).ready(function() {
 	
-	$('.category').droppable({
-		accept: ".task_wrap",
-		hoverClass: "drop_hover",
-		tolerance: "pointer",
-		over: function (e,ui){
-			console.log('over');
-		},
-		drop:function(event,ui){
-			console.log('drop');
-			ui.draggable.remove();
-			var taskId = $(ui.draggable).attr('id');
-			var catId = this.id;
+$('.category').droppable({
+	accept: ".task_wrap",
+	hoverClass: "drop_hover",
+	tolerance: "pointer",
+	over: function (e,ui){
+		console.log('over');
+	},
+	drop:function(event,ui){
+		console.log('drop');
+		ui.draggable.remove();
+		var taskId = $(ui.draggable).attr('id');
+		var catId = this.id;
+		$.ajax({
+			url: "/tasks/" +  taskId,
+			type: 'PUT',
+			data: $.param({task : { group_id: catId, parent_id: '' }}),
+			success: function() { 
+					var count = parseInt( $('#'+catId).find('.count_text').text() ) + 1;
+					$('#'+catId).find('.count_text').text(count);
+					checkCount();
+			}
+		});
+		//update group_id for all li's inside
+		var subTask = $(ui.draggable).find('li');
+		$(subTask).each(function(){
+			taskId = $(this).attr('id');
 			$.ajax({
 				url: "/tasks/" +  taskId,
 				type: 'PUT',
-				data: $.param({task : { group_id: catId, parent_id: '' }}),
-				success: function() { 
-						var count = parseInt( $('#'+catId).find('.count_text').text() ) + 1;
-						$('#'+catId).find('.count_text').text(count);
-						checkCount();
-				}
+				data: $.param({task : { group_id: catId }})
 			});
-			//update group_id for all li's inside
-			var subTask = $(ui.draggable).find('li');
-			$(subTask).each(function(){
-				taskId = $(this).attr('id');
-				$.ajax({
-					url: "/tasks/" +  taskId,
-					type: 'PUT',
-					data: $.param({task : { group_id: catId }})
-				});
-			});
-	    }
-	});
+		});
+    }
+});
 	
+	
+$('#personal,#professional').sortable({
+	connectWith: '.connectedSortable',
+	items: 'a',
+	axis: 'y',
+	forcePlaceholderSize: true,
+	tolerance: 'pointer'
+});
 
-	if ($('#group_vision').val() == ''){
-		$('#group_vision').val('What is your ultimate result / vision for this?')
-	}
-	
-	if ($('#group_purpose').val() == ''){
-		$('#group_purpose').val('What is your driving force behind this?')
-	}
-	
-	$('#personal,#professional').sortable({
-		connectWith: '.connectedSortable',
-		items: 'a',
-		axis: 'y',
-		forcePlaceholderSize: true,
-		tolerance: 'pointer'
-	});
 });
 
 function checkCount(){

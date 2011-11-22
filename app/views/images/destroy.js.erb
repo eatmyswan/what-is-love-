@@ -1,1 +1,1 @@
-$("#<%= @group.id.to_s %>").replaceWith('<%= escape_javascript render(:partial => "/groups/category", :locals => { :category => @group }) %>');
+$("#<%= @group.id.to_s %>").replaceWith('<%= escape_javascript render(:partial => "/groups/category", :locals => { :category => @group, :active => true }) %>');
