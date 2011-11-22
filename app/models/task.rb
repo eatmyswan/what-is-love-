@@ -20,15 +20,12 @@ class Task
   field :parent_id, type: String, drault: nil
 
   belongs_to :user
-  belongs_to :block
   belongs_to :group
   embeds_many :emails
   embeds_many :notes
-  has_many :subtasks
   has_many :reminders
   
   index :user_id
-  index :block_id
   index :group_id
   index :parent_id
   
