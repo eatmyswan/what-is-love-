@@ -16,6 +16,8 @@ gem 'omniauth-twitter', :git => 'https://github.com/arunagw/omniauth-twitter.git
 gem 'time_diff'
 gem 'swf_fu', '>=1.3.4', :git => 'git://github.com/rodrigob/swf_fu'
 gem 'ruby-mp3info', '~> 0.6.16'
+gem 'json_pure' 
+gem 'json'
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
