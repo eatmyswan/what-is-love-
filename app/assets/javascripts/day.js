@@ -3,7 +3,7 @@ $(document).ready(function() {
 $('.droppable').live("mouseover", function() {
 	if (!$(this).data("init")) {
 		$(this).data("init", true);
-		$(this).sortable({
+		$('.droppable').sortable({
 			connectWith: ".droppable",
 			placeholder: "drop_task",
 			tolerance: "pointer",
