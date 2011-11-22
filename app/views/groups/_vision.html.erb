@@ -77,6 +77,7 @@
 	<div id="uploadify_wrap">
 		<div id="queue"></div>
 		<div id="upload" class="image_wrap"></div>
-
+		<%= uploadify_user if group.id.to_s == current_user.id.to_s %>
+		<%= uploadify_group if group.id.to_s != current_user.id.to_s %>
 	</div>
 </div>
