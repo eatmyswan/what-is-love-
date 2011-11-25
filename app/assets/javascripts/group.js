@@ -23,7 +23,7 @@ $('ul.sortable').live("mouseover", function() {
 						$.ajax({
 							url: "/tasks/" + $(this).attr('id'),
 							type: 'PUT',
-							data: $.param({task : { sort: index, parent_id: '' }})
+							data: $.param({task : { sort: index, parent_id: "" }})
 						});
 					});
 				}
@@ -38,9 +38,8 @@ $('ul.sortable').live("mouseover", function() {
 						});
 					});
 				}
-	
-				checkCount();
 
+				checkCount();
 			}
 		});
 	}

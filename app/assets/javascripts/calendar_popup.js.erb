@@ -128,12 +128,20 @@ $('#max .hour').live('keyup', function(){
 	if(this.value > 23 ) {
 		this.value = 23;
 	}
+	var minute = $('#max .minute').val() ? $('#max .minute').val() : 0;
+	var hour = this.value ? this.value : 0;
+	var maxDur = parseInt(minute) + (parseInt(hour) * 60);
+	$('#max_duration').val(maxDur > 0 ? maxDur : '');
 });
 
 $('#max .minute').live('keyup', function(){
 	if(this.value > 59 ) {
 		this.value = 59;
 	}
+	var minute = this.value ? this.value : 0; 
+	var hour = $('#max .hour').val() ? $('#max .hour').val() : 0;
+	var maxDur = parseInt(minute) + (parseInt(hour) * 60);
+	$('#max_duration').val(maxDur > 0 ? maxDur : '');
 });
 
 $('#reminder_time .hour').live('keyup', function(event){

@@ -16,20 +16,32 @@ module TasksHelper
     if min_duration >= 60
       h = min_duration / 60
       m = min_duration % 60
-      m > 0 ? "#{h}h#{m}m" : "#{h}h"
+      m > 0 ? "#{h}:#{m}" : "#{h} hours"
     else
-      "#{min_duration}m"
+      "#{min_duration} min"
     end
   end
   
-  def max_duration(max_duration)
-    if max_duration >= 60
-      h = max_duration / 60
-      m = max_duration % 60
-      m > 0 ? "-#{h}h#{m}m" : "-#{h}h"
-    else
-      "-#{max_duration}m"
+  def max_duration(min_duration,max_duration)
+    if max_duration > min_duration
+      if max_duration >= 60
+        h = max_duration / 60
+        m = max_duration % 60
+        m > 0 ? "- #{h}:#{m}" : "- #{h} hours"
+      else
+        "- #{max_duration} min"
+      end
     end
+  end
+  
+  def total_time(time)
+    hour = time.to_i / 60
+		min = time.to_i % 60
+		hour = hour.to_s
+		min = min.to_s
+		hour = hour.length == 1 ? '0' + hour : hour
+		min = min.length == 1 ? '0' + min : min
+		"#{hour}:#{min}"
   end
 
 end

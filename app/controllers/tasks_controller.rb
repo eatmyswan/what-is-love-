@@ -45,7 +45,12 @@ class TasksController < ApplicationController
     
     if params[:task]
       @task.update_attributes(params[:task])
-      render :nothing => true
+      if params[:task][:sort]
+        render :nothing => true
+      end
+      if params[:task][:complete]
+        render :nothing => true
+      end
     end
     
     if params[:reminders]

@@ -38,14 +38,29 @@ class Task
   before_save :check_starts_at
   before_save :check_duration
   before_save :check_must
+  before_save :validate_max_time
   before_save :nil_if_blank
   
   private
   def nil_if_blank
-    self.leverage.blank? ? self.leverage = nil : return
-    self.min_duration.blank? ? self.min_duration = nil : return
-    self.starts_at.blank? ? self.starts_at = nil : return
-    self.parent_id.blank? ? self.parent_id = nil : return
+    self.leverage = nil if self.leverage.blank?
+    self.min_duration = nil if self.min_duration.blank?
+    self.starts_at = nil if self.starts_at.blank?
+    self.parent_id = nil if self.parent_id.blank?
+  end
+  
+  def validate_max_time
+    if !self.min_duration.blank?
+      if self.max_duration
+        if self.max_duration < self.min_duration
+          self.max_duration = self.min_duration
+        end
+      else
+        self.max_duration = self.min_duration
+      end
+    else
+      self.max_duration = self.min_duration
+    end
   end
   
   def check_starts_at

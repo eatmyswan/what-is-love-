@@ -1,5 +1,13 @@
 $(document).ready(function() {
 	
+$(document).bind('mousedown',function(e) {
+	if(($(e.target).parents('li.editing').length == 0) && $('#calendar_wrap').length == 0){
+		if($('li.editing:first').length > 0){
+			editingDone();
+		}
+	}
+});
+	
 $('#incomplete .calendar').live("mouseover", function() {
 	if (!$(this).data("init")) {
 		$(this).data("init", true);
@@ -11,29 +19,33 @@ $('#incomplete .calendar').live("mouseover", function() {
 			activation: 'click',
 			cluezIndex: 9999,
 			waitImage: false,
+			onHide: function() {
+				$('#calendar_wrap').remove();
+			},
 			onShow: function() {
 				$(document).bind('mousedown',function(e) {
-					if(($(e.target).parents('#calendar_wrap').length == 0) && (e.target.id != 'calendar_wrap')){
+					if(($(e.target).parents('#calendar_wrap').length == 0) && (e.target.id != 'calendar_wrap') && $('#calendar_wrap').length > 0){
 						var taskId = $('li.editing').attr('id');
 						$.ajax({
 							url: "/tasks/" +  taskId,
 							type: 'PUT',
-							data: $.param({task : { starts_at: $('#schedule_date').val(), min_duration: $('#min_duration').val() }}),
+							data: $.param({task : { starts_at: $('#schedule_date').val(), min_duration: $('#min_duration').val(), max_duration: $('#max_duration').val() }}),
 							success: function() { }
 						});
 						$(document).trigger('hideCluetip');	
-						$(document).unbind('mousedown');
 					}
 	    		});
 				var defaultDate = '';
 				var date = $('li.editing').attr('starts_at');
 				var minDuration = $('li.editing').attr('min_duration');
+				var maxDuration = $('li.editing').attr('max_duration');
 				
 				if(date.length > 1){
 					defaultDate = date.substr(0,10);
 				}
 				$('#schedule_date').val(date);
 				$('#min_duration').val(minDuration);
+				$('#max_duration').val(maxDuration);
 									
 				$( "#datepicker, #reminder_datepicker" ).datepicker({
 					dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
@@ -70,6 +82,8 @@ $('#incomplete .calendar').live("mouseover", function() {
 				}
 				$('#min .hour').val(minDuration ? parseInt(parseInt(minDuration)/60) : '');
 				$('#min .minute').val(minDuration ? parseInt(parseInt(minDuration)%60) : '');
+				$('#max .hour').val(maxDuration ? parseInt(parseInt(maxDuration)/60) : '');
+				$('#max .minute').val(maxDuration ? parseInt(parseInt(maxDuration)%60) : '');
 			}
 		});
 	}
@@ -231,7 +245,6 @@ $('#incomplete .edit_done').live('click', function() {
 	editingDone();
 });
 
-
 $('form.edit_task').live('submit',function(event){
 	event.preventDefault();
 	editingDone();	
@@ -333,7 +346,7 @@ function notes_index(){
 }
 
 function editingDone() {
-	var task = $('.editing');
+	var task = $('li.editing:first');
 	var taskId = task.attr('id');
 	var taskText = task.find('input.edit_task_text').first().val();
 	if(task.find('.target').hasClass('active')) {
