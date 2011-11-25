@@ -4,6 +4,9 @@
 		<span class="checkbox <%= 'active' if task.complete == true %>"></span>
 		<span class="target <%= 'active' if task.outcome == true %>"></span>
 		<span class="star <%= 'active' if task.must == true %>"></span>
+		<span class="thumbnail">
+			<%= image_tag category.images.forward.first.image.tiny if category.images.forward.first %>
+		</span>
 		<span class="task drag result">
 			<%= task.task %>
 		</span>

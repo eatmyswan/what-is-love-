@@ -9,7 +9,7 @@
 		<div>
 			<ul class="category_task_wrap droppable">
 				<% @inbox.tasks.incomplete.each_with_index do |task, index| %>
-						<%= render :partial => 'task_category', :locals => { :task => task, :index => index } %>
+						<%= render :partial => 'task_category', :locals => { :task => task, :index => index, :category => @inbox } %>
 				<% end %>
 			</ul>
 		</div>
