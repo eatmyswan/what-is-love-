@@ -1,4 +1,4 @@
-<li id="<%= task.id %>" class="task_wrap sortable <%= 'complete' if task.complete == true %>">
+<li id="<%= task.id %>" class="task_wrap sortable <%= 'complete' if task.complete == true %>" starts_at="<%= task.starts_at %>" min_duration="<%= task.min_duration %>">
 	
 	<div class="outcome_wrap">
 		<span class="checkbox <%= 'active' if task.complete == true %>"></span>
@@ -35,9 +35,12 @@
 	</div>
 	<div class="actions_wrap">
 		<ul id="<%= task.id %>_incomplete" class="action_plan in_outcome sortable"> 
+			<% total_min_time = 0 %>
+			<% must_time = 0 %>
 			<% @group.tasks.where(parent_id: task.id).and(complete: false).order_by([:sort, :asc]).each_with_index do |task| %>
-				<li id="<%= task.id %>" class="task_wrap sortable <%= 'complete' if task.complete == true %>">
-	
+				<% total_min_time = total_min_time + task.min_duration if task.min_duration %>
+				<% must_time = must_time + task.min_duration if task.must == true && task.min_duration %>
+				<li id="<%= task.id %>" class="task_wrap sortable <%= 'complete' if task.complete == true %>" starts_at="<%= task.starts_at %>" min_duration="<%= task.min_duration %>">
 					<div class="outcome_wrap">
 						<span class="checkbox <%= 'active' if task.complete == true %>"></span>
 						<span class="target <%= 'active' if task.outcome == true %>"></span>
@@ -70,7 +73,7 @@
 					<div class="actions_wrap">
 						<ul id="<%= task.id %>_incomplete" class="action_plan sortable in_outcome"> 
 							<% @group.tasks.where(parent_id: task.id).and(complete: false).order_by([:sort, :asc]).each_with_index do |task| %>
-								<li id="<%= task.id %>" class="task_wrap sortable <%= 'complete' if task.complete == true %>">
+								<li id="<%= task.id %>" class="task_wrap sortable <%= 'complete' if task.complete == true %>" starts_at="<%= task.starts_at %>" min_duration="<%= task.min_duration %>">
 									<div class="outcome_wrap">
 										<span class="checkbox <%= 'active' if task.complete == true %>"></span>
 										<span class="target <%= 'active' if task.outcome == true %>"></span>
@@ -98,7 +101,7 @@
 						<h3 class="outcome_complete <%= "no_disp" if @group.tasks.where(parent_id: task.id).and(complete: true).count == 0 %>"> Completed </h3>
 						<ul id="<%= task.id %>_complete" class="in_outcome">
 							<% @group.tasks.where(parent_id: task.id).and(complete: true).each_with_index do |task| %>
-								<li id="<%= task.id %>" class="task_wrap complete">
+								<li id="<%= task.id %>" class="task_wrap complete" starts_at="<%= task.starts_at %>" min_duration="<%= task.min_duration %>">
 									<div class="outcome_wrap">
 										<span class="checkbox <%= 'active' if task.complete == true %>"></span>
 										<span class="target <%= 'active' if task.outcome == true %>"></span>
@@ -128,10 +131,17 @@
 				</li>
 			<% end %>
 		</ul> 
-		<h3 class="outcome_complete <%= "no_disp" if @group.tasks.where(parent_id: task.id).and(complete: true).count == 0 %>"> Completed </h3>
+		<div class="outcome_time" style="<%= 'display: none;' if total_min_time.to_i == 0 %>">
+			<% total_min_hour = total_min_time.to_i / 60 %>
+			<% total_min_min = total_min_time.to_i % 60 %>
+			<% must_hour = must_time.to_i / 60 %>
+			<% must_min = must_time.to_i % 60 %>
+			Must <%= must_hour.floor %>:<%= must_min.to_i %> / 
+			Total Min <%= total_min_hour.floor %>:<%= total_min_min.to_i %>
+		</div>
 		<ul id="<%= task.id %>_complete" class="in_outcome">
 			<% @group.tasks.where(parent_id: task.id).and(complete: true).each_with_index do |task| %>
-				<li id="<%= task.id %>" class="task_wrap complete">
+				<li id="<%= task.id %>" class="task_wrap complete" starts_at="<%= task.starts_at %>" min_duration="<%= task.min_duration %>">
 					<div class="outcome_wrap">
 						<span class="checkbox <%= 'active' if task.complete == true %>"></span>
 						<span class="target <%= 'active' if task.outcome == true %>"></span>

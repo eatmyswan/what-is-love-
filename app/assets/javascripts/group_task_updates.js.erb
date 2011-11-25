@@ -4,20 +4,72 @@ $('#incomplete .calendar').live("mouseover", function() {
 	if (!$(this).data("init")) {
 		$(this).data("init", true);
 		$(this).cluetip({
+			width: 330,
 			positionBy: 'fixed',
 			topOffset: 26,
-			leftOffset: -110,
+			leftOffset: -150,
 			activation: 'click',
 			cluezIndex: 9999,
 			waitImage: false,
 			onShow: function() {
 				$(document).bind('mousedown',function(e) {
 					if(($(e.target).parents('#calendar_wrap').length == 0) && (e.target.id != 'calendar_wrap')){
-	      				console.log('save this data');
+						var taskId = $('li.editing').attr('id');
+						$.ajax({
+							url: "/tasks/" +  taskId,
+							type: 'PUT',
+							data: $.param({task : { starts_at: $('#schedule_date').val(), min_duration: $('#min_duration').val() }}),
+							success: function() { }
+						});
 						$(document).trigger('hideCluetip');	
+						$(document).unbind('mousedown');
 					}
 	    		});
-				$( "#datepicker" ).datepicker();
+				var defaultDate = '';
+				var date = $('li.editing').attr('starts_at');
+				var minDuration = $('li.editing').attr('min_duration');
+				
+				if(date.length > 1){
+					defaultDate = date.substr(0,10);
+				}
+				$('#schedule_date').val(date);
+				$('#min_duration').val(minDuration);
+									
+				$( "#datepicker, #reminder_datepicker" ).datepicker({
+					dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+					goToCurrent: true,
+					dateFormat: 'yy-mm-dd',
+					defaultDate: defaultDate,
+   					onSelect: function(dateText, inst) { 
+						var hour = '00';
+						var minutes = '00';
+						if($('#schedule_date').val()){
+							var dateString = $('#schedule_date').val();
+							var hour = dateString.substr(11,2);
+							var minutes = dateString.substr(14,2);
+						}
+						if (hour.length < 2) {	hour = '0' + hour; }
+						if (minutes.length < 2) {	minutes = '0' + minutes; }
+						$('#schedule_date').val(dateText+' ' + hour + ':' + minutes + ':00');
+						$('#time').show();
+					}
+				});
+				if(defaultDate.length < 1){
+					$('.ui-datepicker-current-day').removeClass('ui-datepicker-current-day');
+					$('#time').hide();
+				} else {
+					var hour = parseInt(date.substr(11,2));
+					if(hour < 12){
+						$('#time .pm').text('AM');
+						$('#time').addClass('am');
+					}
+					if(hour > 12){ hour = hour - 12; }
+					if(hour == 00){ hour = 12; }
+					$('#time .hour').val(hour);
+					$('#time .minute').val(date.substr(14,2));
+				}
+				$('#min .hour').val(minDuration ? parseInt(parseInt(minDuration)/60) : '');
+				$('#min .minute').val(minDuration ? parseInt(parseInt(minDuration)%60) : '');
 			}
 		});
 	}

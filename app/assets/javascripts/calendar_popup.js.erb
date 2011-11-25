@@ -1,0 +1,158 @@
+$('#add_reminder').live('click', function(){
+	$('#calendar_popup').hide();
+	$('#reminders_popup').show();
+	$('#cluetip').css({ 'width' : 220 });
+});
+
+$('#set_reminder').live('click', function(){
+	$('#calendar_popup').show();
+	$('#reminders_popup').hide();
+	$('#cluetip').css({ 'width' : 330 });
+	//var date = 'sup';
+	//$('#set_reminders').append('<div>'+ date +'</div>');
+});
+
+$('#cancel_reminder').live('click', function(){
+	$('#calendar_popup').show();
+	$('#reminders_popup').hide();
+	$('#cluetip').css({ 'width' : 330 });
+});
+
+$('#reset').live('click', function() {
+	$('#schedule_date').val('');
+	var date = new Date();
+	var d  = date.getDate();
+	var day = (d < 10) ? '0' + d : d;
+	var m = date.getMonth() + 1;
+	var month = (m < 10) ? '0' + m : m;
+	var yy = date.getYear();
+	var year = (yy < 1000) ? yy + 1900 : yy;
+	var today = year + "-" + month + "-" + day;
+	
+	$('#datepicker').datepicker( "setDate" , today );
+	$('.ui-datepicker-current-day').removeClass('ui-datepicker-current-day');
+	$('#time .hour').val('');
+	$('#time .minute').val('');
+	$('#time').removeClass('am');
+	$('#time .pm').text('PM');
+	$('#time').hide();
+	$('#schedule_date').val('');
+});
+
+$('#time .pm').live('click', function() {
+	var dateString = $('#schedule_date').val();
+	var date = dateString.substr(0,10);
+	var hour = dateString.substr(11,2);
+	var minutes = dateString.substr(14,2);
+	if(!$('#time').hasClass('am')){
+		$(this).text('AM');
+		$('#time').addClass('am');
+		if(hour > 11) { hour = parseInt(hour) - 12 }
+	} else {
+		$(this).text('PM');
+		$('#time').removeClass('am');
+		if(hour < 12) { hour = parseInt(hour) + 12 }
+	}
+	hour = hour.toString();
+	if (hour.length < 2) {	hour = '0' + hour; }
+	$('#schedule_date').val(date + ' ' + hour + ':' + minutes + ':' + '00');
+});
+
+$('#calendar_popup input, #reminders_popup input').live('keyup', function(event){
+	if (event.keyCode > 31 && (event.keyCode < 48 || event.keyCode > 57)) {
+            this.value = '';
+	}
+});
+
+$('#time .hour').live('keyup', function(event){
+	if(this.value > 12) {
+		this.value = 12;
+	}
+	if($('#time .minute').val() == '' && this.value > 1){
+		$('#time .minute').val('00')
+	}
+	var dateString = $('#schedule_date').val();
+	var date = dateString.substr(0,10);
+	var hour = this.value;
+	if(this.value == '') { hour = '00'; }
+	if (hour.length < 2) {	hour = '0' + hour; }
+	var minutes = dateString.substr(14,2);
+	if(hour < 12 && !$('#time').hasClass('am')) { hour = parseInt(hour) + 12 }
+	$('#schedule_date').val(date + ' ' + hour + ':' + minutes + ':' + '00');
+});
+
+$('#time .minute').live('keyup', function(){
+	if(this.value > 59 ) {
+		this.value = 59;
+	}
+	if($('#time .hour').val() == '' && this.value > 1){
+		$('#time .hour').val('12')
+	}
+	var dateString = $('#schedule_date').val();
+	var date = dateString.substr(0,10);
+	var hour = dateString.substr(11,2);
+	if(hour == '00') { hour = '12' }
+	var minutes = this.value;
+	if(this.value == '') { minutes = '00'; }
+	if (minutes.length < 2) {	minutes = '0' + minutes; }
+	$('#schedule_date').val(date + ' ' + hour + ':' + minutes + ':' + '00');
+});
+
+$('#min .hour').live('keyup', function(){
+	if(this.value > 23 ) {
+		this.value = 23;
+	}
+	if($('#max .hour').val() < this.value || this.value == ''){
+		$('#max .hour').val(this.value);
+	}
+	var minute = $('#min .minute').val() ? $('#min .minute').val() : 0;
+	var hour = this.value ? this.value : 0;
+	var minDur = parseInt(minute) + (parseInt(hour) * 60);
+	$('#min_duration').val(minDur > 0 ? minDur : '');
+});
+
+$('#min .minute').live('keyup', function(){
+	if(this.value > 59 ) {
+		this.value = 59;
+	}
+	if($('#max .minute').val() < this.value || this.value == ''){
+		$('#max .minute').val(this.value);
+	}
+	var minute = this.value ? this.value : 0; 
+	var hour = $('#min .hour').val() ? $('#min .hour').val() : 0;
+	var minDur = parseInt(minute) + (parseInt(hour) * 60);
+	$('#min_duration').val(minDur > 0 ? minDur : '');	
+});
+
+$('#max .hour').live('keyup', function(){
+	if(this.value > 23 ) {
+		this.value = 23;
+	}
+});
+
+$('#max .minute').live('keyup', function(){
+	if(this.value > 59 ) {
+		this.value = 59;
+	}
+});
+
+$('#reminder_time .hour').live('keyup', function(event){
+	if(this.value > 12 ) {
+		this.value = 12;
+	}
+	if($('#reminder_time .minute').val() == '' && this.value > 1){
+		$('#reminder_time .minute').val('00')
+	}
+});
+
+$('#reminder_time .minute').live('keyup', function(){
+	if(this.value > 59 ) {
+		this.value = 59;
+	}
+	if($('#reminder_time .hour').val() == '' && this.value > 1){
+		$('#reminder_time .hour').val('12')
+	}
+});
+
+
+

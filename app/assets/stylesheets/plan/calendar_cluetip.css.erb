@@ -1,7 +1,275 @@
 #calendar_wrap {
-	width: 180px;
 	border-radius: 5px;
-	background: #EEE;
-	padding: 10px;
-	box-shadow: 0 2px 6px #222;
+	background: #e1e1e1;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+#calendar_popup {
+	width: 330px;
+}
+#calendar_popup  #datepicker {
+	margin: 6px 12px 5px 12px;
+}
+#calendar_wrap .calendar_popup_left {
+	width: 215px;
+	float: left;
+	border-right: 1px solid #fafafa;
+	min-height: 188px;
+}
+#calendar_wrap .calendar_popup_left #time {
+	float: left;
+	width: 120px;
+	margin: 0 0 0 12px;
+	overflow: hidden;
+}
+#calendar_wrap .calendar_popup_left #time input {
+	width: 18px;
+	height: 13px;
+	float: left;
+	padding: 3px 2px 0;
+	text-align: center;
+	border-radius: 2px;	
+	font-size: 11px;
+	display: block;
+	color: #515151;
+	background: #F7F7F7;
+	background: -webkit-linear-gradient(top, #F7F7F7 0%, #EEEEEE 100%);
+	border: 1px solid #CCC;
+}
+#calendar_wrap .calendar_popup_left #time .colon {
+	padding: 2px 0;
+	height: 17px;
+	text-shadow: 0 1px 0 #FFF;
+	float: left;
+	text-align: center;
+	margin: 0 2px;
+}
+#calendar_wrap .calendar_popup_left #time .pm {
+	width: 24px;
+	height: 13px;
+	border: 1px solid #989898;
+	text-align: center;
+	float: left;
+	background: #b1b1b1;
+	background: -webkit-linear-gradient(top, #e8e8e8 0%, #b1b1b1 100%);
+	color: #505050;
+	cursor: pointer;
+	border-radius: 2px;
+	margin: 0 0 0 4px;
+	font-size: 11px;
+	text-shadow: 0 1px 0 #DDD;
+	padding: 2px 0 0 0;
+}
+#calendar_wrap .calendar_popup_left #time .pm:hover {
+	background: #00519d;
+	background: -webkit-linear-gradient(top, #2d98fb 0%, #00519d 100%);
+    border: 1px solid #225f97;
+	box-shadow: inset 0 1px 0 #6fb7f9;
+	color: #FFF;
+	text-shadow: 0 1px 0 #225f97;
+}
+#calendar_wrap .calendar_popup_left #reset {
+	float: right;
+	border-radius: 10px;
+	border: 1px solid #989898;
+	text-align: center;
+	padding: 0 7px;
+	font-size: 11px;
+	line-height: 16px;
+	text-shadow: 1px solid white;
+	background: #b1b1b1;
+	background: -webkit-linear-gradient(top, #e8e8e8 0%, #b1b1b1 100%);
+	color: #444;
+	margin: 0 12px 0 0;
+	cursor: pointer;
+}
+#calendar_wrap .calendar_popup_left #reset:hover {
+	background: #00519d;
+	background: -webkit-linear-gradient(top, #2d98fb 0%, #00519d 100%);
+    border: 1px solid #225f97;
+	box-shadow: inset 0 1px 0 #6fb7f9;
+	color: #FFF;
+}
+#calendar_wrap .calendar_popup_right {
+	border-left: 1px solid #b6b6b6;
+	margin-left: 216px;
+	width: 110px;
+	padding: 12px 0 12px 12px;
+	min-height: 164px;
+}
+#calendar_wrap .calendar_popup_right #duration {
+	margin: 0 0 18px 0;
+}
+#calendar_wrap .calendar_popup_right #duration .duration_wrap {
+	overflow: hidden;
+	margin: 0 3px 0 0;
+}
+#calendar_wrap .calendar_popup_right #duration input {
+	width: 18px;
+	height: 13px;
+	float: left;
+	padding: 3px 2px 0;
+	text-align: center;
+	border-radius: 2px;	
+	font-size: 11px;
+	display: block;
+	color: #515151;
+	background: #F7F7F7;
+	background: -webkit-linear-gradient(top, #F7F7F7 0%, #EEEEEE 100%);
+	border: 1px solid #CCC;
+}
+#calendar_wrap .calendar_popup_right #duration .colon {
+	padding: 2px 0;
+	height: 17px;
+	text-shadow: 0 1px 0 #FFF;
+	float: left;
+	text-align: center;
+	margin: 0 2px;
+}
+#calendar_wrap .calendar_popup_right .title {
+	font-size: 12px;
+	font-weight: bold;
+	color: #555;
+	text-shadow: 0 1px 0 #FFF;
+	margin: 0 0 5px 0;
+}
+#calendar_wrap .calendar_popup_right .sub_title {
+	font-size: 11px;
+	color: #616161;
+	text-shadow: 0 1px 0 white;
+	line-height: 20px;
+	float: left;
+	width: 28px;
+}
+#calendar_wrap .calendar_popup_right #add_reminder {
+	border-radius: 10px;
+	border: 1px solid #989898;
+	text-align: center;
+	padding: 0 7px;
+	font-size: 11px;
+	line-height: 16px;
+	text-shadow: 1px solid white;
+	background: #b1b1b1;
+	background: -webkit-linear-gradient(top, #e8e8e8 0%, #b1b1b1 100%);
+	color: #444;
+	margin: 3px 8px 0 0;
+	cursor: pointer;
+	display: inline-block;
+}
+#calendar_wrap .calendar_popup_right #add_reminder:hover {
+	background: #00519d;
+	background: -webkit-linear-gradient(top, #2d98fb 0%, #00519d 100%);
+    border: 1px solid #225f97;
+	box-shadow: inset 0 1px 0 #6fb7f9;
+	color: #FFF;
+}
+
+
+
+#reminders_popup {
+	width: 220px;
+	padding: 0 0 6px 0;
+	display: none;
+}
+#reminders_popup  #reminder_datepicker {
+	margin: 6px 12px 5px 12px;
+}
+#reminders_popup  #reminder_time {
+	overflow: hidden;
+	margin: 0 0 0 12px;
+}
+#reminders_popup .header {
+	height: 32px;
+	border-bottom: 1px solid #AAA;
+	overflow: hidden;
+	background: #b1b1b1;
+	background: -webkit-linear-gradient(top, #b1b1b1 0%, #7d7d7d 100%);
+	border-radius: 5px 5px 0 0;
+}
+#reminders_popup .header .title {
+	color: #FFF;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 0 0 0 12px;
+	text-shadow: 0 1px 2px #222;
+	float: left;
+	line-height: 32px;
+}
+#reminders_popup .header .controls {
+	float: right;
+	margin: 8px 12px 0 0;
+}
+#reminders_popup .header .controls .done {
+	width: 15px;
+	height: 15px;
+	background: url(<%= asset_path 'edit_done_white.png' %>) no-repeat;
+	float: right;
+	cursor: pointer;
+	opacity: 0.7;
+	margin: 0 8px 0 0;
+	display: block;
+}
+#reminders_popup .header .controls .done:hover {
+	opacity: 1.0;
+}
+#reminders_popup .header .controls .delete {
+	width: 15px;
+	height: 15px;
+	background: url(<%= asset_path 'delete_white.png' %>) no-repeat;
+	float: right;
+	cursor: pointer;
+	opacity: 0.5;
+	margin: 0 0 0 0;
+	display: block;
+}
+#reminders_popup .header .controls .delete:hover {
+	opacity: 1.0;
+}
+#reminders_popup input {
+	width: 18px;
+	height: 13px;
+	float: left;
+	padding: 3px 2px 0;
+	text-align: center;
+	border-radius: 2px;	
+	font-size: 11px;
+	display: block;
+	color: #515151;
+	background: #F7F7F7;
+	background: -webkit-linear-gradient(top, #F7F7F7 0%, #EEEEEE 100%);
+	border: 1px solid #CCC;
+}
+#reminders_popup .colon {
+	padding: 2px 0;
+	height: 17px;
+	text-shadow: 0 1px 0 #FFF;
+	float: left;
+	text-align: center;
+	margin: 0 2px;
+}
+#reminders_popup .pm {
+	width: 24px;
+	height: 13px;
+	border: 1px solid #989898;
+	text-align: center;
+	float: left;
+	background: #b1b1b1;
+	background: -webkit-linear-gradient(top, #e8e8e8 0%, #b1b1b1 100%);
+	color: #505050;
+	cursor: pointer;
+	border-radius: 2px;
+	margin: 0 0 0 4px;
+	font-size: 11px;
+	text-shadow: 0 1px 0 #DDD;
+	padding: 2px 0 0 0;
+}
+#reminders_popup .pm:hover {
+	background: #00519d;
+	background: -webkit-linear-gradient(top, #2d98fb 0%, #00519d 100%);
+    border: 1px solid #225f97;
+	box-shadow: inset 0 1px 0 #6fb7f9;
+	color: #FFF;
+	text-shadow: 0 1px 0 #225f97;
+}
+#reminders_popup #reminder_datepicker {
+	
 }
