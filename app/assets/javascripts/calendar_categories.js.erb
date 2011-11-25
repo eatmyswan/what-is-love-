@@ -1,9 +1,9 @@
-$('#calendar_categories .category').live('click',function(){
-	var category = $(this);
-	$('#calendar_categories .active ul').slideUp(200, function(){
+$('#calendar_categories .category .top').live('click',function(){
+	var category = $(this).parent();
+	$('#calendar_categories .active ul').slideUp(300, function(){
 		$('#calendar_categories .category').removeClass('active');
 		category.addClass('active');
-		category.find('ul').first().slideDown(200);
+		category.find('ul').first().slideDown(300);
 	});
 	
 });
