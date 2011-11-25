@@ -1,5 +1,12 @@
 #calendar_categories {
 }
+#calendar_categories li.task_wrap .result {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 180px;
+	overflow: hidden;
+	padding: 6px 0 0 0;
+}
 #calendar_categories .category {
 	display: block;
 	min-height: 38px;
@@ -7,6 +14,12 @@
 	border-top: 1px solid #3C3734;
 	position: relative;
 	z-index: 3;
+}
+#calendar_categories .category ul {
+	display: none;
+}
+#calendar_categories .category.active ul {
+	display: block;
 }
 #calendar_categories .category .top {
 	overflow: hidden;

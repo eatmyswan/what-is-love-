@@ -1,0 +1,9 @@
+$('#calendar_categories .category').live('click',function(){
+	var category = $(this);
+	$('#calendar_categories .active ul').slideUp(200, function(){
+		$('#calendar_categories .category').removeClass('active');
+		category.addClass('active');
+		category.find('ul').first().slideDown(200);
+	});
+	
+});
