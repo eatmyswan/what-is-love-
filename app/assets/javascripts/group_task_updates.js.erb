@@ -130,8 +130,8 @@ $('#group .checkbox').live('click',function(){
 				type: 'PUT',
 				data: $.param({task : { complete: 'false' }}),
 				success: function() { 
-					task.fadeTo(100, 1.0).slideUp(200, function(){
-						task.appendTo('#incomplete').slideDown(200);
+					task.fadeOut(300, function(){
+						task.appendTo('#incomplete').fadeTo(300, 1.0);
 						hideH3();
 						});
 					increaseCount();
@@ -145,8 +145,8 @@ $('#group .checkbox').live('click',function(){
 				type: 'PUT',
 				data: $.param({task : { complete: 'true' }}),
 				success: function() { 
-					task.fadeTo(100, 0.5).slideUp(200, function(){
-						task.prependTo('#complete').slideDown(200);
+					task.fadeOut(300, function(){
+						task.prependTo('#complete').fadeTo(300, 0.5);
 						});
 					decreaseCount();
 					}
@@ -161,8 +161,8 @@ $('#group .checkbox').live('click',function(){
 					type: 'PUT',
 					data: $.param({task : { complete: 'false' }}),
 					success: function() { 
-						task.fadeTo(100, 1.0).slideUp(200, function(){
-							task.appendTo('#'+outcomeId+'_incomplete').slideDown(200);
+						task.fadeOut(300, function(){
+							task.appendTo('#'+outcomeId+'_incomplete').fadeTo(300, 1.0);
 							hideOutcomeH3(outcomeId);
 							});
 						}
@@ -175,8 +175,8 @@ $('#group .checkbox').live('click',function(){
 					type: 'PUT',
 					data: $.param({task : { complete: 'true' }}),
 					success: function() { 
-						task.fadeTo(100, 0.5).slideUp(200, function(){
-							task.prependTo('#'+outcomeId+'_complete').slideDown(200);
+						task.fadeOut(300, function(){
+							task.prependTo('#'+outcomeId+'_complete').fadeTo(300,0.5);
 							});
 						}
 					});
@@ -207,7 +207,6 @@ $('#incomplete .star').live('click',function(){
 	}
 });
 
-
 $('#incomplete .delete').live('click',function(){
 	var task = $(this).parents('li').first();
 	var taskId = task.attr('id');
@@ -232,7 +231,6 @@ $('#incomplete .delete').live('click',function(){
 	});
 });
 
-
 $('#incomplete .edit').live('click',function(){
 	$(this).hide();
 	var task = $(this).parents('li').first();
@@ -256,7 +254,6 @@ $('#incomplete .editing .target').live('click',function(){
 	$(this).toggleClass('active');
 });
 	
-
 $('#incomplete .target.active').live('click', function(){
 	var task = $(this).parents('li').first();
 	if(!task.hasClass('editing') && !$(this).hasClass('outcome')){
@@ -264,12 +261,10 @@ $('#incomplete .target.active').live('click', function(){
 	} 
 });
 
-
 $('#incomplete .target.outcome').live('click', function(){
 	var task = $(this).parents('li').first();
 	task.removeClass('outcome').find('.header').first().slideUp(200);		
 });
-
 
 $('#incomplete .add_purpose').live('submit',function(event){
 	event.preventDefault();

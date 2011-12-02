@@ -1,5 +1,5 @@
 $("#task_task").val('New task...').blur();
-$('<%= escape_javascript render(@task) %>').prependTo('#incomplete');
+$('<%= escape_javascript render(@task) %>').prependTo('.incomplete_task_list');
 
 var countText = $('#categories .active').find('.count_text').first();
 count = parseInt( countText.text() ) + 1;

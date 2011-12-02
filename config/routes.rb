@@ -24,6 +24,10 @@ Rpm::Application.routes.draw do
   match 'week/day/:start_date' => 'weeks#day', :as => :week_day
   match 'week/month/:start_date' => 'weeks#month', :as => :week_month
   
+  match 'day/capture/:start_date' => 'day#capture', :as => :day_capture
+  match 'day/plan/:start_date' => 'day#plan', :as => :day_plan
+  match 'day/schedule/:start_date' => 'day#schedule', :as => :day_schedule
+  
   match 'tasks/sort' => 'tasks#sort'
   match 'task/update/:id' => 'tasks#update'
 
@@ -42,6 +46,7 @@ Rpm::Application.routes.draw do
   match 'task/:task_id/email/:email_id/view_email' => 'emails#view_email'
   match 'task/edit_notes/:id' => 'tasks#edit_notes'
   match 'task/edit_calendar/:id' => 'tasks#edit_calendar'
+  match 'task/edit_group/:id' => 'tasks#edit_group'
   
   
   # The priority is based upon order of creation:

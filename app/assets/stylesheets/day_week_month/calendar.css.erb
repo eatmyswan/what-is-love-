@@ -52,39 +52,62 @@ li.task_wrap .thumbnail {
 	display: inline-block;
 	max-width: 400px;
 	margin: 20px 0 0 20px;
-	color: white;
+}
+.calendar_title .big {
+	color: #FFFFFF;
 	font-size: 20px;
 	font-weight: bold;
 	text-shadow: 0 1px 2px black;
+	display: inline-block;
+}
+.calendar_title .small {
+	color: #6a542e;
+	font-size: 13px;
+	font-weight: bold;
+	text-shadow: 0px 1px 1px #DAD2C7;
+	margin: 5px 0 0 8px;
+	display: inline-block;
+}
+.calendar_title #calendar_button {
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	background: #000;
+	margin: 3px 0 0 8px;
+	cursor: pointer;
 }
 #calendar_controls {
 	position: absolute;
 	top: 21px;
 	right: 70px;
 }
-#calendar_controls .button {
-	box-shadow: 0px 1px 1px #DAD2C7;
-	padding: 3px 10px 0;
-	text-shadow: #222 0px 1px 2px;
-	background: url(<%= asset_path 'mylife_filter_bg_active.png' %>) repeat-x top left #927543;
-	color: #FFF;
-	border-left: 1px solid #7A6239;
-	border-top: 1px solid #7A6239;
-	border-bottom: 1px solid #7A6239;
-	float: left;
-	display: block;
-	cursor: pointer;
-	height: 15px;
-	font-size: 11px;
-	z-index: 4;
-	position: relative;
+#calendar_controls .filter {
+box-shadow: 0px 1px 1px #dad2c7;
+padding: 3px 10px 0;
+text-shadow: #222 0px 1px 2px;
+background: url(<%= asset_path 'mylife_filter_bg.png' %>) repeat-x top center #846942;
+border-left: 1px solid #655135;
+border-top: 1px solid #655135;
+border-bottom: 1px solid #655135;
+float: left;
+color: #dad2c7;
+display: block;
+cursor: pointer;
+height: 15px;
+font-size: 11px;
+z-index: 4;
+position: relative;
 }
-#calendar_controls .button.rounded_left {
-	border-radius: 10px 0 0 10px;
-	padding-left: 12px;
+#calendar_controls .rounded_left {
+border-radius: 10px 0 0 10px;
+padding-left: 12px;
 }
-#calendar_controls .button.rounded_right {
-	border-radius: 0 10px 10px 0;
-	border-right: 1px solid #7A6239;
-	padding-right: 12px;
+#calendar_controls .rounded_right {
+border-radius: 0 10px 10px 0;
+border-right: 1px solid #7a6239;
+padding-right: 12px;
+}
+#calendar_controls .active, #calendar_controls .filter:hover {
+background: url(<%= asset_path 'mylife_filter_bg_active.png' %>) repeat-x top left #927543;
+color: white;
 }

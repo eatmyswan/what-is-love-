@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	
+
 $('.droppable').live("mouseover", function() {
 	if (!$(this).data("init")) {
 		$(this).data("init", true);
@@ -58,6 +58,5 @@ $('.droppable').live("mouseover", function() {
 
 	}
 });
-	
-	
+
 });

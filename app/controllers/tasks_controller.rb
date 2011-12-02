@@ -112,6 +112,13 @@ class TasksController < ApplicationController
       format.html { render :layout => false }
     end
   end
-
+  
+  def edit_group
+    @groups = Group.where(user_id: current_user.id)
+    @task = Task.find(params[:id])
+    respond_to do |format|
+      format.html { render :layout => false }
+    end
+  end
 
 end

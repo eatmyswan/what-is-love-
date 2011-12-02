@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	
-$('ul.sortable').live("mouseover", function() {
+$('#plan_wrap ul.sortable').live("mouseover", function() {
 	if (!$(this).data("init")) {
 		$(this).data("init", true);
 		$(this).sortable({

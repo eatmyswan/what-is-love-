@@ -1,0 +1,4 @@
+$('.filters_wrap a').removeClass('active');
+$('#day').addClass('active');
+$('#pad').replaceWith("<%= escape_javascript render('schedule')  %>");
+$('.categories_wrap').replaceWith("<%= escape_javascript render('side_schedule_detail')  %>");

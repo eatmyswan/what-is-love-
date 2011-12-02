@@ -24,7 +24,7 @@
 				<% end %>
 			</div>
 
-			<ul id="incomplete" class="sortable">
+			<ul id="incomplete" class="sortable incomplete_task_list">
 			<% @group.tasks.incomplete.each_with_index do |task, index| %>
 					<%= render :partial => '/tasks/task', :locals => { :task => task, :index => index } %>
 			<% end %>

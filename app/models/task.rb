@@ -17,7 +17,9 @@ class Task
   field :outcome, type: Boolean, default: false
   field :purpose, type: String, default: nil
   field :collapsed, type: Boolean, default: true
-  field :parent_id, type: String, drault: nil
+  field :parent_id, type: String, default: nil
+  field :plan, type: Boolean, default: false
+  field :week, type: Boolean, default: false
 
   belongs_to :user
   belongs_to :group

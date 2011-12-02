@@ -7,9 +7,9 @@
 			<span id="calendar_button"></span>
 		</div>
 		<div id="calendar_controls">
-			<a id="capture" class="filter rounded_left active">Capture</a>
-			<a id="plan" class="filter">Plan</a>
-			<a id="schedule" class="filter rounded_right">Schedule</a>
+		<%= link_to 'Capture', day_capture_path(Date.today()), :id => 'day_capture', :class => 'filter rounded_left', :remote => true %>
+			<%= link_to 'Plan', day_plan_path(Date.today()), :id => 'day_plan', :class => 'filter', :remote => true %>
+			<%= link_to 'Schedule', day_schedule_path(Date.today()), :id => 'day_schedule', :class => 'filter rounded_right active', :remote => true %>
 		</div>
 		<div class="ribbon"></div>
 
