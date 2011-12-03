@@ -975,7 +975,8 @@
         renderRow += '<td class=\"wc-grid-timeslot-header\">';
         for (var i = start; i < end; i++) {
           var bhClass = (options.businessHours.start <= i && options.businessHours.end > i) ? 'ui-state-active wc-business-hours' : 'ui-state-default';
-          renderRow += '<div class=\"wc-hour-header ' + bhClass + '\">';
+		  var firstHour = (i == 0) ? 'first_hour' : '';
+          renderRow += '<div class=\"wc-hour-header '+ bhClass +' '+ firstHour +'\">';
           if (options.use24Hour) {
             renderRow += '<div class=\"wc-time-header-cell\">' + self._24HourForIndex(i) + '</div>';
           }

@@ -155,8 +155,14 @@
 
 
 #schedule .wc-time-header-cell {
-	padding: 1px 3px 0 0;	
+	position: relative;	
 	height: 80px; /* reference height */
+}
+#schedule .wc-time-header-cell .hour {
+	position:absolute;
+	width: 100%;
+	top: -6px;
+	right: 3px;
 }
 
 #schedule .wc-time-slot {

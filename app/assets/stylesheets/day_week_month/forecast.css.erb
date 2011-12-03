@@ -46,14 +46,14 @@
 	padding: 0;
 }
 #forecast .wc-header{
-	border-bottom: 1px solid #CCC;
 	height: 49px;
 	margin: 0 16px 0 15px;
 }
 #forecast .wc-header .wc-day-column-header {
 	text-align: center;
 	font-size: 12px;
-	padding: 30px 0 0 0;
+	padding: 30px 0 7px 0;
+	border-bottom: 1px solid #CCC;
 }
 #forecast .wc-header table{
 	width: 100%;
@@ -61,6 +61,7 @@
 }
 #forecast .wc-grid-timeslot-header, #forecast .wc-header .wc-time-column-header {
 	width: 35px;	
+	border-bottom: 1px solid transparent;
 }
 #forecast .wc-header .wc-scrollbar-shim {
 	width: 16px;	
@@ -85,7 +86,6 @@
 	left: 15px;
 	right: 15px;
 	bottom: 0;
-	background: #fafafa;
 }
 
 
@@ -93,9 +93,7 @@
 	width: 100%;
 	table-layout: fixed;
 	cursor: default;
-	overflow:hidden;
-	border-left: 1px solid #CCC;
-	border-right: 2px solid #CCC;
+	border-right: 1px solid #CCC;
 }
 
 #forecast .wc-day-column {
@@ -155,11 +153,19 @@
 #forecast .wc-column-odd, #forecast .wc-column-even.ui-state-hover{background-image:none;border:none;}
 
 #forecast .wc-header .wc-today.ui-state-active{background-image:none;}
-#forecast .wc-header .wc-today.wc-day-column-header{border-width:0 3px; border-style: solid;}
+#forecast .wc-header .wc-today.wc-day-column-header{ 
+	border-bottom: 1px solid #68A1E5;
+	font-weight: bold;
+	color: #0b6bde;
+}
 #forecast .wc-header .wc-user-header{border-width:0;}
 
-#forecast .wc-time-slots .wc-day-column.ui-state-default{background:transparent;}
-#forecast .wc-time-slots .wc-today.ui-state-active{background-image:none;}
+#forecast .wc-time-slots .wc-day-column.ui-state-default{
+	background:#fafafa;
+}
+#forecast .wc-time-slots .wc-today.ui-state-active{
+	background:#FFF;
+}
 #forecast .wc-header .wc-today.ui-state-active.wc-day-column-middle{border-width:0;}
 #forecast .wc-header .wc-today.ui-state-active.wc-day-column-first{border-left-width:3px;}
 #forecast .wc-header .wc-today.ui-state-active.wc-day-column-last{border-right-width:3px;}
@@ -171,8 +177,17 @@
 
 
 #forecast .wc-time-header-cell {
-	padding: 1px 3px 0 0;	
+	position: relative;	
 	height: 80px; /* reference height */
+}
+#forecast .wc-time-header-cell .hour {
+	position:absolute;
+	width: 100%;
+	top: -6px;
+	right: 3px;
+}
+#forecast .first_hour .wc-time-header-cell .hour {
+	top: -1px;
 }
 
 #forecast .wc-time-slot {
@@ -196,8 +211,10 @@
 #forecast .wc-hour-header.ui-state-default{
   border-width:0 0 1px 0;
 }
-
-#forecast .wc-hour-end, #forecast .wc-hour-header {
+#forecast .wc-hour-header {
+	border-bottom: 1px solid transparent !important;	
+}
+#forecast .wc-hour-end  {
 	border-bottom: 1px solid #ccc !important;	
 }
 
