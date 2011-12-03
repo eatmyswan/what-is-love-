@@ -868,7 +868,11 @@
 
         for (i = start; i < end; i++) {
           for (j = 0; j < options.timeslotsPerHour - 1; j++) {
-            renderRow += '<div class=\"wc-time-slot\"></div>';
+			var wcHourMark = '';
+			if(j == 0) wcHourMark = 'wc-hour-start';
+			if(j == 1) wcHourMark = 'wc-hour-second';
+			if(j == 2) wcHourMark = 'wc-hour-third';
+            renderRow += '<div class=\"wc-time-slot '+ wcHourMark +'\"></div>';
           }
           renderRow += '<div class=\"wc-time-slot wc-hour-end\"></div>';
         }
@@ -1086,13 +1090,16 @@
                 $newEvent.remove();
                 var newCalEvent = {start: eventDuration.start, end: eventDuration.end, title: options.newEventText};
                 var showAsSeparatedUser = options.showAsSeparateUsers && options.users && options.users.length;
+				newCalEvent.readOnly = true;
 
+				/*
                 if (showAsSeparatedUser) {
                   newCalEvent = self._setEventUserId(newCalEvent, $weekDay.data('wcUserId'));
                 }
                 else if (!options.showAsSeparateUsers && options.users && options.users.length == 1) {
                   newCalEvent = self._setEventUserId(newCalEvent, self._getUserIdFromIndex(0));
                 }
+				*/
 
                 var freeBusyManager = self.getFreeBusyManagerForEvent(newCalEvent);
 
@@ -1285,15 +1292,6 @@
                 _start = self._cloneDate(self.element.data('startDate')),
                 _end = self._dateLastDayOfWeek(new Date(this._cloneDate(self.element.data('endDate')).getTime() - (MILLIS_IN_DAY))),
                 _title = this._getCalendarTitle();
-
-				if($('#schedule_side').length != 0){
-					var sideStart = _start.toString('yyyy-MM-dd');
-					var sideEnd = _end.toString('yyyy-MM-dd');
-					$.get('/day/side/' + _start.toString('yyyy-MM-dd 00:00:00'), function(data){
-						$('#schedule_side').html(data);
-					});
-				}
-
 			if(_start.getMonth() == _end.getMonth()){
 				_title = _title.split('%start%').join(self._formatDate(_start, 'F d'));
             	_title = _title.split('%end%').join(self._formatDate(_end, 'd, Y'));
@@ -1916,7 +1914,7 @@
       },
 
       _amOrPm: function(hourOfDay) {
-          return hourOfDay < 12 ? 'am' : 'pm';
+          return hourOfDay < 12 ? 'a' : 'p';
       },
 
       _isToday: function(date) {

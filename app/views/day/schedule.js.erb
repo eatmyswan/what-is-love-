@@ -1,7 +1,7 @@
 $('.filters_wrap a').removeClass('active');
 $('#day').addClass('active');
 $('#pad').replaceWith("<%= escape_javascript render('schedule')  %>");
-$('.categories_wrap').html("<div id='schedule_side'></div>");
+$('.categories_wrap').html("<%= escape_javascript render('side')  %>");
 
 $(document).ready(function() {
 
@@ -80,6 +80,11 @@ $(document).ready(function() {
          setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
 
       },
+		changedate: function($calendar, newDate){
+			$.get('/day/side/' + newDate.toString('yyyy-MM-dd 00:00:00'), function(data){
+				$('#schedule_side').replaceWith(data);
+			});
+		},
       eventDrop : function(calEvent, $event) {
        	var start = calEvent.start.toString('yyyy-MM-dd HH:mm:00');
 		var end = calEvent.end.toString('yyyy-MM-dd HH:mm:00');

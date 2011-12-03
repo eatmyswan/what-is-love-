@@ -1,4 +1,9 @@
-
+#day_plan_wrap {
+	margin: 20px 0 0 0;
+}
+#day_plan_wrap li.outcome {
+	margin: 0 0 15px 0;
+}
 #side_schedule .wc-container {
 	font-size: 14px;	
 	font-family: arial, helvetica;
@@ -31,10 +36,9 @@
 	padding: 0;
 }
 #side_schedule .wc-header{
-	border-bottom: 1px solid #CCC;
-	height: 49px;
-	margin: 0 16px 0 15px;
-	display: none;
+	border-bottom: 1px solid #171615;
+	height: 0px;
+	margin: 0 15px 0 25px;
 }
 #side_schedule .wc-header .wc-day-column-header {
 	text-align: center;
@@ -44,9 +48,10 @@
 #side_schedule .wc-header table{
 	width: 100%;
   	table-layout:fixed;
+	display: none;
 }
 #side_schedule .wc-grid-timeslot-header, #side_schedule .wc-header .wc-time-column-header {
-	width: 35px;	
+	width: 20px;	
 }
 #side_schedule .wc-header .wc-scrollbar-shim {
 	width: 16px;	
@@ -67,8 +72,8 @@
 	overflow-x: hidden !important;
 	overflow-y: auto !important; 
 	position: absolute;
-	top: 85px;
-	left: 15px;
+	top: 47px;
+	left: 5px;
 	right: 15px;
 	bottom: 0;
 }
@@ -164,21 +169,32 @@
 	top: -6px;
 	right: 3px;
 }
-
-#side_schedule .wc-time-slot {
-	border-bottom: 1px dotted #ddd;	
-}
-#side_schedule .wc-time-slot:nth-child(even) {
-	border-bottom: 1px dotted #ddd;	
-}
-#side_schedule .wc-time-slot:nth-child(odd) {
-	border-bottom: 1px dotted transparent;	
+#side_schedule .first_hour .wc-time-header-cell .hour {
+	top: -1px;
 }
 
 #side_schedule .wc-hour-header {
+	border-bottom: 1px solid transparent !important;	
+}
+#side_schedule .wc-hour-end {
+	border-bottom: 1px solid #171615 !important;	
+}
+#side_schedule .wc-hour-start {
+	border-top: 1px solid #413d3c !important;	
+}
+#side_schedule .wc-hour-second {
+	border-bottom: 1px dotted #171615 !important;	
+}
+#side_schedule .wc-hour-third {
+	border-top: 1px dotted #413d3c !important;	
+}
+
+
+#side_schedule .wc-hour-header {
 	text-align: right;
-	font-size: 11px;
-	color: #FFF;
+	font-size: 10px;
+	color: #afadac;
+	font-weight: bold;
 }
 #side_schedule .wc-hour-header .wc-am-pm {
 }
@@ -186,12 +202,7 @@
 #side_schedule .wc-hour-header.ui-state-default{
   border-width:0 0 1px 0;
 }
-#side_schedule .wc-hour-header {
-	border-bottom: 1px solid transparent !important;	
-}
-#side_schedule .wc-hour-end {
-	border-bottom: 1px solid #ccc !important;	
-}
+
 
 #side_schedule .wc-business-hours {
 
@@ -215,11 +226,11 @@
 
 #side_schedule .wc-cal-event {
 	background-color: #68a1e5;	
-  /* Modern Browsers */ opacity: 0.9;
-  /* IE 8 */ -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
-  /* IE 5-7 */ filter: alpha(opacity=90);
-  /* Netscape */ -moz-opacity: 0.9;
-  /* Safari 1 */ -khtml-opacity: 0.9;
+  /* Modern Browsers */ opacity: 0.95;
+  /* IE 8 */ -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=95)";
+  /* IE 5-7 */ filter: alpha(opacity=95);
+  /* Netscape */ -moz-opacity: 0.95;
+  /* Safari 1 */ -khtml-opacity: 0.95;
 	position: absolute;	
 	overflow: hidden;
 	color: #333;

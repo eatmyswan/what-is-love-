@@ -25,7 +25,7 @@ class DayController < ApplicationController
   def side
     @date = params[:start_date].to_time()
     @start_date = Date.new(@date.year, @date.month, @date.day)
-    render :layout => false
+    render :partial => "side", :layout => false
   end
   
 end

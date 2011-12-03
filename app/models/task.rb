@@ -20,6 +20,7 @@ class Task
   field :parent_id, type: String, default: nil
   field :plan, type: Boolean, default: false
   field :week, type: Boolean, default: false
+  field :readOnly, type: Boolean, default: false
 
   belongs_to :user
   belongs_to :group

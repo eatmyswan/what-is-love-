@@ -17,14 +17,6 @@
 <% content_for :page do %>
 <div id="group">
 	<div id="day_plan_wrap">
-		<div id="input_wrap">
-			<span class="inner_shadow"></span>
-			<%= form_for(Task.new, :remote => true) do |f| %>
-				<%= f.text_field :task, :autocomplete => :off, :value => "New task...", :onfocus => '(this.value == "New task...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New task..." : this.value' %>
-				<%= f.hidden_field :starts_at, :value => @start_date %>
-				<%= f.hidden_field :group_id, :value => @inbox.id.to_s %>
-			<% end %>
-		</div>
 		<div id="incomplete">
 			<ul class="sortable incomplete_task_list">
 				<% @plans.each do |task,index| %>

@@ -10,11 +10,6 @@
 			<%= link_to 'Plan', day_plan_path(Date.today()), :id => 'day_plan', :class => 'filter', :remote => true %>
 			<%= link_to 'Schedule', day_schedule_path(Date.today()), :id => 'day_schedule', :class => 'filter rounded_right active', :remote => true %>
 		</div>
-		<div>
-			<span id="prev">PREV</span>
-			<span id="today">TODAY</span>
-			<span id="next">NEXT</span>
-		</div>
 		<div class="ribbon"></div>
 
 <% end %>
