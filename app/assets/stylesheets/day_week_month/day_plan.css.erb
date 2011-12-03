@@ -1,48 +1,286 @@
-#day_plan_wrap ul.sortable {
-	min-height: 30px;
+#side_schedule .wc-container {
+	font-size: 14px;	
+	font-family: arial, helvetica;
 }
-#side_schedule {
+#side_schedule .wc-toolbar {
+	padding: 1em;
+  font-size:0.8em;
+}
+#side_schedule .wc-toolbar .wc-nav {
+  float:left;
+}
+#side_schedule .wc-toolbar .wc-display {
+  float: right;
+}
+#side_schedule .wc-toolbar button {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+#side_schedule .wc-toolbar .wc-title {
+  text-align:center;
+  padding:0;
+  margin:0;
+}
+#side_schedule .wc-container table {
+	border-collapse: collapse;
+    border-spacing: 0;
+}
+#side_schedule .wc-container table td {
+	margin: 0;
+	padding: 0;
+}
+#side_schedule .wc-header{
+	border-bottom: 1px solid #CCC;
+	height: 49px;
+	margin: 0 16px 0 15px;
+}
+#side_schedule .wc-header .wc-day-column-header {
+	text-align: center;
+	font-size: 12px;
+	padding: 30px 0 0 0;
+}
+#side_schedule .wc-header table{
+	width: 100%;
+  table-layout:fixed;
+}
+#side_schedule .wc-grid-timeslot-header, #side_schedule .wc-header .wc-time-column-header {
+	width: 35px;	
+}
+#side_schedule .wc-header .wc-scrollbar-shim {
+	width: 16px;	
+	display: none; 
+}
+
+#side_schedule .wc-header .wc-user-header{
+	text-align: center;
+	padding: 0.4em 0;
+  overflow:hidden;
+}
+#side_schedule .wc-grid-timeslot-header {
+}
+
+
+#side_schedule .wc-scrollable-grid {
+	overflow: auto;
+	overflow-x: hidden !important;
+	overflow-y: auto !important; 
 	position: absolute;
 	top: 85px;
+	left: 15px;
+	right: 15px;
 	bottom: 0;
-	left: 0;
-	right: 0;
-	overflow-y: scroll;
-	overflow-x: hidden;
+	background: #fafafa;
 }
-#side_schedule .grid_wrap {
-	height: 1445px;
-	position: absolute;
-	left: 25px;
-	right: 10px;
-	top: 0;
+
+
+#side_schedule table.wc-time-slots {
+	width: 100%;
+	table-layout: fixed;
+	cursor: default;
+	overflow:hidden;
+	border-left: 1px solid #CCC;
+	border-right: 2px solid #CCC;
 }
-#side_schedule .grid_wrap .hours {
-	left: -25px;
-	width: 20px;
-	position: absolute;
-	text-align: right;
-	font-size: 11px;
+
+#side_schedule .wc-day-column {
+	width: 13.5%;
+	overflow: visible;
+	vertical-align: top;
 }
-#side_schedule .grid_wrap .hours .hour {
-	height: 60px;
-	text-align: right;
-	position: relative;
-	font-size: 11px;
-	color: #FFF;
+#side_schedule .wc-day-column-header{
+	border-width: 0 0 0 1px; 
+	border-style: solid;
+	border-color:transparent;
 }
-#side_schedule .grid_wrap .grid {
-	position: absolute;
-	height: 1445px;
-	left: 0;
-	right: 0;
-	top: 5px;
-	bottom: 0;
+#side_schedule .wc-scrollable-grid .wc-day-column-last,
+#side_schedule .wc-scrollable-grid .wc-day-column-middle{
+	border-width: 0 0 0 1px; border-style: dashed;
+	}
+#side_schedule .wc-scrollable-grid .wc-day-column-first{
+	border-left: 1px solid #CCC;
 }
-#side_schedule .scheduled_task {
-	background: #FFF;
-	position: absolute;
-	left: 0;
+
+#side_schedule .wc-day-column-inner {
+	width: 100%;
+	position:relative;	
+}
+
+#side_schedule .wc-no-height-wrapper{
+	position:relative;	
+  overflow: visible;
+	height: 0px;
+}
+
+#side_schedule .wc-time-slot-wrapper {
+/*	top: 3px;*/
+}
+#side_schedule .wc-oddeven-wrapper .wc-full-height-column{
+/*	top: 2px; */
+  /* Modern Browsers */ opacity: 0.4;
+  /* IE 8 */ -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+  /* IE 5-7 */ filter: alpha(opacity=40);
+  /* Netscape */ -moz-opacity: 0.4;
+  /* Safari 1 */ -khtml-opacity: 0.4;
+}
+#side_schedule .wc-freebusy-wrapper .wc-freebusy{
+/*	top: 1px;*/
+  /* Modern Browsers */ opacity: 0.4;
+  /* IE 8 */ -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+  /* IE 5-7 */ filter: alpha(opacity=40);
+  /* Netscape */ -moz-opacity: 0.4;
+  /* Safari 1 */ -khtml-opacity: 0.4;
+}
+
+#side_schedule .wc-time-slots {
+	position: absolute;	
 	width: 100%;
 }
 
+#side_schedule .wc-column-odd, #side_schedule .wc-column-even.ui-state-hover{background-image:none;border:none;}
+
+#side_schedule .wc-header .wc-today.ui-state-active{background-image:none;}
+#side_schedule .wc-header .wc-today.wc-day-column-header{border-width:0 3px; border-style: solid;}
+#side_schedule .wc-header .wc-user-header{border-width:0;}
+
+#side_schedule .wc-time-slots .wc-day-column.ui-state-default{background:transparent;}
+#side_schedule .wc-time-slots .wc-today.ui-state-active{background-image:none;}
+#side_schedule .wc-header .wc-today.ui-state-active.wc-day-column-middle{border-width:0;}
+#side_schedule .wc-header .wc-today.ui-state-active.wc-day-column-first{border-left-width:3px;}
+#side_schedule .wc-header .wc-today.ui-state-active.wc-day-column-last{border-right-width:3px;}
+
+#side_schedule .wc-full-height-column{
+	display:block;
+/*  width:100%;*/
+}
+
+
+#side_schedule .wc-time-header-cell {
+	padding: 1px 3px 0 0;	
+	height: 80px; /* reference height */
+}
+
+#side_schedule .wc-time-slot {
+	border-bottom: 1px dotted #ddd;	
+}
+#side_schedule .wc-time-slot:nth-child(even) {
+	border-bottom: 1px dotted #ddd;	
+}
+#side_schedule .wc-time-slot:nth-child(odd) {
+	border-bottom: 1px dotted transparent;	
+}
+
+#side_schedule .wc-hour-header {
+	text-align: right;
+	font-size: 11px;
+
+}
+#side_schedule .wc-hour-header .wc-am-pm {
+}
+#side_schedule .wc-hour-header.ui-state-active,
+#side_schedule .wc-hour-header.ui-state-default{
+  border-width:0 0 1px 0;
+}
+
+#side_schedule .wc-hour-end, #side_schedule .wc-hour-header {
+	border-bottom: 1px solid #ccc !important;	
+}
+
+#side_schedule .wc-business-hours {
+
+}
+
+#side_schedule .wc-business-hours .wc-am-pm {	
+}
+
+#side_schedule .wc-day-header-cell {
+	text-align: center;
+	vertical-align: middle;
+	padding: 5px;
+}
+
+
+
+#side_schedule .wc-time-slot-header .wc-header-cell {
+	text-align: right;
+	padding-right: 10px;	
+}
+
+#side_schedule .wc-cal-event {
+	background-color: #68a1e5;	
+  /* Modern Browsers */ opacity: 0.9;
+  /* IE 8 */ -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  /* IE 5-7 */ filter: alpha(opacity=90);
+  /* Netscape */ -moz-opacity: 0.9;
+  /* Safari 1 */ -khtml-opacity: 0.9;
+	position: absolute;	
+	overflow: hidden;
+	color: #333;
+	width: 100%;
+	display: none;
+}
+#side_schedule .wc-cal-event.readonly {
+	background: #D06B64;
+}
+
+#side_schedule .wc-cal-event .wc-time {
+	font-weight: bold;
+	font-size: 11px;
+	padding: 1px 3px 2px;
+}
+
+#side_schedule .wc-container .ui-draggable .wc-time {
+}
+
+#side_schedule .wc-cal-event .wc-title {
+	position: relative;	
+	font-size: 12px;
+	line-height: 1.2;
+	padding: 0 3px;
+}
+
+
+#side_schedule .ui-resizable-s {
+	position: absolute;
+	height: 7px;
+	line-height: 7px;
+	width: 100%;
+	bottom: 0;
+	cursor: ns-resize;
+	text-align: center;
+	display: none !important;
+}
+#side_schedule .wc-cal-event:hover .ui-resizable-s{
+	display: block !important;
+}
+#side_schedule .ui-resizable-resizing {
+	z-index: 9999;
+}
+
+
+#side_schedule .wc-container .ui-draggable-dragging {
+   z-index: 1000;
+}
+
+#side_schedule .free-busy-free{}
+#side_schedule .free-busy-busy{
+  background: #666666;
+}
+
+
+#side_schedule .wc-cal-event.past_event {
+	opacity: 0.5;
+}
+
+
+/* IE6 hacks */
+* html #side_schedule .wc-no-height-wrapper{position:absolute;}
+* html #side_schedule .wc-time-slot-wrapper{top:3px;}
+* html #side_schedule .wc-grid-row-oddeven{top:2px;}
+* html #side_schedule .wc-grid-row-freebusy{top:1px;}
+
+/* IE7 hacks */
+*:first-child+html #side_schedule .wc-no-height-wrapper{position:relative;}
+*:first-child+html #side_schedule .wc-time-slot-wrapper{top:3px;}
+*:first-child+html #side_schedule .wc-grid-row-oddeven{top:2px;}
+*:first-child+html #side_schedule .wc-grid-row-freebusy{top:1px;}
+*:first-child+html #side_schedule .wc-time-slots .wc-today{/* due to rendering issues, no background */background:none;}

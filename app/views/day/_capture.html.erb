@@ -21,26 +21,26 @@
 			<div id="input_wrap">
 				<span class="inner_shadow"></span>
 				<%= form_for(Task.new, :remote => true) do |f| %>
-					<%= f.text_field :task, :autocomplete => :off, :value => "New task...", :onfocus => '(this.value == "New task...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New task..." : this.value' %>
-					<%= f.hidden_field :starts_at, :value => @start_date %>
+					<%= f.text_field :title, :autocomplete => :off, :value => "New task...", :onfocus => '(this.value == "New task...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New task..." : this.value' %>
+					<%= f.hidden_field :start, :value => @start_date %>
 					<%= f.hidden_field :group_id, :value => @inbox.id.to_s %>
 				<% end %>
 			</div>
 			<div id="incomplete">
 				<div id="<%= @inbox.id %>" class="capture_group_wrap">
 					<ul class="sortable incomplete_task_list">
-						<% @inbox.tasks.where(:starts_at.gte => @start_date, :starts_at.lt => @end_date).and(complete: false).and(parent_id: nil).and(plan: false).order_by([:sort, :asc]).each do |task,index| %>
+						<% @inbox.tasks.where(:start.gte => @start_date, :start.lt => @end_date).and(complete: false).and(parent_id: nil).and(plan: false).order_by([:sort, :asc]).each do |task,index| %>
 							<%= render :partial => '/tasks/task', :locals => { :task => task } %>
 						<% end %>
 					</ul>
 				</div>
 			
 				<% @groups.each do |group| %>
-						<div id="<%= group.id %>" class="capture_group_wrap" style="<%= 'display: none;' if group.tasks.where(:starts_at.gte => @start_date, :starts_at.lt => @end_date).and(complete: false).and(parent_id: nil).count == 0 %>">
+						<div id="<%= group.id %>" class="capture_group_wrap" style="<%= 'display: none;' if group.tasks.where(:start.gte => @start_date, :start.lt => @end_date).and(complete: false).and(parent_id: nil).count == 0 %>">
 							<%= group.images.forward.first ? ( image_tag group.images.forward.first.image.tiny ) : ( image_tag asset_path('inbox.png') ) %>
 							<%= group.title %>
 							<ul class="sortable">
-								<% group.tasks.where(:starts_at.gte => @start_date, :starts_at.lt => @end_date).and(complete: false).and(parent_id: nil).and(plan: false).order_by([:sort, :asc]).each do |task,index| %>
+								<% group.tasks.where(:start.gte => @start_date, :start.lt => @end_date).and(complete: false).and(parent_id: nil).and(plan: false).order_by([:sort, :asc]).each do |task,index| %>
 									<%= render :partial => '/tasks/task', :locals => { :task => task } %>
 								<% end %>
 							</ul>

@@ -1,4 +1,4 @@
-<li id="<%= task.id %>" class="task_wrap sortable <%= 'complete' if task.complete == true %>" starts_at="<%= task.starts_at %>" min_duration="<%= task.min_duration %>" max_duration="<%= task.max_duration %>">
+<li id="<%= task.id %>" class="task_wrap sortable <%= 'complete' if task.complete == true %>" start="<%= task.start %>" min_duration="<%= task.min_duration %>" max_duration="<%= task.max_duration %>">
 	
 	<div class="outcome_wrap">
 		<span class="checkbox <%= 'active' if task.complete == true %>"></span>
@@ -14,17 +14,17 @@
 		<span class="edit"></span>
 		<span class="edit_done"></span>
 		<span class="date">
-			<%= schedule_date(task.starts_at) if task.starts_at %>
+			<%= schedule_date(task.start) if task.start %>
 		</span>
 		<span class="duration">
 			<%= min_duration(task.min_duration) if task.min_duration %>
 			<%= max_duration(task.min_duration, task.max_duration) if task.max_duration && task.min_duration %>
 		</span>
 		<span class="task drag result">
-			<%= task.task %>
+			<%= task.title %>
 		</span>
 		<form class="edit_task no_disp" method="post" action="tits">
-			<input type="text" value="<%= task.task %>" class="edit_task_text">
+			<input type="text" value="<%= task.title %>" class="edit_task_text">
 		</form>
 	</div>
 	<div class="purpose_wrap">
@@ -45,13 +45,13 @@
 				<% total_min_time = total_min_time + task.min_duration if task.min_duration %>
 				<% total_max_time = total_max_time + task.max_duration if task.max_duration %>
 				<% must_time = must_time + task.min_duration if task.must == true && task.min_duration %>
-				<li id="<%= task.id %>" class="task_wrap sortable <%= 'complete' if task.complete == true %>" starts_at="<%= task.starts_at %>" min_duration="<%= task.min_duration %>">
+				<li id="<%= task.id %>" class="task_wrap sortable <%= 'complete' if task.complete == true %>" start="<%= task.start %>" min_duration="<%= task.min_duration %>">
 					<div class="outcome_wrap">
 						<span class="checkbox <%= 'active' if task.complete == true %>"></span>
 						<span class="target <%= 'active' if task.outcome == true %>"></span>
 						<span class="star <%= 'active' if task.must == true %>"></span>
 						<span class="date">
-							<%= schedule_date(task.starts_at) if task.starts_at %>
+							<%= schedule_date(task.start) if task.start %>
 						</span>
 						<span class="duration">
 							<%= min_duration(task.min_duration) if task.min_duration %>
@@ -61,10 +61,10 @@
 						<span class="edit no_disp"></span>
 						<span class="edit_done no_disp"></span>
 						<span class="task drag result">
-							<%= task.task %>
+							<%= task.title %>
 						</span>
 						<form class="edit_task no_disp" method="post">
-							<input type="text" value="<%= task.task %>" class="edit_task_text">
+							<input type="text" value="<%= task.title %>" class="edit_task_text">
 						</form>
 					</div>
 		
@@ -78,13 +78,13 @@
 					<div class="actions_wrap">
 						<ul id="<%= task.id %>_incomplete" class="action_plan sortable in_outcome"> 
 							<% task.group.tasks.where(parent_id: task.id).and(complete: false).order_by([:sort, :asc]).each do |task| %>
-								<li id="<%= task.id %>" class="task_wrap sortable <%= 'complete' if task.complete == true %>" starts_at="<%= task.starts_at %>" min_duration="<%= task.min_duration %>">
+								<li id="<%= task.id %>" class="task_wrap sortable <%= 'complete' if task.complete == true %>" start="<%= task.start %>" min_duration="<%= task.min_duration %>">
 									<div class="outcome_wrap">
 										<span class="checkbox <%= 'active' if task.complete == true %>"></span>
 										<span class="target <%= 'active' if task.outcome == true %>"></span>
 										<span class="star <%= 'active' if task.must == true %>"></span>
 										<span class="date">
-											<%= schedule_date(task.starts_at) if task.starts_at %>
+											<%= schedule_date(task.start) if task.start %>
 										</span>
 										<span class="duration">
 											<%= min_duration(task.min_duration) if task.min_duration %>
@@ -94,10 +94,10 @@
 										<span class="edit no_disp"></span>
 										<span class="edit_done no_disp"></span>
 										<span class="task drag result">
-											<%= task.task %>
+											<%= task.title %>
 										</span>
 										<form class="edit_task no_disp" method="post" action="tits">
-											<input type="text" value="<%= task.task %>" class="edit_task_text">
+											<input type="text" value="<%= task.title %>" class="edit_task_text">
 										</form>
 									</div>
 								</li>
@@ -105,13 +105,13 @@
 						</ul> 
 						<ul id="<%= task.id %>_complete" class="in_outcome">
 							<% task.group.tasks.where(parent_id: task.id).and(complete: true).each do |task| %>
-								<li id="<%= task.id %>" class="task_wrap complete" starts_at="<%= task.starts_at %>" min_duration="<%= task.min_duration %>">
+								<li id="<%= task.id %>" class="task_wrap complete" start="<%= task.start %>" min_duration="<%= task.min_duration %>">
 									<div class="outcome_wrap">
 										<span class="checkbox <%= 'active' if task.complete == true %>"></span>
 										<span class="target <%= 'active' if task.outcome == true %>"></span>
 										<span class="star <%= 'active' if task.must == true %>"></span>
 										<span class="date">
-											<%= schedule_date(task.starts_at) if task.starts_at %>
+											<%= schedule_date(task.start) if task.start %>
 										</span>
 										<span class="duration">
 											<%= min_duration(task.min_duration) if task.min_duration %>
@@ -121,10 +121,10 @@
 										<span class="edit no_disp"></span>
 										<span class="edit_done no_disp"></span>
 										<span class="task drag result">
-											<%= task.task %>
+											<%= task.title %>
 										</span>
 										<form class="edit_task no_disp" method="post" action="tits">
-											<input type="text" value="<%= task.task %>" class="edit_task_text">
+											<input type="text" value="<%= task.title %>" class="edit_task_text">
 										</form>
 									</div>
 								</li>
@@ -148,13 +148,13 @@
 		</div>
 		<ul id="<%= task.id %>_complete" class="in_outcome">
 			<% task.group.tasks.where(parent_id: task.id).and(complete: true).each do |task| %>
-				<li id="<%= task.id %>" class="task_wrap complete" starts_at="<%= task.starts_at %>" min_duration="<%= task.min_duration %>">
+				<li id="<%= task.id %>" class="task_wrap complete" start="<%= task.start %>" min_duration="<%= task.min_duration %>">
 					<div class="outcome_wrap">
 						<span class="checkbox <%= 'active' if task.complete == true %>"></span>
 						<span class="target <%= 'active' if task.outcome == true %>"></span>
 						<span class="star <%= 'active' if task.must == true %>"></span>
 						<span class="date">
-							<%= schedule_date(task.starts_at) if task.starts_at %>
+							<%= schedule_date(task.start) if task.start %>
 						</span>
 						<span class="duration">
 							<%= min_duration(task.min_duration) if task.min_duration %>
@@ -164,10 +164,10 @@
 						<span class="edit no_disp"></span>
 						<span class="edit_done no_disp"></span>
 						<span class="task drag result">
-							<%= task.task %>
+							<%= task.title %>
 						</span>
 						<form class="edit_task no_disp" method="post" action="tits">
-							<input type="text" value="<%= task.task %>" class="edit_task_text">
+							<input type="text" value="<%= task.title %>" class="edit_task_text">
 						</form>
 					</div>
 				</li>

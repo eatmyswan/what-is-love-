@@ -52,7 +52,7 @@ class TasksController < ApplicationController
     
     if params[:reminders]
       params[:reminders].each do |r|
-        reminder_dt = @task.starts_at - r.to_i.minutes
+        reminder_dt = @task.start - r.to_i.minutes
         @task.reminders.create!( delivers_at: reminder_dt )
       end
       render :nothing => true

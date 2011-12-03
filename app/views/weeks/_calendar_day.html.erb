@@ -31,7 +31,7 @@
 			<% for day in @start_date..@end_date %>  
 	       <div class="queue droppable" date="<%= day %>">
 	       	    <% for task in @tasks %>
-	            	<% if task.starts_at.strftime('%j').to_s == day.strftime('%j').to_s && task.queued == true %>
+	            	<% if task.start.strftime('%j').to_s == day.strftime('%j').to_s && task.queued == true %>
 									<%= render :partial => 'task_category', :locals => { :task => task } %>
 								<% end %>
 							<% end %>
@@ -54,7 +54,7 @@
 		       <% for day in @start_date..@end_date %>
 	          <div class="grid time_drop droppable" date="<%= day %>">
 	          <% for task in @tasks %>
-	            <% if task.starts_at.strftime('%j').to_s == day.strftime('%j').to_s && task.scheduled == true %>
+	            <% if task.start.strftime('%j').to_s == day.strftime('%j').to_s && task.scheduled == true %>
 								<%= render :partial => 'task', :locals => { :task => task } %>
 	            <% end %>
 	          <% end %>

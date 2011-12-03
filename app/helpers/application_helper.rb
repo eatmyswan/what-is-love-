@@ -12,9 +12,9 @@ module ApplicationHelper
     id.include?(params[:id])
   end
   
-  def starts_at_to_minutes(starts_at)
-    hours = starts_at.strftime('%H').to_i * 60
-    minutes = starts_at.strftime('%M').to_i
+  def start_to_minutes(start)
+    hours = start.strftime('%H').to_i * 60
+    minutes = start.strftime('%M').to_i
     time = hours + minutes
     "#{time}"
   end

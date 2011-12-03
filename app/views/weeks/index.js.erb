@@ -24,7 +24,7 @@ $(document).ready(function() {
 		timeFormat: 'h:ia',
 		switchDisplay: {'day': 1, 'week': 7},
 		title: function(daysToShow) {
-			return daysToShow == 1 ? '%date%' : '%start% - %end%';
+			return daysToShow == 1 ? '<span class="big">%day%</span> <span class="small">%date%</span>' : '<span class="big">%start% - %end%</span>';
 		},
       eventRender : function(calEvent, $event) {
          if (calEvent.readOnly == true) {
@@ -81,9 +81,25 @@ $(document).ready(function() {
 
       },
       eventDrop : function(calEvent, $event) {
-        
+       	var start = calEvent.start.toString('yyyy-MM-dd HH:mm:00');
+		var end = calEvent.end.toString('yyyy-MM-dd HH:mm:00');
+		var taskId = calEvent._id;
+		$.ajax({
+			url: "/tasks/" +  taskId,
+			type: 'PUT',
+			data: $.param({task : { start: start, end: end }})
+		});
       },
       eventResize : function(calEvent, $event) {
+		var min_duration = ((calEvent.end.getTime() - calEvent.start.getTime())/1000)/60;
+		var start = calEvent.start.toString('yyyy-MM-dd HH:mm:00');
+		var end = calEvent.end.toString('yyyy-MM-dd HH:mm:00');
+		var taskId = calEvent._id;
+		$.ajax({
+			url: "/tasks/" +  taskId,
+			type: 'PUT',
+			data: $.param({task : { start: start, end: end, min_duration: min_duration }})
+		});
       },
       eventClick : function(calEvent, $event) {
 
@@ -143,67 +159,17 @@ $(document).ready(function() {
 
       },
       data : function(start, end, callback) {
-         callback(getEventData());
+		var start = new Date(start).toString('yyyy-MM-dd 00:00:00');
+		var end = new Date(end).toString('yyyy-MM-dd 23:59:00');
+		$.getJSON("/week/json/"+start+"/"+end, function(result) {
+			callback(result);
+   		});
       }
    });
 
    function resetForm($dialogContent) {
       $dialogContent.find("input").val("");
       $dialogContent.find("textarea").val("");
-   }
-
-   function getEventData() {
-      var year = new Date().getFullYear();
-      var month = new Date().getMonth();
-      var day = new Date().getDate();
-
-      return {
-         events : [
-            {
-               "id":1,
-               "start": new Date(year, month, day, 12),
-               "end": new Date(year, month, day, 13, 30),
-               "title":"Lunch with Mike"
-            },
-            {
-               "id":2,
-               "start": new Date(year, month, day, 14),
-               "end": new Date(year, month, day, 14, 45),
-               "title":"Dev Meeting"
-            },
-            {
-               "id":3,
-               "start": new Date(year, month, day + 1, 17),
-               "end": new Date(year, month, day + 1, 17, 45),
-               "title":"Hair cut"
-            },
-            {
-               "id":4,
-               "start": new Date(year, month, day - 1, 8),
-               "end": new Date(year, month, day - 1, 9, 30),
-               "title":"Team breakfast"
-            },
-            {
-               "id":5,
-               "start": new Date(year, month, day + 1, 14),
-               "end": new Date(year, month, day + 1, 15),
-               "title":"Product showcase"
-            },
-            {
-               "id":6,
-               "start": new Date(year, month, day, 10),
-               "end": new Date(year, month, day, 11),
-               "title":"I'm read-only",
-               readOnly : true
-            },
-            {
-               "id":7,
-               "start": new Date(year, month, day + 2, 17),
-               "end": new Date(year, month, day + 3, 9),
-               "title":"Multiday"
-            }
-         ]
-      };
    }
 
 

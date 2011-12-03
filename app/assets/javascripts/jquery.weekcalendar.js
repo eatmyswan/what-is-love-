@@ -484,7 +484,6 @@
         }
         var newDate = new Date(this.element.data('startDate').getTime());
         newDate.setDate(newDate.getDate() + this.options.daysToShow);
-
         this._clearCalendar();
         this._loadCalEvents(newDate);
       },
@@ -1119,7 +1118,6 @@
         * load calendar events for the week based on the date provided
         */
       _loadCalEvents: function(dateWithinWeek) {
-
           var date, weekStartDate, weekEndDate, $weekDayColumns;
           var self = this;
           var options = this.options;
@@ -1204,6 +1202,7 @@
                   });
           }
           else if (options.data) {
+				
                 self._renderEvents(options.data, $weekDayColumns);
             }
 
@@ -1285,10 +1284,25 @@
                 _start = self._cloneDate(self.element.data('startDate')),
                 _end = self._dateLastDayOfWeek(new Date(this._cloneDate(self.element.data('endDate')).getTime() - (MILLIS_IN_DAY))),
                 _title = this._getCalendarTitle();
-            _title = _title.split('%start%').join(self._formatDate(_start, options.dateFormat));
-            _title = _title.split('%end%').join(self._formatDate(_end, options.dateFormat));
-            _title = _title.split('%date%').join(self._formatDate(_date, options.dateFormat));
-            $('#wc-title').html(_title);
+
+				if($('#schedule_side').length != 0){
+					var sideStart = _start.toString('yyyy-MM-dd');
+					var sideEnd = _end.toString('yyyy-MM-dd');
+					$.get('/day/side/' + _start.toString('yyyy-MM-dd 00:00:00'), function(data){
+						$('#schedule_side').html(data);
+					});
+				}
+
+			if(_start.getMonth() == _end.getMonth()){
+				_title = _title.split('%start%').join(self._formatDate(_start, 'F d'));
+            	_title = _title.split('%end%').join(self._formatDate(_end, 'd, Y'));
+			} else {
+            	_title = _title.split('%start%').join(self._formatDate(_start, options.dateFormat));
+            	_title = _title.split('%end%').join(self._formatDate(_end, options.dateFormat));
+			}
+			_title = _title.split('%day%').join(self._formatDate(_date, 'l'));
+            _title = _title.split('%date%').join(self._formatDate(_date, 'F d, Y'));
+            $('.calendar_title').html(_title);
           }
           //self._clearFreeBusys();
       },
@@ -1342,7 +1356,11 @@
             //render the freebusys
             self._renderFreeBusys(data);
           }
+
           $.each(eventsToRender, function(i, calEvent) {
+	
+
+	
               //render a multi day event as various event :
               //thanks to http://github.com/fbeauchamp/jquery-week-calendar
               var initialStart = new Date(calEvent.start);
@@ -1720,16 +1738,26 @@
           var self = this;
           var options = this.options;
           $weekDay.droppable({
-            accept: '.wc-cal-event',
+            accept: '.wc-cal-event, .task_wrap',
 			tolerance: 'pointer',
             drop: function(event, ui) {
                 var $calEvent = ui.draggable;
-                var top = Math.round(parseInt(ui.position.top));
+				var top = $(ui.draggable).hasClass('wc-cal-event') ? (Math.round(parseInt(ui.position.top))) : (Math.round(parseInt(ui.position.top) - 150) + $('.wc-scrollable-grid').scrollTop());
                 var eventDuration = self._getEventDurationFromPositionedEventElement($weekDay, $calEvent, top);
-                var calEvent = $calEvent.data('calEvent');
+				$calEvent.data('calEvent').start = eventDuration.start;
+				$calEvent.data('calEvent').end = eventDuration.end;
+				var calEvent = $calEvent.data('calEvent');
+				
+				if($calEvent.hasClass('task_wrap')){
+					$('.wc-cal-event').each(function(){
+						if($(this).data('calEvent')._id == calEvent._id) $(this).remove();
+					});
+				}
+				
                 var newCalEvent = $.extend(true, {}, calEvent, {start: eventDuration.start, end: eventDuration.end});
-                var showAsSeparatedUser = options.showAsSeparateUsers && options.users && options.users.length;
-                if (showAsSeparatedUser) {
+                /*
+				var showAsSeparatedUser = options.showAsSeparateUsers && options.users && options.users.length;
+				if (showAsSeparatedUser) {
                   // we may have dragged the event on column with a new user.
                   // nice way to handle that is:
                   //  - get the newly dragged on user
@@ -1752,6 +1780,7 @@
                   }
                   newCalEvent = self._setEventUserId(newCalEvent, ((userIdList.length == 1) ? userIdList[0] : userIdList));
                 }
+				*/
                 self._adjustForEventCollisions($weekDay, $calEvent, newCalEvent, calEvent, true);
                 var $weekDayColumns = self.element.find('.wc-day-column-inner');
 
@@ -1759,9 +1788,11 @@
                 options.eventDrop(newCalEvent, calEvent, $calEvent);
 
                 var $newEvent = self._renderEvent(newCalEvent, self._findWeekDayForEvent(newCalEvent, $weekDayColumns));
-                $calEvent.hide();
-
-                $calEvent.data('preventClick', true);
+                
+				if($calEvent.hasClass('wc-cal-event')) {
+					$calEvent.hide();
+                	$calEvent.data('preventClick', true);
+				}
 
                 var $weekDayOld = self._findWeekDayForEvent($calEvent.data('calEvent'), self.element.find('.wc-time-slots .wc-day-column-inner'));
 
@@ -1771,9 +1802,8 @@
                 self._adjustOverlappingEvents($weekDay);
 
                 setTimeout(function() {
-                  $calEvent.remove();
+					if($calEvent.hasClass('wc-cal-event')) $calEvent.remove();
                 }, 1000);
-
             }
           });
       },
@@ -1914,6 +1944,7 @@
           if (event.date) {
             event.start = event.date;
           }
+
           event.start = this._cleanDate(event.start);
           event.end = this._cleanDate(event.end);
           if (!event.end) {

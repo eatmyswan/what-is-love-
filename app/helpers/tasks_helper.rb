@@ -16,9 +16,9 @@ module TasksHelper
     if min_duration >= 60
       h = min_duration / 60
       m = min_duration % 60
-      m > 0 ? "#{h}:#{m}" : "#{h} hours"
-    else
-      "#{min_duration} min"
+      m > 0 ? "#{h}h#{m}m" : "#{h}h"
+    elsif min_duration > 0
+      "#{min_duration}m"
     end
   end
   
@@ -27,9 +27,9 @@ module TasksHelper
       if max_duration >= 60
         h = max_duration / 60
         m = max_duration % 60
-        m > 0 ? "- #{h}:#{m}" : "- #{h} hours"
+        m > 0 ? "- #{h}h#{m}m" : "- #{h}h"
       else
-        "- #{max_duration} min"
+        "- #{max_duration}m"
       end
     end
   end

@@ -4,7 +4,6 @@
 		<div class="calendar_title">
 			<span class="big"><%= @start_date.strftime('%A') %></span>
 			<span class="small"><%= @start_date.strftime('%B %d, %Y') %></span>
-			<span id="calendar_button"></span>
 		</div>
 		<div id="calendar_controls">
 			<%= link_to 'Capture', day_capture_path(Date.today()), :id => 'day_capture', :class => 'filter rounded_left', :remote => true %>

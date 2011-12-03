@@ -2,7 +2,8 @@ source 'http://rubygems.org'
 
 gem 'rails', '~> 3.1.3'
 
-gem 'rake'
+gem 'rake', '0.8.7'
+gem 'json'
 gem 'bson_ext'
 gem 'mongoid'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'

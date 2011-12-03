@@ -1,13 +1,13 @@
 $(document).ready(function() {
 
 	$('#prev').live('click', function() {
-		$('#forecast').weekCalendar('prev');
+		$('#forecast,#schedule').weekCalendar('prev');
 	});
 	$('#next').live('click', function() {
-		$('#forecast').weekCalendar('next');
+		$('#forecast,#schedule').weekCalendar('next');
 	});
 	$('#today').live('click', function() {
-		$('#forecast').weekCalendar('today');
+		$('#forecast,#schedule').weekCalendar('today');
 	});
 	
 

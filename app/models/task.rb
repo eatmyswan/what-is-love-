@@ -1,19 +1,19 @@
 class Task
   include Mongoid::Document
   include Mongoid::Timestamps
-  field :task, type: String
+  field :title, type: String
   field :must, type: Boolean, default: false
   field :complete, type: Boolean, default: false
   field :sort, type: Integer, default: 0
-  field :starts_at, type: DateTime, default: nil
+  field :start, type: DateTime, default: nil
+  field :end, type: DateTime, default: nil
   field :due_by, type: DateTime, default: nil
-  field :min_duration, type: Integer, default: nil
-  field :max_duration, type: Integer, default: nil
+  field :min_duration, type: Integer, default: 0
+  field :max_duration, type: Integer, default: 0
   field :queued, type: Boolean, default: false
   field :scheduled, type: Boolean, default: false
   field :leverage, type: String, default: nil
   field :notes, type: String, default: nil
-  field :color, type: String, default: '#1679c3'
   field :outcome, type: Boolean, default: false
   field :purpose, type: String, default: nil
   field :collapsed, type: Boolean, default: true
@@ -35,57 +35,50 @@ class Task
   scope :incomplete, where(complete: false).and(parent_id: nil).order_by([:sort, :asc])
   scope :complete, where(complete: true).and(parent_id: nil).order_by([:sort, :asc])
   
-  validates_length_of :task, minimum: 1, message: "task cannot be blank."
+  validates_length_of :title, minimum: 1, message: "task cannot be blank."
   
-  before_save :check_starts_at
+  before_save :check_start
   before_save :check_duration
   before_save :check_must
   before_save :validate_max_time
   before_save :nil_if_blank
   
   private
+  
   def nil_if_blank
     self.leverage = nil if self.leverage.blank?
     self.min_duration = nil if self.min_duration.blank?
-    self.starts_at = nil if self.starts_at.blank?
+    self.start = nil if self.start.blank?
     self.parent_id = nil if self.parent_id.blank?
   end
   
   def validate_max_time
-    if !self.min_duration.blank?
-      if self.max_duration
-        if self.max_duration < self.min_duration
-          self.max_duration = self.min_duration
-        end
-      else
-        self.max_duration = self.min_duration
-      end
-    else
+    if self.max_duration < self.min_duration
       self.max_duration = self.min_duration
     end
   end
   
-  def check_starts_at
-    if self.task.match("#today")
-      self.starts_at = Date.today.beginning_of_day
-      self.task.slice! "#today"
-    elsif self.task.match("#tomorrow")
-      self.starts_at = Date.tomorrow.beginning_of_day
-      self.task.slice! "#tomorrow"
-    elsif self.task.match("#nextweek")
-      self.starts_at = Date.today.next_week
-      self.task.slice! "#nextweek"
-    elsif self.task.match("#nextmonth")
-      self.starts_at = Date.today.next_month
-      self.task.slice! "#nextmonth"
-    elsif m = self.task.match(/#(\d+)days/)  
-      self.starts_at = Date.today.beginning_of_day + m[1].to_i.days
-      self.task.slice! m[0].to_s
+  def check_start
+    if self.title.match("#today")
+      self.start = Date.today.beginning_of_day
+      self.title.slice! "#today"
+    elsif self.title.match("#tomorrow")
+      self.start = Date.tomorrow.beginning_of_day
+      self.title.slice! "#tomorrow"
+    elsif self.title.match("#nextweek")
+      self.start = Date.today.next_week
+      self.title.slice! "#nextweek"
+    elsif self.title.match("#nextmonth")
+      self.start = Date.today.next_month
+      self.title.slice! "#nextmonth"
+    elsif self.title.match(/#(\d+)days/)  
+      self.start = Date.today.beginning_of_day + m[1].to_i.days
+      self.title.slice! m[0].to_s
     end
   end
   
   def check_duration
-    if m = self.task.match(/#((\d+)h)?((\d+)m)?(-)?((\d+)h)?((\d+)m)?/)  
+    if m = self.title.match(/#((\d+)h)?((\d+)m)?(-)?((\d+)h)?((\d+)m)?/)  
       min_duration = 0
       max_duration = 0
       if m[2]
@@ -106,14 +99,14 @@ class Task
       if max_duration > 0 && min_duration > 0 && min_duration < max_duration
         self.max_duration = max_duration
       end
-      self.task.slice! m[0].to_s
+      self.title.slice! m[0].to_s
     end
   end
   
   def check_must
-    if self.task.match(/\A\*/)
+    if self.title.match(/\A\*/)
       self.must = true
-      self.task.slice! '*'
+      self.title.slice! '*'
     end
   end
   

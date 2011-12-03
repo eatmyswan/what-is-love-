@@ -1,11 +1,11 @@
 <% if task.parent_id %>
-	<div class="scheduled_task" id="scheduled_<%= task.id.to_s %>" start="<%= starts_at_to_minutes(task.starts_at) %>" duration="<%= task.min_duration %>" style="top:<%= starts_at_to_minutes(task.starts_at) %>px; height: <%= task.min_duration %>px;">
-		<%= task.task %> OUTCOME
+	<div class="scheduled_task" id="scheduled_<%= task.id.to_s %>" start="<%= start_to_minutes(task.start) %>" duration="<%= task.min_duration %>" style="top:<%= start_to_minutes(task.start) %>px; height: <%= task.min_duration %>px;">
+		<%= task.title %> OUTCOME
 		<div class="handle"></div>
 	</div>
 <% else %>
-	<div class="scheduled_task" id="scheduled_<%= task.id.to_s %>" start="<%= starts_at_to_minutes(task.starts_at) %>" duration="<%= task.min_duration %>" style="top:<%= starts_at_to_minutes(task.starts_at) %>px; height: <%= task.min_duration %>px;">
-		REDLINE <%= task.task %>
+	<div class="scheduled_task" id="scheduled_<%= task.id.to_s %>" start="<%= start_to_minutes(task.start) %>" duration="<%= task.min_duration %>" style="top:<%= start_to_minutes(task.start) %>px; height: <%= task.min_duration %>px;">
+		REDLINE <%= task.title %>
 		<div class="handle"></div>
 	</div>
 <% end %>
