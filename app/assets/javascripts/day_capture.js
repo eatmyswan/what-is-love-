@@ -50,8 +50,8 @@ $('#group_select li').live("click", function() {
 });
 
 $('#capture_wrap ul.sortable').live("mouseover", function() {
-	if (!$('ul.sortable').data("init")) {
-		$('ul.sortable').data("init", true);
+	if (!$(this).data("init")) {
+		$(this).data("init", true);
 		$('ul.sortable').sortable({
 		    connectWith: "ul.sortable",
 		    placeholder: "drop_task",
@@ -66,8 +66,10 @@ $('#capture_wrap ul.sortable').live("mouseover", function() {
 			},
 			stop: function(event,ui){
 				var parentElement = ui.item[0].parentElement;
-				var groupId = $(parentElement).parents('.capture_group_wrap').first().attr('id');
+				var groupId = $(parentElement).parents('.capture_group_wrap, .capture_group_wrap_inbox').first().attr('id');
 				var taskId = $(ui.item[0]).attr('id');
+				
+				console.log(ui);
 				
 				if($(parentElement).hasClass('add_to_plan')){
 					$(ui.item[0]).removeClass('outcome');

@@ -91,7 +91,7 @@ $(document).ready(function() {
 		$.ajax({
 			url: "/tasks/" +  taskId,
 			type: 'PUT',
-			data: $.param({task : { start: start, end: end }})
+			data: $.param({task : { start: start, end: end, scheduled: 'true' }})
 		});
       },
       eventResize : function(calEvent, $event) {

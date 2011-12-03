@@ -1,6 +1,10 @@
-$("#task_task").val('New task...').blur();
+$("#task_title").val('New task...').blur();
 $('<%= escape_javascript render(@task) %>').prependTo('.incomplete_task_list');
 
 var countText = $('#categories .active').find('.count_text').first();
 count = parseInt( countText.text() ) + 1;
 countText.text(count);
+
+if($('#capture_wrap').length != 0){
+	$('#<%= @task.group.id.to_s %>').show();
+}

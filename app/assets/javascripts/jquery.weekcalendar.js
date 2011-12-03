@@ -826,7 +826,7 @@
           Find a way to handle it
         */
         $calendarContainer.find('.wc-time-header-cell').css({
-          height: (options.timeslotHeight * options.timeslotsPerHour) - 2,
+          height: (options.timeslotHeight * options.timeslotsPerHour) - 1,
         });
         //add the user data to every impacted column
         if (showAsSeparatedUser) {
@@ -980,7 +980,7 @@
             renderRow += '<div class=\"wc-time-header-cell\">' + self._24HourForIndex(i) + '</div>';
           }
           else {
-            renderRow += '<div class=\"wc-time-header-cell\">' + self._hourForIndex(i) + '<span class=\"wc-am-pm\">' + self._amOrPm(i) + '</span></div>';
+            renderRow += '<div class=\"wc-time-header-cell\"><span class="hour">' + self._hourForIndex(i) + '<span class=\"wc-am-pm\">' + self._amOrPm(i) + '</span></span></div>';
           }
           renderRow += '</div>';
         }

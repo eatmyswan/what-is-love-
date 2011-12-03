@@ -40,7 +40,6 @@ class Task
   before_save :check_start
   before_save :check_duration
   before_save :check_must
-  before_save :validate_max_time
   before_save :nil_if_blank
   
   private
@@ -50,12 +49,6 @@ class Task
     self.min_duration = nil if self.min_duration.blank?
     self.start = nil if self.start.blank?
     self.parent_id = nil if self.parent_id.blank?
-  end
-  
-  def validate_max_time
-    if self.max_duration < self.min_duration
-      self.max_duration = self.min_duration
-    end
   end
   
   def check_start

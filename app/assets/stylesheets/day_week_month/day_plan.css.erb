@@ -1,3 +1,4 @@
+
 #side_schedule .wc-container {
 	font-size: 14px;	
 	font-family: arial, helvetica;
@@ -33,6 +34,7 @@
 	border-bottom: 1px solid #CCC;
 	height: 49px;
 	margin: 0 16px 0 15px;
+	display: none;
 }
 #side_schedule .wc-header .wc-day-column-header {
 	text-align: center;
@@ -41,7 +43,7 @@
 }
 #side_schedule .wc-header table{
 	width: 100%;
-  table-layout:fixed;
+  	table-layout:fixed;
 }
 #side_schedule .wc-grid-timeslot-header, #side_schedule .wc-header .wc-time-column-header {
 	width: 35px;	
@@ -69,7 +71,6 @@
 	left: 15px;
 	right: 15px;
 	bottom: 0;
-	background: #fafafa;
 }
 
 
@@ -78,8 +79,7 @@
 	table-layout: fixed;
 	cursor: default;
 	overflow:hidden;
-	border-left: 1px solid #CCC;
-	border-right: 2px solid #CCC;
+	border-top: 1px solid transparent;
 }
 
 #side_schedule .wc-day-column {
@@ -94,10 +94,10 @@
 }
 #side_schedule .wc-scrollable-grid .wc-day-column-last,
 #side_schedule .wc-scrollable-grid .wc-day-column-middle{
-	border-width: 0 0 0 1px; border-style: dashed;
+	border:none;
 	}
 #side_schedule .wc-scrollable-grid .wc-day-column-first{
-	border-left: 1px solid #CCC;
+
 }
 
 #side_schedule .wc-day-column-inner {
@@ -107,7 +107,7 @@
 
 #side_schedule .wc-no-height-wrapper{
 	position:relative;	
-  overflow: visible;
+	overflow: visible;
 	height: 0px;
 }
 
@@ -155,8 +155,14 @@
 
 
 #side_schedule .wc-time-header-cell {
-	padding: 1px 3px 0 0;	
+	position: relative;	
 	height: 80px; /* reference height */
+}
+#side_schedule .wc-time-header-cell .hour {
+	position:absolute;
+	width: 100%;
+	top: -6px;
+	right: 3px;
 }
 
 #side_schedule .wc-time-slot {
@@ -172,7 +178,7 @@
 #side_schedule .wc-hour-header {
 	text-align: right;
 	font-size: 11px;
-
+	color: #FFF;
 }
 #side_schedule .wc-hour-header .wc-am-pm {
 }
@@ -180,8 +186,10 @@
 #side_schedule .wc-hour-header.ui-state-default{
   border-width:0 0 1px 0;
 }
-
-#side_schedule .wc-hour-end, #side_schedule .wc-hour-header {
+#side_schedule .wc-hour-header {
+	border-bottom: 1px solid transparent !important;	
+}
+#side_schedule .wc-hour-end {
 	border-bottom: 1px solid #ccc !important;	
 }
 

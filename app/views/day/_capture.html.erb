@@ -4,7 +4,6 @@
 		<div class="calendar_title">
 			<span class="big"><%= @start_date.strftime('%A') %></span>
 			<span class="small"><%= @start_date.strftime('%B %d, %Y') %></span>
-			<span id="calendar_button"></span>
 		</div>
 		<div id="calendar_controls">
 			<%= link_to 'Capture', day_capture_path(Date.today()), :id => 'day_capture', :class => 'filter rounded_left active', :remote => true %>
@@ -27,7 +26,7 @@
 				<% end %>
 			</div>
 			<div id="incomplete">
-				<div id="<%= @inbox.id %>" class="capture_group_wrap">
+				<div id="<%= @inbox.id %>" class="capture_group_wrap_inbox">
 					<ul class="sortable incomplete_task_list">
 						<% @inbox.tasks.where(:start.gte => @start_date, :start.lt => @end_date).and(complete: false).and(parent_id: nil).and(plan: false).order_by([:sort, :asc]).each do |task,index| %>
 							<%= render :partial => '/tasks/task', :locals => { :task => task } %>
@@ -37,9 +36,11 @@
 			
 				<% @groups.each do |group| %>
 						<div id="<%= group.id %>" class="capture_group_wrap" style="<%= 'display: none;' if group.tasks.where(:start.gte => @start_date, :start.lt => @end_date).and(complete: false).and(parent_id: nil).count == 0 %>">
-							<%= group.images.forward.first ? ( image_tag group.images.forward.first.image.tiny ) : ( image_tag asset_path('inbox.png') ) %>
-							<%= group.title %>
-							<ul class="sortable">
+							<div class="group_top_wrap">
+								<span class="img_wrap"><%= image_tag group.images.forward.first.image.tiny if group.images.forward.first %></span>
+								<span class="title_wrap"><%= group.title %></span>
+							</div>
+							<ul class="sortable group_bottom_wrap">
 								<% group.tasks.where(:start.gte => @start_date, :start.lt => @end_date).and(complete: false).and(parent_id: nil).and(plan: false).order_by([:sort, :asc]).each do |task,index| %>
 									<%= render :partial => '/tasks/task', :locals => { :task => task } %>
 								<% end %>
