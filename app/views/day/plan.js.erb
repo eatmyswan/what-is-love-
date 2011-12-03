@@ -2,3 +2,14 @@ $('.filters_wrap a').removeClass('active');
 $('#day').addClass('active');
 $('#pad').replaceWith("<%= escape_javascript render('plan')  %>");
 $('.categories_wrap').replaceWith("<%= escape_javascript render('side_schedule')  %>");
+
+$('ul.incomplete_task_list').children().each(function() {
+	$(this).find('.target.active').first().trigger('click');
+});
+
+$('#side_schedule .scheduled_task').each(function() {
+	var start = parseInt($(this).attr('start'));
+	var duration = $(this).attr('duration');
+	$(this).css('top',start);
+	$(this).css('height',duration);
+});

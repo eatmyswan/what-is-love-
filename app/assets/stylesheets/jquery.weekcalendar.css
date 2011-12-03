@@ -1,0 +1,292 @@
+#wc-title {
+	display: inline-block;
+	max-width: 400px;
+	margin: 20px 0 0 20px;
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+	text-shadow: 0 1px 2px black;
+}
+
+#forecast .wc-container {
+	font-size: 14px;	
+	font-family: arial, helvetica;
+}
+#forecast .wc-toolbar {
+	padding: 1em;
+  font-size:0.8em;
+}
+#forecast .wc-toolbar .wc-nav {
+  float:left;
+}
+#forecast .wc-toolbar .wc-display {
+  float: right;
+}
+#forecast .wc-toolbar button {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+#forecast .wc-toolbar .wc-title {
+  text-align:center;
+  padding:0;
+  margin:0;
+}
+#forecast .wc-container table {
+	border-collapse: collapse;
+    border-spacing: 0;
+}
+#forecast .wc-container table td {
+	margin: 0;
+	padding: 0;
+}
+#forecast .wc-header{
+	border-bottom: 1px solid #CCC;
+	height: 49px;
+	margin: 0 16px 0 15px;
+}
+#forecast .wc-header .wc-day-column-header {
+	text-align: center;
+	font-size: 12px;
+	padding: 30px 0 0 0;
+}
+#forecast .wc-header table{
+	width: 100%;
+  table-layout:fixed;
+}
+#forecast .wc-grid-timeslot-header, #forecast .wc-header .wc-time-column-header {
+	width: 35px;	
+}
+#forecast .wc-header .wc-scrollbar-shim {
+	width: 16px;	
+	display: none; 
+}
+
+#forecast .wc-header .wc-user-header{
+	text-align: center;
+	padding: 0.4em 0;
+  overflow:hidden;
+}
+#forecast .wc-grid-timeslot-header {
+}
+
+
+#forecast .wc-scrollable-grid {
+	overflow: auto;
+	overflow-x: hidden !important;
+	overflow-y: auto !important; 
+	position: absolute;
+	top: 50px;
+	left: 15px;
+	right: 15px;
+	bottom: 0;
+	background: #fafafa;
+}
+
+
+#forecast table.wc-time-slots {
+	width: 100%;
+	table-layout: fixed;
+	cursor: default;
+	overflow:hidden;
+	border-left: 1px solid #CCC;
+	border-right: 2px solid #CCC;
+}
+
+#forecast .wc-day-column {
+	width: 13.5%;
+	overflow: visible;
+	vertical-align: top;
+}
+#forecast .wc-day-column-header{
+	border-width: 0 0 0 1px; 
+	border-style: solid;
+	border-color:transparent;
+}
+#forecast .wc-scrollable-grid .wc-day-column-last,
+#forecast .wc-scrollable-grid .wc-day-column-middle{
+	border-width: 0 0 0 1px; border-style: dashed;
+	}
+#forecast .wc-scrollable-grid .wc-day-column-first{
+	border-left: 1px solid #CCC;
+}
+
+#forecast .wc-day-column-inner {
+	width: 100%;
+	position:relative;	
+}
+
+#forecast .wc-no-height-wrapper{
+	position:relative;	
+  overflow: visible;
+	height: 0px;
+}
+
+#forecast .wc-time-slot-wrapper {
+/*	top: 3px;*/
+}
+#forecast .wc-oddeven-wrapper .wc-full-height-column{
+/*	top: 2px; */
+  /* Modern Browsers */ opacity: 0.4;
+  /* IE 8 */ -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+  /* IE 5-7 */ filter: alpha(opacity=40);
+  /* Netscape */ -moz-opacity: 0.4;
+  /* Safari 1 */ -khtml-opacity: 0.4;
+}
+#forecast .wc-freebusy-wrapper .wc-freebusy{
+/*	top: 1px;*/
+  /* Modern Browsers */ opacity: 0.4;
+  /* IE 8 */ -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+  /* IE 5-7 */ filter: alpha(opacity=40);
+  /* Netscape */ -moz-opacity: 0.4;
+  /* Safari 1 */ -khtml-opacity: 0.4;
+}
+
+#forecast .wc-time-slots {
+	position: absolute;	
+	width: 100%;
+}
+
+#forecast .wc-column-odd, #forecast .wc-column-even.ui-state-hover{background-image:none;border:none;}
+
+#forecast .wc-header .wc-today.ui-state-active{background-image:none;}
+#forecast .wc-header .wc-today.wc-day-column-header{border-width:0 3px; border-style: solid;}
+#forecast .wc-header .wc-user-header{border-width:0;}
+
+#forecast .wc-time-slots .wc-day-column.ui-state-default{background:transparent;}
+#forecast .wc-time-slots .wc-today.ui-state-active{background-image:none;}
+#forecast .wc-header .wc-today.ui-state-active.wc-day-column-middle{border-width:0;}
+#forecast .wc-header .wc-today.ui-state-active.wc-day-column-first{border-left-width:3px;}
+#forecast .wc-header .wc-today.ui-state-active.wc-day-column-last{border-right-width:3px;}
+
+#forecast .wc-full-height-column{
+	display:block;
+/*  width:100%;*/
+}
+
+
+#forecast .wc-time-header-cell {
+	padding: 1px 3px 0 0;	
+	height: 80px; /* reference height */
+}
+
+#forecast .wc-time-slot {
+	border-bottom: 1px dotted #ddd;	
+}
+#forecast .wc-time-slot:nth-child(even) {
+	border-bottom: 1px dotted #ddd;	
+}
+#forecast .wc-time-slot:nth-child(odd) {
+	border-bottom: 1px dotted transparent;	
+}
+
+#forecast .wc-hour-header {
+	text-align: right;
+	font-size: 11px;
+
+}
+#forecast .wc-hour-header .wc-am-pm {
+}
+#forecast .wc-hour-header.ui-state-active,
+#forecast .wc-hour-header.ui-state-default{
+  border-width:0 0 1px 0;
+}
+
+#forecast .wc-hour-end, #forecast .wc-hour-header {
+	border-bottom: 1px solid #ccc !important;	
+}
+
+#forecast .wc-business-hours {
+
+}
+
+#forecast .wc-business-hours .wc-am-pm {	
+}
+
+#forecast .wc-day-header-cell {
+	text-align: center;
+	vertical-align: middle;
+	padding: 5px;
+}
+
+
+
+#forecast .wc-time-slot-header .wc-header-cell {
+	text-align: right;
+	padding-right: 10px;	
+}
+
+#forecast .wc-cal-event {
+	background-color: #68a1e5;	
+  /* Modern Browsers */ opacity: 0.9;
+  /* IE 8 */ -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  /* IE 5-7 */ filter: alpha(opacity=90);
+  /* Netscape */ -moz-opacity: 0.9;
+  /* Safari 1 */ -khtml-opacity: 0.9;
+	position: absolute;	
+	overflow: hidden;
+	color: #333;
+	width: 100%;
+	display: none;
+}
+#forecast .wc-cal-event.readonly {
+	background: #D06B64;
+}
+
+#forecast .wc-cal-event .wc-time {
+	font-weight: bold;
+	font-size: 11px;
+	padding: 1px 3px 2px;
+}
+
+#forecast .wc-container .ui-draggable .wc-time {
+}
+
+#forecast .wc-cal-event .wc-title {
+	position: relative;	
+	font-size: 12px;
+	line-height: 1.2;
+	padding: 0 3px;
+}
+
+
+#forecast .ui-resizable-s {
+	position: absolute;
+	height: 7px;
+	line-height: 7px;
+	width: 100%;
+	bottom: 0;
+	cursor: ns-resize;
+	text-align: center;
+}
+#forecast .ui-resizable-resizing {
+	z-index: 9999;
+}
+
+
+#forecast .wc-container .ui-draggable-dragging {
+   z-index: 1000;
+}
+
+#forecast .free-busy-free{}
+#forecast .free-busy-busy{
+  background: #666666;
+}
+
+
+#forecast .wc-cal-event.past_event {
+	opacity: 0.5;
+}
+
+
+/* IE6 hacks */
+* html #forecast .wc-no-height-wrapper{position:absolute;}
+* html #forecast .wc-time-slot-wrapper{top:3px;}
+* html #forecast .wc-grid-row-oddeven{top:2px;}
+* html #forecast .wc-grid-row-freebusy{top:1px;}
+
+/* IE7 hacks */
+*:first-child+html #forecast .wc-no-height-wrapper{position:relative;}
+*:first-child+html #forecast .wc-time-slot-wrapper{top:3px;}
+*:first-child+html #forecast .wc-grid-row-oddeven{top:2px;}
+*:first-child+html #forecast .wc-grid-row-freebusy{top:1px;}
+*:first-child+html #forecast .wc-time-slots .wc-today{/* due to rendering issues, no background */background:none;}

@@ -67,50 +67,46 @@ $('#capture_wrap ul.sortable').live("mouseover", function() {
 			stop: function(event,ui){
 				var parentElement = ui.item[0].parentElement;
 				var groupId = $(parentElement).parents('.capture_group_wrap').first().attr('id');
+				var taskId = $(ui.item[0]).attr('id');
 				
 				if($(parentElement).hasClass('add_to_plan')){
-					console.log('add to plan');
-					console.log('remove parent id');
-				} else if($(parentElement).hasClass('action_plan')) {
-					console.log('remove from plan');
-					console.log('set parent id');
-					console.log('set group');
-				} else {
-					console.log('remove from plan');
-					console.log('remove parent_id');
-					console.log('set group');
-				}
-				
-				/*
-				if($(parentElement).hasClass('action_plan')){
-					var childParentId = $(parentElement).parents('li').first().attr('id');
-					$(parentElement).children().each(function(index){
-						$.ajax({
-							url: "/tasks/" +  ,
-							type: 'PUT',
-							data: $.param({task : { sort: index, parent_id: childParentId }})
-						});
-					});
-				}
-				
-				$(ui.item[0]).removeClass('outcome');
-				$(ui.item[0]).find('.header').hide();
-				if($(parentElement).hasClass('add_to_plan')){
+					$(ui.item[0]).removeClass('outcome');
+					$(ui.item[0]).find('.header').hide();
 					$.ajax({
 						url: "/tasks/" + taskId,
 						type: 'PUT',
 						data: $.param({task : { plan: 'true', outcome: 'true', parent_id: '' }})
 					});
-				} 
-				else if ($(ui.sender).hasClass('add_to_plan')) {
-					$.ajax({
-						url: "/tasks/" + taskId,
-						type: 'PUT',
-						data: $.param({task : { plan: 'false' }})
+				} else {
+				
+					if($(parentElement).hasClass('action_plan')) {
+						var childParentId = $(parentElement).parents('li').first().attr('id');
+						$.ajax({
+							url: "/tasks/" + taskId,
+							type: 'PUT',
+							data: $.param({task : { plan: 'false', parent_id: childParentId, group_id: groupId }})
+						});
+					} else {
+						$.ajax({
+							url: "/tasks/" + taskId,
+							type: 'PUT',
+							data: $.param({task : { plan: 'false', parent_id: '', group_id: groupId }})
+						});
+					}
+		
+					var subTask = $(ui.item[0]).find('li');
+					$(subTask).each(function(){
+						taskId = $(this).attr('id');
+						$.ajax({
+							url: "/tasks/" +  taskId,
+							type: 'PUT',
+							data: $.param({task : { group_id: groupId }})
+						});
 					});
+				
 				}
-				captureEmpty();
-				*/
+				
+				captureEmpty();	
 			}
 		});
 	}

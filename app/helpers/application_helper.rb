@@ -12,6 +12,13 @@ module ApplicationHelper
     id.include?(params[:id])
   end
   
+  def starts_at_to_minutes(starts_at)
+    hours = starts_at.strftime('%H').to_i * 60
+    minutes = starts_at.strftime('%M').to_i
+    time = hours + minutes
+    "#{time}"
+  end
+  
   def uploadify_user
    session_key_name = Rails.application.config.session_options[:key]
    %Q{

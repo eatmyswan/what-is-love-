@@ -47,6 +47,7 @@ Rpm::Application.routes.draw do
   match 'task/edit_notes/:id' => 'tasks#edit_notes'
   match 'task/edit_calendar/:id' => 'tasks#edit_calendar'
   match 'task/edit_group/:id' => 'tasks#edit_group'
+  match 'task/schedule_task/:id' => 'tasks#schedule_task'
   
   
   # The priority is based upon order of creation:

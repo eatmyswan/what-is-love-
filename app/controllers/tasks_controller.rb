@@ -73,7 +73,6 @@ class TasksController < ApplicationController
   end
   
   def sort
-    Rails.logger(params.inspect);
     tasks = Task.find(params[:task])
     tasks.each do |task|
       task.sort = params['task'].index(task.id.to_s) + 1
@@ -118,6 +117,14 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     respond_to do |format|
       format.html { render :layout => false }
+    end
+  end
+  
+  def schedule_task
+    @task = Task.find(params[:id])
+    @task.update_attributes(params[:task])
+    respond_to do |format|
+      format.js { render :layout => false }
     end
   end
 
