@@ -1,27 +1,139 @@
-#cluetip {
-	z-index: 99999;
-	background: transparent;
-	box-shadow: none !important;
+/* global */
+div.ui-cluetip {
+	font-size: 1em;
+}
+.ui-cluetip-header,
+.ui-cluetip-content {
 }
 .ui-cluetip-header {
-  display: none !important;
+	font-size: 1em;
+	margin: 0;
+	overflow: hidden;
+	display: none;
 }
-#cluetip a {
-}
-.cluetip-inner {
-}
+
 .cluetip-title .cluetip-close {
-  display: none;
+	float: right;
+	position: relative;
+	display: none;
 }
+.cluetip-close img {
+	border: 0;
+}
+
 #cluetip-waitimage {
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  background-image: url(<%= asset_path 'loading.gif' %>);
+	width: 43px;
+	height: 11px;
+	position: absolute;
+	display: none;
 }
 .cluetip-arrows {
-  display: none;
+	display: none;
+	position: absolute;
+	top: 0;
+	left: -11px;
+	width: 11px;
+	height: 22px;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	border-width: 0;
 }
 .cluetip-extra {
-  display: none;
+	display: none;
+}
+
+/***************************************
+   =cluetipClass: 'default'
+-------------------------------------- */
+
+.cluetip-default {
+  background: transparent;
+}
+.cluetip-default .ui-cluetip-header {
+  background: transparent;
+}
+
+
+/*
+.cluetip-default #cluetip-outer {
+  position: relative;
+  margin: 0;
+  background-color: #d9d9c2;
+}
+.cluetip-default h3#cluetip-title {
+  margin: 0 0 5px;
+  padding: 8px 10px 4px;
+  font-size: 1.1em;
+  font-weight: normal;
+  background-color: #87876a;
+  color: #fff;
+}
+.cluetip-default #cluetip-title a {
+  color: #d9d9c2;
+  font-size: 0.95em;
+}
+.cluetip-default #cluetip-inner {
+  padding: 10px;
+}
+.cluetip-default div#cluetip-close {
+  text-align: right;
+  margin: 0 5px 5px;
+  color: #900;
+}
+*/
+/* default arrows */
+div.cluetip-default .cluetip-arrows {
+	border-width: 0;
+	background: transparent none;
+}
+div.clue-right-default .cluetip-arrows {
+  background-image: url(<%= asset_path 'cluetip_arrow_left.png' %>);
+}
+div.clue-left-default .cluetip-arrows {
+  background-image: url(<%= asset_path 'cluetip_arrow_right.png' %>);
+  left: 100%;
+  margin-right: -11px;
+}
+div.clue-top-default .cluetip-arrows {
+  background-image: url(<%= asset_path 'cluetip_arrow_down.png' %>);
+  top: 100%;
+  left: 50%;
+  margin-left: -11px;
+  width: 22px;
+  height: 11px;
+}
+div.clue-bottom-default .cluetip-arrows {
+  background-image: url(<%= asset_path 'cluetip_arrow_up.png' %>);
+  top: -11px;
+  left: 50%;
+  margin-left: -11px;
+  width: 22px;
+  height: 11px;
+}
+
+/***************************************
+   =cluetipClass: 'jtip'
+-------------------------------------- */
+.cluetip-jtip {
+  background-color: #fff;
+}
+.cluetip-jtip .cluetip-outer {
+  border: 2px solid #ccc;
+  position: relative;
+}
+
+.cluetip-jtip .cluetip-inner {
+  padding: 5px;
+  display: inline-block;
+}
+.cluetip-jtip div.cluetip-close {
+  text-align: right;
+  margin: 0 5px 0;
+  color: #900;
+}
+
+.cluetip-jtip .ui-cluetip-header {
+  background-color: #ccc;
+  padding: 6px;
+/*  margin-bottom: 1em;*/
 }

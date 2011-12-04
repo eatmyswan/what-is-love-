@@ -73,8 +73,20 @@ $(document).ready(function() {
 		console.log(calEvent);
       },
       eventNew : function(calEvent, $event) {
-		console.log('new event');
-		console.log(calEvent);
+		var start = ap(calEvent.start.getHours(),calEvent.start.getMinutes().toString());
+		var end = ap(calEvent.end.getHours(),calEvent.end.getMinutes().toString());
+		var date = day_names[calEvent.start.getDay()] + ' ' + month_names[calEvent.start.getMonth()] + ' ' + calEvent.start.getDate() + ', ' + calEvent.start.getFullYear();
+		$('#new_event .start').text(start);
+		$('#new_event .end').text(end);
+		$('#new_event .date').text(date);
+		
+		$event.attr('rel','#new_event').cluetip({
+			activation:  'click',
+			local: true,
+			topOffset: 15
+		});
+		$event.trigger('click');
+
       },
       eventMouseover : function(calEvent, $event) {
       },
@@ -91,6 +103,36 @@ $(document).ready(function() {
       }
    });
 
+var month_names = new Array ( );
+month_names[month_names.length] = "Jan";
+month_names[month_names.length] = "Feb";
+month_names[month_names.length] = "Mar";
+month_names[month_names.length] = "Apr";
+month_names[month_names.length] = "May";
+month_names[month_names.length] = "Jun";
+month_names[month_names.length] = "Jul";
+month_names[month_names.length] = "Aug";
+month_names[month_names.length] = "Sep";
+month_names[month_names.length] = "Oct";
+month_names[month_names.length] = "Nov";
+month_names[month_names.length] = "Dec";
 
+var day_names = new Array ( );
+day_names[day_names.length] = "Sunday";
+day_names[day_names.length] = "Monday";
+day_names[day_names.length] = "Tuesday";
+day_names[day_names.length] = "Wednesday";
+day_names[day_names.length] = "Thursday";
+day_names[day_names.length] = "Friday";
+day_names[day_names.length] = "Saturday";
+
+function ap(hours,minutes){
+	var ap = (hours < 12) ? 'am' : 'pm';
+	var hour = (hours > 12) ? hours - 12 : hours
+	var hour = (hours == 0) ? 12 : hour
+	var minute = (minutes.length == 1) ? ':0'+minutes : ':'+minutes;
+	var minute = (minute == ':00') ? '' : minute;
+	return hour+minute+ap;
+}
 
 });
