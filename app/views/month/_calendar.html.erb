@@ -1,0 +1,46 @@
+
+<% content_for :top do %>
+
+		<div class="calendar_title">
+			<span class="big">Month</span>
+		</div>
+		
+		<div id="next_prev_wrap">
+			<div id="prev" class="filter rounded_left"><div class="prev"></div></div>
+			<div id="today" class="filter">Today</div>
+			<div id="next" class="filter rounded_right"><div class="next"></div></div>
+		</div>
+
+		<div class="ribbon"></div>
+
+<% end %>
+
+<% content_for :page do %>
+
+	<div id="calendar"></div>
+	
+	<div id="new_event">
+		<div class="cancel_cluetip">Cancel</div>
+		<span class="date"></span>
+		<span class="start"></span> - <span class="end"></span>
+		<input type="text" class="task_title" value="New Event..">
+		<input type="hidden" class="task_dbstart">
+		<input type="hidden" class="task_dbend">
+		<div id="create_event">Create</div>
+	</div>
+	
+	<div id="edit_event">
+		<div class="cancel_cluetip">Cancel</div>
+		<div id="delete_event">Delete</div>
+		<span class="date"></span>
+		<span class="start"></span> - <span class="end"></span>
+		<input type="text" class="task_title">
+		<input type="hidden" class="task_dbstart">
+		<input type="hidden" class="task_dbend">
+		<input type="hidden" class="task_id">
+		<div id="update_event">Update</div>
+	</div>
+	
+<% end %>
+
+<%= render '/home/pad' %>
