@@ -11,6 +11,7 @@ $('ul.sortable .icon').live("mouseover", function() {
 			activation: 'click',
 			cluezIndex: 9999,
 			waitImage: false,
+			arrows: false,
 			onHide: function() {
 				$('#group_select').remove();
 			},
@@ -49,7 +50,7 @@ $('#group_select li').live("click", function() {
 	
 });
 
-$('#capture_wrap ul.sortable').live("mouseover", function() {
+$('#capture_wrap ul.sortable, #side_plan').live("mouseover", function() {
 	if (!$(this).data("init")) {
 		$(this).data("init", true);
 		$('ul.sortable').sortable({
