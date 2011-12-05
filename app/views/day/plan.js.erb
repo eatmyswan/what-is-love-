@@ -13,9 +13,10 @@ $(document).ready(function() {
 
    var $calendar = $('#side_schedule');
    var id = 10;
+	var now = new Date();
 
 	$calendar.weekCalendar({
-		date: new Date(parseInt("<%= @date.year %>"),parseInt("<%= @date.month %>")-1,parseInt("<%= @date.day %>")),
+		date: new Date(parseInt("<%= @date.year %>"),parseInt("<%= @date.month %>")-1,parseInt("<%= @date.day %>"),now.getHours()),
 		displayOddEven:true,
 		timeslotsPerHour : 4,
 		timeslotHeight : 15,

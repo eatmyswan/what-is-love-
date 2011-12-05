@@ -1,12 +1,15 @@
 <div class="categories_wrap">
 	
-	<h3 class="side_title"><%= @start_date.strftime('%A') %>'s Plan</h3>
-	<ul id="side_plan" class="sortable add_to_plan">
-		<% @plans.each do |task,index| %>
-			<%= render :partial => '/tasks/task', :locals => { :task => task } %>
-		<% end %>
-	</ul>
-	<div id="capture_empty" style="<%= 'display: none;' if @plans.count > 0 %>"></div>
+	<div id="plan_side_wrap">
+		<h3 class="side_title"><%= @start_date.strftime('%A') %>'s Plan</h3>
+		<ul id="side_plan" class="sortable add_to_plan">
+			<% @plans.each do |task,index| %>
+				<%= render :partial => '/tasks/task', :locals => { :task => task } %>
+			<% end %>
+		</ul>
+		<div id="capture_empty" style="<%= 'display: none;' if @plans.count > 0 %>"></div>
+	</div>
+	
 	<div id="datepicker"></div>
 </div>
 

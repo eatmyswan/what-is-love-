@@ -14,6 +14,8 @@ $(document).ready(function() {
 		dayNamesMin: ['S','M','T','W','T','F','S'],
 		beforeShowDay: function(date){
 			var title = dbDate(date);
+			if(date.getDay() == 0) return [1,'droppable sunday',title];
+			if(date.getDay() == 6) return [1,'droppable saturday',title];
 			return [1,'droppable',title];
 		},
 		onSelect: function(dateText, inst){
@@ -42,7 +44,10 @@ $(document).ready(function() {
 			$.ajax({
 				url: "/tasks/" + taskId,
 				type: 'PUT',
-				data: $.param({task : { start: date }})
+				data: $.param({task : { start: date }}),
+				success: function(){
+					$('.ui-datepicker-over').removeClass('ui-datepicker-over');
+				}
 			});
 		}
 	});

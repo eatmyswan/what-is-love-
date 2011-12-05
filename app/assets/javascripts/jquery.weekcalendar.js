@@ -2548,7 +2548,7 @@
           return options.getHeaderDate(date, this.element);
         }
         var dayName = options.useShortDayNames ? options.shortDays[date.getDay()] : options.longDays[date.getDay()];
-        return dayName + (options.headerSeparator) + this._formatDate(date, options.headerDateFormat);
+        return options.daysToShow == 1 ? ' ' : dayName + (options.headerSeparator) + this._formatDate(date, options.headerDateFormat);
       },
 
 

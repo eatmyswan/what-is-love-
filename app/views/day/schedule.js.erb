@@ -10,9 +10,10 @@ $(document).ready(function() {
 
    var $calendar = $('#schedule');
    var id = 10;
-
+	var now = new Date();
+	
 	$calendar.weekCalendar({
-		date: new Date(parseInt("<%= @date.year %>"),parseInt("<%= @date.month %>")-1,parseInt("<%= @date.day %>")),
+		date: new Date(parseInt("<%= @date.year %>"),parseInt("<%= @date.month %>")-1,parseInt("<%= @date.day %>"),now.getHours()),
 		displayOddEven:true,
 		timeslotsPerHour : 4,
 		timeslotHeight : 15,
@@ -30,60 +31,6 @@ $(document).ready(function() {
 		title: function(daysToShow) {
 			return daysToShow == 1 ? '<span class="big">%day%</span> <span class="small">%date%</span>' : '<span class="big">%start% - %end%</span>';
 		},
-      eventRender : function(calEvent, $event) {
-         if (calEvent.readOnly == true) {
-            $event.addClass('readonly');
-         }
-		if (calEvent.end.getTime() < new Date().getTime()) {
-            $event.addClass('past_event');
-         }
-      },
-      draggable : function(calEvent, $event) {
-         return calEvent.readOnly != true;
-      },
-      resizable : function(calEvent, $event) {
-         return calEvent.readOnly != true;
-      },
-      eventNew : function(calEvent, $event) {
-         var $dialogContent = $("#event_edit_container");
-         resetForm($dialogContent);
-         var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
-         var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
-         var titleField = $dialogContent.find("input[name='title']");
-         var bodyField = $dialogContent.find("textarea[name='body']");
-
-
-         $dialogContent.dialog({
-            modal: true,
-            title: "New Calendar Event",
-            close: function() {
-               $dialogContent.dialog("destroy");
-               $dialogContent.hide();
-               $('#calendar').weekCalendar("removeUnsavedEvents");
-            },
-            buttons: {
-               save : function() {
-                  calEvent.id = id;
-                  id++;
-                  calEvent.start = new Date(startField.val());
-                  calEvent.end = new Date(endField.val());
-                  calEvent.title = titleField.val();
-                  calEvent.body = bodyField.val();
-
-                  $calendar.weekCalendar("removeUnsavedEvents");
-                  $calendar.weekCalendar("updateEvent", calEvent);
-                  $dialogContent.dialog("close");
-               },
-               cancel : function() {
-                  $dialogContent.dialog("close");
-               }
-            }
-         }).show();
-
-         $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
-         setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
-
-      },
 		changedate: function($calendar, newDate){
 			$('#day_plan').attr('href','/day/plan/'+dbDate(newDate));
 			$.get('/day/side/' + newDate.toString('yyyy-MM-dd 00:00:00'), function(data){
@@ -92,9 +39,23 @@ $(document).ready(function() {
 				$('#datepicker').datepicker('setDate',newDate);
 			});
 		},
+        eventRender : function(calEvent, $event) {
+		if (calEvent.readOnly == true) {
+			$event.addClass('readonly');
+		}
+		if (calEvent.end.getTime() < new Date().getTime()) {
+			$event.addClass('past_event');
+		}
+      },
+      draggable : function(calEvent, $event) {
+		return calEvent.readOnly != true;
+      },
+      resizable : function(calEvent, $event) {
+		return calEvent.readOnly != true;
+      },
       eventDrop : function(calEvent, $event) {
-       	var start = calEvent.start.toString('yyyy-MM-dd HH:mm:00');
-		var end = calEvent.end.toString('yyyy-MM-dd HH:mm:00');
+		var start = db(calEvent.start);
+		var end = db(calEvent.end);
 		var taskId = calEvent._id;
 		$.ajax({
 			url: "/tasks/" +  taskId,
@@ -104,8 +65,8 @@ $(document).ready(function() {
       },
       eventResize : function(calEvent, $event) {
 		var min_duration = ((calEvent.end.getTime() - calEvent.start.getTime())/1000)/60;
-		var start = calEvent.start.toString('yyyy-MM-dd HH:mm:00');
-		var end = calEvent.end.toString('yyyy-MM-dd HH:mm:00');
+		var start = db(calEvent.start);
+		var end = db(calEvent.end);
 		var taskId = calEvent._id;
 		$.ajax({
 			url: "/tasks/" +  taskId,
@@ -114,53 +75,54 @@ $(document).ready(function() {
 		});
       },
       eventClick : function(calEvent, $event) {
+		
+		var start = ap(calEvent.start.getHours(),calEvent.start.getMinutes().toString());
+		var end = ap(calEvent.end.getHours(),calEvent.end.getMinutes().toString());
+		var date = day_names[calEvent.start.getDay()] + ' ' + month_names[calEvent.start.getMonth()] + ' ' + calEvent.start.getDate() + ', ' + calEvent.start.getFullYear();
+		var dbStart = db(calEvent.start);
+		var dbEnd = db(calEvent.end);
+		var taskId = calEvent._id
+		
+		$('#edit_event .start').text(start);
+		$('#edit_event .end').text(end);
+		$('#edit_event .date').text(date);
+		$('#edit_event .task_title').val(calEvent.title);
+		$('#edit_event .task_dbstart').val(dbStart);
+		$('#edit_event .task_dbend').val(dbEnd);
+		$('#edit_event .task_id').val(taskId);
 
-         if (calEvent.readOnly) {
-            return;
-         }
-
-         var $dialogContent = $("#event_edit_container");
-         resetForm($dialogContent);
-         var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
-         var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
-         var titleField = $dialogContent.find("input[name='title']").val(calEvent.title);
-         var bodyField = $dialogContent.find("textarea[name='body']");
-         bodyField.val(calEvent.body);
-
-         $dialogContent.dialog({
-            modal: true,
-            title: "Edit - " + calEvent.title,
-            close: function() {
-               $dialogContent.dialog("destroy");
-               $dialogContent.hide();
-               $('#calendar').weekCalendar("removeUnsavedEvents");
-            },
-            buttons: {
-               save : function() {
-
-                  calEvent.start = new Date(startField.val());
-                  calEvent.end = new Date(endField.val());
-                  calEvent.title = titleField.val();
-                  calEvent.body = bodyField.val();
-
-                  $calendar.weekCalendar("updateEvent", calEvent);
-                  $dialogContent.dialog("close");
-               },
-               "delete" : function() {
-                  $calendar.weekCalendar("removeEvent", calEvent.id);
-                  $dialogContent.dialog("close");
-               },
-               cancel : function() {
-                  $dialogContent.dialog("close");
-               }
-            }
-         }).show();
-
-         var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
-         var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
-         $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
-         setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
-         $(window).resize().resize(); //fixes a bug in modal overlay size ??
+      },
+      eventNew : function(calEvent, $event) {
+		var start = ap(calEvent.start.getHours(),calEvent.start.getMinutes().toString());
+		var end = ap(calEvent.end.getHours(),calEvent.end.getMinutes().toString());
+		var date = day_names[calEvent.start.getDay()] + ' ' + month_names[calEvent.start.getMonth()] + ' ' + calEvent.start.getDate() + ', ' + calEvent.start.getFullYear();
+		var dbStart = db(calEvent.start);
+		var dbEnd = db(calEvent.end);
+		
+		$('#new_event .start').text(start);
+		$('#new_event .end').text(end);
+		$('#new_event .date').text(date);
+		$('#new_event .task_dbstart').val(dbStart);
+		$('#new_event .task_dbend').val(dbEnd);
+		
+		$event.attr('rel','#new_event').cluetip({
+			activation:  'click',
+			local: true,
+			leftOffset: 0,
+			topOffset: 40,
+			width: 300,
+			onShow: function() {
+				$(document).bind('mousedown',function(e) {
+					var cluetipClick = $(e.target).closest('#cluetip');
+					if ((cluetipClick.length === 0) || ($(e.target).hasClass('cancel_cluetip'))){ 
+						$(document).trigger('hideCluetip');
+						$('#schedule').weekCalendar('removeUnsavedEvents');
+					}
+				});
+				
+			}
+		});
+		$event.trigger('click');
 
       },
       eventMouseover : function(calEvent, $event) {
@@ -168,11 +130,10 @@ $(document).ready(function() {
       eventMouseout : function(calEvent, $event) {
       },
       noEvents : function() {
-
       },
       data : function(start, end, callback) {
-		var start = new Date(start).toString('yyyy-MM-dd 00:00:00');
-		var end = new Date(end).toString('yyyy-MM-dd 23:59:00');
+		var start = db(start);
+		var end = db(end);
 		$.getJSON("/week/json/"+start+"/"+end, function(result) {
 			callback(result);
    		});
@@ -182,25 +143,81 @@ $(document).ready(function() {
    function attachDatepicker(){
 	
 		$( "#datepicker" ).datepicker({
-		defaultDate: "<%= @start_date %>",
-		showOtherMonths: true,
-		dateFormat: 'yy-mm-dd',
-		dayNamesMin: ['S','M','T','W','T','F','S'],
-		beforeShowDay: function(date){
-			var title = dbDate(date);
-			if(date.getDay() == 0) return [1,'droppable sunday',title];
-			if(date.getDay() == 6) return [1,'droppable saturday',title];
-			return [1,'droppable',title];
-		},
-		onSelect: function(dateText, inst){
-			$.ajax({
-				url: "/day/schedule/" + dateText,
-				type: 'GET'
-			});
-		}
-	});
+			defaultDate: "<%= @start_date %>",
+			showOtherMonths: true,
+			dateFormat: 'yy-mm-dd',
+			dayNamesMin: ['S','M','T','W','T','F','S'],
+			beforeShowDay: function(date){
+				var title = dbDate(date);
+				if(date.getDay() == 0) return [1,'droppable sunday',title];
+				if(date.getDay() == 6) return [1,'droppable saturday',title];
+				return [1,'droppable',title];
+			},
+			onSelect: function(dateText, inst){
+				$.ajax({
+					url: "/day/schedule/" + dateText,
+					type: 'GET'
+				});
+			}
+		});
 	
 	}
+	
+	function db(date){
+		var year = date.getFullYear();
+		var month = date.getMonth() + 1;
+			month = month.toString();
+			month = (month.length == 1) ? '0'+month : month;
+		var day = date.getDate().toString();
+			day = (day.length == 1) ? '0'+day : day;
+		var hour = date.getHours().toString();
+			hour = (hour.length == 1) ? '0'+hour : hour;
+		var minutes = date.getMinutes().toString();
+			minutes = (minutes.length == 1) ? '0'+minutes : minutes;
+		return year+'-'+month+'-'+day+' '+hour+':'+minutes+':00';
+	}
+
+	function ap(hours,minutes){
+		var ap = (hours < 12) ? 'am' : 'pm';
+		var hour = (hours > 12) ? hours - 12 : hours
+		var hour = (hours == 0) ? 12 : hour
+		var minute = (minutes.length == 1) ? ':0'+minutes : ':'+minutes;
+		var minute = (minute == ':00') ? '' : minute;
+		return hour+minute+ap;
+	}
+
+	function dbDate(date){
+		var year = date.getFullYear();
+		var month = date.getMonth() + 1;
+			month = month.toString();
+			month = (month.length == 1) ? '0'+month : month;
+		var day = date.getDate().toString();
+			day = (day.length == 1) ? '0'+day : day;
+		return year+'-'+month+'-'+day;
+	}
+
+	var month_names = new Array ( );
+	month_names[month_names.length] = "Jan";
+	month_names[month_names.length] = "Feb";
+	month_names[month_names.length] = "Mar";
+	month_names[month_names.length] = "Apr";
+	month_names[month_names.length] = "May";
+	month_names[month_names.length] = "Jun";
+	month_names[month_names.length] = "Jul";
+	month_names[month_names.length] = "Aug";
+	month_names[month_names.length] = "Sep";
+	month_names[month_names.length] = "Oct";
+	month_names[month_names.length] = "Nov";
+	month_names[month_names.length] = "Dec";
+
+	var day_names = new Array ( );
+	day_names[day_names.length] = "Sunday";
+	day_names[day_names.length] = "Monday";
+	day_names[day_names.length] = "Tuesday";
+	day_names[day_names.length] = "Wednesday";
+	day_names[day_names.length] = "Thursday";
+	day_names[day_names.length] = "Friday";
+	day_names[day_names.length] = "Saturday";
 
 
 
