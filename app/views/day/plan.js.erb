@@ -48,8 +48,8 @@ $(document).ready(function() {
 		return calEvent.readOnly != true;
       },
       eventDrop : function(calEvent, $event) {
-		var start = calEvent.start.toString('yyyy-MM-dd HH:mm:00');
-		var end = calEvent.end.toString('yyyy-MM-dd HH:mm:00');
+		var start = db(calEvent.start);
+		var end = db(calEvent.end);
 		var taskId = calEvent._id;
 		$.ajax({
 			url: "/tasks/" +  taskId,
@@ -59,8 +59,8 @@ $(document).ready(function() {
       },
       eventResize : function(calEvent, $event) {
 		var min_duration = ((calEvent.end.getTime() - calEvent.start.getTime())/1000)/60;
-		var start = calEvent.start.toString('yyyy-MM-dd HH:mm:00');
-		var end = calEvent.end.toString('yyyy-MM-dd HH:mm:00');
+		var start = db(calEvent.start);
+		var end = db(calEvent.end);
 		var taskId = calEvent._id;
 		$.ajax({
 			url: "/tasks/" +  taskId,
@@ -69,21 +69,53 @@ $(document).ready(function() {
 		});
       },
       eventClick : function(calEvent, $event) {
-		console.log('edit task');
-		console.log(calEvent);
+		
+		var start = ap(calEvent.start.getHours(),calEvent.start.getMinutes().toString());
+		var end = ap(calEvent.end.getHours(),calEvent.end.getMinutes().toString());
+		var date = day_names[calEvent.start.getDay()] + ' ' + month_names[calEvent.start.getMonth()] + ' ' + calEvent.start.getDate() + ', ' + calEvent.start.getFullYear();
+		var dbStart = db(calEvent.start);
+		var dbEnd = db(calEvent.end);
+		var taskId = calEvent._id
+		
+		$('#edit_event .start').text(start);
+		$('#edit_event .end').text(end);
+		$('#edit_event .date').text(date);
+		$('#edit_event .task_title').val(calEvent.title);
+		$('#edit_event .task_dbstart').val(dbStart);
+		$('#edit_event .task_dbend').val(dbEnd);
+		$('#edit_event .task_id').val(taskId);
+
       },
       eventNew : function(calEvent, $event) {
 		var start = ap(calEvent.start.getHours(),calEvent.start.getMinutes().toString());
 		var end = ap(calEvent.end.getHours(),calEvent.end.getMinutes().toString());
 		var date = day_names[calEvent.start.getDay()] + ' ' + month_names[calEvent.start.getMonth()] + ' ' + calEvent.start.getDate() + ', ' + calEvent.start.getFullYear();
+		var dbStart = db(calEvent.start);
+		var dbEnd = db(calEvent.end);
+		
 		$('#new_event .start').text(start);
 		$('#new_event .end').text(end);
 		$('#new_event .date').text(date);
+		$('#new_event .task_dbstart').val(dbStart);
+		$('#new_event .task_dbend').val(dbEnd);
 		
 		$event.attr('rel','#new_event').cluetip({
 			activation:  'click',
 			local: true,
-			topOffset: 15
+			leftOffset: 0,
+			topOffset: 40,
+			width: 300,
+			onShow: function() {
+				$(document).bind('mousedown',function(e) {
+					var cluetipClick = $(e.target).closest('#cluetip');
+					if (cluetipClick.length === 0){ 
+						$(document).trigger('hideCluetip');
+						$(document).unbind('mousedown');
+						$('#side_schedule').weekCalendar('removeUnsavedEvents');
+					}
+				});
+				
+			}
 		});
 		$event.trigger('click');
 
@@ -95,13 +127,36 @@ $(document).ready(function() {
       noEvents : function() {
       },
       data : function(start, end, callback) {
-		var start = new Date(start).toString('yyyy-MM-dd 00:00:00');
-		var end = new Date(end).toString('yyyy-MM-dd 23:59:00');
+		var start = db(start);
+		var end = db(end);
 		$.getJSON("/week/json/"+start+"/"+end, function(result) {
 			callback(result);
    		});
       }
    });
+
+function db(date){
+	var year = date.getFullYear();
+	var month = date.getMonth() + 1;
+		month = month.toString();
+		month = (month.length == 1) ? '0'+month : month;
+	var day = date.getDate().toString();
+		day = (day.length == 1) ? '0'+day : day;
+	var hour = date.getHours().toString();
+		hour = (hour.length == 1) ? '0'+hour : hour;
+	var minutes = date.getMinutes().toString();
+		minutes = (minutes.length == 1) ? '0'+minutes : minutes;
+	return year+'-'+month+'-'+day+' '+hour+':'+minutes+':00';
+}
+
+function ap(hours,minutes){
+	var ap = (hours < 12) ? 'am' : 'pm';
+	var hour = (hours > 12) ? hours - 12 : hours
+	var hour = (hours == 0) ? 12 : hour
+	var minute = (minutes.length == 1) ? ':0'+minutes : ':'+minutes;
+	var minute = (minute == ':00') ? '' : minute;
+	return hour+minute+ap;
+}
 
 var month_names = new Array ( );
 month_names[month_names.length] = "Jan";
@@ -126,13 +181,5 @@ day_names[day_names.length] = "Thursday";
 day_names[day_names.length] = "Friday";
 day_names[day_names.length] = "Saturday";
 
-function ap(hours,minutes){
-	var ap = (hours < 12) ? 'am' : 'pm';
-	var hour = (hours > 12) ? hours - 12 : hours
-	var hour = (hours == 0) ? 12 : hour
-	var minute = (minutes.length == 1) ? ':0'+minutes : ':'+minutes;
-	var minute = (minute == ':00') ? '' : minute;
-	return hour+minute+ap;
-}
 
 });

@@ -78,7 +78,7 @@
       hoverClass:       '',       // class applied to the invoking element onmouseover and removed onmouseout
       waitImage:        false,     // whether to show a "loading" img, which is set in jquery.cluetip.css
       cursor:           'help',
-      arrows:           false,    // if true, displays arrow on appropriate side of clueTip
+      arrows:           true,    // if true, displays arrow on appropriate side of clueTip
       dropShadow:       true,     // set to false if you don't want the drop-shadow effect on the clueTip
       dropShadowSteps:  6,        // adjusts the size of the drop shadow
       sticky:           false,    // keep visible until manually closed
@@ -149,6 +149,7 @@
       js = null;
     }
     if (js == 'destroy') {
+
       var data = this.data('cluetip');
       if ( data ) {
         $(data.selector).remove();
@@ -431,12 +432,14 @@
 * load an element from the same page
 ***************************************/
       } else if (opts.local) {
+ 
         var $localContent = $(tipAttribute + (/^#\S+$/.test(tipAttribute) ? '' : ':eq(' + index + ')')).clone(true).show();
         if (opts.localIdSuffix) {
           $localContent.attr('id', $localContent[0].id + opts.localIdSuffix);
         }
         $cluetipInner.html($localContent);
         cluetipShow(pY);
+
       }
     };
 
@@ -513,7 +516,8 @@
           bgY = heightDiff > bgY ? bgY : heightDiff;
           bgY += 'px';
         }
-        $cluetipArrows.css({top: bgY}).show();
+		// I set ther arrow top offset!
+        //$cluetipArrows.css({top: bgY}).show();
       } else {
         $cluetipArrows.hide();
       }
@@ -584,6 +588,24 @@
   // activate by click
       if ( (/click|toggle/).test(opts.activation) ) {
         $link.bind('click.cluetip', function(event) {
+				
+          if ($cluetip.is(':hidden') || !$link.is('.cluetip-clicked')) {
+		
+            activate(event);
+            $('.cluetip-clicked').removeClass('cluetip-clicked');
+            $link.addClass('cluetip-clicked');
+          } else {
+            inactivate(event);
+          }
+          //return false;
+
+        });
+  // activate by mouseup
+	} else if (opts.activation == 'mouseup') {
+		
+		$link.bind('mouseup.cluetip', function(event) {
+
+			/*
           if ($cluetip.is(':hidden') || !$link.is('.cluetip-clicked')) {
             activate(event);
             $('.cluetip-clicked').removeClass('cluetip-clicked');
@@ -591,8 +613,11 @@
           } else {
             inactivate(event);
           }
+		
           return false;
+*/
         });
+
   // activate by focus; inactivate by blur
       } else if (opts.activation == 'focus') {
         $link.bind('focus.cluetip', function(event) {

@@ -34,9 +34,10 @@ class TasksController < ApplicationController
     @task = Task.new(params[:task])
     @task.user_id = current_user.id
     @task.save
-    @group = @task.group
-    respond_to do |format|
-      format.js { render :layout => false }
+    if(params[:task][:end])
+      render :json => @task
+    else
+       @group = @task.group
     end
   end
 
@@ -45,7 +46,9 @@ class TasksController < ApplicationController
     
     if params[:task]
       @task.update_attributes(params[:task])
-      if params[:task][:sort] || params[:task][:complete] || params[:task][:purpose] || params[:task][:must]
+      if params[:task][:end]
+        render :json => @task
+      elsif params[:task][:sort] || params[:task][:complete] || params[:task][:purpose] || params[:task][:must]
         render :nothing => true
       end
     end
@@ -63,6 +66,7 @@ class TasksController < ApplicationController
         @task.notes << @note
         render 'task_note', :layout => false
     end
+
     
   end
 

@@ -75,8 +75,7 @@
         resizable: function(calEvent, element) {
           return true;
         },
-        eventClick: function(calEvent, element, dayFreeBusyManager, 
-                                                      calendar, clickEvent) {
+        eventClick: function(calEvent, element, dayFreeBusyManager, calendar, clickEvent) {
         },
         eventRender: function(calEvent, element) {
           return element;
@@ -384,7 +383,7 @@
           var self = this;
 
           self.element.find('.wc-cal-event').each(function() {
-            if ($(this).data('calEvent').id === eventId) {
+            if ($(this).data('calEvent')._id === eventId) {
                 $(this).remove();
                 return false;
             }
@@ -1039,10 +1038,7 @@
           $weekDay.mousedown(function(event) {
             var $target = $(event.target);
             if ($target.hasClass('wc-day-column-inner')) {
-	
 				self.removeUnsavedEvents();
-				
-				
                 var $newEvent = $('<div class=\"wc-cal-event wc-new-cal-event wc-new-cal-event-creating\"></div>');
 
                 $newEvent.css({lineHeight: (options.timeslotHeight - 2) + 'px', fontSize: (options.timeslotHeight / 2) + 'px'});
@@ -1075,12 +1071,14 @@
             }
 
           }).mouseup(function(event) {
+			
             var $target = $(event.target);
 
             var $weekDay = $target.closest('.wc-day-column-inner');
             var $newEvent = $weekDay.find('.wc-new-cal-event-creating');
 
             if ($newEvent.length) {
+	
                 var createdFromSingleClick = !$newEvent.hasClass('ui-resizable-resizing');
 
                 //if even created from a single click only, default height
@@ -1121,8 +1119,9 @@
                   'calendar': self.element
                 });
                 options.eventNew(newCalEvent, $renderedCalEvent, freeBusyManager, self.element, event);
-            }
+            } 
           });
+
       },
 
       /*
@@ -1432,7 +1431,7 @@
 
           var eventClass, eventHtml, $calEventList, $modifiedEvent;
 
-          eventClass = calEvent.id ? 'wc-cal-event' : 'wc-cal-event wc-new-cal-event';
+          eventClass = calEvent._id ? 'wc-cal-event' : 'wc-cal-event wc-new-cal-event';
           eventHtml = '<div class=\"' + eventClass + ' ui-corner-all\">';
           eventHtml += '<div class=\"wc-time ui-corner-top\"></div>';
           eventHtml += '<div class=\"wc-title\"></div></div>';
@@ -1597,9 +1596,9 @@
           var self = this;
           self._cleanEvent(calEvent);
 
-          if (calEvent.id) {
+          if (calEvent._id) {
             self.element.find('.wc-cal-event').each(function() {
-                if ($(this).data('calEvent').id === calEvent.id || $(this).hasClass('wc-new-cal-event')) {
+                if ($(this).data('calEvent')._id === calEvent._id || $(this).hasClass('wc-new-cal-event')) {
                   $(this).remove();
               //     return false;
                 }

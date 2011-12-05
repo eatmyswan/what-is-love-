@@ -28,15 +28,6 @@ div.ui-cluetip {
 	display: none;
 }
 .cluetip-arrows {
-	display: none;
-	position: absolute;
-	top: 0;
-	left: -11px;
-	width: 11px;
-	height: 22px;
-	background-repeat: no-repeat;
-	background-position: 0 0;
-	border-width: 0;
 }
 .cluetip-extra {
 	display: none;
@@ -90,9 +81,13 @@ div.clue-right-default .cluetip-arrows {
   background-image: url(<%= asset_path 'cluetip_arrow_left.png' %>);
 }
 div.clue-left-default .cluetip-arrows {
-  background-image: url(<%= asset_path 'cluetip_arrow_right.png' %>);
-  left: 100%;
-  margin-right: -11px;
+	position: absolute;
+	background: url(<%= asset_path 'cluetip_arrow_right.png' %>) no-repeat 0 0 transparent;
+	width: 9px;
+	height: 18px;
+	right: -10px !important;
+	top: 50%;
+	margin-top: -9px;
 }
 div.clue-top-default .cluetip-arrows {
   background-image: url(<%= asset_path 'cluetip_arrow_down.png' %>);
