@@ -1,10 +1,13 @@
 $('.filters_wrap a').removeClass('active');
-$('#day').addClass('active');
+$('#week').addClass('active');
 $('#pad').replaceWith("<%= escape_javascript render('capture')  %>");
 $('.categories_wrap').replaceWith("<%= escape_javascript render('side_plan')  %>");
 
 
+
 $(document).ready(function() {
+	
+	var dayNumber = parseInt("<%= @start_date.day %>");
 	
 	$( "#datepicker" ).datepicker({
 		defaultDate: "<%= @start_date %>",
@@ -13,13 +16,18 @@ $(document).ready(function() {
 		dayNamesMin: ['S','M','T','W','T','F','S'],
 		beforeShowDay: function(date){
 			var title = dbDate(date);
+			if((date.getDate() >= dayNumber) && (date.getDate() < dayNumber + 7)){
+				if(date.getDay() == 0) return [1,'droppable sunday active_week',title];
+				if(date.getDay() == 6) return [1,'droppable saturday active_week',title];
+				return [1,'droppable active_week',title];
+			}
 			if(date.getDay() == 0) return [1,'droppable sunday',title];
 			if(date.getDay() == 6) return [1,'droppable saturday',title];
 			return [1,'droppable',title];
 		},
 		onSelect: function(dateText, inst){
 			$.ajax({
-				url: "/day/capture/" + dateText,
+				url: "/week/capture/" + dateText,
 				type: 'GET'
 			});
 		}

@@ -6,10 +6,15 @@
 			<span class="small"></span>
 		</div>
 		
+		<div id="next_prev_wrap">
+			<div id="prev" class="filter rounded_left"><div class="prev"></div></div>
+			<div id="today" class="filter">Today</div>
+			<div id="next" class="filter rounded_right"><div class="next"></div></div>
+		</div>
 		<div id="calendar_controls">
-			<span id="prev">PREV</span>
-			<span id="today">TODAY</span>
-			<span id="next">NEXT</span>
+			<%= link_to 'Capture', week_capture_path(@start_date), :id => 'week_capture', :class => 'filter rounded_left', :remote => true %>
+			<%= link_to 'Plan', week_plan_path(@start_date), :id => 'week_plan', :class => 'filter', :remote => true %>
+			<%= link_to 'Forecast', week_forecast_path(@start_date), :id => 'week_forecast', :class => 'filter rounded_right active', :remote => true %>
 		</div>
 		<div class="ribbon"></div>
 

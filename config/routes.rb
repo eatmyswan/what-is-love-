@@ -20,16 +20,20 @@ Rpm::Application.routes.draw do
   end
   
 
-  match 'week/index' => 'weeks#index', :as => :week
-  match 'week/day/:start_date' => 'weeks#day', :as => :week_day
-  match 'week/month/:start_date' => 'weeks#month', :as => :week_month
-  match 'week/json/:start_date/:end_date' => 'weeks#json', :as => :week_json
+  match 'week/capture/:start_date' => 'week#capture', :as => :week_capture
+  match 'week/plan/:start_date' => 'week#plan', :as => :week_plan
+  match 'week/forecast/:start_date' => 'week#forecast', :as => :week_forecast
+  match 'week/side/:start_date' => 'week#side'
+  match 'week/load_plan/:start_date' => 'week#load_plan'
+  match 'week/json/:start_date/:end_date' => 'week#json', :as => :week_json
   
   match 'day/capture/:start_date' => 'day#capture', :as => :day_capture
   match 'day/plan/:start_date' => 'day#plan', :as => :day_plan
   match 'day/schedule/:start_date' => 'day#schedule', :as => :day_schedule
   match 'day/side/:start_date' => 'day#side'
   match 'day/load_plan/:start_date' => 'day#load_plan'
+  
+  
   
   match 'tasks/sort' => 'tasks#sort'
   match 'task/update/:id' => 'tasks#update'

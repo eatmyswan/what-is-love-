@@ -1,0 +1,16 @@
+$('.filters_wrap a').removeClass('active');
+$('#day').addClass('active');
+$('#pad').replaceWith("<%= escape_javascript render('plan')  %>");
+$('.categories_wrap').replaceWith("<%= escape_javascript render('side_forecast')  %>");
+
+$('ul.incomplete_task_list').children().each(function() {
+	$(this).find('.target.active').first().trigger('click');
+});
+
+
+
+$(document).ready(function() {
+
+
+
+});

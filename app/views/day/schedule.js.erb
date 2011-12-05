@@ -13,7 +13,7 @@ $(document).ready(function() {
 	var now = new Date();
 	
 	$calendar.weekCalendar({
-		date: new Date(parseInt("<%= @date.year %>"),parseInt("<%= @date.month %>")-1,parseInt("<%= @date.day %>"),now.getHours()),
+		date: new Date(parseInt("<%= @start_date.year %>"),parseInt("<%= @start_date.month %>")-1,parseInt("<%= @start_date.day %>"),now.getHours()),
 		displayOddEven:true,
 		timeslotsPerHour : 4,
 		timeslotHeight : 15,

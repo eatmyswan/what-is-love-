@@ -5,8 +5,8 @@
 			<div class="filters_wrap">
 				<%= link_to 'My Life', root_path(), :id => 'plan', :class => 'filter rounded_left active', :remote => true %>
 				<%= link_to 'Day', day_capture_path(Date.today()), :id => 'day', :class => 'filter', :remote => true %>
-				<%= link_to 'Week', week_path(), :id => 'week', :class => 'filter', :remote => true %>
-				<%= link_to 'Month', week_month_path(Date.today()), :id => 'month', :class => 'filter rounded_right', :remote => true %>
+				<%= link_to 'Week', week_capture_path(Date.today()), :id => 'week', :class => 'filter', :remote => true %>
+				<%= link_to 'Month', '', :id => 'month', :class => 'filter rounded_right', :remote => true %>
 			</div>
 		</div>
 		<div class="categories_wrap" id="plan_categories">
