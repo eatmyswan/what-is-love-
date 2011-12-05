@@ -37,6 +37,7 @@ $(document).ready(function() {
 			$('.side_title').text(day_names[newDate.getDay()]+'\'s Schedule');
 			$.get('/day/load_plan/' + db(newDate), function(data){
 				$('#day_plan_wrap').replaceWith(data);
+				$('#day_schedule').attr('href','/day/schedule/'+dbDate(newDate));
 			});
 	},
       eventRender : function(calEvent, $event) {
@@ -161,6 +162,16 @@ function ap(hours,minutes){
 	var minute = (minutes.length == 1) ? ':0'+minutes : ':'+minutes;
 	var minute = (minute == ':00') ? '' : minute;
 	return hour+minute+ap;
+}
+
+function dbDate(date){
+	var year = date.getFullYear();
+	var month = date.getMonth() + 1;
+		month = month.toString();
+		month = (month.length == 1) ? '0'+month : month;
+	var day = date.getDate().toString();
+		day = (day.length == 1) ? '0'+day : day;
+	return year+'-'+month+'-'+day;
 }
 
 var month_names = new Array ( );
