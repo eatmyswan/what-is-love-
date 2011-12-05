@@ -16,13 +16,12 @@ $(document).ready(function() {
 		var title = $('#cluetip #new_event .task_title').val();
 		var start = $('#cluetip #new_event .task_dbstart').val();
 		var end = $('#cluetip #new_event .task_dbend').val();
-		var minD = $('#cluetip #new_event .task_min_duration').val();
 		$.ajax({
 			url: "/tasks",
 			type: 'POST',
-			data: $.param({task : { title: title, start: start, end: end, min_duration: minD, readOnly: 'true', scheduled: 'true' }}),
+			data: $.param({task : { title: title, start: start, end: end, readOnly: 'true', scheduled: 'true' }}),
 			success: function(data){
-				$('#cluetip').trigger('hideCluetip');
+				$(document).trigger('hideCluetip');
 				$('#forecast,#schedule,#side_schedule').weekCalendar('updateEvent', data);
 			}
 		});
@@ -38,7 +37,7 @@ $(document).ready(function() {
 			type: 'PUT',
 			data: $.param({task : { title: title, start: start, end: end }}),
 			success: function(data){
-				$('#cluetip').trigger('hideCluetip');
+				$(document).trigger('hideCluetip');
 				$('#forecast,#schedule,#side_schedule').weekCalendar('updateEvent', data);
 			}
 		});
@@ -50,7 +49,7 @@ $(document).ready(function() {
 			url: "/tasks/" + taskId,
 			type: 'DELETE',
 			success: function(){
-				$('#cluetip').trigger('hideCluetip');
+				$(document).trigger('hideCluetip');
 				$('#forecast,#schedule,#side_schedule').weekCalendar('removeEvent', taskId);
 			}
 		});
@@ -70,7 +69,7 @@ $(document).ready(function() {
 						var cluetipClick = $(e.target).closest('#cluetip');
 						var eventClick = $(e.target).closest('.wc-cal-event');
 						if ((cluetipClick.length === 0 && eventClick.length === 0) || ($(e.target).hasClass('cancel_cluetip'))){ 
-							$('#cluetip').trigger('hideCluetip');
+							$(document).trigger('hideCluetip');
 							$('#forecast,#schedule,#side_schedule').weekCalendar('removeUnsavedEvents');
 						}
 					});

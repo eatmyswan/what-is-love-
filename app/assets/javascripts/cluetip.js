@@ -578,7 +578,7 @@
       }
     };
 
-    $('#cluetip').unbind('hideCluetip.cluetip').bind('hideCluetip.cluetip', function(e) {
+    $(document).unbind('hideCluetip.cluetip').bind('hideCluetip.cluetip', function(e) {
 
       cluetipClose( $(e.target) );
     });
