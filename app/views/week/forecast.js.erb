@@ -96,6 +96,7 @@ $(document).ready(function() {
 		$('#new_event .date').text(date);
 		$('#new_event .task_dbstart').val(dbStart);
 		$('#new_event .task_dbend').val(dbEnd);
+		$('#new_event .task_min_duration').val('60');
 		
 		$event.attr('rel','#new_event').cluetip({
 			activation:  'click',
@@ -107,7 +108,7 @@ $(document).ready(function() {
 				$(document).bind('mousedown',function(e) {
 					var cluetipClick = $(e.target).closest('#cluetip');
 					if ((cluetipClick.length === 0) || ($(e.target).hasClass('cancel_cluetip'))){ 
-						$(document).trigger('hideCluetip');
+						$('#cluetip').trigger('hideCluetip');
 						$('#forecast').weekCalendar('removeUnsavedEvents');
 					}
 				});

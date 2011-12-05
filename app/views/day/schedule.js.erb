@@ -31,10 +31,14 @@ $(document).ready(function() {
 		title: function(daysToShow) {
 			return daysToShow == 1 ? '<span class="big">%day%</span> <span class="small">%date%</span>' : '<span class="big">%start% - %end%</span>';
 		},
+		calendarAfterLoad: function($calendar){
+			calculateMinD();
+		},
 		changedate: function($calendar, newDate){
 			$('#day_plan').attr('href','/day/plan/'+dbDate(newDate));
 			$.get('/day/side/' + newDate.toString('yyyy-MM-dd 00:00:00'), function(data){
 				$('.categories_wrap').replaceWith(data);
+				calculateMinD();
 				attachDatepicker();
 				$('#datepicker').datepicker('setDate',newDate);
 			});
@@ -46,6 +50,7 @@ $(document).ready(function() {
 		if (calEvent.end.getTime() < new Date().getTime()) {
 			$event.addClass('past_event');
 		}
+		calculateMinD();
       },
       draggable : function(calEvent, $event) {
 		return calEvent.readOnly != true;
@@ -102,6 +107,7 @@ $(document).ready(function() {
 		$('#new_event .start').text(start);
 		$('#new_event .end').text(end);
 		$('#new_event .date').text(date);
+		$('#new_event .task_min_duration').val('60');
 		$('#new_event .task_dbstart').val(dbStart);
 		$('#new_event .task_dbend').val(dbEnd);
 		
@@ -115,7 +121,7 @@ $(document).ready(function() {
 				$(document).bind('mousedown',function(e) {
 					var cluetipClick = $(e.target).closest('#cluetip');
 					if ((cluetipClick.length === 0) || ($(e.target).hasClass('cancel_cluetip'))){ 
-						$(document).trigger('hideCluetip');
+						$('#cluetip').trigger('hideCluetip');
 						$('#schedule').weekCalendar('removeUnsavedEvents');
 					}
 				});
@@ -136,6 +142,7 @@ $(document).ready(function() {
 		var end = db(end);
 		$.getJSON("/week/json/"+start+"/"+end, function(result) {
 			callback(result);
+			
    		});
       }
    });
@@ -219,6 +226,19 @@ $(document).ready(function() {
 	day_names[day_names.length] = "Friday";
 	day_names[day_names.length] = "Saturday";
 
+	function calculateMinD(){
+			var minD = 0;
+			var serialized = $('#schedule').weekCalendar('serializeEvents');
+			$(serialized).each(function(){
+				minD = this.min_duration + minD;
+			});
+			var hour = parseInt(minD/60).toString();
+			var min = parseInt(minD%60).toString();
+			hour = (hour.length == 1) ? '0'+hour : hour;
+			min = (min.length == 1) ? '0'+min : min;
+			$('.must_wrap .time').text(hour+':'+min);
+			$('.total_wrap .time').text(hour+':'+min);
+	}
 
 
 

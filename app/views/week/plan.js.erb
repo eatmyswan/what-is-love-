@@ -11,6 +11,29 @@ $('ul.incomplete_task_list').children().each(function() {
 
 $(document).ready(function() {
 
-
+	$('#plan_side .day_drop').droppable({
+		accept: '.task_wrap',
+		tolerance: 'pointer',
+		over: function(event,ui){
+			$('.dragging_task').css('opacity',0.3);
+			$(this).addClass('day_drop_over');
+		},
+		out: function(event,ui){
+			$(this).removeClass('day_drop_over');
+		},
+		drop: function(event,ui){
+			var taskId = ui.draggable.attr('id');
+			var date = $(this).attr('date');
+			ui.draggable.remove();
+			$.ajax({
+				url: "/tasks/" + taskId,
+				type: 'PUT',
+				data: $.param({task : { start: date, end: date+' 01:00:00', scheduled: 'true' }}),
+				success: function(){
+					$('.day_drop_over').removeClass('day_drop_over');
+				}
+			});
+		}
+	});
 
 });

@@ -81,9 +81,7 @@
 	text-shadow: 0 1px 1px #000;
 }
 #datepicker .ui-datepicker td.active_week a {
-	background: #0060b9;
-	background: -webkit-linear-gradient(top, #2a90ee 0%, #0060b9 100%);
-	box-shadow: inset 0 1px 0 #6fb7f9;
+	background: rgba(0,0,0,0.3);
 	color: #FFF;
 }
 #datepicker .ui-datepicker td.sunday a,
@@ -100,20 +98,15 @@
 	color: #FFF;
 }
 #datepicker td.ui-datepicker-current-day a, 
-#datepicker .ui-datepicker td a:hover {
-	background: #0060b9;
-	background: -webkit-linear-gradient(top, #2a90ee 0%, #0060b9 100%);
-	box-shadow: inset 0 1px 0 #6fb7f9;
-	color: #FFF;
-	opacity: 1.0;
-}
+#datepicker .ui-datepicker td a:hover,
 #datepicker td.ui-datepicker-over a {
-	background: #0060b9;
-	background: -webkit-linear-gradient(top, #2a90ee 0%, #0060b9 100%);
-	box-shadow: inset 0 1px 0 #6fb7f9;
-	color: #FFF;
-	opacity: 1.0;
+	background: #0060b9 !important;
+	background: -webkit-linear-gradient(top, #2a90ee 0%, #0060b9 100%) !important;
+	box-shadow: inset 0 1px 0 #6fb7f9 !important;
+	color: #FFF !important;
+	opacity: 1.0 !important;
 }
+
 #datepicker td.ui-datepicker-today {
 }
 #datepicker td.ui-datepicker-other-month span {

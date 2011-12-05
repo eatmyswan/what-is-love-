@@ -1064,8 +1064,10 @@
                         $newEvent.css('height', height + (options.timeslotHeight - remainder));
                     }
                   }).mouseup(function() {
+
                     $target.unbind('mousemove.newevent');
                     $newEvent.addClass('ui-corner-all');
+
                   });
                 }
             }
@@ -1724,7 +1726,7 @@
             snapTolerance: options.timeslotHeight - 1,
             revert: 'invalid',
             opacity: 0.5,
-            grid: [$calEvent.outerWidth() + 1, options.timeslotHeight],
+            grid: [$('.wc-day-column-inner').width(), options.timeslotHeight],
             start: function(event, ui) {
                 var $calEvent = ui.draggable;
                 options.eventDrag(calEvent, $calEvent);

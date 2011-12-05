@@ -102,6 +102,7 @@ $(document).ready(function() {
 		$('#new_event .start').text(start);
 		$('#new_event .end').text(end);
 		$('#new_event .date').text(date);
+		$('#new_event .task_min_duration').val('60');
 		$('#new_event .task_dbstart').val(dbStart);
 		$('#new_event .task_dbend').val(dbEnd);
 		
@@ -115,7 +116,7 @@ $(document).ready(function() {
 				$(document).bind('mousedown',function(e) {
 					var cluetipClick = $(e.target).closest('#cluetip');
 					if ((cluetipClick.length === 0) || ($(e.target).hasClass('cancel_cluetip'))){ 
-						$(document).trigger('hideCluetip');
+						$('#cluetip').trigger('hideCluetip');
 						$('#side_schedule').weekCalendar('removeUnsavedEvents');
 					}
 				});
