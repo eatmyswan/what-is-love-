@@ -62,7 +62,7 @@ $(document).ready(function() {
 				activation:  'click',
 				local: true,
 				leftOffset: 0,
-				topOffset: 55,
+				topOffset: 60,
 				width: 300,
 				onShow: function() {
 					$(document).bind('click',function(e) {

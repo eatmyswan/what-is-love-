@@ -1,3 +1,6 @@
+#cluetip{
+	border-radius: 5px;
+}
 /* global */
 div.ui-cluetip {
 	font-size: 1em;
@@ -78,7 +81,13 @@ div.cluetip-default .cluetip-arrows {
 	background: transparent none;
 }
 div.clue-right-default .cluetip-arrows {
-  background-image: url(<%= asset_path 'cluetip_arrow_left.png' %>);
+	position: absolute;
+	background: url(<%= asset_path 'cluetip_arrow_left.png' %>) no-repeat 0 0 transparent;
+	width: 9px;
+	height: 18px;
+	left: -8px !important;
+	top: 50%;
+	margin-top: -9px;
 }
 div.clue-left-default .cluetip-arrows {
 	position: absolute;

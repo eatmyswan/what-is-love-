@@ -1,0 +1,64 @@
+#new_event,
+#edit_event {
+	display: none;
+}
+#cluetip #new_event,
+#cluetip #edit_event {
+	display: block;
+	width: 270px;
+	padding: 15px;
+	background: #FFF;
+	border: 1px solid #CCC;
+	position: relative;
+	height: 90px;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.cancel_cluetip {
+	width: 15px;
+	height: 15px;
+	background: url(<%= asset_path 'delete.png' %>) no-repeat;
+	position: absolute;
+	cursor: pointer;
+	opacity: 0.5;
+	top: 10px;
+	right: 10px;
+}
+.cancel_cluetip:hover {
+	opacity: 1.0;
+}
+
+#create_event, #update_event {
+	font-size: 12px;
+	padding: 7px 12px;
+	font-weight: bold;
+	text-shadow: 0px 1px 5px #F0F0F0;
+	float: left;
+	cursor: pointer;
+	box-shadow: inset 0px 1px 1px #84C7F4;
+	color: #FFF;
+	border: 1px solid #166FA9;
+	text-shadow: 1px 1px 1px #166FA9;
+	background: #32A3F0;
+	background: -webkit-gradient(linear, left top, left bottom, from(#32A3F0), to(#1389D3));
+	border-radius: 4px;
+}
+#delete_event {
+	float: right;
+	color: #32A3F0;
+	text-decoration: underline;
+	font-size: 13px;
+	cursor: pointer;
+	margin: 5px 0 0 0;
+}
+#edit_event .task_title,
+#new_event .task_title {
+	display: block;
+	padding: 5px;
+	border: 1px solid #CCC;
+	margin: 10px 0;
+	width: 258px;
+	font-size: 13px;
+	font-family: Arial, sans-serif;
+}
