@@ -5,10 +5,14 @@
 			<span class="big"><%= @start_date.strftime('%A') %></span>
 			<span class="small"><%= @start_date.strftime('%B %d, %Y') %></span>
 		</div>
-		<div>
-			<%= link_to 'Prev', day_capture_path(@start_date - 1.day), :class => 'button rounded_left', :remote => true %>
-			<%= link_to 'Today', day_capture_path(Date.today()), :class => 'button', :remote => true %>
-			<%= link_to 'Next', day_capture_path(@start_date + 1.day), :class => 'button rounded_right', :remote => true %>
+		<div id="next_prev_wrap">
+			<%= link_to day_capture_path(@start_date - 1.day), :class => 'filter rounded_left', :remote => true do %>
+				<div class="prev"></div>
+			<% end %>
+			<%= link_to 'Today', day_capture_path(Date.today()), :class => 'filter', :remote => true %>
+			<%= link_to day_capture_path(@start_date + 1.day), :class => 'filter rounded_right', :remote => true do %>
+				<div class="next"></div>
+			<% end %>
 		</div>
 		<div id="calendar_controls">
 			<%= link_to 'Capture', day_capture_path(@start_date), :id => 'day_capture', :class => 'filter rounded_left active', :remote => true %>

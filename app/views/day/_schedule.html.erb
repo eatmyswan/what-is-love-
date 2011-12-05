@@ -5,10 +5,10 @@
 			<span class="big"></span>
 			<span class="small"></span>
 		</div>
-		<div>
-			<span id="prev">PREV</span>
-			<span id="today">TODAY</span>
-			<span id="next">NEXT</span>
+		<div id="next_prev_wrap">
+			<div id="prev" class="filter rounded_left"><div class="prev"></div></div>
+			<div id="today" class="filter">Today</div>
+			<div id="next" class="filter rounded_right"><div class="next"></div></div>
 		</div>
 		<div id="calendar_controls">
 			<%= link_to 'Capture', day_capture_path(@start_date), :id => 'day_capture', :class => 'filter rounded_left', :remote => true %>

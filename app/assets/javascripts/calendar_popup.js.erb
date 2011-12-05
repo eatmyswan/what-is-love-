@@ -29,7 +29,7 @@ $('#reset').live('click', function() {
 	var year = (yy < 1000) ? yy + 1900 : yy;
 	var today = year + "-" + month + "-" + day;
 	
-	$('#datepicker').datepicker( "setDate" , today );
+	$('#capture_datepicker').datepicker( "setDate" , today );
 	$('.ui-datepicker-current-day').removeClass('ui-datepicker-current-day');
 	$('#time .hour').val('');
 	$('#time .minute').val('');

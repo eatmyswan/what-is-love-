@@ -79,7 +79,7 @@ li.task_wrap .thumbnail {
 #calendar_controls {
 	position: absolute;
 	top: 21px;
-	right: 70px;
+	right: 180px;
 }
 #calendar_controls .filter {
 box-shadow: 0px 1px 1px #dad2c7;
@@ -111,3 +111,54 @@ padding-right: 12px;
 background: url(<%= asset_path 'mylife_filter_bg_active.png' %>) repeat-x top left #927543;
 color: white;
 }
+
+#next_prev_wrap {
+	position: absolute;
+	top: 21px;
+	right: 70px;
+}
+#next_prev_wrap .filter {
+box-shadow: 0px 1px 1px #dad2c7;
+padding: 3px 6px 0;
+text-shadow: 0px 1px 1px rgba(255,255,255,0.5);
+background: url(<%= asset_path 'mylife_filter_bg_active.png' %>) repeat-x top left #927543;
+border-left: 1px solid #655135;
+border-top: 1px solid #655135;
+border-bottom: 1px solid #655135;
+float: left;
+color: #614d30;
+display: block;
+cursor: pointer;
+height: 15px;
+font-size: 11px;
+z-index: 4;
+position: relative;
+}
+#next_prev_wrap .filter:hover {
+	color: #FFF;
+	text-shadow: #000 0px 1px 2px;
+}
+#next_prev_wrap .rounded_left {
+border-radius: 10px 0 0 10px;
+}
+#next_prev_wrap .rounded_right {
+border-radius: 0 10px 10px 0;
+border-right: 1px solid #7a6239;
+}
+#next_prev_wrap .prev {
+	width: 13px;
+	height: 12px;
+	background: url(<%= asset_path 'next_prev_today.png' %>) no-repeat -7px -3px;
+}
+#next_prev_wrap .rounded_left:hover .prev {
+	background-position: -7px -16px;
+}
+#next_prev_wrap .next {
+	width: 13px;
+	height: 12px;
+	background: url(<%= asset_path 'next_prev_today.png' %>) no-repeat -23px -3px;
+}
+#next_prev_wrap .rounded_right:hover .next {
+	background-position: -23px -16px;
+}
+
