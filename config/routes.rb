@@ -28,7 +28,8 @@ Rpm::Application.routes.draw do
   match 'day/capture/:start_date' => 'day#capture', :as => :day_capture
   match 'day/plan/:start_date' => 'day#plan', :as => :day_plan
   match 'day/schedule/:start_date' => 'day#schedule', :as => :day_schedule
-  match 'day/side/:start_date' => 'day#side', :as => :day_side
+  match 'day/side/:start_date' => 'day#side'
+  match 'day/load_plan/:start_date' => 'day#load_plan'
   
   match 'tasks/sort' => 'tasks#sort'
   match 'task/update/:id' => 'tasks#update'

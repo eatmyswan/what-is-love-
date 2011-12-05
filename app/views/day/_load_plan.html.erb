@@ -1,0 +1,9 @@
+<div id="day_plan_wrap">
+		<div id="incomplete">
+			<ul class="sortable incomplete_task_list">
+				<% @plans.each do |task,index| %>
+					<%= render :partial => '/tasks/task', :locals => { :task => task } %>
+				<% end %>
+			</ul>
+		</div>
+</div>

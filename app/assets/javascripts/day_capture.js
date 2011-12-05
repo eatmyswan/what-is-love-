@@ -69,8 +69,6 @@ $('#capture_wrap ul.sortable').live("mouseover", function() {
 				var groupId = $(parentElement).parents('.capture_group_wrap, .capture_group_wrap_inbox').first().attr('id');
 				var taskId = $(ui.item[0]).attr('id');
 				
-				console.log(ui);
-				
 				if($(parentElement).hasClass('add_to_plan')){
 					$(ui.item[0]).removeClass('outcome');
 					$(ui.item[0]).find('.header').hide();

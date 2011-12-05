@@ -7,12 +7,15 @@ $('ul.incomplete_task_list').children().each(function() {
 	$(this).find('.target.active').first().trigger('click');
 });
 
+$('#datepicker').remove();
+
 $(document).ready(function() {
 
    var $calendar = $('#side_schedule');
    var id = 10;
 
 	$calendar.weekCalendar({
+		date: new Date(parseInt("<%= @date.year %>"),parseInt("<%= @date.month %>")-1,parseInt("<%= @date.day %>")),
 		displayOddEven:true,
 		timeslotsPerHour : 4,
 		timeslotHeight : 15,
@@ -30,9 +33,12 @@ $(document).ready(function() {
 		title: function(daysToShow) {
 			return daysToShow == 1 ? '<span class="big">%day%</span> <span class="small">%date%</span>' : '<span class="big">%start% - %end%</span>';
 		},
-		changedate: function($calendar, newDate){
-			console.log(newDate);
-		},
+	changedate: function($calendar, newDate){
+			$('.side_title').text(day_names[newDate.getDay()]+'\'s Schedule');
+			$.get('/day/load_plan/' + db(newDate), function(data){
+				$('#day_plan_wrap').replaceWith(data);
+			});
+	},
       eventRender : function(calEvent, $event) {
 		if (calEvent.readOnly == true) {
 			$event.addClass('readonly');
@@ -108,9 +114,8 @@ $(document).ready(function() {
 			onShow: function() {
 				$(document).bind('mousedown',function(e) {
 					var cluetipClick = $(e.target).closest('#cluetip');
-					if (cluetipClick.length === 0){ 
+					if ((cluetipClick.length === 0) || ($(e.target).hasClass('cancel_cluetip'))){ 
 						$(document).trigger('hideCluetip');
-						$(document).unbind('mousedown');
 						$('#side_schedule').weekCalendar('removeUnsavedEvents');
 					}
 				});

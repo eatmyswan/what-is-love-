@@ -70,7 +70,6 @@ $(document).ready(function() {
 						var eventClick = $(e.target).closest('.wc-cal-event');
 						if ((cluetipClick.length === 0 && eventClick.length === 0) || ($(e.target).hasClass('cancel_cluetip'))){ 
 							$(document).trigger('hideCluetip');
-							$(document).unbind('click');
 							$('#forecast,#schedule,#side_schedule').weekCalendar('removeUnsavedEvents');
 						}
 					});

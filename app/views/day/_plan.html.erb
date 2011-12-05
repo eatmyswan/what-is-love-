@@ -5,10 +5,15 @@
 			<span class="big"><%= @start_date.strftime('%A') %></span>
 			<span class="small"><%= @start_date.strftime('%B %d, %Y') %></span>
 		</div>
+		<div>
+			<span id="prev">PREV</span>
+			<span id="today">TODAY</span>
+			<span id="next">NEXT</span>
+		</div>
 		<div id="calendar_controls">
-			<%= link_to 'Capture', day_capture_path(Date.today()), :id => 'day_capture', :class => 'filter rounded_left', :remote => true %>
-			<%= link_to 'Plan', day_plan_path(Date.today()), :id => 'day_plan', :class => 'filter active', :remote => true %>
-			<%= link_to 'Schedule', day_schedule_path(Date.today()), :id => 'day_schedule', :class => 'filter rounded_right', :remote => true %>
+			<%= link_to 'Capture', day_capture_path(@start_date), :id => 'day_capture', :class => 'filter rounded_left', :remote => true %>
+			<%= link_to 'Plan', day_plan_path(@start_date), :id => 'day_plan', :class => 'filter active', :remote => true %>
+			<%= link_to 'Schedule', day_schedule_path(@start_date), :id => 'day_schedule', :class => 'filter rounded_right', :remote => true %>
 		</div>
 		<div class="ribbon"></div>
 
@@ -16,15 +21,7 @@
 
 <% content_for :page do %>
 <div id="group">
-	<div id="day_plan_wrap">
-		<div id="incomplete">
-			<ul class="sortable incomplete_task_list">
-				<% @plans.each do |task,index| %>
-					<%= render :partial => '/tasks/task', :locals => { :task => task } %>
-				<% end %>
-			</ul>
-		</div>
-	</div>
+	<%= render 'load_plan' %>
 </div>
 <% end %>
 

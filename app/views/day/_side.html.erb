@@ -1,12 +1,9 @@
-<div id='schedule_side'>
-		<div>
-			<span id="prev">PREV</span>
-			<span id="today">TODAY</span>
-			<span id="next">NEXT</span>
+<div class="categories_wrap" style="bottom:240px">
+	<div id='schedule_side'>
+		<div id="date_section">
+			<div class="big_date"><%= @start_date.strftime('%e') %></div>
+			<div class="small_date"><%= @start_date.strftime('%A') %></div>
+			<div class="small_date"><%= @start_date.strftime('%B %Y') %></div>
 		</div>
-	<div id="date_section">
-		<div class="big_date"><%= @start_date.strftime('%e') %></div>
-		<div class="small_date"><%= @start_date.strftime('%A') %></div>
-		<div class="small_date"><%= @start_date.strftime('%B %Y') %></div>
 	</div>
 </div>

@@ -5,10 +5,15 @@
 			<span class="big"><%= @start_date.strftime('%A') %></span>
 			<span class="small"><%= @start_date.strftime('%B %d, %Y') %></span>
 		</div>
+		<div>
+			<%= link_to 'Prev', day_capture_path(@start_date - 1.day), :class => 'button rounded_left', :remote => true %>
+			<%= link_to 'Today', day_capture_path(Date.today()), :class => 'button', :remote => true %>
+			<%= link_to 'Next', day_capture_path(@start_date + 1.day), :class => 'button rounded_right', :remote => true %>
+		</div>
 		<div id="calendar_controls">
-			<%= link_to 'Capture', day_capture_path(Date.today()), :id => 'day_capture', :class => 'filter rounded_left active', :remote => true %>
-			<%= link_to 'Plan', day_plan_path(Date.today()), :id => 'day_plan', :class => 'filter', :remote => true %>
-			<%= link_to 'Schedule', day_schedule_path(Date.today()), :id => 'day_schedule', :class => 'filter rounded_right', :remote => true %>
+			<%= link_to 'Capture', day_capture_path(@start_date), :id => 'day_capture', :class => 'filter rounded_left active', :remote => true %>
+			<%= link_to 'Plan', day_plan_path(@start_date), :id => 'day_plan', :class => 'filter', :remote => true %>
+			<%= link_to 'Schedule', day_schedule_path(@start_date), :id => 'day_schedule', :class => 'filter rounded_right', :remote => true %>
 		</div>
 		<div class="ribbon"></div>
 

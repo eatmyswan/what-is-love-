@@ -1,5 +1,5 @@
-<div class="categories_wrap">
-
+<div class="categories_wrap" style="bottom:240px">
+	
 	<h3 class="side_title"><%= @start_date.strftime('%A') %>'s Plan</h3>
 	<ul id="side_plan" class="sortable add_to_plan">
 		<% @plans.each do |task,index| %>
@@ -9,3 +9,4 @@
 	<div id="capture_empty" style="<%= 'display: none;' if @plans.count > 0 %>"></div>
 	
 </div>
+
