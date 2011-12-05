@@ -2,8 +2,8 @@ $('.filters_wrap a').removeClass('active');
 $('#day').addClass('active');
 $('#pad').replaceWith("<%= escape_javascript render('capture')  %>");
 $('.categories_wrap').replaceWith("<%= escape_javascript render('side_plan')  %>");
-$('#datepicker').remove();
-$('.categories_wrap').after('<div id="datepicker"></div>');
+
+
 
 $(document).ready(function() {
 	

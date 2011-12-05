@@ -2,27 +2,11 @@ $('.filters_wrap a').removeClass('active');
 $('#day').addClass('active');
 $('#pad').replaceWith("<%= escape_javascript render('schedule')  %>");
 $('.categories_wrap').replaceWith("<%= escape_javascript render('side')  %>");
-$('#datepicker').remove();
-$('.categories_wrap').after('<div id="datepicker"></div>');
+
 
 $(document).ready(function() {
 	
-	$( "#datepicker" ).datepicker({
-		defaultDate: "<%= @start_date %>",
-		showOtherMonths: true,
-		dateFormat: 'yy-mm-dd',
-		dayNamesMin: ['S','M','T','W','T','F','S'],
-		beforeShowDay: function(date){
-			var title = dbDate(date);
-			return [1,'droppable',title];
-		},
-		onSelect: function(dateText, inst){
-			$.ajax({
-				url: "/day/schedule/" + dateText,
-				type: 'GET'
-			});
-		}
-	});
+	attachDatepicker();
 
    var $calendar = $('#schedule');
    var id = 10;
@@ -101,10 +85,11 @@ $(document).ready(function() {
 
       },
 		changedate: function($calendar, newDate){
-			$('#datepicker').datepicker('setDate',newDate);
 			$('#day_plan').attr('href','/day/plan/'+dbDate(newDate));
 			$.get('/day/side/' + newDate.toString('yyyy-MM-dd 00:00:00'), function(data){
 				$('.categories_wrap').replaceWith(data);
+				attachDatepicker();
+				$('#datepicker').datepicker('setDate',newDate);
 			});
 		},
       eventDrop : function(calEvent, $event) {
@@ -194,72 +179,30 @@ $(document).ready(function() {
       }
    });
 
-   function resetForm($dialogContent) {
-      $dialogContent.find("input").val("");
-      $dialogContent.find("textarea").val("");
-   }
+   function attachDatepicker(){
+	
+		$( "#datepicker" ).datepicker({
+		defaultDate: "<%= @start_date %>",
+		showOtherMonths: true,
+		dateFormat: 'yy-mm-dd',
+		dayNamesMin: ['S','M','T','W','T','F','S'],
+		beforeShowDay: function(date){
+			var title = dbDate(date);
+			if(date.getDay() == 0) return [1,'droppable sunday',title];
+			if(date.getDay() == 6) return [1,'droppable saturday',title];
+			return [1,'droppable',title];
+		},
+		onSelect: function(dateText, inst){
+			$.ajax({
+				url: "/day/schedule/" + dateText,
+				type: 'GET'
+			});
+		}
+	});
+	
+	}
 
 
-   /*
-    * Sets up the start and end time fields in the calendar event
-    * form for editing based on the calendar event being edited
-    */
-   function setupStartAndEndTimeFields($startTimeField, $endTimeField, calEvent, timeslotTimes) {
-
-      $startTimeField.empty();
-      $endTimeField.empty();
-
-      for (var i = 0; i < timeslotTimes.length; i++) {
-         var startTime = timeslotTimes[i].start;
-         var endTime = timeslotTimes[i].end;
-         var startSelected = "";
-         if (startTime.getTime() === calEvent.start.getTime()) {
-            startSelected = "selected=\"selected\"";
-         }
-         var endSelected = "";
-         if (endTime.getTime() === calEvent.end.getTime()) {
-            endSelected = "selected=\"selected\"";
-         }
-         $startTimeField.append("<option value=\"" + startTime + "\" " + startSelected + ">" + timeslotTimes[i].startFormatted + "</option>");
-         $endTimeField.append("<option value=\"" + endTime + "\" " + endSelected + ">" + timeslotTimes[i].endFormatted + "</option>");
-
-         $timestampsOfOptions.start[timeslotTimes[i].startFormatted] = startTime.getTime();
-         $timestampsOfOptions.end[timeslotTimes[i].endFormatted] = endTime.getTime();
-
-      }
-      $endTimeOptions = $endTimeField.find("option");
-      $startTimeField.trigger("change");
-   }
-
-   var $endTimeField = $("select[name='end']");
-   var $endTimeOptions = $endTimeField.find("option");
-   var $timestampsOfOptions = {start:[],end:[]};
-
-   //reduces the end time options to be only after the start time options.
-   $("select[name='start']").change(function() {
-      var startTime = $timestampsOfOptions.start[$(this).find(":selected").text()];
-      var currentEndTime = $endTimeField.find("option:selected").val();
-      $endTimeField.html(
-            $endTimeOptions.filter(function() {
-               return startTime < $timestampsOfOptions.end[$(this).text()];
-            })
-            );
-
-      var endTimeSelected = false;
-      $endTimeField.find("option").each(function() {
-         if ($(this).val() === currentEndTime) {
-            $(this).attr("selected", "selected");
-            endTimeSelected = true;
-            return false;
-         }
-      });
-
-      if (!endTimeSelected) {
-         //automatically select an end date 2 slots away.
-         $endTimeField.find("option:eq(1)").attr("selected", "selected");
-      }
-
-   });
 
 
 });

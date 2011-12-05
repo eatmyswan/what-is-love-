@@ -1,9 +1,24 @@
-<div class="categories_wrap" style="bottom:240px">
+<div class="categories_wrap">
 	<div id='schedule_side'>
 		<div id="date_section">
 			<div class="big_date"><%= @start_date.strftime('%e') %></div>
-			<div class="small_date"><%= @start_date.strftime('%A') %></div>
-			<div class="small_date"><%= @start_date.strftime('%B %Y') %></div>
+			<div class="small_date_wrap">
+				<div class="small_date_day"><%= @start_date.strftime('%A') %></div>
+				<div class="small_date"><%= @start_date.strftime('%B %e, %Y') %></div>
+			</div>
+		</div>
+		<div id="times_section">
+			<div class="box must_wrap">
+				<div class="time">00:00</div>
+				<div class="sub_title">Must Time</div>
+				<span class="inset"></span>
+			</div>
+			<div class="box total_wrap">
+				<div class="time">00:00</div>
+				<div class="sub_title">Total Time</div>
+				<span class="inset"></span>
+			</div>
 		</div>
 	</div>
+	<div id="datepicker"></div>
 </div>

@@ -1,13 +1,14 @@
 #datepicker {
-	position: absolute;
-	bottom: 20px;
-	width: 100%;
+	margin: 0 10px;
+	border-top: 1px solid #3D3A39;
+	padding: 20px 0 20px;
 }
 #datepicker .ui-datepicker { 
 }
 #datepicker .ui-datepicker .ui-datepicker-header { 
 	position:relative;
-	height: 32px;
+	height: 30px;
+	margin: 0 0 5px 0;
 }
 #datepicker .ui-datepicker .ui-datepicker-prev, 
 #datepicker .ui-datepicker .ui-datepicker-next { 
@@ -55,7 +56,6 @@
 #datepicker .ui-datepicker table tbody {
 	border-top: 1px solid #1f1d1c;
 	border-bottom: 1px solid #3d3a39;
-	border-right: 1px solid #1f1d1c;
 }	
 #datepicker .ui-datepicker td { 
 }
@@ -79,6 +79,14 @@
 	color: #b1aeab;
 	line-height: 30px;
 	text-shadow: 0 1px 1px #000;
+}
+#datepicker .ui-datepicker td.sunday a,
+#datepicker .ui-datepicker td.sunday span {
+	border-left: 0;
+}
+#datepicker .ui-datepicker td.saturday a,
+#datepicker .ui-datepicker td.saturday span{
+	border-right: 0;
 }
 #datepicker td.ui-datepicker-current-day {
 }
