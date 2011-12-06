@@ -57,10 +57,15 @@ $(document).ready(function() {
 			var start = db(calEvent.start);
 			var end = db(calEvent.end);
 			var taskId = calEvent._id;
+			var min_duration = calEvent.min_duration;
 			$.ajax({
 				url: "/tasks/" +  taskId,
 				type: 'PUT',
-				data: $.param({task : { start: start, end: end, scheduled: 'true' }})
+				data: $.param({task : { start: start, end: end, scheduled: 'true', min_duration: min_duration }}),
+				success: function(data){
+					$('#side_schedule').weekCalendar('updateEvent', data);
+					calculateMinD();
+				}
 			});
 		},
 		eventResize : function(calEvent, $event) {
@@ -100,11 +105,12 @@ $(document).ready(function() {
 			var date = day_names[calEvent.start.getDay()] + ' ' + month_names[calEvent.start.getMonth()] + ' ' + calEvent.start.getDate() + ', ' + calEvent.start.getFullYear();
 			var dbStart = db(calEvent.start);
 			var dbEnd = db(calEvent.end);
+			var min_duration = ((calEvent.end.getTime() - calEvent.start.getTime())/1000)/60;
 		
 			$('#new_event .start').text(start);
 			$('#new_event .end').text(end);
 			$('#new_event .date').text(date);
-			$('#new_event .task_min_duration').val('60');
+			$('#new_event .task_min_duration').val(min_duration);
 			$('#new_event .task_dbstart').val(dbStart);
 			$('#new_event .task_dbend').val(dbEnd);
 			
@@ -177,16 +183,24 @@ function dbDate(date){
 
 function calculateMinD(){
 	var minD = 0;
+	var minDTotal = 0;
 	var serialized = $('#side_schedule').weekCalendar('serializeEvents');
 	$(serialized).each(function(){
-		minD = this.min_duration + minD;
+		if(this.must == true)  minD = this.min_duration + minD;
+		minDTotal = this.min_duration + minDTotal;
 	});
 	var hour = parseInt(minD/60).toString();
 	var min = parseInt(minD%60).toString();
 	hour = (hour.length == 1) ? '0'+hour : hour;
 	min = (min.length == 1) ? '0'+min : min;
+	
+	var hourTotal = parseInt(minDTotal/60).toString();
+	var minTotal = parseInt(minDTotal%60).toString();
+	hourTotal = (hourTotal.length == 1) ? '0'+hourTotal : hourTotal;
+	minTotal = (minTotal.length == 1) ? '0'+minTotal : minTotal;
+	
 	$('.must_wrap .time').text(hour+':'+min);
-	$('.total_wrap .time').text(hour+':'+min);
+	$('.total_wrap .time').text(hourTotal+':'+minTotal);
 }
 
 var month_names = new Array ( );

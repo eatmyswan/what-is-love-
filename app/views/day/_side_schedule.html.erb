@@ -3,8 +3,20 @@
 <div id="plan_side">
 
 
-	<h3 class="side_title"><%= @start_date.strftime('%A') %>'s Schedule</h3>
-
+	<div id="date_section">
+		<div class="big_date"><%= @start_date.strftime('%e') %></div>
+		<div class="small_date_wrap">
+			<div class="small_date_day"><%= @start_date.strftime('%A') %>'s Schedule</div>
+			<div class="times_wrap">
+				<div class="must_wrap">
+					<span class="title">Must</span><span class="time">00:00</span>
+				</div>
+				<div class="total_wrap">
+					<span class="title">Total</span><span class="time">00:00</span>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	
 	<div id="side_schedule"></div>

@@ -1,7 +1,17 @@
 <div class="categories_wrap">
 	
-	<div id="plan_side_wrap">
-		<h3 class="side_title"><%= @start_date.strftime('%A') %>'s Plan</h3>
+	<div id="capture_side">
+		
+		<div id="date_section">
+			<div class="big_date"><%= @start_date.strftime('%e') %></div>
+			<div class="small_date_wrap">
+				<div class="small_date_day"><%= @start_date.strftime('%A') %>'s Plan</div>
+				<div class="result_count_wrap">
+					<span class="title">Results Added </span><span class="count">0</span>
+				</div>
+			</div>
+		</div>
+		
 		<ul id="side_plan" class="sortable add_to_plan">
 			<% @plans.each do |task,index| %>
 				<%= render :partial => '/tasks/task', :locals => { :task => task } %>

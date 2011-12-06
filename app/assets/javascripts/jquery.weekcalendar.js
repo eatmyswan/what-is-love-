@@ -1647,9 +1647,12 @@
           var start = new Date($weekDay.data('startDate').getTime() + startOffsetMillis + Math.round(top / options.timeslotHeight) * options.millisPerTimeslot);
            	if($calEvent.hasClass('task_wrap')) {
 				if($calEvent.hasClass('outcome')){
-					var end = new Date(start.getTime() + (60 * 60 * 1000));
+					var minD = 60;
+					$calEvent.data('calEvent').min_duration = minD;
+					var end = new Date(start.getTime() + (minD * 60 * 1000));
 				} else {
 					var minD = $calEvent.data('calEvent').min_duration > 0 ? $calEvent.data('calEvent').min_duration : 60;
+					$calEvent.data('calEvent').min_duration = minD;
 					var end = new Date(start.getTime() + (minD * 60 * 1000));
 				}
 			} else { 

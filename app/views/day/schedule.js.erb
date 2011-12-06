@@ -83,14 +83,12 @@ $(document).ready(function() {
 		calculateMinD();
       },
       eventClick : function(calEvent, $event) {
-		
 		var start = ap(calEvent.start.getHours(),calEvent.start.getMinutes().toString());
 		var end = ap(calEvent.end.getHours(),calEvent.end.getMinutes().toString());
 		var date = day_names[calEvent.start.getDay()] + ' ' + month_names[calEvent.start.getMonth()] + ' ' + calEvent.start.getDate() + ', ' + calEvent.start.getFullYear();
 		var dbStart = db(calEvent.start);
 		var dbEnd = db(calEvent.end);
 		var taskId = calEvent._id
-		
 		$('#edit_event .start').text(start);
 		$('#edit_event .end').text(end);
 		$('#edit_event .date').text(date);
@@ -98,9 +96,9 @@ $(document).ready(function() {
 		$('#edit_event .task_dbstart').val(dbStart);
 		$('#edit_event .task_dbend').val(dbEnd);
 		$('#edit_event .task_id').val(taskId);
+		$('#edit_event .group_id').val(calEvent.group_id);
 		$('#edit_event .task_readonly').val(calEvent.readOnly);
 		calEvent.readOnly == true ? $('#edit_event #readonly_check').addClass('active') : $('#edit_event #readonly_check').removeClass('active');
-
       },
       eventNew : function(calEvent, $event) {
 		var start = ap(calEvent.start.getHours(),calEvent.start.getMinutes().toString());
@@ -233,19 +231,25 @@ $(document).ready(function() {
 	day_names[day_names.length] = "Saturday";
 
 	function calculateMinD(){
-			var minD = 0;
-			var serialized = $('#schedule').weekCalendar('serializeEvents');
-			$(serialized).each(function(){
-				minD = this.min_duration + minD;
-			});
-			var hour = parseInt(minD/60).toString();
-			var min = parseInt(minD%60).toString();
-			hour = (hour.length == 1) ? '0'+hour : hour;
-			min = (min.length == 1) ? '0'+min : min;
-			$('.must_wrap .time').text(hour+':'+min);
-			$('.total_wrap .time').text(hour+':'+min);
+		var minD = 0;
+		var minDTotal = 0;
+		var serialized = $('#schedule').weekCalendar('serializeEvents');
+		$(serialized).each(function(){
+			if(this.must == true)  minD = this.min_duration + minD;
+			minDTotal = this.min_duration + minDTotal;
+		});
+		var hour = parseInt(minD/60).toString();
+		var min = parseInt(minD%60).toString();
+		hour = (hour.length == 1) ? '0'+hour : hour;
+		min = (min.length == 1) ? '0'+min : min;
+	
+		var hourTotal = parseInt(minDTotal/60).toString();
+		var minTotal = parseInt(minDTotal%60).toString();
+		hourTotal = (hourTotal.length == 1) ? '0'+hourTotal : hourTotal;
+		minTotal = (minTotal.length == 1) ? '0'+minTotal : minTotal;
+	
+		$('.must_wrap .time').text(hour+':'+min);
+		$('.total_wrap .time').text(hourTotal+':'+minTotal);
 	}
-
-
 
 });

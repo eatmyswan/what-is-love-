@@ -59,11 +59,58 @@ h3.side_title {
 	background: url(<%= asset_path 'capture_empty.png'  %>) no-repeat;
 	margin: 10px 0 0 12px;
 }
-#plan_side_wrap {
+
+
+#capture_side {
 	padding: 0 0 30px 0;
 	border-bottom: 1px solid #1F1D1C;
 	margin: 0 10px;
 }
+#capture_side #date_section {
+	padding: 20px 0 15px;
+}
+#capture_side #date_section .big_date {
+	display: inline-block;
+	font-size: 60px;
+	color: #FFF;
+	height: 55px;
+	margin: 0 7px 0 0;
+}
+#capture_side #date_section .small_date_wrap {
+	height: 100%;
+	position: relative;
+	display: inline-block;
+	font-size: 14px;
+	color: #FFF;
+	vertical-align: bottom;
+	white-space: nowrap;
+}
+#capture_side #date_section .small_date_day {
+	position: absolute;
+	left:0;
+	bottom: 20px;
+	font-size: 14px;
+}
+#capture_side #date_section .result_count_wrap {
+	position: absolute;
+	left:0;
+	bottom: 5px;
+	overflow: hidden;
+	font-size: 11px;
+}
+#capture_side #date_section .result_count_wrap .title {
+	font-weight: bold;
+	margin: 0 7px 0 0;
+	display: inline-block;
+	color: #afadac;
+}
+#capture_side #date_section .times_wrap .count {
+	display: inline-block;
+}
+
+
+
+
 #side_plan {
 	min-height: 26px;
 	background: rgba(0, 0, 0, 0.2);

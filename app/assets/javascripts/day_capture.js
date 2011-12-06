@@ -67,6 +67,7 @@ $('#capture_wrap ul.sortable, #side_plan').live("mouseover", function() {
 				datepickerDroppable();
 			},
 			stop: function(event,ui){
+				calculateResultCount();
 				var parentElement = ui.item[0].parentElement;
 				var groupId = $(parentElement).parents('.capture_group_wrap, .capture_group_wrap_inbox').first().attr('id');
 				var taskId = $(ui.item[0]).attr('id');
@@ -86,13 +87,13 @@ $('#capture_wrap ul.sortable, #side_plan').live("mouseover", function() {
 						$.ajax({
 							url: "/tasks/" + taskId,
 							type: 'PUT',
-							data: $.param({task : { plan: 'false', parent_id: childParentId, group_id: groupId }})
+							data: $.param({task : { plan: 'false', parent_id: childParentId, group_id: groupId, scheduled: 'false' }})
 						});
 					} else {
 						$.ajax({
 							url: "/tasks/" + taskId,
 							type: 'PUT',
-							data: $.param({task : { plan: 'false', parent_id: '', group_id: groupId }})
+							data: $.param({task : { plan: 'false', parent_id: '', group_id: groupId, scheduled: 'false' }})
 						});
 					}
 		
@@ -118,7 +119,7 @@ $('#capture_wrap ul.sortable, #side_plan').live("mouseover", function() {
 
 function datepickerDroppable(){
 	if (!$('#datepicker').data("init")) {
-		console.log('make it');
+
 		$('#datepicker').data("init", true);
 		$('#datepicker .droppable').droppable({
 			accept: '.task_wrap',
@@ -135,10 +136,11 @@ function datepickerDroppable(){
 				var taskId = ui.draggable.attr('id');
 				var date = $(this).attr('title');
 				ui.draggable.remove();
+				calculateResultCount();
 				$.ajax({
 					url: "/tasks/" + taskId,
 					type: 'PUT',
-					data: $.param({task : { start: date }}),
+					data: $.param({task : { start: date, scheduled: 'false' }}),
 					success: function(){
 						$('.ui-datepicker-over').removeClass('ui-datepicker-over');
 					}
@@ -155,3 +157,10 @@ function captureEmpty() {
 		$('#capture_empty').fadeOut(300);
 	}
 }
+
+function calculateResultCount() {
+	var count = $('#side_plan').children().length;
+	$('.result_count_wrap .count').text(count);
+}
+
+

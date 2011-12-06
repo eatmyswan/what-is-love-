@@ -6,6 +6,8 @@ $('.categories_wrap').replaceWith("<%= escape_javascript render('side_plan')  %>
 
 $(document).ready(function() {
 	
+	calculateResultCount();
+	
 	$( "#datepicker" ).datepicker({
 		defaultDate: "<%= @start_date %>",
 		showOtherMonths: true,
@@ -41,5 +43,10 @@ function dbDate(date){
 	var day = date.getDate().toString();
 		day = (day.length == 1) ? '0'+day : day;
 	return year+'-'+month+'-'+day;
+}
+
+function calculateResultCount() {
+	var count = $('#side_plan').children().length;
+	$('.result_count_wrap .count').text(count);
 }
 	

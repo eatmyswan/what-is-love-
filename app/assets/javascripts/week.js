@@ -108,22 +108,32 @@ $(document).ready(function() {
 		}
 	});
 
+
+	
 	function calculateMinD(){
-			var minD = 0;
-			if($('#schedule').length == 1){
-				var serialized = $('#schedule').weekCalendar('serializeEvents');
-			} else if ($('#side_schedule').length == 1) {
-				var serialized = $('#side_schedule').weekCalendar('serializeEvents');
-			} 
-			$(serialized).each(function(){
-				minD = this.min_duration + minD;
-			});
-			var hour = parseInt(minD/60).toString();
-			var min = parseInt(minD%60).toString();
-			hour = (hour.length == 1) ? '0'+hour : hour;
-			min = (min.length == 1) ? '0'+min : min;
-			$('#schedule_side .must_wrap .time').text(hour+':'+min);
-			$('#schedule_side .total_wrap .time').text(hour+':'+min);
+		var minD = 0;
+		var minDTotal = 0;
+		if($('#schedule').length == 1){
+			var serialized = $('#schedule').weekCalendar('serializeEvents');
+		} else if ($('#side_schedule').length == 1) {
+			var serialized = $('#side_schedule').weekCalendar('serializeEvents');
+		} 
+		$(serialized).each(function(){
+			if(this.must == true)  minD = this.min_duration + minD;
+			minDTotal = this.min_duration + minDTotal;
+		});
+		var hour = parseInt(minD/60).toString();
+		var min = parseInt(minD%60).toString();
+		hour = (hour.length == 1) ? '0'+hour : hour;
+		min = (min.length == 1) ? '0'+min : min;
+	
+		var hourTotal = parseInt(minDTotal/60).toString();
+		var minTotal = parseInt(minDTotal%60).toString();
+		hourTotal = (hourTotal.length == 1) ? '0'+hourTotal : hourTotal;
+		minTotal = (minTotal.length == 1) ? '0'+minTotal : minTotal;
+	
+		$('.must_wrap .time').text(hour+':'+min);
+		$('.total_wrap .time').text(hourTotal+':'+minTotal);
 	}
 
 });
