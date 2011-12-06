@@ -1,4 +1,4 @@
-<li id="<%= task.id %>" class="task_wrap sortable <%= 'complete' if task.complete == true %>" start="<%= task.start %>" min_duration="<%= task.min_duration %>" max_duration="<%= task.max_duration %>">
+<li id="<%= task.id %>" class="task_wrap sortable <%= 'complete' if task.complete == true %>" start="<%= task.start %>" min_duration="<%= task.min_duration %>" group_id="<%= task.group.id.to_s %>"max_duration="<%= task.max_duration %>">
 	
 	<div class="outcome_wrap">
 		<span class="checkbox <%= 'active' if task.complete == true %>"></span>
@@ -45,7 +45,7 @@
 				<% total_min_time = total_min_time + task.min_duration if task.min_duration %>
 				<% total_max_time = total_max_time + task.max_duration if task.max_duration %>
 				<% must_time = must_time + task.min_duration if task.must == true && task.min_duration %>
-				<li id="<%= task.id %>" class="task_wrap sortable <%= 'complete' if task.complete == true %>" start="<%= task.start %>" min_duration="<%= task.min_duration %>">
+				<li id="<%= task.id %>" class="task_wrap sortable <%= 'complete' if task.complete == true %>" start="<%= task.start %>" min_duration="<%= task.min_duration %>" group_id="<%= task.group.id.to_s %>">
 					<div class="outcome_wrap">
 						<span class="checkbox <%= 'active' if task.complete == true %>"></span>
 						<span class="target <%= 'active' if task.outcome == true %>"></span>

@@ -49,15 +49,29 @@ $(document).ready(function() {
 	
 	$('#cluetip #delete_event').live('click',function(){
 		var taskId = $('#cluetip #edit_event .task_id').val();
-		$.ajax({
-			url: "/tasks/" + taskId,
-			type: 'DELETE',
-			success: function(){
-				$(document).trigger('hideCluetip');
-				$('#forecast,#schedule,#side_schedule').weekCalendar('removeEvent', taskId);
-				calculateMinD();
-			}
-		});
+		var groupId = $('#cluetip #edit_event .group_id').val();
+		if(groupId) {
+			$.ajax({
+				url: "/tasks/" + taskId,
+				type: 'PUT',
+				data: $.param({task : { scheduled: 'false', readOnly: 'false' }}),
+				success: function(data){
+					$(document).trigger('hideCluetip');
+					$('#forecast,#schedule,#side_schedule').weekCalendar('removeEvent', taskId);
+					calculateMinD();
+				}
+			});
+		} else {
+			$.ajax({
+				url: "/tasks/" + taskId,
+				type: 'DELETE',
+				success: function(){
+					$(document).trigger('hideCluetip');
+					$('#forecast,#schedule,#side_schedule').weekCalendar('removeEvent', taskId);
+					calculateMinD();
+				}
+			});
+		}
 	});
 	
 	$('#readonly_check').live('click',function(){
@@ -76,7 +90,7 @@ $(document).ready(function() {
 			$(this).attr('rel','#edit_event').cluetip({
 				activation:  'click',
 				local: true,
-				leftOffset: 0,
+				leftOffset: 9,
 				topOffset: 60,
 				width: 300,
 				onShow: function() {
@@ -96,7 +110,11 @@ $(document).ready(function() {
 
 	function calculateMinD(){
 			var minD = 0;
-			var serialized = $('#schedule').weekCalendar('serializeEvents');
+			if($('#schedule').length == 1){
+				var serialized = $('#schedule').weekCalendar('serializeEvents');
+			} else if ($('#side_schedule').length == 1) {
+				var serialized = $('#side_schedule').weekCalendar('serializeEvents');
+			} 
 			$(serialized).each(function(){
 				minD = this.min_duration + minD;
 			});

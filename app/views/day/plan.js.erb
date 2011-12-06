@@ -9,8 +9,7 @@ $('ul.incomplete_task_list').children().each(function() {
 
 $(document).ready(function() {
 
-   var $calendar = $('#side_schedule');
-   var id = 10;
+	var $calendar = $('#side_schedule');
 	var now = new Date();
 
 	$calendar.weekCalendar({
@@ -32,114 +31,116 @@ $(document).ready(function() {
 		title: function(daysToShow) {
 			return daysToShow == 1 ? '<span class="big">%day%</span> <span class="small">%date%</span>' : '<span class="big">%start% - %end%</span>';
 		},
-	changedate: function($calendar, newDate){
+		calendarAfterLoad: function($calendar){
+			calculateMinD();
+		},
+		changedate: function($calendar, newDate){
 			$('.side_title').text(day_names[newDate.getDay()]+'\'s Schedule');
 			$.get('/day/load_plan/' + db(newDate), function(data){
 				$('#day_plan_wrap').replaceWith(data);
 				$('#day_schedule').attr('href','/day/schedule/'+dbDate(newDate));
 			});
-	},
-      eventRender : function(calEvent, $event) {
-		if (calEvent.readOnly == true) {
-			$event.addClass('readonly');
-		}
-		if (calEvent.end.getTime() < new Date().getTime()) {
-			$event.addClass('past_event');
-		}
-      },
-      draggable : function(calEvent, $event) {
-		return calEvent.readOnly != true;
-      },
-      resizable : function(calEvent, $event) {
-		return calEvent.readOnly != true;
-      },
-      eventDrop : function(calEvent, $event) {
-		var start = db(calEvent.start);
-		var end = db(calEvent.end);
-		var taskId = calEvent._id;
-		$.ajax({
-			url: "/tasks/" +  taskId,
-			type: 'PUT',
-			data: $.param({task : { start: start, end: end, scheduled: 'true' }})
-		});
-      },
-      eventResize : function(calEvent, $event) {
-		var min_duration = ((calEvent.end.getTime() - calEvent.start.getTime())/1000)/60;
-		var start = db(calEvent.start);
-		var end = db(calEvent.end);
-		var taskId = calEvent._id;
-		$.ajax({
-			url: "/tasks/" +  taskId,
-			type: 'PUT',
-			data: $.param({task : { start: start, end: end, min_duration: min_duration }})
-		});
-      },
-      eventClick : function(calEvent, $event) {
+		},
+		eventRender : function(calEvent, $event) {
+			if (calEvent.readOnly == true) $event.addClass('readonly');
+			if (calEvent.end.getTime() < new Date().getTime()) $event.addClass('past_event');	
+			calEvent.outcome == true ? $event.addClass('outcome') : '';
+			calculateMinD();
+		},
+		draggable : function(calEvent, $event) {
+			return calEvent.readOnly != true;
+		},
+		resizable : function(calEvent, $event) {
+			return calEvent.readOnly != true;
+		},
+		eventDrop : function(calEvent, $event) {
+			var start = db(calEvent.start);
+			var end = db(calEvent.end);
+			var taskId = calEvent._id;
+			$.ajax({
+				url: "/tasks/" +  taskId,
+				type: 'PUT',
+				data: $.param({task : { start: start, end: end, scheduled: 'true' }})
+			});
+		},
+		eventResize : function(calEvent, $event) {
+			var min_duration = ((calEvent.end.getTime() - calEvent.start.getTime())/1000)/60;
+			calEvent.min_duration = min_duration;
+			var start = db(calEvent.start);
+			var end = db(calEvent.end);
+			var taskId = calEvent._id;
+			$.ajax({
+				url: "/tasks/" +  taskId,
+				type: 'PUT',
+				data: $.param({task : { start: start, end: end, min_duration: min_duration }})
+			});
+			calculateMinD();
+		},
+		eventClick : function(calEvent, $event) {
+			var start = ap(calEvent.start.getHours(),calEvent.start.getMinutes().toString());
+			var end = ap(calEvent.end.getHours(),calEvent.end.getMinutes().toString());
+			var date = day_names[calEvent.start.getDay()] + ' ' + month_names[calEvent.start.getMonth()] + ' ' + calEvent.start.getDate() + ', ' + calEvent.start.getFullYear();
+			var dbStart = db(calEvent.start);
+			var dbEnd = db(calEvent.end);
+			var taskId = calEvent._id
+			$('#edit_event .start').text(start);
+			$('#edit_event .end').text(end);
+			$('#edit_event .date').text(date);
+			$('#edit_event .task_title').val(calEvent.title);
+			$('#edit_event .task_dbstart').val(dbStart);
+			$('#edit_event .task_dbend').val(dbEnd);
+			$('#edit_event .task_id').val(taskId);
+			$('#edit_event .group_id').val(calEvent.group_id);
+			$('#edit_event .task_readonly').val(calEvent.readOnly);
+			calEvent.readOnly == true ? $('#edit_event #readonly_check').addClass('active') : $('#edit_event #readonly_check').removeClass('active');
+		},
+		eventNew : function(calEvent, $event) {
+			var start = ap(calEvent.start.getHours(),calEvent.start.getMinutes().toString());
+			var end = ap(calEvent.end.getHours(),calEvent.end.getMinutes().toString());
+			var date = day_names[calEvent.start.getDay()] + ' ' + month_names[calEvent.start.getMonth()] + ' ' + calEvent.start.getDate() + ', ' + calEvent.start.getFullYear();
+			var dbStart = db(calEvent.start);
+			var dbEnd = db(calEvent.end);
 		
-		var start = ap(calEvent.start.getHours(),calEvent.start.getMinutes().toString());
-		var end = ap(calEvent.end.getHours(),calEvent.end.getMinutes().toString());
-		var date = day_names[calEvent.start.getDay()] + ' ' + month_names[calEvent.start.getMonth()] + ' ' + calEvent.start.getDate() + ', ' + calEvent.start.getFullYear();
-		var dbStart = db(calEvent.start);
-		var dbEnd = db(calEvent.end);
-		var taskId = calEvent._id
-		
-		$('#edit_event .start').text(start);
-		$('#edit_event .end').text(end);
-		$('#edit_event .date').text(date);
-		$('#edit_event .task_title').val(calEvent.title);
-		$('#edit_event .task_dbstart').val(dbStart);
-		$('#edit_event .task_dbend').val(dbEnd);
-		$('#edit_event .task_id').val(taskId);
-
-      },
-      eventNew : function(calEvent, $event) {
-		var start = ap(calEvent.start.getHours(),calEvent.start.getMinutes().toString());
-		var end = ap(calEvent.end.getHours(),calEvent.end.getMinutes().toString());
-		var date = day_names[calEvent.start.getDay()] + ' ' + month_names[calEvent.start.getMonth()] + ' ' + calEvent.start.getDate() + ', ' + calEvent.start.getFullYear();
-		var dbStart = db(calEvent.start);
-		var dbEnd = db(calEvent.end);
-		
-		$('#new_event .start').text(start);
-		$('#new_event .end').text(end);
-		$('#new_event .date').text(date);
-		$('#new_event .task_min_duration').val('60');
-		$('#new_event .task_dbstart').val(dbStart);
-		$('#new_event .task_dbend').val(dbEnd);
-		
-		$event.attr('rel','#new_event').cluetip({
-			activation:  'click',
-			local: true,
-			leftOffset: 9,
-			topOffset: 45,
-			width: 300,
-			onShow: function() {
-				$(document).bind('mousedown',function(e) {
-					var cluetipClick = $(e.target).closest('#cluetip');
-					if ((cluetipClick.length === 0) || ($(e.target).hasClass('cancel_cluetip'))){ 
-						$('#cluetip').trigger('hideCluetip');
-						$('#side_schedule').weekCalendar('removeUnsavedEvents');
-					}
-				});
+			$('#new_event .start').text(start);
+			$('#new_event .end').text(end);
+			$('#new_event .date').text(date);
+			$('#new_event .task_min_duration').val('60');
+			$('#new_event .task_dbstart').val(dbStart);
+			$('#new_event .task_dbend').val(dbEnd);
+			
+			$event.attr('rel','#new_event').cluetip({
+				activation:  'click',
+				local: true,
+				leftOffset: 9,
+				topOffset: 45,
+				width: 300,
+				onShow: function() {
+					$(document).bind('mousedown',function(e) {
+						var cluetipClick = $(e.target).closest('#cluetip');
+						if ((cluetipClick.length === 0) || ($(e.target).hasClass('cancel_cluetip'))){ 
+							$('#cluetip').trigger('hideCluetip');
+							$('#side_schedule').weekCalendar('removeUnsavedEvents');
+						}
+					});
 				
-			}
-		});
-		$event.trigger('click');
-
-      },
-      eventMouseover : function(calEvent, $event) {
-      },
-      eventMouseout : function(calEvent, $event) {
-      },
-      noEvents : function() {
-      },
-      data : function(start, end, callback) {
-		var start = db(start);
-		var end = db(end);
-		$.getJSON("/week/json/"+start+"/"+end, function(result) {
-			callback(result);
-   		});
-      }
-   });
+				}
+			});
+			$event.trigger('click');
+		},
+		eventMouseover : function(calEvent, $event) {
+		},
+		eventMouseout : function(calEvent, $event) {
+		},
+		noEvents : function() {
+		},
+		data : function(start, end, callback) {
+			var start = db(start);
+			var end = db(end);
+			$.getJSON("/week/json/"+start+"/"+end, function(result) {
+				callback(result);
+			});
+		}
+	});
 
 function db(date){
 	var year = date.getFullYear();
@@ -174,28 +175,41 @@ function dbDate(date){
 	return year+'-'+month+'-'+day;
 }
 
+function calculateMinD(){
+	var minD = 0;
+	var serialized = $('#side_schedule').weekCalendar('serializeEvents');
+	$(serialized).each(function(){
+		minD = this.min_duration + minD;
+	});
+	var hour = parseInt(minD/60).toString();
+	var min = parseInt(minD%60).toString();
+	hour = (hour.length == 1) ? '0'+hour : hour;
+	min = (min.length == 1) ? '0'+min : min;
+	$('.must_wrap .time').text(hour+':'+min);
+	$('.total_wrap .time').text(hour+':'+min);
+}
+
 var month_names = new Array ( );
-month_names[month_names.length] = "Jan";
-month_names[month_names.length] = "Feb";
-month_names[month_names.length] = "Mar";
-month_names[month_names.length] = "Apr";
-month_names[month_names.length] = "May";
-month_names[month_names.length] = "Jun";
-month_names[month_names.length] = "Jul";
-month_names[month_names.length] = "Aug";
-month_names[month_names.length] = "Sep";
-month_names[month_names.length] = "Oct";
-month_names[month_names.length] = "Nov";
-month_names[month_names.length] = "Dec";
+	month_names[month_names.length] = "Jan";
+	month_names[month_names.length] = "Feb";
+	month_names[month_names.length] = "Mar";
+	month_names[month_names.length] = "Apr";
+	month_names[month_names.length] = "May";
+	month_names[month_names.length] = "Jun";
+	month_names[month_names.length] = "Jul";
+	month_names[month_names.length] = "Aug";
+	month_names[month_names.length] = "Sep";
+	month_names[month_names.length] = "Oct";
+	month_names[month_names.length] = "Nov";
+	month_names[month_names.length] = "Dec";
 
 var day_names = new Array ( );
-day_names[day_names.length] = "Sunday";
-day_names[day_names.length] = "Monday";
-day_names[day_names.length] = "Tuesday";
-day_names[day_names.length] = "Wednesday";
-day_names[day_names.length] = "Thursday";
-day_names[day_names.length] = "Friday";
-day_names[day_names.length] = "Saturday";
-
+	day_names[day_names.length] = "Sunday";
+	day_names[day_names.length] = "Monday";
+	day_names[day_names.length] = "Tuesday";
+	day_names[day_names.length] = "Wednesday";
+	day_names[day_names.length] = "Thursday";
+	day_names[day_names.length] = "Friday";
+	day_names[day_names.length] = "Saturday";
 
 });

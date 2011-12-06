@@ -1645,8 +1645,17 @@
           var options = this.options;
           var startOffsetMillis = options.businessHours.limitDisplay ? options.businessHours.start * 3600000 : 0;
           var start = new Date($weekDay.data('startDate').getTime() + startOffsetMillis + Math.round(top / options.timeslotHeight) * options.millisPerTimeslot);
-          var end = new Date(start.getTime() + ($calEvent.height() / options.timeslotHeight) * options.millisPerTimeslot);
-          return {start: this._getDSTdayShift(start, -1), end: this._getDSTdayShift(end, -1)};
+           	if($calEvent.hasClass('task_wrap')) {
+				if($calEvent.hasClass('outcome')){
+					var end = new Date(start.getTime() + (60 * 60 * 1000));
+				} else {
+					var minD = $calEvent.data('calEvent').min_duration > 0 ? $calEvent.data('calEvent').min_duration : 60;
+					var end = new Date(start.getTime() + (minD * 60 * 1000));
+				}
+			} else { 
+				var end = new Date(start.getTime() + ($calEvent.height() / options.timeslotHeight) * options.millisPerTimeslot);
+			}
+		return {start: this._getDSTdayShift(start, -1), end: this._getDSTdayShift(end, -1)};
       },
 
       /*
