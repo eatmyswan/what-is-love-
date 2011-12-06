@@ -80,7 +80,7 @@
       cursor:           'help',
       arrows:           true,    // if true, displays arrow on appropriate side of clueTip
       dropShadow:       true,     // set to false if you don't want the drop-shadow effect on the clueTip
-      dropShadowSteps:  6,        // adjusts the size of the drop shadow
+      dropShadowSteps:  0,        // adjusts the size of the drop shadow
       sticky:           false,    // keep visible until manually closed
       mouseOutClose:    false,    // close when clueTip is moused out
       activation:       'hover',  // set to 'click' to force user to click to show clueTip
@@ -222,7 +222,7 @@
       var sTop, linkTop, posY, tipY, mouseY, baseline;
       // horizontal measurement variables
       var tipInnerWidth = parseInt(opts.width, 10) || 275,
-          tipWidth = tipInnerWidth + cluetipPadding + opts.dropShadowSteps,
+          tipWidth = tipInnerWidth + cluetipPadding,
           linkWidth = this.offsetWidth,
           linkLeft, posX, tipX, mouseX, winWidth;
 
@@ -267,8 +267,6 @@
       }
       linkTop = posY = $link.offset().top;
       linkLeft = $link.offset().left;
-
-
 
       // FIX: (bug 4412)
       linkWidth = $link.innerWidth();
@@ -510,14 +508,17 @@
       $cluetip.css({top: tipY + 'px'}).attrProp({'className': standardClasses + dynamicClasses});
       // set up arrow positioning to align with element
       if (opts.arrows) {
+
         if ( /(left|right)/.test(direction) ) {
           heightDiff = $cluetip.height() - $cluetipArrows.height();
           bgY = posX >= 0 && bpY > 0 ? (posY - tipY - opts.dropShadowSteps) : 0;
-          bgY = heightDiff > bgY ? bgY : heightDiff;
-          bgY += 'px';
-        }
-		// I set ther arrow top offset!
-        //$cluetipArrows.css({top: bgY}).show();
+          bgY = (heightDiff > bgY) ? (bgY + 9) : heightDiff;
+          bgY += 'px';	
+        }	
+
+		//my tmp arrow positioning fix
+		$cluetipArrows.show();
+		
       } else {
         $cluetipArrows.hide();
       }

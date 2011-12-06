@@ -43,6 +43,7 @@
 	background: #32A3F0;
 	background: -webkit-gradient(linear, left top, left bottom, from(#32A3F0), to(#1389D3));
 	border-radius: 4px;
+	margin: 0 10px 0 0;
 }
 #delete_event {
 	float: right;
@@ -50,7 +51,7 @@
 	text-decoration: underline;
 	font-size: 13px;
 	cursor: pointer;
-	margin: 5px 0 0 0;
+	margin: 7px 0 0 0;
 }
 #edit_event .task_title,
 #new_event .task_title {
@@ -61,4 +62,27 @@
 	width: 258px;
 	font-size: 13px;
 	font-family: Arial, sans-serif;
+}
+
+#readonly_check {
+	float: left;
+	font-size: 13px;
+	cursor: pointer;
+	margin: 7px 0 0 0;
+	color: #AAA;
+}
+#readonly_check.active {
+	color: #333;
+}
+
+#readonly_check .checkbox {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	background: url(<%= asset_path 'checkbox.png' %>) no-repeat;
+	margin: -1px 0 0 0;
+	cursor: pointer;
+}
+#readonly_check.active .checkbox{
+	background-position: 0 -15px;
 }

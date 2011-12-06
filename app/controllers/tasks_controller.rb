@@ -117,7 +117,8 @@ class TasksController < ApplicationController
   end
   
   def edit_group
-    @groups = Group.where(user_id: current_user.id)
+    @inbox = Group.where(user_id: current_user.id).and(master_title: nil).first
+    @groups = Group.where(user_id: current_user.id).and(:master_title.ne => nil)
     @task = Task.find(params[:id])
     respond_to do |format|
       format.html { render :layout => false }

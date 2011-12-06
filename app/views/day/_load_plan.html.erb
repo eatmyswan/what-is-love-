@@ -1,4 +1,5 @@
 <div id="day_plan_wrap">
+	<div id="plan_empty" style="<%= 'display: none;' if @plans.count > 0 %>"></div>
 		<div id="incomplete">
 			<ul class="sortable incomplete_task_list">
 				<% @plans.each do |task,index| %>

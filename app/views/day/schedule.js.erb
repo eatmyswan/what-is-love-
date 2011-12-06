@@ -49,7 +49,8 @@ $(document).ready(function() {
 		}
 		if (calEvent.end.getTime() < new Date().getTime()) {
 			$event.addClass('past_event');
-		}
+		}	
+		calEvent.outcome == true ? $event.addClass('outcome') : '';
 		calculateMinD();
       },
       draggable : function(calEvent, $event) {
@@ -70,6 +71,7 @@ $(document).ready(function() {
       },
       eventResize : function(calEvent, $event) {
 		var min_duration = ((calEvent.end.getTime() - calEvent.start.getTime())/1000)/60;
+		calEvent.min_duration = min_duration;
 		var start = db(calEvent.start);
 		var end = db(calEvent.end);
 		var taskId = calEvent._id;
@@ -78,6 +80,7 @@ $(document).ready(function() {
 			type: 'PUT',
 			data: $.param({task : { start: start, end: end, min_duration: min_duration }})
 		});
+		calculateMinD();
       },
       eventClick : function(calEvent, $event) {
 		
@@ -95,6 +98,8 @@ $(document).ready(function() {
 		$('#edit_event .task_dbstart').val(dbStart);
 		$('#edit_event .task_dbend').val(dbEnd);
 		$('#edit_event .task_id').val(taskId);
+		$('#edit_event .task_readonly').val(calEvent.readOnly);
+		calEvent.readOnly == true ? $('#edit_event #readonly_check').addClass('active') : $('#edit_event #readonly_check').removeClass('active');
 
       },
       eventNew : function(calEvent, $event) {
@@ -103,18 +108,19 @@ $(document).ready(function() {
 		var date = day_names[calEvent.start.getDay()] + ' ' + month_names[calEvent.start.getMonth()] + ' ' + calEvent.start.getDate() + ', ' + calEvent.start.getFullYear();
 		var dbStart = db(calEvent.start);
 		var dbEnd = db(calEvent.end);
+		var min_duration = ((calEvent.end.getTime() - calEvent.start.getTime())/1000)/60;
 		
 		$('#new_event .start').text(start);
 		$('#new_event .end').text(end);
 		$('#new_event .date').text(date);
-		$('#new_event .task_min_duration').val('60');
+		$('#new_event .task_min_duration').val(min_duration);
 		$('#new_event .task_dbstart').val(dbStart);
 		$('#new_event .task_dbend').val(dbEnd);
 		
 		$event.attr('rel','#new_event').cluetip({
 			activation:  'click',
 			local: true,
-			leftOffset: 0,
+			leftOffset: 9,
 			topOffset: 45,
 			width: 300,
 			onShow: function() {

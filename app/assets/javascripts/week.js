@@ -16,13 +16,15 @@ $(document).ready(function() {
 		var title = $('#cluetip #new_event .task_title').val();
 		var start = $('#cluetip #new_event .task_dbstart').val();
 		var end = $('#cluetip #new_event .task_dbend').val();
+		var minD = $('#cluetip #new_event .task_min_duration').val();
 		$.ajax({
 			url: "/tasks",
 			type: 'POST',
-			data: $.param({task : { title: title, start: start, end: end, readOnly: 'true', scheduled: 'true' }}),
+			data: $.param({task : { title: title, start: start, end: end, min_duration: minD, readOnly: 'true', scheduled: 'true' }}),
 			success: function(data){
 				$(document).trigger('hideCluetip');
 				$('#forecast,#schedule,#side_schedule').weekCalendar('updateEvent', data);
+				calculateMinD();
 			}
 		});
 	});
@@ -32,13 +34,15 @@ $(document).ready(function() {
 		var start = $('#cluetip #edit_event .task_dbstart').val();
 		var end = $('#cluetip #edit_event .task_dbend').val();
 		var taskId = $('#cluetip #edit_event .task_id').val();
+		var readonly = $('#cluetip #edit_event .task_readonly').val();
 		$.ajax({
 			url: "/tasks/" + taskId,
 			type: 'PUT',
-			data: $.param({task : { title: title, start: start, end: end }}),
+			data: $.param({task : { title: title, start: start, end: end, readOnly: readonly }}),
 			success: function(data){
 				$(document).trigger('hideCluetip');
 				$('#forecast,#schedule,#side_schedule').weekCalendar('updateEvent', data);
+				calculateMinD();
 			}
 		});
 	});
@@ -51,8 +55,19 @@ $(document).ready(function() {
 			success: function(){
 				$(document).trigger('hideCluetip');
 				$('#forecast,#schedule,#side_schedule').weekCalendar('removeEvent', taskId);
+				calculateMinD();
 			}
 		});
+	});
+	
+	$('#readonly_check').live('click',function(){
+		if($(this).hasClass('active')){
+			$(this).removeClass('active');
+			$('#cluetip input.task_readonly').val('false');
+		} else {
+			$(this).addClass('active');
+			$('#cluetip input.task_readonly').val('true');
+		}
 	});
 	
 	$('.wc-cal-event').live("mouseover", function() {
@@ -78,5 +93,19 @@ $(document).ready(function() {
 			});
 		}
 	});
+
+	function calculateMinD(){
+			var minD = 0;
+			var serialized = $('#schedule').weekCalendar('serializeEvents');
+			$(serialized).each(function(){
+				minD = this.min_duration + minD;
+			});
+			var hour = parseInt(minD/60).toString();
+			var min = parseInt(minD%60).toString();
+			hour = (hour.length == 1) ? '0'+hour : hour;
+			min = (min.length == 1) ? '0'+min : min;
+			$('#schedule_side .must_wrap .time').text(hour+':'+min);
+			$('#schedule_side .total_wrap .time').text(hour+':'+min);
+	}
 
 });

@@ -1,8 +1,23 @@
 <ul id="group_select" class="cluetip" taskId="<%= @task.id.to_s %>">
+	
+	<li id="<%= @inbox.id.to_s %>" class="<%= 'active' if @inbox.id == @task.group.id %> inbox">
+			<span class="img_wrap">
+				<%=  image_tag asset_path('inbox.png') %>
+			</span>
+			<span class="title">
+				Inbox
+			</span>
+	</li>
+	
 	<% @groups.each do |group| %>
 		<li id="<%= group.id.to_s %>" class="<%= 'active' if group.id == @task.group.id %>">
-			<%= group.images.forward.first ? ( image_tag group.images.forward.first.image.tiny ) : ( image_tag asset_path('inbox.png') ) %>
-			<%= group.title %>
+			<span class="img_wrap">
+				<%=  image_tag group.images.forward.first.image.tiny if group.images.forward.first %>
+			</span>
+			<span class="title">
+				<%= group.title %>
+			</span>
 		</li>
 	<% end %>
+	
 </ul>

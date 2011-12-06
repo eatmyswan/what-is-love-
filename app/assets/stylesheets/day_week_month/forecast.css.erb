@@ -242,7 +242,7 @@
 }
 
  .wc-cal-event {
-	background-color: #68a1e5;	
+	background-color: #086eda;	
   /* Modern Browsers */ opacity: 0.9;
   /* IE 8 */ -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
   /* IE 5-7 */ filter: alpha(opacity=90);
@@ -250,15 +250,22 @@
   /* Safari 1 */ -khtml-opacity: 0.9;
 	position: absolute;	
 	overflow: hidden;
-	color: #333;
+	color: #FFF;
 	width: 100%;
 	display: none;
+	border-radius: 3px;
+	text-shadow: 0 -1px 1px #074383;
+}
+.wc-cal-event.outcome {
+	background: #3dab1e;
+	text-shadow: 0 -1px 1px #246711;
 }
 .wc-cal-event.readonly {
-	background: #D06B64;
+	background: #c42438;
+	text-shadow: 0 -1px 1px #74131f;
 }
 .wc-new-cal-event-creating {
-	background: #D06B64;
+	background: #c42438;
 }
 
  .wc-cal-event .wc-time {
