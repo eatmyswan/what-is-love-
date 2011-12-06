@@ -2,7 +2,9 @@
 	<div class="cancel_cluetip"></div>
 	<span class="date"></span>
 	<span class="start"></span> - <span class="end"></span>
-	<input type="text" class="task_title" value="New Event..">
+	<div class="task_title_wrap">
+		<input type="text" class="task_title" value="New Event..">
+	</div>
 	<input type="hidden" class="task_dbstart">
 	<input type="hidden" class="task_dbend">
 	<input type="hidden" class="task_min_duration">
@@ -13,13 +15,17 @@
 	<div class="cancel_cluetip"></div>
 	<span class="date"></span>
 	<span class="start"></span> - <span class="end"></span>
-	<input type="text" class="task_title">
+	<div class="task_title_wrap">
+		<span class="checkbox" id="complete"></span>
+		<input type="text" class="task_title">
+	</div>
 	<input type="hidden" class="task_min_duration">
 	<input type="hidden" class="task_dbstart">
 	<input type="hidden" class="task_dbend">
 	<input type="hidden" class="task_id">
 	<input type="hidden" class="group_id">
 	<input type="hidden" class="task_readonly">
+	<input type="hidden" class="task_complete">
 	<div id="update_event">Update</div>
 	<div id="delete_event">Remove</div>
 	<div id="readonly_check" class="active">

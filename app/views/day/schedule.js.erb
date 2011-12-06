@@ -51,6 +51,7 @@ $(document).ready(function() {
 			$event.addClass('past_event');
 		}	
 		calEvent.outcome == true ? $event.addClass('outcome') : '';
+		calEvent.complete == true ? $event.addClass('complete') : '';
 		calculateMinD();
       },
       draggable : function(calEvent, $event) {
@@ -98,7 +99,9 @@ $(document).ready(function() {
 		$('#edit_event .task_id').val(taskId);
 		$('#edit_event .group_id').val(calEvent.group_id);
 		$('#edit_event .task_readonly').val(calEvent.readOnly);
+		$('#edit_event .task_complete').val(calEvent.complete);
 		calEvent.readOnly == true ? $('#edit_event #readonly_check').addClass('active') : $('#edit_event #readonly_check').removeClass('active');
+		calEvent.complete == true ? $('#edit_event .checkbox').addClass('active') : $('#edit_event .checkbox').removeClass('active');
       },
       eventNew : function(calEvent, $event) {
 		var start = ap(calEvent.start.getHours(),calEvent.start.getMinutes().toString());
@@ -235,8 +238,10 @@ $(document).ready(function() {
 		var minDTotal = 0;
 		var serialized = $('#schedule').weekCalendar('serializeEvents');
 		$(serialized).each(function(){
-			if(this.must == true)  minD = this.min_duration + minD;
-			minDTotal = this.min_duration + minDTotal;
+			if(this.complete == false){
+				if(this.must == true)  minD = this.min_duration + minD;
+				minDTotal = this.min_duration + minDTotal;
+			}
 		});
 		var hour = parseInt(minD/60).toString();
 		var min = parseInt(minD%60).toString();

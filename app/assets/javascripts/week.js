@@ -35,10 +35,11 @@ $(document).ready(function() {
 		var end = $('#cluetip #edit_event .task_dbend').val();
 		var taskId = $('#cluetip #edit_event .task_id').val();
 		var readonly = $('#cluetip #edit_event .task_readonly').val();
+		var complete = $('#cluetip #edit_event .task_complete').val();
 		$.ajax({
 			url: "/tasks/" + taskId,
 			type: 'PUT',
-			data: $.param({task : { title: title, start: start, end: end, readOnly: readonly }}),
+			data: $.param({task : { title: title, start: start, end: end, readOnly: readonly, complete: complete }}),
 			success: function(data){
 				$(document).trigger('hideCluetip');
 				$('#forecast,#schedule,#side_schedule').weekCalendar('updateEvent', data);
@@ -71,6 +72,16 @@ $(document).ready(function() {
 					calculateMinD();
 				}
 			});
+		}
+	});
+	
+	$('#cluetip #complete').live('click',function(){
+		if($(this).hasClass('active')){
+			$(this).removeClass('active');
+			$('input.task_complete').val('false');
+		} else {
+			$(this).addClass('active');
+			$('input.task_complete').val('true');
 		}
 	});
 	
@@ -108,8 +119,6 @@ $(document).ready(function() {
 		}
 	});
 
-
-	
 	function calculateMinD(){
 		var minD = 0;
 		var minDTotal = 0;
@@ -119,8 +128,10 @@ $(document).ready(function() {
 			var serialized = $('#side_schedule').weekCalendar('serializeEvents');
 		} 
 		$(serialized).each(function(){
-			if(this.must == true)  minD = this.min_duration + minD;
-			minDTotal = this.min_duration + minDTotal;
+			if(this.complete == false){
+				if(this.must == true)  minD = this.min_duration + minD;
+				minDTotal = this.min_duration + minDTotal;
+			}
 		});
 		var hour = parseInt(minD/60).toString();
 		var min = parseInt(minD%60).toString();

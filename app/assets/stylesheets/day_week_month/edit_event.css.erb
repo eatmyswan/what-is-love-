@@ -53,15 +53,33 @@
 	cursor: pointer;
 	margin: 7px 0 0 0;
 }
-#edit_event .task_title,
-#new_event .task_title {
+#edit_event .task_title_wrap,
+#new_event .task_title_wrap {
 	display: block;
-	padding: 5px;
+	height: 25px;
 	border: 1px solid #CCC;
 	margin: 10px 0;
 	width: 258px;
+	position: relative;
+}
+#edit_event .task_title_wrap .checkbox {
+	position: absolute;
+	width: 15px;
+	height: 15px;
+	background: url(<%= asset_path 'checkbox.png' %>) no-repeat;
+	margin: 5px 10px 0 6px;
+	cursor: pointer;
+}
+#edit_event .task_title_wrap .checkbox.active{
+	background-position: 0 -15px;
+}
+#edit_event .task_title_wrap .task_title {
 	font-size: 13px;
 	font-family: Arial, sans-serif;
+	position: absolute;
+	top: 5px;
+	left: 25px;
+	right: 5px;
 }
 
 #readonly_check {

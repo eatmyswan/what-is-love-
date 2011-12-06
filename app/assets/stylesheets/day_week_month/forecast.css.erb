@@ -193,14 +193,20 @@
 	top: -1px;
 }
 
- .wc-time-slot {
-	border-bottom: 1px dotted #ddd;	
-}
- .wc-time-slot:nth-child(even) {
-	border-bottom: 1px dotted #ddd;	
-}
- .wc-time-slot:nth-child(odd) {
+.wc-time-slot {
 	border-bottom: 1px dotted transparent;	
+}
+.wc-hour-end {
+	border-bottom: 1px solid #CCC !important;	
+}
+.wc-hour-start {
+	border-bottom: 1px solid transparent !important;	
+}
+.wc-hour-second {
+	border-bottom: 1px dotted #DDD !important;	
+}
+.wc-hour-third {
+	border-bottom: 1px dotted transparent !important;	
 }
 
  .wc-hour-header {
@@ -266,6 +272,10 @@
 }
 .wc-new-cal-event-creating {
 	background: #c42438;
+}
+.wc-cal-event.complete {
+	opacity: 0.3 !important;
+	text-decoration: line-through !important;
 }
 
  .wc-cal-event .wc-time {
