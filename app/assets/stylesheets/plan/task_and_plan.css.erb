@@ -1,0 +1,21 @@
+#day_plan_wrap .task_wrap.committed,
+#day_plan_wrap .task_wrap.scheduled {
+	opacity: 0.5;
+}
+#week_committed .task_wrap.committed {
+	opacity: 1.0;
+}
+#week_committed .task_wrap.scheduled,
+#day_plan .task_wrap.scheduled {
+	opacity: 0.5;
+}
+#week_committed .committed_wrap .task_wrap {
+	padding-left: 6px;
+	cursor: pointer;
+}
+#week_committed .committed_wrap .task_wrap .task {
+	padding: 6px 25px 6px 18px;
+}
+#week_committed .committed_wrap .task_wrap.outcome_ready .task {
+	padding: 6px 25px 6px 33px;
+}

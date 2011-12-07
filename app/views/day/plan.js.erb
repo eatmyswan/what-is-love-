@@ -42,10 +42,14 @@ $(document).ready(function() {
 			calculateMinD();
 		},
 		changedate: function($calendar, newDate){
+			$('#day_capture').attr('href','/day/capture/'+dbDate(newDate));
+			$('#day_plan').attr('href','/day/plan/'+dbDate(newDate));
+			$('#day_schedule').attr('href','/day/schedule/'+dbDate(newDate));
 			$('.side_title').text(day_names[newDate.getDay()]+'\'s Schedule');
 			$.get('/day/load_plan/' + db(newDate), function(data){
 				$('#day_plan_wrap').replaceWith(data);
-				$('#day_schedule').attr('href','/day/schedule/'+dbDate(newDate));
+				$('#plan_side .big_date').text(newDate.getDate().toString());
+				$('#plan_side .small_date_day').text(day_names[newDate.getDay()] + "\'s Schedule");
 				$("li.task_wrap.outcome_ready").addClass('outcome');
 				$("li.task_wrap.outcome_ready > .header").show();
 			});

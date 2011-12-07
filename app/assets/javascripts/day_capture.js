@@ -87,13 +87,13 @@ $('#capture_wrap ul.sortable, #side_plan').live("mouseover", function() {
 						$.ajax({
 							url: "/tasks/" + taskId,
 							type: 'PUT',
-							data: $.param({task : { plan: 'false', parent_id: childParentId, group_id: groupId, scheduled: 'false' }})
+							data: $.param({task : { plan: 'false', parent_id: childParentId, group_id: groupId, scheduled: 'false', committed: 'false' }})
 						});
 					} else {
 						$.ajax({
 							url: "/tasks/" + taskId,
 							type: 'PUT',
-							data: $.param({task : { plan: 'false', parent_id: '', group_id: groupId, scheduled: 'false' }})
+							data: $.param({task : { plan: 'false', parent_id: '', group_id: groupId, scheduled: 'false', committed: 'false' }})
 						});
 					}
 		

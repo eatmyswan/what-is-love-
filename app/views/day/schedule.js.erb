@@ -34,7 +34,9 @@ $(document).ready(function() {
 			calculateMinD();
 		},
 		changedate: function($calendar, newDate){
+			$('#day_capture').attr('href','/day/capture/'+dbDate(newDate));
 			$('#day_plan').attr('href','/day/plan/'+dbDate(newDate));
+			$('#day_schedule').attr('href','/day/schedule/'+dbDate(newDate));
 			$.get('/day/side/' + newDate.toString('yyyy-MM-dd 00:00:00'), function(data){
 				$('.categories_wrap').replaceWith(data);
 				calculateMinD();

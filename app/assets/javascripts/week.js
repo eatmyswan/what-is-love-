@@ -51,11 +51,12 @@ $(document).ready(function() {
 	$('#cluetip #delete_event').live('click',function(){
 		var taskId = $('#cluetip #edit_event .task_id').val();
 		var groupId = $('#cluetip #edit_event .group_id').val();
+		var open = $('#forecast').length === 0 ? 'true' : 'false';
 		if(groupId) {
 			$.ajax({
 				url: "/tasks/" + taskId,
 				type: 'PUT',
-				data: $.param({task : { scheduled: 'false', readOnly: 'false' }, nothing: 'true'}),
+				data: $.param({task : { scheduled: 'false', readOnly: 'false' }, open: open }),
 				success: function(data){
 					$(document).trigger('hideCluetip');
 					$('#forecast,#schedule,#side_schedule').weekCalendar('removeEvent', taskId);
@@ -117,6 +118,27 @@ $(document).ready(function() {
 				}
 			});
 		}
+	});
+
+	$('#week_committed .delete').live('click',function() {
+		var task = $(this).parents('.task_wrap').first();
+		var taskId = task.attr('id');
+		var open = $('#forecast').length === 0 ? 'true' : 'false';
+		if(task.hasClass('outcome_ready')){
+			open = 'true';
+		} else {
+			open = 'false';
+		}
+		var nothing = $('#forecast').length === 0 ? 'false' : 'true';
+		$.ajax({
+			url: "/tasks/" + taskId,
+			type: 'PUT',
+			data: $.param({task : { scheduled: 'false', committed: 'false', readOnly: 'false' }, open: open, nothing: nothing }),
+			success: function(data){
+				task.remove();
+				$('#forecast').weekCalendar('removeEvent', taskId);
+			}
+		});
 	});
 
 	function calculateMinD(){

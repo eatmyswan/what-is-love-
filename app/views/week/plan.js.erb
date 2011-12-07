@@ -7,6 +7,10 @@ $('.categories_wrap').replaceWith("<%= escape_javascript render('side_forecast')
 
 $(document).ready(function() {
 	
+	$('.day_wrap').each(function(){
+		calculateMinD($(this).find('.day_drop').first());
+	});
+	
 	$("#day_plan_wrap li.task_wrap.outcome_ready").addClass('outcome');
 	$("#day_plan_wrap li.task_wrap.outcome_ready > .header").show();
 	
@@ -18,7 +22,7 @@ $(document).ready(function() {
 		$(this).find('ul.action_plan').css({ 'min-height': height });
 	});
 
-	$('.day_drop').droppable({
+	$('ul.day_drop').droppable({
 		accept: '.task_wrap',
 		tolerance: 'pointer',
 		over: function(event,ui){
@@ -31,10 +35,17 @@ $(document).ready(function() {
 		drop: function(event,ui){
 			var taskId = ui.draggable.attr('id');
 			var date = $(this).attr('date');
-			
+
 			if(ui.draggable.parents('#day_plan_wrap').length === 0){
 				$(ui.draggable).appendTo(this);
+				var nothing = 'true';
 			} else {
+				if(ui.draggable.parents('.action_plan').length === 0){
+					open = 'true';
+				} else {
+					open = 'false';
+				}
+				var nothing = 'false';
 				var id = $(ui.draggable).attr('id');
 				$('#week_committed').find('#'+id).remove();
 				var clone = $(ui.draggable).clone();
@@ -44,12 +55,44 @@ $(document).ready(function() {
 			$.ajax({
 				url: "/tasks/" + taskId,
 				type: 'PUT',
-				data: $.param({task : { start: date, committed: 'true', scheduled: 'false', week: 'false' }, nothing: 'true' }),
+				data: $.param({task : { start: date, committed: 'true', scheduled: 'false', week: 'false', readOnly: 'false' }, open: open, nothing: nothing }),
 				success: function(){
 					$('.day_drop_over').removeClass('day_drop_over');
 				}
 			});
 		}
 	});
+	
+	function calculateMinD($dayDrop){
+		var minD = 0;
+		var minDTotal = 0;
+		
+		$dayDrop.each(function(){
+			$(this).find('.task_wrap').each(function(){
+				if(!$(this).hasClass('complete') && !$(this).parent().hasClass('action_plan')){
+					if($(this).hasClass('must')) { 
+						minD = parseInt($(this).attr('min_duration')) + minD;
+					}
+					minDTotal = parseInt($(this).attr('min_duration')) + minDTotal;
+				}
+			});
+			
+			
+			
+			var hour = parseInt(minD/60).toString();
+			var min = parseInt(minD%60).toString();
+			hour = (hour.length == 1) ? '0'+hour : hour;
+			min = (min.length == 1) ? '0'+min : min;
+	
+			var hourTotal = parseInt(minDTotal/60).toString();
+			var minTotal = parseInt(minDTotal%60).toString();
+			hourTotal = (hourTotal.length == 1) ? '0'+hourTotal : hourTotal;
+			minTotal = (minTotal.length == 1) ? '0'+minTotal : minTotal;
+	
+			$(this).parent().find('.must_wrap .time').first().text(hour+':'+min);
+			$(this).parent().find('.total_wrap .time').first().text(hourTotal+':'+minTotal);
+			
+		});
+	}
 
 });
