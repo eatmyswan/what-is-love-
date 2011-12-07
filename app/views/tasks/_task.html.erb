@@ -51,12 +51,12 @@
 		<div class="purpose_title">Purpose</div>
 	</div>
 	<div class="actions_wrap">
+	<% if action_plan == 'true' %>
 		<ul id="<%= task.id %>_incomplete" class="action_plan in_outcome sortable"> 
 
-			
 			<% task.group.tasks.where(parent_id: task.id).and(complete: false).order_by([:sort, :asc]).each do |task| %>
 				
-				<%= render :partial => '/tasks/task', :locals => { :task => task } %>
+				<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true' } %>
 				
 			<% end %>
 			
@@ -64,8 +64,9 @@
 		
 		<ul id="<%= task.id %>_complete" class="in_outcome">
 			<% task.group.tasks.where(parent_id: task.id).and(complete: true).each do |task| %>
-				<%= render :partial => '/tasks/task', :locals => { :task => task } %>
+				<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true' } %>
 			<% end %>
 		</ul>
+	<% end %>
 	</div>
 </li> 

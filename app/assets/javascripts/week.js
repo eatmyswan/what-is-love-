@@ -137,9 +137,40 @@ $(document).ready(function() {
 			success: function(data){
 				task.remove();
 				$('#forecast').weekCalendar('removeEvent', taskId);
+				calculateMinDCommitted();
 			}
 		});
 	});
+	
+	function calculateMinDCommitted(){
+	$('.day_drop').each(function(){
+		
+		var minD = 0;
+		var minDTotal = 0;
+	
+		$(this).find('.task_wrap').each(function(){
+			if(!$(this).hasClass('complete')){
+				if($(this).hasClass('must')) { 
+					minD = parseInt($(this).attr('min_duration')) + minD;
+				}
+				minDTotal = parseInt($(this).attr('min_duration')) + minDTotal;
+			}
+		});
+
+		var hour = parseInt(minD/60).toString();
+		var min = parseInt(minD%60).toString();
+		hour = (hour.length == 1) ? '0'+hour : hour;
+		min = (min.length == 1) ? '0'+min : min;
+
+		var hourTotal = parseInt(minDTotal/60).toString();
+		var minTotal = parseInt(minDTotal%60).toString();
+		hourTotal = (hourTotal.length == 1) ? '0'+hourTotal : hourTotal;
+		minTotal = (minTotal.length == 1) ? '0'+minTotal : minTotal;
+
+		$(this).parent().find('.must_wrap .time').first().text(hour+':'+min);
+		$(this).parent().find('.total_wrap .time').first().text(hourTotal+':'+minTotal);
+	});
+}
 
 	function calculateMinD(){
 		var minD = 0;

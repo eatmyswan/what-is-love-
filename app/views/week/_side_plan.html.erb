@@ -13,7 +13,7 @@
 		
 		<ul id="side_plan" class="sortable add_to_plan">
 			<% @plans.each do |task| %>
-				<%= render :partial => '/tasks/task', :locals => { :task => task } %>
+				<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true' } %>
 			<% end %>
 		</ul>
 		<div id="capture_empty" style="<%= 'display: none;' if @plans.count > 0 %>"></div>

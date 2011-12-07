@@ -6,10 +6,8 @@ $('.categories_wrap').replaceWith("<%= escape_javascript render('side_forecast')
 
 
 $(document).ready(function() {
-	
-	$('.day_wrap').each(function(){
-		calculateMinD($(this).find('.day_drop').first());
-	});
+
+	calculateMinD();
 	
 	$("#day_plan_wrap li.task_wrap.outcome_ready").addClass('outcome');
 	$("#day_plan_wrap li.task_wrap.outcome_ready > .header").show();
@@ -49,6 +47,7 @@ $(document).ready(function() {
 				var id = $(ui.draggable).attr('id');
 				$('#week_committed').find('#'+id).remove();
 				var clone = $(ui.draggable).clone();
+				clone.find('.action_plan').html('');
 				clone.appendTo(this).addClass('committed').removeClass('outcome').find('.header').hide();
 			}
 
@@ -58,41 +57,41 @@ $(document).ready(function() {
 				data: $.param({task : { start: date, committed: 'true', scheduled: 'false', week: 'false', readOnly: 'false' }, open: open, nothing: nothing }),
 				success: function(){
 					$('.day_drop_over').removeClass('day_drop_over');
+					calculateMinD();
 				}
 			});
 		}
 	});
 	
-	function calculateMinD($dayDrop){
+function calculateMinD(){
+	$('.day_drop').each(function(){
+		
 		var minD = 0;
 		var minDTotal = 0;
-		
-		$dayDrop.each(function(){
-			$(this).find('.task_wrap').each(function(){
-				if(!$(this).hasClass('complete') && !$(this).parent().hasClass('action_plan')){
-					if($(this).hasClass('must')) { 
-						minD = parseInt($(this).attr('min_duration')) + minD;
-					}
-					minDTotal = parseInt($(this).attr('min_duration')) + minDTotal;
+	
+		$(this).find('.task_wrap').each(function(){
+			if(!$(this).hasClass('complete')){
+				if($(this).hasClass('must')) { 
+					minD = parseInt($(this).attr('min_duration')) + minD;
 				}
-			});
-			
-			
-			
-			var hour = parseInt(minD/60).toString();
-			var min = parseInt(minD%60).toString();
-			hour = (hour.length == 1) ? '0'+hour : hour;
-			min = (min.length == 1) ? '0'+min : min;
-	
-			var hourTotal = parseInt(minDTotal/60).toString();
-			var minTotal = parseInt(minDTotal%60).toString();
-			hourTotal = (hourTotal.length == 1) ? '0'+hourTotal : hourTotal;
-			minTotal = (minTotal.length == 1) ? '0'+minTotal : minTotal;
-	
-			$(this).parent().find('.must_wrap .time').first().text(hour+':'+min);
-			$(this).parent().find('.total_wrap .time').first().text(hourTotal+':'+minTotal);
-			
+				minDTotal = parseInt($(this).attr('min_duration')) + minDTotal;
+			}
 		});
-	}
+
+		var hour = parseInt(minD/60).toString();
+		var min = parseInt(minD%60).toString();
+		hour = (hour.length == 1) ? '0'+hour : hour;
+		min = (min.length == 1) ? '0'+min : min;
+
+		var hourTotal = parseInt(minDTotal/60).toString();
+		var minTotal = parseInt(minDTotal%60).toString();
+		hourTotal = (hourTotal.length == 1) ? '0'+hourTotal : hourTotal;
+		minTotal = (minTotal.length == 1) ? '0'+minTotal : minTotal;
+
+		$(this).parent().find('.must_wrap .time').first().text(hour+':'+min);
+		$(this).parent().find('.total_wrap .time').first().text(hourTotal+':'+minTotal);
+	});
+}
+	
 
 });

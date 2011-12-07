@@ -1,7 +1,7 @@
 if($('#day_plan_wrap').length === 0) {
-	$("#<%= @task.id.to_s %>").replaceWith("<%= escape_javascript render(:partial => 'task', :locals => { :task => @task } ) %>");
+	$("#<%= @task.id.to_s %>").replaceWith("<%= escape_javascript render(:partial => 'task', :locals => { :task => @task, :action_plan => 'true' } ) %>");
 } else {
-	$("#day_plan_wrap #<%= @task.id.to_s %>").replaceWith("<%= escape_javascript render(:partial => 'task', :locals => { :task => @task } ) %>");
+	$("#day_plan_wrap #<%= @task.id.to_s %>").replaceWith("<%= escape_javascript render(:partial => 'task', :locals => { :task => @task, :action_plan => 'true' } ) %>");
 }
 
 $(document).ready(function() {
