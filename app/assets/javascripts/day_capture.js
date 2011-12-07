@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-$('ul.sortable .icon').live("mouseover", function() {
+$('#capture_wrap ul.sortable .icon').live("mouseover", function() {
 	if (!$(this).data("init")) {
 		$(this).data("init", true);
 		$(this).cluetip({

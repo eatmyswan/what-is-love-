@@ -23,12 +23,15 @@
 		<span class="task drag result">
 			<%= task.title %>
 		</span>
-		<form class="edit_task no_disp" method="post" action="tits">
+		<form class="edit_task no_disp" method="post" action="#">
 			<input type="text" value="<%= task.title %>" class="edit_task_text">
 		</form>
 	</div>
 	<div class="purpose_wrap">
 		<%= render :partial => '/tasks/task_purpose', :locals => { :task => task } %>
+	</div>
+	<div class="result_wrap">
+		<%= render :partial => '/tasks/task_result', :locals => { :task => task } %>
 	</div>
 	<div class="header">
 		<span class="target outcome"></span>
@@ -38,139 +41,19 @@
 	</div>
 	<div class="actions_wrap">
 		<ul id="<%= task.id %>_incomplete" class="action_plan in_outcome sortable"> 
-			<% total_min_time = 0 %>
-			<% total_max_time = 0 %>
-			<% must_time = 0 %>
+
+			
 			<% task.group.tasks.where(parent_id: task.id).and(complete: false).order_by([:sort, :asc]).each do |task| %>
-				<% total_min_time = total_min_time + task.min_duration if task.min_duration %>
-				<% total_max_time = total_max_time + task.max_duration if task.max_duration %>
-				<% must_time = must_time + task.min_duration if task.must == true && task.min_duration %>
-				<li id="<%= task.id %>" class="task_wrap sortable <%= 'complete' if task.complete == true %>" start="<%= task.start %>" min_duration="<%= task.min_duration %>" group_id="<%= task.group.id.to_s %>">
-					<div class="outcome_wrap">
-						<span class="checkbox <%= 'active' if task.complete == true %>"></span>
-						<span class="target <%= 'active' if task.outcome == true %>"></span>
-						<span class="star <%= 'active' if task.must == true %>"></span>
-						<span class="date">
-							<%= schedule_date(task.start) if task.start %>
-						</span>
-						<span class="duration">
-							<%= min_duration(task.min_duration) if task.min_duration %>
-							<%= max_duration(task.min_duration, task.max_duration) if task.max_duration && task.min_duration %>
-						</span>
-						<span class="delete no_disp"></span>
-						<span class="edit no_disp"></span>
-						<span class="edit_done no_disp"></span>
-						<span class="task drag result">
-							<%= task.title %>
-						</span>
-						<form class="edit_task no_disp" method="post">
-							<input type="text" value="<%= task.title %>" class="edit_task_text">
-						</form>
-					</div>
-		
-					<div class="purpose_wrap"><%= task.purpose %></div>
-					<div class="header">
-						<span class="target outcome"></span>
-						<div class="action_title">Massive Action Plan</div>
-						<div class="outcome_title">Outcome / Result</div>
-						<div class="purpose_title">Purpose</div>
-					</div>
-					<div class="actions_wrap">
-						<ul id="<%= task.id %>_incomplete" class="action_plan sortable in_outcome"> 
-							<% task.group.tasks.where(parent_id: task.id).and(complete: false).order_by([:sort, :asc]).each do |task| %>
-								<li id="<%= task.id %>" class="task_wrap sortable <%= 'complete' if task.complete == true %>" start="<%= task.start %>" min_duration="<%= task.min_duration %>">
-									<div class="outcome_wrap">
-										<span class="checkbox <%= 'active' if task.complete == true %>"></span>
-										<span class="target <%= 'active' if task.outcome == true %>"></span>
-										<span class="star <%= 'active' if task.must == true %>"></span>
-										<span class="date">
-											<%= schedule_date(task.start) if task.start %>
-										</span>
-										<span class="duration">
-											<%= min_duration(task.min_duration) if task.min_duration %>
-											<%= max_duration(task.min_duration, task.max_duration) if task.max_duration && task.min_duration %>
-										</span>
-										<span class="delete no_disp"></span>
-										<span class="edit no_disp"></span>
-										<span class="edit_done no_disp"></span>
-										<span class="task drag result">
-											<%= task.title %>
-										</span>
-										<form class="edit_task no_disp" method="post" action="tits">
-											<input type="text" value="<%= task.title %>" class="edit_task_text">
-										</form>
-									</div>
-								</li>
-							<% end %>
-						</ul> 
-						<ul id="<%= task.id %>_complete" class="in_outcome">
-							<% task.group.tasks.where(parent_id: task.id).and(complete: true).each do |task| %>
-								<li id="<%= task.id %>" class="task_wrap complete" start="<%= task.start %>" min_duration="<%= task.min_duration %>">
-									<div class="outcome_wrap">
-										<span class="checkbox <%= 'active' if task.complete == true %>"></span>
-										<span class="target <%= 'active' if task.outcome == true %>"></span>
-										<span class="star <%= 'active' if task.must == true %>"></span>
-										<span class="date">
-											<%= schedule_date(task.start) if task.start %>
-										</span>
-										<span class="duration">
-											<%= min_duration(task.min_duration) if task.min_duration %>
-											<%= max_duration(task.min_duration, task.max_duration) if task.max_duration && task.min_duration %>
-										</span>
-										<span class="delete no_disp"></span>
-										<span class="edit no_disp"></span>
-										<span class="edit_done no_disp"></span>
-										<span class="task drag result">
-											<%= task.title %>
-										</span>
-										<form class="edit_task no_disp" method="post" action="tits">
-											<input type="text" value="<%= task.title %>" class="edit_task_text">
-										</form>
-									</div>
-								</li>
-							<% end %>
-						</ul>
-					</div>
-	
-				</li>
+				
+				<%= render :partial => '/tasks/task', :locals => { :task => task } %>
+				
 			<% end %>
+			
 		</ul> 
-		<div class="outcome_time" style="<%= 'display: none;' if total_min_time.to_i == 0 %>">
-			<% if must_time > 0 %>
-				Must <%= total_time(must_time) %>
-			<% end %>
-			<% if total_min_time > 0 %>
-				Total <%= total_time(total_min_time) %>
-			<% end %>
-			<% if total_max_time != total_min_time %>
-			 - <%= total_time(total_max_time) %>
-			<% end %>
-		</div>
+		
 		<ul id="<%= task.id %>_complete" class="in_outcome">
 			<% task.group.tasks.where(parent_id: task.id).and(complete: true).each do |task| %>
-				<li id="<%= task.id %>" class="task_wrap complete" start="<%= task.start %>" min_duration="<%= task.min_duration %>">
-					<div class="outcome_wrap">
-						<span class="checkbox <%= 'active' if task.complete == true %>"></span>
-						<span class="target <%= 'active' if task.outcome == true %>"></span>
-						<span class="star <%= 'active' if task.must == true %>"></span>
-						<span class="date">
-							<%= schedule_date(task.start) if task.start %>
-						</span>
-						<span class="duration">
-							<%= min_duration(task.min_duration) if task.min_duration %>
-							<%= max_duration(task.min_duration, task.max_duration) if task.max_duration && task.min_duration %>
-						</span>
-						<span class="delete no_disp"></span>
-						<span class="edit no_disp"></span>
-						<span class="edit_done no_disp"></span>
-						<span class="task drag result">
-							<%= task.title %>
-						</span>
-						<form class="edit_task no_disp" method="post" action="tits">
-							<input type="text" value="<%= task.title %>" class="edit_task_text">
-						</form>
-					</div>
-				</li>
+				<%= render :partial => '/tasks/task', :locals => { :task => task } %>
 			<% end %>
 		</ul>
 	</div>

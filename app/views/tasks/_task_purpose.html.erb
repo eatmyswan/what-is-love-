@@ -1,11 +1,12 @@
 <div class="purposes">
-	<div class="purpose_group" group_id="<%= task.group.id.to_s %>">
-		<%= task.group.title %>
-	</div>
-	<div class="purpose">
-	<%= task.purpose %>
-	</div>
 	<form class="add_purpose no_disp">
-		<input type="text" value="" class="edit_task_text">
+		<input type="text" value="<%= task.purpose %>" class="edit_task_text">
 	</form>
+	<div class="purpose">
+		<%= task.purpose %>
+	</div>
+	<div class="purpose_group">
+		<span class="img_wrap"><%= image_tag task.group.images.forward.first.image.tiny if task.group.images.forward.first %></span>
+		<span class="title_wrap"><%= task.group.title %></span>
+	</div>
 </div>

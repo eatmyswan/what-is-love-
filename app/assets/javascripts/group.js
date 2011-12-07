@@ -4,6 +4,7 @@ $('#plan_wrap ul.sortable').live("mouseover", function() {
 	if (!$(this).data("init")) {
 		$(this).data("init", true);
 		$(this).sortable({
+			items: ".task_wrap",
 		    connectWith: "ul.sortable",
 		    placeholder: "drop_task",
 			tolerance: "pointer",
@@ -19,7 +20,7 @@ $('#plan_wrap ul.sortable').live("mouseover", function() {
 				var parentElement = ui.item[0].parentElement;
 	
 				if(!$(parentElement).hasClass('action_plan')){
-					$('#incomplete > li').each(function(index){
+					$('#incomplete > li.task_wrap').each(function(index){
 						$.ajax({
 							url: "/tasks/" + $(this).attr('id'),
 							type: 'PUT',

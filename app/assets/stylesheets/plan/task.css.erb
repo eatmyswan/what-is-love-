@@ -59,10 +59,12 @@ li.task_wrap .star {
 li.task_wrap .star.active{
 	background-position: 0 -15px;
 }
-li.task_wrap .task, li.task_wrap.outcome li.task_wrap .task {
+li.task_wrap .task, 
+li.task_wrap.outcome li.task_wrap .task {
 	display: block;
 	padding: 6px 50px 6px 43px;
 }
+
 li.task_wrap.outcome li.task_wrap {
 	border-radius: 0;
 }
@@ -199,16 +201,20 @@ li.task_wrap.outcome .actions_wrap {
 li.task_wrap.outcome .actions_wrap ul.action_plan {
 	padding-top: 25px;
 }
-li.task_wrap.outcome .outcome_wrap {
+li.task_wrap .result_wrap {
+	display: none;
+}
+li.task_wrap.outcome .result_wrap {
 	display: block;
 	position: absolute;
 	top: 0;
 	bottom: 0;
 	right: 200px;
-	width: 200px;
+	width: 180px;
 	border-left: 1px solid #CCC;
+	padding: 35px 10px 10px;
 }
-li.task_wrap.outcome .outcome_wrap .task {
+li.task_wrap.outcome .result_wrap .task {
 	padding-top: 35px;
 }
 li.task_wrap.outcome .purpose_wrap {
@@ -220,19 +226,22 @@ li.task_wrap.outcome .purpose_wrap {
 	border-left: 1px solid #CCC;
 }
 li.task_wrap.outcome ul.in_outcome li.task_wrap .outcome_wrap{
-	position: relative;
-	right: auto;
-	width: auto;
-	border-left: none;
-}
-li.task_wrap.outcome ul.in_outcome li.task_wrap .outcome_wrap .target {
-	display: none;
-}
-li.task_wrap .actions_wrap, li.task_wrap .purpose_wrap {
-	display: none;
-}
-li.task_wrap.outcome .actions_wrap, li.task_wrap.outcome .purpose_wrap {
 	display: block;
+}
+li.task_wrap.outcome ul.in_outcome li.task_wrap .outcome_wrap .target,
+li.task_wrap.outcome ul.in_outcome li.task_wrap .result_wrap {
+	display: none;
+}
+li.task_wrap .actions_wrap, 
+li.task_wrap .purpose_wrap {
+	display: none;
+}
+li.task_wrap.outcome .actions_wrap, 
+li.task_wrap.outcome .purpose_wrap {
+	display: block;
+}
+li.task_wrap.outcome .outcome_wrap {
+	display: none;
 }
 li.task_wrap.outcome .purpose_wrap .purposes {
 	margin: 35px 10px 0;
