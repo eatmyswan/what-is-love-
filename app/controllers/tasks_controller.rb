@@ -44,11 +44,17 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     
+    @open = params[:open] ? 'true' : 'false'
+
+    
     if params[:task]
       @task.update_attributes(params[:task])
-      if params[:task][:end]
+      if params[:nothing]
+        render :nothing => true
+      end
+      if params[:json]
         render :json => @task
-      elsif params[:task][:sort] || params[:task][:complete] || params[:task][:purpose] || params[:task][:must]
+      elsif params[:task][:sort] || params[:task][:complete] || params[:task][:must]
         render :nothing => true
       end
     end

@@ -172,7 +172,12 @@ li.task_wrap .edit_done {
 	margin: 6px 8px 0 0;
 	display: none;
 }
-li.task_wrap.editing .target, li.task_wrap.editing .edit_done, li.task_wrap.editing .delete, li.task_wrap.editing .email, li.task_wrap.editing .note, li.task_wrap.editing .calendar {
+li.task_wrap.editing .target, 
+li.task_wrap.editing .edit_done, 
+li.task_wrap.editing .delete, 
+li.task_wrap.editing .email, 
+li.task_wrap.editing .note, 
+li.task_wrap.editing .calendar {
 	display: block !important;
 }
 
@@ -248,13 +253,19 @@ li.task_wrap.outcome .purpose_wrap .purposes {
 }
 li.task_wrap.outcome .purpose_wrap .purpose {
 	margin: 0 0 10px 0;
+	min-height: 15px;
 }
-li.task_wrap.outcome .purpose_wrap:hover .add_purpose{
-	display: block;
+li.task_wrap.outcome .purpose_wrap .add_purpose {
+	display: none;
+	margin: 0 0 10px 0;
 }
-li.task_wrap.outcome .purpose_wrap input {
+li.task_wrap.outcome .result_wrap .edit_result_form {
+	display: none;
+}
+li.task_wrap.outcome .purpose_wrap input,
+li.task_wrap.outcome .result_wrap input {
 	display: block;
-	width: 160px;
+	width: 145px;
 	background: white;
 	border: 1px solid #CCC;
 	border-radius: 10px;
@@ -263,16 +274,66 @@ li.task_wrap.outcome .purpose_wrap input {
 	font-size: 13px;
 	padding: 1px 7px;
 }
-li.task_wrap.outcome li.task_wrap .actions_wrap, li.task_wrap.outcome li.task_wrap .purpose_wrap {
+li.task_wrap.outcome li.task_wrap .actions_wrap, 
+li.task_wrap.outcome li.task_wrap .purpose_wrap {
 	display: none;
 }
-li.task_wrap.outcome .checkbox, li.task_wrap.outcome .target.active, li.task_wrap.outcome .star, li.task_wrap.outcome .edit, li.task_wrap.outcome .delete {
+li.task_wrap.outcome .checkbox, 
+li.task_wrap.outcome .target.active, 
+li.task_wrap.outcome .star, 
+li.task_wrap.outcome .edit, 
+li.task_wrap.outcome .delete {
 	display: none;
 }
-li.task_wrap.outcome li.task_wrap .checkbox, li.task_wrap.outcome li.task_wrap .star {
+li.task_wrap.outcome .purpose_wrap .edit_purpose,
+li.task_wrap.outcome .result_wrap .edit_result {
+	width: 15px;
+	height: 15px;
+	background: url(<%= asset_path 'edit.png' %>) no-repeat;
+	cursor: pointer;
+	opacity: 0.5;
+	display: none;
+	float: right;
+	margin: 1px 0 0 0;
+}
+li.task_wrap.outcome .purpose_wrap:hover .edit_purpose,
+li.task_wrap.outcome .result_wrap:hover .edit_result {
 	display: block;
 }
-li.task_wrap.outcome li.task_wrap:hover .edit, li.task_wrap.outcome li.task_wrap:hover .delete {
+li.task_wrap.outcome .purpose_wrap .edit_purpose_done,
+li.task_wrap.outcome .result_wrap .edit_result_done {
+	width: 15px;
+	height: 15px;
+	background: url(<%= asset_path 'edit_done.png' %>) no-repeat;
+	cursor: pointer;
+	opacity: 0.5;
+	display: none;
+	float: right;
+	margin: 1px 0 0 0;
+}
+li.task_wrap.outcome .purpose_wrap.editing .edit_purpose,
+li.task_wrap.outcome .result_wrap.editing .edit_result {
+	display: none;
+}
+li.task_wrap.outcome .purpose_wrap.editing .edit_purpose_done,
+li.task_wrap.outcome .result_wrap.editing .edit_result_done {
+	display: block;
+}
+li.task_wrap.outcome .purpose_wrap.editing .add_purpose,
+li.task_wrap.outcome .result_wrap.editing .edit_result_form {
+	display: block;
+}
+li.task_wrap.outcome .purpose_wrap.editing .purpose,
+li.task_wrap.outcome .result_wrap.editing .result_text  {
+	display: none;
+}
+
+li.task_wrap.outcome li.task_wrap .checkbox, 
+li.task_wrap.outcome li.task_wrap .star {
+	display: block;
+}
+li.task_wrap.outcome li.task_wrap:hover .edit, 
+li.task_wrap.outcome li.task_wrap:hover .delete {
 	display: block;
 }
 li.task_wrap.outcome li.task_wrap.editing .target {

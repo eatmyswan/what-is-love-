@@ -14,6 +14,7 @@ class DayController < ApplicationController
     @start_date = Date.new(@date.year, @date.month, @date.day)
     @end_date = @start_date + 1.day
     @plans = Task.where(:start.gte => @start_date, :start.lt => @end_date).and(parent_id: nil).and(plan: true).and(week: false).order_by([:sort, :asc])
+    @open = 'true'
   end
   
   def schedule    

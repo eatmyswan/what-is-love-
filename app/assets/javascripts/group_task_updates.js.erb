@@ -115,7 +115,6 @@ $('#email_wrap .modal_submit_wrap').live('click',function() {
 	$.fancybox.close();
 });
 
-
 $('#group .checkbox').live('click',function(){
 	var checkbox = $(this);
 	var task = $(this).parents('li').first();
@@ -238,6 +237,23 @@ $('#incomplete .edit').live('click',function(){
 	task.find('.task').hide();
 	task.find('.edit_task').removeClass('no_disp');
 });
+
+$('li.task_wrap.outcome .purpose_wrap .edit_purpose').live('click',function(){
+	var pWrap = $(this).parents('.purpose_wrap').addClass('editing');
+});
+
+$('li.task_wrap.outcome .purpose_wrap .edit_purpose_done').live('click',function(){
+	$(this).parents('.purpose_wrap').find('.add_purpose').submit();
+});
+
+$('li.task_wrap.outcome .result_wrap .edit_result').live('click',function(){
+	var pWrap = $(this).parents('.result_wrap').addClass('editing');
+});
+
+$('li.task_wrap.outcome .result_wrap .edit_result_done').live('click',function(){
+	$(this).parents('.result_wrap').find('.edit_result_form').submit();
+});
+
 	
 $('#incomplete .edit_done').live('click', function() {
 	editingDone();
@@ -274,13 +290,28 @@ $('#incomplete .target.outcome').live('click', function(){
 
 $('#incomplete .add_purpose').live('submit',function(event){
 	event.preventDefault();
+	$(this).parents('.purpose_wrap').removeClass('editing');
 	var purpose = $(this).find('input').val();
 	var taskId = $(this).parents('li').first().attr('id');
 	$(this).parents('li').first().find('.purpose').first().text(purpose);
 	$.ajax({
 		url: "/tasks/" +  taskId,
 		type: 'PUT',
-		data: $.param({task : { purpose: purpose }})
+		data: $.param({task : { purpose: purpose }, open: 'true'})
+	});
+	return false;
+});
+
+$('#incomplete .edit_result_form').live('submit',function(event){
+	event.preventDefault();
+	$(this).parents('.result_wrap').removeClass('editing');
+	var result = $(this).find('input').val();
+	var taskId = $(this).parents('li').first().attr('id');
+	$(this).parents('li').first().find('.result_text').first().text(result);
+	$.ajax({
+		url: "/tasks/" +  taskId,
+		type: 'PUT',
+		data: $.param({task : { title: result }, open: 'true'})
 	});
 	return false;
 });
@@ -289,7 +320,6 @@ $('.delete_note').live('click', function() {
 	$(this).parent().parent().remove();
 	notes_index();
 });
-
 
 $('#notes_wrap').live('click',function() {
 	$('#new_note').focus();

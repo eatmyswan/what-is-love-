@@ -1,1 +1,16 @@
 $("#<%= @task.id.to_s %>").replaceWith("<%= escape_javascript render(:partial => 'task', :locals => { :task => @task } ) %>");
+
+$(document).ready(function() {
+	if("<%= @open %>" == 'true'){
+		$("#<%= @task.id.to_s %>").addClass('outcome');
+		$("#<%= @task.id.to_s %> > .header").show();
+
+		var pHeight = $("#<%= @task.id.to_s %>").find('.purpose').height() + 10;
+			if($('#plan_day_wrap').length == 1) pHeight = pHeight + 25;
+		var rHeight = $("#<%= @task.id.to_s %>").find('.result_text').height() + 10;
+		var height = pHeight > rHeight ? pHeight : rHeight;
+		height = height > 26 ? height : 26;
+		$("#<%= @task.id.to_s %>").find('ul.action_plan').css({ 'min-height': height });
+		
+	}
+});

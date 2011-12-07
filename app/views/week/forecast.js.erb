@@ -52,7 +52,7 @@ $(document).ready(function() {
 		$.ajax({
 			url: "/tasks/" +  taskId,
 			type: 'PUT',
-			data: $.param({task : { start: start, end: end, scheduled: 'true' }})
+			data: $.param({task : { start: start, end: end, scheduled: 'true' }, nothing: 'true'})
 		});
       },
       eventResize : function(calEvent, $event) {
@@ -63,7 +63,7 @@ $(document).ready(function() {
 		$.ajax({
 			url: "/tasks/" +  taskId,
 			type: 'PUT',
-			data: $.param({task : { start: start, end: end, min_duration: min_duration }})
+			data: $.param({task : { start: start, end: end, min_duration: min_duration }, nothing: 'true'})
 		});
       },
       eventClick : function(calEvent, $event) {

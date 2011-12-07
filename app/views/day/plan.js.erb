@@ -3,11 +3,20 @@ $('#day').addClass('active');
 $('#pad').replaceWith("<%= escape_javascript render('plan')  %>");
 $('.categories_wrap').replaceWith("<%= escape_javascript render('side_schedule')  %>");
 
-$('ul.incomplete_task_list').children().each(function() {
-	$(this).find('.target.active').first().trigger('click');
-});
-
 $(document).ready(function() {
+	
+	if("<%= @open %>" == 'true'){
+		$("li.task_wrap.outcome_ready").addClass('outcome');
+		$("li.task_wrap.outcome_ready > .header").show();
+	}
+	
+	$("li.task_wrap.outcome").each(function(){
+		var pHeight = $(this).find('.purpose').height() + 30;
+		var rHeight = $(this).find('.result_text').height() + 10;
+		var height = pHeight > rHeight ? pHeight : rHeight;
+		height = height > 26 ? height : 26;
+		$(this).find('ul.action_plan').css({ 'min-height': height });
+	});
 
 	var $calendar = $('#side_schedule');
 	var now = new Date();
@@ -62,7 +71,7 @@ $(document).ready(function() {
 			$.ajax({
 				url: "/tasks/" +  taskId,
 				type: 'PUT',
-				data: $.param({task : { start: start, end: end, scheduled: 'true', min_duration: min_duration }}),
+				data: $.param({task : { start: start, end: end, scheduled: 'true', min_duration: min_duration }, json: 'true'}),
 				success: function(data){
 					$('#side_schedule').weekCalendar('updateEvent', data);
 					calculateMinD();
@@ -78,7 +87,7 @@ $(document).ready(function() {
 			$.ajax({
 				url: "/tasks/" +  taskId,
 				type: 'PUT',
-				data: $.param({task : { start: start, end: end, min_duration: min_duration }})
+				data: $.param({task : { start: start, end: end, min_duration: min_duration }, nothing: 'true'})
 			});
 			calculateMinD();
 		},

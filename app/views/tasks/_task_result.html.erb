@@ -1,3 +1,10 @@
-<div class="result_text">
-	<%= task.title %>
+<div class="result_text_wrap">
+	<span class="edit_result"></span>
+	<span class="edit_result_done"></span>
+	<form class="edit_result_form">
+		<input type="text" value="<%= task.title %>" class="edit_task_text">
+	</form>
+	<div class="result_text">
+		<%= task.title %>
+	</div>
 </div>

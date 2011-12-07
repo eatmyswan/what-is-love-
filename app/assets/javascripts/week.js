@@ -20,7 +20,7 @@ $(document).ready(function() {
 		$.ajax({
 			url: "/tasks",
 			type: 'POST',
-			data: $.param({task : { title: title, start: start, end: end, min_duration: minD, readOnly: 'true', scheduled: 'true' }}),
+			data: $.param({task : { title: title, start: start, end: end, min_duration: minD, readOnly: 'true', scheduled: 'true' }, json: 'true'}),
 			success: function(data){
 				$(document).trigger('hideCluetip');
 				$('#forecast,#schedule,#side_schedule').weekCalendar('updateEvent', data);
@@ -39,7 +39,7 @@ $(document).ready(function() {
 		$.ajax({
 			url: "/tasks/" + taskId,
 			type: 'PUT',
-			data: $.param({task : { title: title, start: start, end: end, readOnly: readonly, complete: complete }}),
+			data: $.param({task : { title: title, start: start, end: end, readOnly: readonly, complete: complete }, json: 'true'}),
 			success: function(data){
 				$(document).trigger('hideCluetip');
 				$('#forecast,#schedule,#side_schedule').weekCalendar('updateEvent', data);
@@ -55,7 +55,7 @@ $(document).ready(function() {
 			$.ajax({
 				url: "/tasks/" + taskId,
 				type: 'PUT',
-				data: $.param({task : { scheduled: 'false', readOnly: 'false' }}),
+				data: $.param({task : { scheduled: 'false', readOnly: 'false' }, nothing: 'true'}),
 				success: function(data){
 					$(document).trigger('hideCluetip');
 					$('#forecast,#schedule,#side_schedule').weekCalendar('removeEvent', taskId);
