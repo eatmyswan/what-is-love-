@@ -7,10 +7,10 @@ $('.categories_wrap').replaceWith("<%= escape_javascript render('side_forecast')
 
 $(document).ready(function() {
 	
-	$("li.task_wrap.outcome_ready").addClass('outcome');
-	$("li.task_wrap.outcome_ready > .header").show();
+	$("#day_plan_wrap li.task_wrap.outcome_ready").addClass('outcome');
+	$("#day_plan_wrap li.task_wrap.outcome_ready > .header").show();
 	
-	$("li.task_wrap.outcome").each(function(){
+	$("#day_plan_wrap li.task_wrap.outcome").each(function(){
 		var pHeight = $(this).find('.purpose').height() + 30;
 		var rHeight = $(this).find('.result_text').height() + 10;
 		var height = pHeight > rHeight ? pHeight : rHeight;
@@ -32,10 +32,19 @@ $(document).ready(function() {
 			var taskId = ui.draggable.attr('id');
 			var date = $(this).attr('date');
 			
+			if(ui.draggable.parents('#day_plan_wrap').length === 0){
+				$(ui.draggable).appendTo(this);
+			} else {
+				var id = $(ui.draggable).attr('id');
+				$('#week_committed').find('#'+id).remove();
+				var clone = $(ui.draggable).clone();
+				clone.appendTo(this).addClass('committed').removeClass('outcome').find('.header').hide();
+			}
+
 			$.ajax({
 				url: "/tasks/" + taskId,
 				type: 'PUT',
-				data: $.param({task : { start: date, end: date+' 01:00:00', scheduled: 'true', week: 'false' }, open: 'true' }),
+				data: $.param({task : { start: date, committed: 'true', scheduled: 'false', week: 'false' }, nothing: 'true' }),
 				success: function(){
 					$('.day_drop_over').removeClass('day_drop_over');
 				}

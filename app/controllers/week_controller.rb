@@ -19,11 +19,14 @@ class WeekController < ApplicationController
     @start_date = Date.new(@date.year, @date.month, @date.day).beginning_of_week
     @end_date = @start_date + 6.days
     @plans = Task.where(:start.gte => @start_date, :start.lt => @end_date).and(parent_id: nil).and(plan: true).and(:group_id.ne => nil).order_by([:sort, :asc])
+    @tasks = Task.where(:start.gte => @start_date, :start.lt => @end_date).and(committed: true)
   end
   
   def forecast    
     @date = params[:start_date].to_time().at_midnight
     @start_date = Date.new(@date.year, @date.month, @date.day).beginning_of_week
+    @end_date = @start_date + 6.days
+    @tasks = Task.where(:start.gte => @start_date, :start.lt => @end_date).and(committed: true)
   end
   
 end

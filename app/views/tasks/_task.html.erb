@@ -1,4 +1,4 @@
-<li id="<%= task.id.to_s %>" class="task_wrap sortable <%= 'outcome_ready' if task.outcome == true %> <%= 'complete' if task.complete == true %>" start="<%= task.start %>" min_duration="<%= task.min_duration %>" group_id="<%= task.group.id.to_s %>" max_duration="<%= task.max_duration %>">
+<li id="<%= task.id.to_s %>" class="task_wrap sortable <%= 'outcome_ready' if task.outcome == true %> <%= 'committed' if task.committed == true %> <%= 'complete' if task.complete == true %>" start="<%= task.start %>" min_duration="<%= task.min_duration %>" group_id="<%= task.group.id.to_s %>" max_duration="<%= task.max_duration %>">
 	
 	<div class="outcome_wrap">
 		<span class="checkbox <%= 'active' if task.complete == true %>"></span>

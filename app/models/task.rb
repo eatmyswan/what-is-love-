@@ -7,16 +7,12 @@ class Task
   field :sort, type: Integer, default: 0
   field :start, type: DateTime, default: nil
   field :end, type: DateTime, default: nil
-  field :due_by, type: DateTime, default: nil
   field :min_duration, type: Integer, default: 0
   field :max_duration, type: Integer, default: 0
-  field :queued, type: Boolean, default: false
+  field :committed, type: Boolean, default: false
   field :scheduled, type: Boolean, default: false
-  field :leverage, type: String, default: nil
-  field :notes, type: String, default: nil
   field :outcome, type: Boolean, default: false
   field :purpose, type: String, default: nil
-  field :collapsed, type: Boolean, default: true
   field :parent_id, type: String, default: nil
   field :plan, type: Boolean, default: false
   field :week, type: Boolean, default: false
@@ -46,7 +42,6 @@ class Task
   private
   
   def nil_if_blank
-    self.leverage = nil if self.leverage.blank?
     self.start = nil if self.start.blank?
     self.parent_id = nil if self.parent_id.blank?
     self.end = nil if self.end.blank?

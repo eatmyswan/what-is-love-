@@ -13,7 +13,7 @@
 		</div>
 		
 		<ul id="side_plan" class="sortable add_to_plan">
-			<% @plans.each do |task,index| %>
+			<% @plans.each do |task| %>
 				<%= render :partial => '/tasks/task', :locals => { :task => task } %>
 			<% end %>
 		</ul>

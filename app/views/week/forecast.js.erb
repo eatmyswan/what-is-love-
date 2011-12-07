@@ -1,7 +1,7 @@
 $('.filters_wrap a').removeClass('active');
 $('#week').addClass('active');
 $('#pad').replaceWith("<%= escape_javascript render('forecast')  %>");
-$('.categories_wrap').replaceWith("<%= escape_javascript render('categories')  %>");
+$('.categories_wrap').replaceWith("<%= escape_javascript render('committed')  %>");
 
 $(document).ready(function() {
 
@@ -37,6 +37,7 @@ $(document).ready(function() {
 		if (calEvent.end.getTime() < new Date().getTime()) {
 			$event.addClass('past_event');
 		}
+		
 		calEvent.outcome == true ? $event.addClass('outcome') : '';
 		calEvent.complete == true ? $event.addClass('complete') : '';
       },

@@ -1,26 +1,25 @@
 <div class="categories_wrap" id="week_committed">
 	
 	<div id="week_plan_side">
-		<div class="date"><%= @start_date.strftime('%b %d') %> - <%= @end_date.strftime('%d') %> Commit</div>
+		<div class="date"><%= @start_date.strftime('%b %d') %> - <%= @end_date.strftime('%d') %> Committed</div>
 	</div>
-		
-		
+
 	<div id="day_drop_wrap">
 		<% for day in @start_date .. @end_date %>
 			<div class="day_wrap">
 				<div class="day_title">
 					<%= day.strftime('%A %m/%d') %>
 				</div>
-				<ul class="committed_wrap sortable day_drop" date="<%= day %>">
+				<ul class="committed_wrap sortable add_to_plan">
 					<% @tasks.each do |task| %>
 						<% if task.start.at_midnight() == day %>
 							<%= render :partial => '/tasks/task', :locals => { :task => task } %>
 						<% end %>
 					<% end %>
 				</ul>
-
 			</div>
 		<% end %>
 	</div>
 
+	
 </div>
