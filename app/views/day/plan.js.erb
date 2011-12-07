@@ -5,10 +5,8 @@ $('.categories_wrap').replaceWith("<%= escape_javascript render('side_schedule')
 
 $(document).ready(function() {
 	
-	if("<%= @open %>" == 'true'){
-		$("li.task_wrap.outcome_ready").addClass('outcome');
-		$("li.task_wrap.outcome_ready > .header").show();
-	}
+	$("li.task_wrap.outcome_ready").addClass('outcome');
+	$("li.task_wrap.outcome_ready > .header").show();
 	
 	$("li.task_wrap.outcome").each(function(){
 		var pHeight = $(this).find('.purpose').height() + 30;
@@ -48,6 +46,8 @@ $(document).ready(function() {
 			$.get('/day/load_plan/' + db(newDate), function(data){
 				$('#day_plan_wrap').replaceWith(data);
 				$('#day_schedule').attr('href','/day/schedule/'+dbDate(newDate));
+				$("li.task_wrap.outcome_ready").addClass('outcome');
+				$("li.task_wrap.outcome_ready > .header").show();
 			});
 		},
 		eventRender : function(calEvent, $event) {

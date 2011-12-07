@@ -9,7 +9,6 @@ $(document).ready(function() {
 	attachDatepicker();
 
    var $calendar = $('#schedule');
-   var id = 10;
 	var now = new Date();
 	
 	$calendar.weekCalendar({
@@ -90,6 +89,7 @@ $(document).ready(function() {
 		var dbStart = db(calEvent.start);
 		var dbEnd = db(calEvent.end);
 		var taskId = calEvent._id
+		
 		$('#edit_event .start').text(start);
 		$('#edit_event .end').text(end);
 		$('#edit_event .date').text(date);
@@ -128,7 +128,7 @@ $(document).ready(function() {
 				$(document).bind('mousedown',function(e) {
 					var cluetipClick = $(e.target).closest('#cluetip');
 					if ((cluetipClick.length === 0) || ($(e.target).hasClass('cancel_cluetip'))){ 
-						$('#cluetip').trigger('hideCluetip');
+						$(document).trigger('hideCluetip');
 						$('#schedule').weekCalendar('removeUnsavedEvents');
 					}
 				});

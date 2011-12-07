@@ -22,15 +22,13 @@ module TasksHelper
     end
   end
   
-  def max_duration(min_duration,max_duration)
-    if max_duration > min_duration
-      if max_duration >= 60
-        h = max_duration / 60
-        m = max_duration % 60
-        m > 0 ? "- #{h}h#{m}m" : "- #{h}h"
-      else
-        "- #{max_duration}m"
-      end
+  def max_duration(max_duration)
+    if max_duration >= 60
+      h = max_duration / 60
+      m = max_duration % 60
+      m > 0 ? "- #{h}h#{m}m" : "- #{h}h"
+    else
+      "- #{max_duration}m"
     end
   end
   

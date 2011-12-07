@@ -7,6 +7,8 @@ $('.categories_wrap').replaceWith("<%= escape_javascript render('side_plan')  %>
 
 $(document).ready(function() {
 	
+	calculateResultCount();
+	
 	var dayNumber = parseInt("<%= @start_date.day %>");
 	
 	$( "#datepicker" ).datepicker({
@@ -48,4 +50,8 @@ function dbDate(date){
 		day = (day.length == 1) ? '0'+day : day;
 	return year+'-'+month+'-'+day;
 }
-	
+
+function calculateResultCount() {
+	var count = $('#side_plan').children().length;
+	$('.result_count_wrap .count').text(count);
+}

@@ -46,17 +46,15 @@ class TasksController < ApplicationController
     
     @open = params[:open] ? 'true' : 'false'
 
-    
     if params[:task]
       @task.update_attributes(params[:task])
-      if params[:nothing]
-        render :nothing => true
-      end
+
       if params[:json]
         render :json => @task
-      elsif params[:task][:sort] || params[:task][:complete] || params[:task][:must]
+      elsif params[:nothing] || params[:task][:sort] || params[:task][:complete] || params[:task][:must]
         render :nothing => true
       end
+      
     end
     
     if params[:reminders]

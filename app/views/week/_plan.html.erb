@@ -5,11 +5,11 @@
 			<span class="big"><%= @start_date.strftime('%B %d') %> - <%= @end_date.strftime('%d, %Y') %></span>
 		</div>
 		<div id="next_prev_wrap">
-			<%= link_to week_capture_path(@start_date - 7.days), :class => 'filter rounded_left', :remote => true do %>
+			<%= link_to week_plan_path(@start_date - 7.days), :class => 'filter rounded_left', :remote => true do %>
 				<div class="prev"></div>
 			<% end %>
-			<%= link_to 'Today', week_capture_path(Date.today()), :class => 'filter', :remote => true %>
-			<%= link_to week_capture_path(@start_date + 7.days), :class => 'filter rounded_right', :remote => true do %>
+			<%= link_to 'Today', week_plan_path(Date.today()), :class => 'filter', :remote => true %>
+			<%= link_to week_plan_path(@start_date + 7.days), :class => 'filter rounded_right', :remote => true do %>
 				<div class="next"></div>
 			<% end %>
 		</div>
@@ -24,7 +24,7 @@
 
 <% content_for :page do %>
 <div id="group">
-	<%= render 'load_plan' %>
+	<%= render '/day/load_plan' %>
 </div>
 <% end %>
 

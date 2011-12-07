@@ -3,15 +3,22 @@ $('#week').addClass('active');
 $('#pad').replaceWith("<%= escape_javascript render('plan')  %>");
 $('.categories_wrap').replaceWith("<%= escape_javascript render('side_forecast')  %>");
 
-$('ul.incomplete_task_list').children().each(function() {
-	$(this).find('.target.active').first().trigger('click');
-});
-
 
 
 $(document).ready(function() {
+	
+	$("li.task_wrap.outcome_ready").addClass('outcome');
+	$("li.task_wrap.outcome_ready > .header").show();
+	
+	$("li.task_wrap.outcome").each(function(){
+		var pHeight = $(this).find('.purpose').height() + 30;
+		var rHeight = $(this).find('.result_text').height() + 10;
+		var height = pHeight > rHeight ? pHeight : rHeight;
+		height = height > 26 ? height : 26;
+		$(this).find('ul.action_plan').css({ 'min-height': height });
+	});
 
-	$('#plan_side .day_drop').droppable({
+	$('.day_drop').droppable({
 		accept: '.task_wrap',
 		tolerance: 'pointer',
 		over: function(event,ui){
@@ -24,11 +31,11 @@ $(document).ready(function() {
 		drop: function(event,ui){
 			var taskId = ui.draggable.attr('id');
 			var date = $(this).attr('date');
-			ui.draggable.remove();
+			
 			$.ajax({
 				url: "/tasks/" + taskId,
 				type: 'PUT',
-				data: $.param({task : { start: date, end: date+' 01:00:00', scheduled: 'true' }}),
+				data: $.param({task : { start: date, end: date+' 01:00:00', scheduled: 'true', week: 'false' }, open: 'true' }),
 				success: function(){
 					$('.day_drop_over').removeClass('day_drop_over');
 				}

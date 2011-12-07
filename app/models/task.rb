@@ -47,7 +47,6 @@ class Task
   
   def nil_if_blank
     self.leverage = nil if self.leverage.blank?
-    self.min_duration = nil if self.min_duration.blank?
     self.start = nil if self.start.blank?
     self.parent_id = nil if self.parent_id.blank?
     self.end = nil if self.end.blank?

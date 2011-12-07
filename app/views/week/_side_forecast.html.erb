@@ -1,16 +1,20 @@
 <div class="categories_wrap">
-	<div id="plan_side">
-		<h3 class="side_title">Week Forecast</h3>
-		<div id="day_drop_wrap">
-			<% for day in @start_date .. @end_date %>
-				<div class="day_wrap">
-					<div class="day_title">
-						<%= day.strftime('%A %m/%d') %>
-					</div>
-					<div class="day_drop" date="<%= day %>">
-					</div>
-				</div>
-			<% end %>
-		</div>
+	
+	<div id="week_plan_side">
+		<div class="date"><%= @start_date.strftime('%b %d') %> - <%= @end_date.strftime('%d') %> Forecast</div>
 	</div>
+		
+		
+	<div id="day_drop_wrap">
+		<% for day in @start_date .. @end_date %>
+			<div class="day_wrap">
+				<div class="day_title">
+					<%= day.strftime('%A %m/%d') %>
+				</div>
+				<div class="day_drop" date="<%= day %>">
+				</div>
+			</div>
+		<% end %>
+	</div>
+
 </div>
