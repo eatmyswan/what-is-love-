@@ -3,7 +3,7 @@
 
 		<div class="calendar_title">
 			<span class="big"><%= @start_date.strftime('%A') %></span>
-			<span class="small"><%= @start_date.strftime('%B %d, %Y') %></span>
+			<span class="small"><%= @start_date.strftime('%B %e, %Y') %></span>
 		</div>
 		<div id="next_prev_wrap">
 			<%= link_to day_capture_path(@start_date - 1.day), :class => 'filter rounded_left', :remote => true do %>

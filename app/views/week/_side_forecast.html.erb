@@ -1,20 +1,26 @@
 <div class="categories_wrap" id="week_committed">
 	
 	<div id="week_plan_side">
-		<div class="date"><%= @start_date.strftime('%b %d') %> - <%= @end_date.strftime('%d') %> Commit</div>
+		<div class="date"><%= @start_date.strftime('%b %d') %> - <%= @end_date.strftime('%d') %></div>
+		<div class="result_count_wrap">
+			<span class="title">Results / Actions Committed </span><span class="count">0</span>
+		</div>
 	</div>
 		
 		
 	<div id="day_drop_wrap">
 		<% for day in @start_date .. @end_date %>
 			<div class="day_wrap">
-				<div class="day_title">
-					<%= day.strftime('%A %m/%d') %>
-					<div class="must_wrap">
-						<span class="title">Must</span><span class="time">00:00</span>
+				<div class="day_title_wrap">
+					<div class="day_title">
+						<span class="big"><%= day.strftime('%e') %></span>
+						<span class="day"><%= day.strftime('%A') %></span>
 					</div>
 					<div class="total_wrap">
 						<span class="title">Total</span><span class="time">00:00</span>
+					</div>
+					<div class="must_wrap">
+						<span class="title">Must</span><span class="time">00:00</span>
 					</div>
 				</div>
 				<ul class="committed_wrap sortable day_drop" date="<%= day %>">

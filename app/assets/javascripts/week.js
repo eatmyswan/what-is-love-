@@ -25,6 +25,7 @@ $(document).ready(function() {
 				$(document).trigger('hideCluetip');
 				$('#forecast,#schedule,#side_schedule').weekCalendar('updateEvent', data);
 				calculateMinD();
+				$('#forecast').length == 1 ? calculateScheduledCount() : '';
 			}
 		});
 	});
@@ -61,6 +62,7 @@ $(document).ready(function() {
 					$(document).trigger('hideCluetip');
 					$('#forecast,#schedule,#side_schedule').weekCalendar('removeEvent', taskId);
 					calculateMinD();
+					$('#forecast').length == 1 ? calculateScheduledCount() : '';
 				}
 			});
 		} else {
@@ -71,6 +73,7 @@ $(document).ready(function() {
 					$(document).trigger('hideCluetip');
 					$('#forecast,#schedule,#side_schedule').weekCalendar('removeEvent', taskId);
 					calculateMinD();
+					$('#forecast').length == 1 ? calculateScheduledCount() : '';
 				}
 			});
 		}
@@ -137,7 +140,9 @@ $(document).ready(function() {
 			success: function(data){
 				task.remove();
 				$('#forecast').weekCalendar('removeEvent', taskId);
-				calculateMinDCommitted();
+				$('#day_plan_wrap').length == 1 ?calculateMinDCommitted() : '';
+				$('#day_plan_wrap').length == 1 ?calculateAddedCount() : '';
+				
 			}
 		});
 	});
@@ -198,6 +203,16 @@ $(document).ready(function() {
 	
 		$('.must_wrap .time').text(hour+':'+min);
 		$('.total_wrap .time').text(hourTotal+':'+minTotal);
+	}
+	
+	function calculateAddedCount(){
+		var count = $('#week_committed .task_wrap').length;
+		$('.result_count_wrap .count').text(count);
+	}
+	
+	function calculateScheduledCount(){
+		var count = $('#forecast').weekCalendar('serializeEvents').length;
+		$('.result_count_wrap .count').text(count);
 	}
 
 });

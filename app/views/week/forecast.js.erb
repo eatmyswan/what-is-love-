@@ -20,7 +20,7 @@ $(document).ready(function() {
 			var date = $(this).attr('date');
 		
 			if(ui.draggable.parents('#day_plan_wrap').length === 0){
-				$(ui.draggable).appendTo(this);
+				$(ui.draggable).removeClass('scheduled').appendTo(this);
 			} else {
 				var id = $(ui.draggable).attr('id');
 				$('#week_committed').find('#'+id).remove();
@@ -62,6 +62,10 @@ $(document).ready(function() {
 		title: function(daysToShow) {
 			return daysToShow == 1 ? '<span class="big">%day%</span> <span class="small">%date%</span>' : '<span class="big">%start% - %end%</span>';
 		},
+		calendarAfterLoad: function($calendar){
+			calculateScheduledCount();
+			calculateMinD();
+		},
 		changedate: function($calendar, newDate){
 			$('#day_capture').attr('href','/day/capture/'+dbDate(newDate));
 			$('#day_plan').attr('href','/day/plan/'+dbDate(newDate));
@@ -100,6 +104,8 @@ $(document).ready(function() {
 				success: function(){
 					var dropDate = dbDate(calEvent.start);
 					$('#'+taskId).appendTo('ul[date="'+ dropDate +'"]');
+					calculateScheduledCount();
+					//calculateMinD();
 				}
 			});
 		},
@@ -264,6 +270,41 @@ $(document).ready(function() {
 	day_names[day_names.length] = "Thursday";
 	day_names[day_names.length] = "Friday";
 	day_names[day_names.length] = "Saturday";
+	
+	
+	function calculateMinD(){
+		$('.day_drop').each(function(){
+		
+			var minD = 0;
+			var minDTotal = 0;
+	
+			$(this).find('.task_wrap').each(function(){
+				if(!$(this).hasClass('complete')){
+					if($(this).hasClass('must')) { 
+						minD = parseInt($(this).attr('min_duration')) + minD;
+					}
+					minDTotal = parseInt($(this).attr('min_duration')) + minDTotal;
+				}
+			});
 
+			var hour = parseInt(minD/60).toString();
+			var min = parseInt(minD%60).toString();
+			hour = (hour.length == 1) ? '0'+hour : hour;
+			min = (min.length == 1) ? '0'+min : min;
+
+			var hourTotal = parseInt(minDTotal/60).toString();
+			var minTotal = parseInt(minDTotal%60).toString();
+			hourTotal = (hourTotal.length == 1) ? '0'+hourTotal : hourTotal;
+			minTotal = (minTotal.length == 1) ? '0'+minTotal : minTotal;
+
+			$(this).parent().find('.must_wrap .time').first().text(hour+':'+min);
+			$(this).parent().find('.total_wrap .time').first().text(hourTotal+':'+minTotal);
+		});
+	}
+
+	function calculateScheduledCount(){
+		var count = $('#forecast').weekCalendar('serializeEvents').length;
+		$('.result_count_wrap .count').text(count);
+	}
 
 });

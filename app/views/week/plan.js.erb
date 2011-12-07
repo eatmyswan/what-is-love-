@@ -8,6 +8,7 @@ $('.categories_wrap').replaceWith("<%= escape_javascript render('side_forecast')
 $(document).ready(function() {
 
 	calculateMinD();
+	calculateAddedCount();
 	
 	$("#day_plan_wrap li.task_wrap.outcome_ready").addClass('outcome');
 	$("#day_plan_wrap li.task_wrap.outcome_ready > .header").show();
@@ -37,6 +38,7 @@ $(document).ready(function() {
 			if(ui.draggable.parents('#day_plan_wrap').length === 0){
 				$(ui.draggable).appendTo(this);
 				var nothing = 'true';
+				open = 'true';
 			} else {
 				if(ui.draggable.parents('.action_plan').length === 0){
 					open = 'true';
@@ -58,6 +60,7 @@ $(document).ready(function() {
 				success: function(){
 					$('.day_drop_over').removeClass('day_drop_over');
 					calculateMinD();
+					calculateAddedCount();
 				}
 			});
 		}
@@ -91,6 +94,11 @@ function calculateMinD(){
 		$(this).parent().find('.must_wrap .time').first().text(hour+':'+min);
 		$(this).parent().find('.total_wrap .time').first().text(hourTotal+':'+minTotal);
 	});
+}
+
+function calculateAddedCount(){
+	var count = $('#week_committed .task_wrap').length;
+	$('.result_count_wrap .count').text(count);
 }
 	
 

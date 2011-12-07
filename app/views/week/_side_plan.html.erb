@@ -1,16 +1,12 @@
 <div class="categories_wrap">
 	
 	<div id="week_capture_side">
-		
-
 
 		<div class="date"><%= @start_date.strftime('%b %d') %> - <%= @end_date.strftime('%d') %> Plan</div>
 		<div class="result_count_wrap">
 			<span class="title">Results Added </span><span class="count">0</span>
 		</div>
 
-
-		
 		<ul id="side_plan" class="sortable add_to_plan">
 			<% @plans.each do |task| %>
 				<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true' } %>
