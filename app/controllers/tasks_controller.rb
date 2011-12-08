@@ -55,6 +55,14 @@ class TasksController < ApplicationController
         render :nothing => true
       end
       
+      if params[:task][:group_id]
+        @subtasks = Task.where(parent_id: @task.id.to_s)
+        @subtasks.each do |task|
+          task.group_id = params[:task][:group_id]
+          task.save
+        end
+      end
+      
     end
     
     if params[:reminders]

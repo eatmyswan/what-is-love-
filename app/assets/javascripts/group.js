@@ -66,16 +66,6 @@ $('#plan_wrap ul.sortable').live("mouseover", function() {
 							checkCount();
 					}
 				});
-				//update group_id for all li's inside
-				var subTask = $(ui.draggable).find('li');
-				$(subTask).each(function(){
-					taskId = $(this).attr('id');
-					$.ajax({
-						url: "/tasks/" +  taskId,
-						type: 'PUT',
-						data: $.param({task : { group_id: catId }})
-					});
-				});
 		    }
 		});
 	}
