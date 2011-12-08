@@ -3,6 +3,7 @@ $(document).ready(function() {
 $('ul.committed_wrap li.task_wrap').live("mouseover", function() {
 	if (!$(this).data("init")) {
 		$(this).data("init", true);
+
 		var outcome = $(this).hasClass('outcome_ready') ? true : false;
 	
 		var title = $(this).find('.task').first().text();

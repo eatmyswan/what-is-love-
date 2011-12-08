@@ -2,7 +2,9 @@
 	
 	<div class="outcome_wrap">
 		<span class="checkbox <%= 'active' if task.complete == true %>"></span>
-		<span class="target <%= 'active' if task.outcome == true %>"></span>
+		<% if task.parent_id == nil %>
+			<span class="target <%= 'active' if task.outcome == true %>"></span>
+		<% end %>
 		<span class="star <%= 'active' if task.must == true %>"></span>
 		<span class="icon" rel="/task/edit_group/<%= task.id.to_s %>">
 		<% if task.group %>	

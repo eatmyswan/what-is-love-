@@ -24,8 +24,14 @@ $(document).ready(function() {
 			success: function(data){
 				$(document).trigger('hideCluetip');
 				$('#forecast,#schedule,#side_schedule').weekCalendar('updateEvent', data);
-				calculateMinD();
-				$('#forecast').length == 1 ? calculateScheduledCount() : '';
+				if(($('#schedule').length == 1) || ($('#schedule_side').length == 1)) calculateMinD();
+				if($('#forecast').length == 1) {
+					$.get('/week/side/' + start, function(data){
+						$('.categories_wrap').replaceWith(data);
+						calculateScheduledCount();
+						calculateMinDCommitted();
+					});
+				}
 			}
 		});
 	});
@@ -44,7 +50,7 @@ $(document).ready(function() {
 			success: function(data){
 				$(document).trigger('hideCluetip');
 				$('#forecast,#schedule,#side_schedule').weekCalendar('updateEvent', data);
-				calculateMinD();
+				if(($('#schedule').length == 1) || ($('#schedule_side').length == 1)) calculateMinD();
 			}
 		});
 	});
@@ -61,8 +67,10 @@ $(document).ready(function() {
 				success: function(data){
 					$(document).trigger('hideCluetip');
 					$('#forecast,#schedule,#side_schedule').weekCalendar('removeEvent', taskId);
-					calculateMinD();
-					$('#forecast').length == 1 ? calculateScheduledCount() : '';
+					if(($('#schedule').length == 1) || ($('#schedule_side').length == 1)) calculateMinD();
+					if($('#forecast').length == 1) calculateScheduledCount();
+					if($('#forecast').length == 1) calculateMinDCommitted();
+					if($('#forecast').length == 1) $('#'+taskId).removeClass('scheduled');
 				}
 			});
 		} else {
@@ -72,8 +80,10 @@ $(document).ready(function() {
 				success: function(){
 					$(document).trigger('hideCluetip');
 					$('#forecast,#schedule,#side_schedule').weekCalendar('removeEvent', taskId);
-					calculateMinD();
-					$('#forecast').length == 1 ? calculateScheduledCount() : '';
+					if(($('#schedule').length == 1) || ($('#schedule_side').length == 1)) calculateMinD();
+					if($('#forecast').length == 1) $('#'+taskId).remove();
+					if($('#forecast').length == 1) calculateScheduledCount();
+					if($('#forecast').length == 1) calculateMinDCommitted();
 				}
 			});
 		}
@@ -140,51 +150,52 @@ $(document).ready(function() {
 			success: function(data){
 				task.remove();
 				$('#forecast').weekCalendar('removeEvent', taskId);
-				$('#day_plan_wrap').length == 1 ?calculateMinDCommitted() : '';
-				$('#day_plan_wrap').length == 1 ?calculateAddedCount() : '';
-				
+				$('#day_plan_wrap').length == 1 ? calculateMinDCommitted() : '';
+				$('#day_plan_wrap').length == 1 ? calculateAddedCount() : '';
+				if($('#forecast').length == 1) calculateScheduledCount();
+				if($('#forecast').length == 1) calculateMinDCommitted();
 			}
 		});
 	});
 	
 	function calculateMinDCommitted(){
-	$('.day_drop').each(function(){
+		$('.day_drop').each(function(){
 		
-		var minD = 0;
-		var minDTotal = 0;
+			var minD = 0;
+			var minDTotal = 0;
 	
-		$(this).find('.task_wrap').each(function(){
-			if(!$(this).hasClass('complete')){
-				if($(this).hasClass('must')) { 
+			$(this).find('.task_wrap').each(function(){
+				if(!$(this).hasClass('complete')){
+					if($(this).hasClass('must')) { 
+						min_duration = $(this).attr('min_duration') == '0' ? 60 : parseInt($(this).attr('min_duration'))
+						minD = min_duration + minD;
+					}
 					min_duration = $(this).attr('min_duration') == '0' ? 60 : parseInt($(this).attr('min_duration'))
-					minD = min_duration + minD;
+					minDTotal = min_duration + minDTotal;
 				}
-				min_duration = $(this).attr('min_duration') == '0' ? 60 : parseInt($(this).attr('min_duration'))
-				minDTotal = min_duration + minDTotal;
-			}
-		});
+			});
 		
-		$(this).find('.appt_wrap').each(function(){
-			if(!$(this).hasClass('complete')){
-				minD = parseInt($(this).attr('min_duration')) + minD;
-				minDTotal = parseInt($(this).attr('min_duration')) + minDTotal;
-			}
+			$(this).find('.appt_wrap').each(function(){
+				if(!$(this).hasClass('complete')){
+					minD = parseInt($(this).attr('min_duration')) + minD;
+					minDTotal = parseInt($(this).attr('min_duration')) + minDTotal;
+				}
+			});
+
+			var hour = parseInt(minD/60).toString();
+			var min = parseInt(minD%60).toString();
+			hour = (hour.length == 1) ? '0'+hour : hour;
+			min = (min.length == 1) ? '0'+min : min;
+
+			var hourTotal = parseInt(minDTotal/60).toString();
+			var minTotal = parseInt(minDTotal%60).toString();
+			hourTotal = (hourTotal.length == 1) ? '0'+hourTotal : hourTotal;
+			minTotal = (minTotal.length == 1) ? '0'+minTotal : minTotal;
+
+			$(this).parent().find('.must_wrap .time').first().text(hour+':'+min);
+			$(this).parent().find('.total_wrap .time').first().text(hourTotal+':'+minTotal);
 		});
-
-		var hour = parseInt(minD/60).toString();
-		var min = parseInt(minD%60).toString();
-		hour = (hour.length == 1) ? '0'+hour : hour;
-		min = (min.length == 1) ? '0'+min : min;
-
-		var hourTotal = parseInt(minDTotal/60).toString();
-		var minTotal = parseInt(minDTotal%60).toString();
-		hourTotal = (hourTotal.length == 1) ? '0'+hourTotal : hourTotal;
-		minTotal = (minTotal.length == 1) ? '0'+minTotal : minTotal;
-
-		$(this).parent().find('.must_wrap .time').first().text(hour+':'+min);
-		$(this).parent().find('.total_wrap .time').first().text(hourTotal+':'+minTotal);
-	});
-}
+	}
 
 	function calculateMinD(){
 		var minD = 0;
@@ -220,7 +231,7 @@ $(document).ready(function() {
 	}
 	
 	function calculateScheduledCount(){
-		var count = $('#week_committed .task_wrap').length + $('#week_committed .appt_wrap').length;
+		var count = $('#forecast').weekCalendar('serializeEvents').length;
 		$('.result_count_wrap .count').text(count);
 	}
 

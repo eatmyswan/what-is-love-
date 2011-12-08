@@ -28,6 +28,11 @@
 							<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'false' } %>
 						<% end %>
 					<% end %>
+					<% @appts.each do |appt| %>
+						<% if appt.start.at_midnight() == day %>
+							<%= render :partial => '/tasks/appt', :locals => { :appt => appt } %>
+						<% end %>
+					<% end %>
 				</ul>
 			</div>
 		<% end %>

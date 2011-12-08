@@ -1,4 +1,4 @@
-<div class="appt_wrap" min_duration="<%= appt.min_duration %>">
+<div class="appt_wrap" min_duration="<%= appt.min_duration %>" id="<%= appt.id.to_s %>">
 	<div class="time_wrap">
 		<%= appt.start.strftime("%l:%M") %><%= appt.start.strftime("%H").to_i > 12 ? 'p' : 'a' %> - <%= appt.end.strftime("%l:%M") %><%= appt.end.strftime("%H").to_i > 12 ? 'p' : 'a' %>
 	</div>
