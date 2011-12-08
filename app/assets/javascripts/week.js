@@ -156,8 +156,17 @@ $(document).ready(function() {
 		$(this).find('.task_wrap').each(function(){
 			if(!$(this).hasClass('complete')){
 				if($(this).hasClass('must')) { 
-					minD = parseInt($(this).attr('min_duration')) + minD;
+					min_duration = $(this).attr('min_duration') == '0' ? 60 : parseInt($(this).attr('min_duration'))
+					minD = min_duration + minD;
 				}
+				min_duration = $(this).attr('min_duration') == '0' ? 60 : parseInt($(this).attr('min_duration'))
+				minDTotal = min_duration + minDTotal;
+			}
+		});
+		
+		$(this).find('.appt_wrap').each(function(){
+			if(!$(this).hasClass('complete')){
+				minD = parseInt($(this).attr('min_duration')) + minD;
 				minDTotal = parseInt($(this).attr('min_duration')) + minDTotal;
 			}
 		});
@@ -206,12 +215,12 @@ $(document).ready(function() {
 	}
 	
 	function calculateAddedCount(){
-		var count = $('#week_committed .task_wrap').length;
+		var count = $('#week_committed .task_wrap').length + $('#week_committed .appt_wrap').length;
 		$('.result_count_wrap .count').text(count);
 	}
 	
 	function calculateScheduledCount(){
-		var count = $('#forecast').weekCalendar('serializeEvents').length;
+		var count = $('#week_committed .task_wrap').length + $('#week_committed .appt_wrap').length;
 		$('.result_count_wrap .count').text(count);
 	}
 

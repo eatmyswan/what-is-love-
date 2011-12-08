@@ -1,4 +1,4 @@
-<li id="<%= task.id.to_s %>" class="task_wrap sortable <%= 'must' if task.must == true %> <%= 'outcome_ready' if task.outcome == true %> <%= 'committed' if task.committed == true %> <%= 'scheduled' if task.scheduled == true %> <%= 'complete' if task.complete == true %>" start="<%= task.start %>" min_duration="<%= task.min_duration %>" group_id="<%= task.group.id.to_s if task.group %>" max_duration="<%= task.max_duration %>">
+<li id="<%= task.id.to_s %>" class="task_wrap sortable <%= 'must' if task.must == true %> <%= 'outcome_ready' if task.outcome == true && task.parent_id == nil %> <%= 'committed' if task.committed == true %> <%= 'scheduled' if task.scheduled == true %> <%= 'complete' if task.complete == true %>" start="<%= task.start %>" min_duration="<%= task.min_duration %>" group_id="<%= task.group.id.to_s if task.group %>" max_duration="<%= task.max_duration %>">
 	
 	<div class="outcome_wrap">
 		<span class="checkbox <%= 'active' if task.complete == true %>"></span>
@@ -61,7 +61,7 @@
 
 					<% task.group.tasks.where(parent_id: task.id).and(complete: false).order_by([:sort, :asc]).each do |task| %>
 				
-						<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true' } %>
+						<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'false' } %>
 				
 					<% end %>
 			
@@ -69,7 +69,7 @@
 		
 				<ul id="<%= task.id %>_complete" class="in_outcome">
 					<% task.group.tasks.where(parent_id: task.id).and(complete: true).each do |task| %>
-						<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true' } %>
+						<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'false' } %>
 					<% end %>
 				</ul>
 			<% end %>

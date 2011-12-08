@@ -70,10 +70,11 @@
 }
 #week_committed .day_wrap .committed_wrap {
 	min-height: 26px;
-	background: rgba(0, 0, 0, 0.2);
+	background: rgba(0, 0, 0, 0.15);
 	border-radius: 5px;
-	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	padding: 2px 2px 0;
 }
 #week_committed .day_drop_over {
 	background: #0060b9 !important;
@@ -82,9 +83,11 @@
 	color: #FFF !important;
 	opacity: 1.0 !important;
 }
-#week_committed .day_drop_over .task_wrap {
+#week_committed .day_drop_over .task_wrap,
+#week_committed .day_drop_over .appt_wrap  {
 	opacity: 0 !important;
 }
+
 
 #week_committed .committed_wrap .task_wrap .date,
 #week_committed .committed_wrap .task_wrap .duration,

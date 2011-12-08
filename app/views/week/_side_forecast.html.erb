@@ -1,7 +1,7 @@
 <div class="categories_wrap" id="week_committed">
 	
 	<div id="week_plan_side">
-		<div class="date"><%= @start_date.strftime('%b %d') %> - <%= @end_date.strftime('%d') %></div>
+		<div class="date"><%= @start_date.strftime('%b %e') %> - <%= @end_date.strftime('%e') %></div>
 		<div class="result_count_wrap">
 			<span class="title">Results / Actions Committed </span><span class="count">0</span>
 		</div>
@@ -27,6 +27,11 @@
 					<% @tasks.each do |task| %>
 						<% if task.start.at_midnight() == day %>
 							<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'false' } %>
+						<% end %>
+					<% end %>
+					<% @appts.each do |appt| %>
+						<% if appt.start.at_midnight() == day %>
+							<%= render :partial => '/tasks/appt', :locals => { :appt => appt } %>
 						<% end %>
 					<% end %>
 				</ul>

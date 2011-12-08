@@ -20,6 +20,7 @@ class WeekController < ApplicationController
     @end_date = @start_date + 6.days
     @plans = Task.where(:start.gte => @start_date, :start.lt => @end_date).and(parent_id: nil).and(plan: true).and(:group_id.ne => nil).order_by([:sort, :asc])
     @tasks = Task.where(:start.gte => @start_date, :start.lt => @end_date).and(committed: true)
+    @appts = Task.where(:start.gte => @start_date, :start.lt => @end_date).and(group_id: nil)
   end
   
   def forecast    
