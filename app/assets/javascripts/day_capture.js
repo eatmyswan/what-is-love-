@@ -96,16 +96,6 @@ $('#capture_wrap ul.sortable, #side_plan').live("mouseover", function() {
 							data: $.param({task : { plan: 'false', parent_id: '', group_id: groupId, scheduled: 'false', committed: 'false' }})
 						});
 					}
-		
-					var subTask = $(ui.item[0]).find('li');
-					$(subTask).each(function(){
-						taskId = $(this).attr('id');
-						$.ajax({
-							url: "/tasks/" +  taskId,
-							type: 'PUT',
-							data: $.param({task : { group_id: groupId }})
-						});
-					});
 				
 				}
 				
@@ -132,6 +122,7 @@ function datepickerDroppable(){
 				$(this).removeClass('ui-datepicker-over');
 			},
 			drop: function(event,ui){
+
 				$('ul.sortable').sortable('cancel');
 				var taskId = ui.draggable.attr('id');
 				var date = $(this).attr('title');

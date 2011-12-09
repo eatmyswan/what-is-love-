@@ -1,5 +1,16 @@
-<div id="day_plan_wrap">
+<div id="day_plan_wrap" class="planning">
+	
 	<div id="plan_empty" style="<%= 'display: none;' if @plans.count > 0 %>"></div>
+	
+	<div id="input_wrap" style="display: none;">
+		<span class="inner_shadow"></span>
+			<%= form_for(Task.new, :remote => true) do |f| %>
+				<%= f.text_field :title, :autocomplete => :off, :value => "New task...", :onfocus => '(this.value == "New task...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New task..." : this.value' %>
+				<%= f.hidden_field :start, :value => @start_date %>
+				<%= f.hidden_field :group_id, :value => @inbox.id.to_s %>
+		<% end %>
+	</div>
+	
 		<div id="incomplete">
 			<ul class="sortable incomplete_task_list">
 				<% @plans.each do |task| %>

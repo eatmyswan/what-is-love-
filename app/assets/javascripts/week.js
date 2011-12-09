@@ -58,7 +58,7 @@ $(document).ready(function() {
 	$('#cluetip #delete_event').live('click',function(){
 		var taskId = $('#cluetip #edit_event .task_id').val();
 		var groupId = $('#cluetip #edit_event .group_id').val();
-		var open = $('#forecast').length === 0 ? 'true' : 'false';
+		var open = $('#cluetip #edit_event .task_open').val();
 		if(groupId) {
 			$.ajax({
 				url: "/tasks/" + taskId,

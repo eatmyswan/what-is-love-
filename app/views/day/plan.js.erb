@@ -112,6 +112,8 @@ $(document).ready(function() {
 			$('#edit_event .group_id').val(calEvent.group_id);
 			$('#edit_event .task_readonly').val(calEvent.readOnly);
 			$('#edit_event .task_complete').val(calEvent.complete);
+			var open = calEvent.parent_id == null ? 'true' : 'false';
+			$('#edit_event .task_open').val(open);
 			calEvent.readOnly == true ? $('#edit_event #readonly_check').addClass('active') : $('#edit_event #readonly_check').removeClass('active');
 			calEvent.complete == true ? $('#edit_event .checkbox').addClass('active') : $('#edit_event .checkbox').removeClass('active');
 		},

@@ -13,6 +13,7 @@ class DayController < ApplicationController
     @date = params[:start_date].to_time().at_midnight
     @start_date = Date.new(@date.year, @date.month, @date.day)
     @end_date = @start_date + 1.day
+    @inbox = Group.where(user_id: current_user.id).and(master_title: nil).first
     @plans = Task.where(:start.gte => @start_date, :start.lt => @end_date).and(parent_id: nil).and(plan: true).and(week: false).and(:group_id.ne => nil).order_by([:sort, :asc])
   end
   
@@ -31,6 +32,7 @@ class DayController < ApplicationController
     @date = params[:start_date].to_time().at_midnight
     @start_date = Date.new(@date.year, @date.month, @date.day)
     @end_date = @start_date + 1.day
+    @inbox = Group.where(user_id: current_user.id).and(master_title: nil).first
     @plans = Task.where(:start.gte => @start_date, :start.lt => @end_date).and(parent_id: nil).and(plan: true).and(week: false).order_by([:sort, :asc])
     render :partial => "load_plan", :layout => false
   end
