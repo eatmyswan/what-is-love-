@@ -120,7 +120,7 @@ h3.side_title {
 	background-position: 0 -15px;
 	margin-left: 6px;
 }
-#side_plan li.task_wrap .task {
+#side_plan li.task_wrap .text {
 	padding: 6px 0 6px 2px;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -130,8 +130,12 @@ h3.side_title {
 #side_plan li.task_wrap .date, 
 #side_plan li.task_wrap .duration, 
 #side_plan li.task_wrap .edit, 
-#side_plan li.task_wrap .delete {
+#side_plan li.task_wrap .delete,
+#side_plan li.task_wrap .task_number {
 	display: none;
+}
+#side_plan li.task_wrap:hover .date {
+	display: block;
 }
 
 #capture_wrap li.task_wrap .date,

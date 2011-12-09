@@ -1,8 +1,19 @@
 class WeekController < ApplicationController
   
   def json
-    @tasks_json = Task.where(:start.gte => params[:start_date], :start.lt => params[:end_date]).and(scheduled: true)
-    render :json => @tasks_json
+    tasks_json = Task.where(:start.gte => params[:start_date], :start.lt => params[:end_date]).and(scheduled: true)
+    render :json => tasks_json
+  end
+  
+  def outcome
+    task = Task.find(params[:id])
+    render :text => "#{task.sort+1} #{task.title}"
+  end
+  
+  def group
+    task = Task.find(params[:id])
+    @group = task.group
+    render :partial => "/tasks/wc_group", :layout => false
   end
   
   def capture    

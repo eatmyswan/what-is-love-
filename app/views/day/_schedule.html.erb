@@ -1,9 +1,13 @@
 
 <% content_for :top do %>
-
+		<input type="hidden" id="hidden_date" value="<%= @start_date %>">
 		<div class="calendar_title">
 			<span class="big"></span>
 			<span class="small"></span>
+		</div>
+		<div>
+			<span id="min_cal">min</span>
+			<span id="max_cal">max</span>
 		</div>
 		<div id="next_prev_wrap">
 			<div id="prev" class="filter rounded_left"><div class="prev"></div></div>

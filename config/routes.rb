@@ -30,6 +30,8 @@ Rpm::Application.routes.draw do
   match 'week/side/:start_date' => 'week#side'
   match 'week/load_plan/:start_date' => 'week#load_plan'
   match 'week/json/:start_date/:end_date' => 'week#json', :as => :week_json
+  match 'week/outcome/:id' => 'week#outcome'
+  match 'week/group/:id' => 'week#group'
   
   match 'day/capture/:start_date' => 'day#capture', :as => :day_capture
   match 'day/plan/:start_date' => 'day#plan', :as => :day_plan

@@ -1,4 +1,14 @@
 $(document).ready(function() {
+	
+	$('#min_cal').live('click',function(){
+		var date = $('#hidden_date').val();
+		$.get('/day/schedule/'+date,{ size: "10"});
+	});
+	
+	$('#max_cal').live('click',function(){
+		var date = $('#hidden_date').val();
+		$.get('/day/schedule/'+date);
+	});
 
 	$('#prev').live('click', function() {
 		$('#forecast,#schedule,#side_schedule').weekCalendar('prev');

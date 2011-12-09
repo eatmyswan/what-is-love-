@@ -20,6 +20,7 @@ class DayController < ApplicationController
   def schedule    
     @date = params[:start_date].to_time().at_midnight
     @start_date = Date.new(@date.year, @date.month, @date.day)
+    @size = params[:size] ? params[:size] : 15
   end
   
   def side

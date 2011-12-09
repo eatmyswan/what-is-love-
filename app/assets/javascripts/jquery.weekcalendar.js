@@ -110,9 +110,11 @@
           var one_hour = 3600000;
           var displayTitleWithTime = calEvent.end.getTime() - calEvent.start.getTime() <= (one_hour / options.timeslotsPerHour);
           if (displayTitleWithTime) {
-            return calendar.weekCalendar(
-                        'formatTime', calEvent.start) +
-                        ' ' + calEvent.title;
+			if(calEvent.outcome == true || calEvent.parent_id != null) {
+            	return calendar.weekCalendar('formatTime', calEvent.start) + ' ' + (calEvent.sort+1) + ' ' + calEvent.title;
+			} else {
+				return calendar.weekCalendar('formatTime', calEvent.start) + ' ' + calEvent.title;
+			}
           } else {
             return calendar.weekCalendar(
                         'formatTime', calEvent.start) +
@@ -122,7 +124,15 @@
           }
         },
         eventBody: function(calEvent, calendar) {
-          return calEvent.title;
+			if(calEvent.outcome == true) {
+				return '<span class="mini_target"></span>' + (calEvent.sort+1) + ' ' + calEvent.title;
+			} 
+			else if (calEvent.parent_id != null) {
+				return (calEvent.sort+1) + ' ' + calEvent.title;
+			}
+			else {
+				return calEvent.title;
+			}
         },
         shortMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         longMonths: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
