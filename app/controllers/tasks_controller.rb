@@ -51,7 +51,7 @@ class TasksController < ApplicationController
 
       if params[:json]
         render :json => @task
-      elsif (params[:nothing] == 'true') || params[:task][:sort] || params[:task][:complete] || params[:task][:must]
+      elsif (params[:nothing] == 'true') || params[:task][:complete] || params[:task][:must]
         render :nothing => true
       end
       
@@ -90,11 +90,23 @@ class TasksController < ApplicationController
   
   def sort
     tasks = Task.find(params[:task])
-    tasks.each do |task|
-      task.sort = params['task'].index(task.id.to_s) + 1
-      task.save
+    if(params[:parent_id])
+      tasks.each do |task|
+        task.sort = params['task'].index(task.id.to_s)
+        task.parent_id = params[:parent_id]
+        task.group_id = params[:group_id]
+        task.save
+      end
+      @task = Task.find(params[:parent_id])
+      @open = 'true'
+      render 'update'
+    else
+      tasks.each do |task|
+        task.sort = params['task'].index(task.id.to_s)
+        task.save
+      end
+      render :nothing => true
     end
-    render :nothing => true
   end
   
   def duration

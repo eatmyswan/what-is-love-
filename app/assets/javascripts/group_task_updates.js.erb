@@ -246,14 +246,13 @@ $('li.task_wrap.outcome .purpose_wrap .edit_purpose_done').live('click',function
 	$(this).parents('.purpose_wrap').find('.add_purpose').submit();
 });
 
-$('li.task_wrap.outcome .result_wrap .edit_result').live('click',function(){
-	var pWrap = $(this).parents('.result_wrap').addClass('editing');
+$('li.task_wrap.outcome .outcome_wrap .edit_result').live('click',function(){
+	var pWrap = $(this).parents('.outcome_wrap').addClass('editing');
 });
 
-$('li.task_wrap.outcome .result_wrap .edit_result_done').live('click',function(){
-	$(this).parents('.result_wrap').find('.edit_result_form').submit();
+$('li.task_wrap.outcome .outcome_wrap .edit_result_done').live('click',function(){
+	$(this).parents('.outcome_wrap').find('.edit_result_form').submit();
 });
-
 	
 $('#incomplete .edit_done').live('click', function() {
 	editingDone();
@@ -273,7 +272,7 @@ $('#incomplete .target.active').live('click', function(){
 	var task = $(this).parents('li').first();
 	if(!task.hasClass('editing') && !$(this).hasClass('outcome')){
 		task.addClass('outcome').find('.header').first().slideDown(200);
-
+		
 		var pHeight = task.find('.purpose').height() + 10;
 		var rHeight = task.find('.result_text').height() + 10;
 		var height = pHeight > rHeight ? pHeight : rHeight;
@@ -396,7 +395,7 @@ function editingDone() {
 		
 	task.removeClass('editing');
 	task.find('.edit_task').addClass('no_disp');
-	task.find('.task').show().text(taskText);
+	task.find('.task').show().find('.result_wrap').first().text(taskText);
 	task.find('.edit').attr('style','');
 }
 

@@ -22,11 +22,12 @@ $('#edit_plan').live('click', function(){
 
 });
 	
+var stopCallback = true;
+	
 $('#day_plan_wrap.editing ul.sortable').live("mouseover", function() {
-	console.log('sorting?');
 	if (!$(this).data("init")) {
 		$(this).data("init", true);
-		$('ul.sortable').sortable({
+		$(this).sortable({
 		    connectWith: "ul.sortable",
 		    placeholder: "drop_task",
 			tolerance: "pointer",
@@ -39,6 +40,34 @@ $('#day_plan_wrap.editing ul.sortable').live("mouseover", function() {
 				$(ui.helper).addClass('dragging_task');
 			},
 			stop: function(event,ui){
+				if(!ui.sender && stopCallback == true){
+					var parent_id = $(ui.item[0].parentElement).parents('li').first().attr('id');
+					var group_id = $(ui.item[0].parentElement).parents('li').first().attr('group_id');
+					if(parent_id) {
+						var order = $(ui.item[0].parentElement).sortable('serialize', {attribute: 'sort_id'});
+						sortInsideBlock(order,parent_id,group_id);
+					} 
+					else if ($(ui.item[0]).hasClass('outcome_ready')) {	
+						var order = $(this).sortable('serialize', {attribute: 'outcome_sort_id'});
+						sortBlocks(order);
+					}
+				}
+			},
+			update: function(event,ui){		
+				if(ui.sender){
+					var taskId = ui.item[0].id;
+					var order = $(ui.sender).sortable('serialize', {attribute: 'sort_id'});
+					var new_order = $(ui.item[0].parentElement).sortable('serialize', {attribute: 'sort_id'});
+					var parent_id = $(ui.sender).parents('li').first().attr('id');
+					var new_parent_id = $(ui.item[0].parentElement).parents('li').first().attr('id');
+					var group_id = $(ui.sender).parents('li').first().attr('group_id');
+					var new_group_id = $(ui.item[0].parentElement).parents('li').first().attr('group_id');
+					if(order.length > 0){
+						sortOldBlock(taskId,order,parent_id,group_id,new_order,new_parent_id,new_group_id);
+					} else {
+						sortInsideBlock(new_order,new_parent_id,new_group_id)
+					}
+				}
 			}
 		});
 	}
@@ -69,6 +98,50 @@ $('#day_plan_wrap.planning li.task_wrap').live("mouseover", function() {
 	}
 });
 
+function sortOldBlock(taskId,order,parent_id,group_id,new_order,new_parent_id,new_group_id){
+	stopCallback = false;
+	var nothing = new_parent_id ? 'true' : 'false';
+	$.ajax({
+		url: "/tasks/"+taskId,
+		type: 'PUT',
+		data: $.param({task : { parent_id: '' }, nothing: nothing}),
+		success: function() {
+			$.ajax({
+				url: "/tasks/sort", 
+				type: 'POST', 
+				data: order + '&parent_id=' + parent_id + '&group_id=' + group_id,
+				success: function() {
+					stopCallback = true;
+					if(new_parent_id) sortInsideBlock(new_order,new_parent_id,new_group_id)
+				}
+			});
+		}
+	});
+}
+function sortInsideBlock(order,parent_id,group_id){
+	$.ajax({
+		url: "/tasks/sort",
+		type: 'POST',
+		data: order + '&parent_id=' + parent_id + '&group_id=' + group_id
+	});
+}
+function sortBlocks(order){
+	$.ajax({
+		url: "/tasks/sort",
+		type: 'POST',
+		data: order,
+		success: function(){
+			renumberBlocks();
+		}
+	});
+}
+
+function renumberBlocks() {
+	$('li.outcome_ready').each(function(index){
+		var count = index + 1;
+		$(this).find('.task_number').first().text(count);
+	});
+}
 
 
 });

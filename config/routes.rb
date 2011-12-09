@@ -19,6 +19,8 @@ Rpm::Application.routes.draw do
     resources :goals
   end
   
+  match 'tasks/sort' => 'tasks#sort'
+  
   match 'month/index/:start_date' => 'month#index', :as => :month
   match 'month/json/:start_date' => 'month#json', :as => :month_json
 

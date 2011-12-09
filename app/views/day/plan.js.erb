@@ -8,13 +8,7 @@ $(document).ready(function() {
 	$("li.task_wrap.outcome_ready").addClass('outcome');
 	$("li.task_wrap.outcome_ready > .header").show();
 	
-	$("li.task_wrap.outcome").each(function(){
-		var pHeight = $(this).find('.purpose').height() + 30;
-		var rHeight = $(this).find('.result_text').height() + 10;
-		var height = pHeight > rHeight ? pHeight : rHeight;
-		height = height > 26 ? height : 26;
-		$(this).find('ul.action_plan').css({ 'min-height': height });
-	});
+	minHeightOutcomes();
 
 	var $calendar = $('#side_schedule');
 	var now = new Date();
@@ -46,12 +40,17 @@ $(document).ready(function() {
 			$('#day_plan').attr('href','/day/plan/'+dbDate(newDate));
 			$('#day_schedule').attr('href','/day/schedule/'+dbDate(newDate));
 			$('.side_title').text(day_names[newDate.getDay()]+'\'s Schedule');
+			
+			$('#edit_plan').removeClass('active');
+			$('#edit_plan').text('Edit');
+			
 			$.get('/day/load_plan/' + db(newDate), function(data){
 				$('#day_plan_wrap').replaceWith(data);
 				$('#plan_side .big_date').text(newDate.getDate().toString());
 				$('#plan_side .small_date_day').text(day_names[newDate.getDay()] + "\'s Schedule");
 				$("li.task_wrap.outcome_ready").addClass('outcome');
 				$("li.task_wrap.outcome_ready > .header").show();
+				minHeightOutcomes();
 			});
 		},
 		eventRender : function(calEvent, $event) {
@@ -221,6 +220,16 @@ function calculateMinD(){
 	
 	$('.must_wrap .time').text(hour+':'+min);
 	$('.total_wrap .time').text(hourTotal+':'+minTotal);
+}
+
+function minHeightOutcomes() {
+	$("li.task_wrap.outcome_ready").each(function(){
+		var pHeight = $(this).find('.purpose').height() + 30;
+		var rHeight = $(this).find('.result_text').height() + 10;
+		var height = pHeight > rHeight ? pHeight : rHeight;
+		height = height > 26 ? height : 26;
+		$(this).find('ul.action_plan').css({ 'min-height': height });
+	});
 }
 
 var month_names = new Array ( );

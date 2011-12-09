@@ -17,29 +17,13 @@ $('#plan_wrap ul.sortable').live("mouseover", function() {
 				$(ui.helper).addClass('dragging_task');
 			},
 			update: function(event,ui){
-				var parentElement = ui.item[0].parentElement;
-	
-				if(!$(parentElement).hasClass('action_plan')){
-					$('#incomplete > li.task_wrap').each(function(index){
-						$.ajax({
-							url: "/tasks/" + $(this).attr('id'),
-							type: 'PUT',
-							data: $.param({task : { sort: index, parent_id: "" }})
-						});
-					});
-				}
-
-				if($(parentElement).hasClass('action_plan')){
-					var childParentId = $(parentElement).parents('li').first().attr('id');
-					$(parentElement).children().each(function(index){
-						$.ajax({
-							url: "/tasks/" +  $(this).attr('id'),
-							type: 'PUT',
-							data: $.param({task : { sort: index, parent_id: childParentId }})
-						});
-					});
-				}
-
+				var parent_id = $(ui.item[0].parentElement).parents('li').first().attr('id');
+				parent_id = parent_id ? parent_id : '';
+				$.ajax({
+					url: "/tasks/" + ui.item[0].id,
+					type: 'PUT',
+					data: $.param({task : { parent_id: parent_id }, nothing: 'true' })
+				});
 				checkCount();
 			}
 		});

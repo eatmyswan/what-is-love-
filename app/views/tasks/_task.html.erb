@@ -1,4 +1,4 @@
-<li id="<%= task.id.to_s %>" class="task_wrap sortable <%= 'must' if task.must == true %> <%= 'outcome_ready' if task.outcome == true && task.parent_id == nil %> <%= 'committed' if task.committed == true %> <%= 'scheduled' if task.scheduled == true %> <%= 'complete' if task.complete == true %>" start="<%= task.start %>" min_duration="<%= task.min_duration %>" group_id="<%= task.group.id.to_s if task.group %>" max_duration="<%= task.max_duration %>">
+<li id="<%= task.id.to_s %>" sort_id="task_<%= task.id.to_s %>" <%= "outcome_sort_id='task_#{ task.id.to_s }'" if task.parent_id == nil && task.outcome == true %> class="task_wrap sortable <%= 'must' if task.must == true %> <%= 'outcome_ready' if task.outcome == true && task.parent_id == nil %> <%= 'committed' if task.committed == true %> <%= 'scheduled' if task.scheduled == true %> <%= 'complete' if task.complete == true %>" start="<%= task.start %>" min_duration="<%= task.min_duration %>" group_id="<%= task.group.id.to_s if task.group %>" max_duration="<%= task.max_duration %>">
 	
 	<div class="outcome_wrap">
 		<span class="checkbox <%= 'active' if task.complete == true %>"></span>
@@ -36,8 +36,19 @@
 			<% end %>
 		</span>
 		<span class="task drag result">
-			<%= task.title %>
+			<span class="edit_result"></span>
+			<span class="edit_result_done"></span>
+			<form class="edit_result_form">
+				<input type="text" value="<%= task.title %>" class="edit_result_text">
+			</form>
+			<div class="result_text">
+				<span class="task_number">
+					<%= "#{task.sort.to_i + 1}" if task.parent_id != nil || task.outcome == true %>
+				</span>
+				<%= task.title %>
+			</div>
 		</span>
+		
 		<form class="edit_task no_disp" method="post" action="#">
 			<input type="text" value="<%= task.title %>" class="edit_task_text">
 		</form>
@@ -47,14 +58,11 @@
 			<%= render :partial => '/tasks/task_purpose', :locals => { :task => task } %>
 		<% end %>
 	</div>
-	<div class="result_wrap">
-		<%= render :partial => '/tasks/task_result', :locals => { :task => task } %>
-	</div>
 	<div class="header">
 		<span class="target outcome"></span>
-		<div class="action_title">Massive Action Plan</div>
-		<div class="outcome_title">Outcome / Result</div>
-		<div class="purpose_title">Purpose</div>
+		<div class="action_title">MAP: Massive Action Plan</div>
+		<div class="outcome_title">Result / Outcome</div>
+		<div class="purpose_title">Purpose / Why</div>
 	</div>
 	<div class="actions_wrap">
 		<% if task.group %>

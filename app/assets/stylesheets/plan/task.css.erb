@@ -11,6 +11,13 @@ li.task_wrap {
 	position: relative;
 	min-height: 25px;
 }
+li.task_wrap .task_number {
+	float: left;
+	display: block;
+	margin: 0 5px 0 0;
+}
+li.task_wrap .result_text {
+}
 li.task_wrap .target {
 	display: none;
 	float: left;
@@ -198,6 +205,16 @@ li.task_wrap .edit_task input[type="text"] {
 	padding: 1px 7px;
 }
 
+li.task_wrap.outcome .outcome_wrap {
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 200px;
+	width: 200px;
+	border-left: 1px solid #CCC;
+}
+
 li.task_wrap.outcome ul.sortable {
 	min-height: 26px;
 }
@@ -208,20 +225,8 @@ li.task_wrap.outcome .actions_wrap {
 li.task_wrap.outcome .actions_wrap ul.action_plan {
 	padding-top: 25px;
 }
-li.task_wrap .result_wrap {
-	display: none;
-}
-li.task_wrap.outcome .result_wrap {
-	display: block;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	right: 200px;
-	width: 180px;
-	border-left: 1px solid #CCC;
-	padding: 35px 10px 10px;
-}
-li.task_wrap.outcome .result_wrap .task {
+
+li.task_wrap.outcome .outcome_wrap .task {
 	padding-top: 35px;
 }
 li.task_wrap.outcome .purpose_wrap {
@@ -234,21 +239,24 @@ li.task_wrap.outcome .purpose_wrap {
 }
 li.task_wrap.outcome ul.in_outcome li.task_wrap .outcome_wrap{
 	display: block;
+	right: auto;
+	left: auto;
+	position: relative;
+	border-left: none;
+	width: 100%;
 }
 li.task_wrap.outcome ul.in_outcome li.task_wrap .outcome_wrap .target,
-li.task_wrap.outcome ul.in_outcome li.task_wrap .result_wrap {
+li.task_wrap.outcome ul.in_outcome li.task_wrap .outcome_wrap .edit_result {
 	display: none;
 }
 li.task_wrap .actions_wrap, 
-li.task_wrap .purpose_wrap {
+li.task_wrap .purpose_wrap,
+li.task_wrap .edit_result_form {
 	display: none;
 }
 li.task_wrap.outcome .actions_wrap, 
 li.task_wrap.outcome .purpose_wrap {
 	display: block;
-}
-li.task_wrap.outcome .outcome_wrap {
-	display: none;
 }
 li.task_wrap.outcome .purpose_wrap .purposes {
 	margin: 35px 10px 0;
@@ -261,11 +269,11 @@ li.task_wrap.outcome .purpose_wrap .add_purpose {
 	display: none;
 	margin: 0 0 10px 0;
 }
-li.task_wrap.outcome .result_wrap .edit_result_form {
+li.task_wrap.outcome .outcome_wrap .edit_result_form {
 	display: none;
 }
-li.task_wrap.outcome .purpose_wrap input,
-li.task_wrap.outcome .result_wrap input {
+li.task_wrap.outcome .purpose_wrap.editing input,
+li.task_wrap.outcome .outcome_wrap.editing input {
 	display: block;
 	width: 145px;
 	background: white;
@@ -288,7 +296,7 @@ li.task_wrap.outcome .delete {
 	display: none;
 }
 li.task_wrap.outcome .purpose_wrap .edit_purpose,
-li.task_wrap.outcome .result_wrap .edit_result {
+li.task_wrap.outcome .outcome_wrap .edit_result {
 	width: 15px;
 	height: 15px;
 	background: url(<%= asset_path 'edit.png' %>) no-repeat;
@@ -299,11 +307,11 @@ li.task_wrap.outcome .result_wrap .edit_result {
 	margin: 1px 0 0 0;
 }
 li.task_wrap.outcome .purpose_wrap:hover .edit_purpose,
-li.task_wrap.outcome .result_wrap:hover .edit_result {
+li.task_wrap.outcome .outcome_wrap:hover .edit_result {
 	display: block;
 }
 li.task_wrap.outcome .purpose_wrap .edit_purpose_done,
-li.task_wrap.outcome .result_wrap .edit_result_done {
+li.task_wrap.outcome .outcome_wrap .edit_result_done {
 	width: 15px;
 	height: 15px;
 	background: url(<%= asset_path 'edit_done.png' %>) no-repeat;
@@ -314,19 +322,19 @@ li.task_wrap.outcome .result_wrap .edit_result_done {
 	margin: 1px 0 0 0;
 }
 li.task_wrap.outcome .purpose_wrap.editing .edit_purpose,
-li.task_wrap.outcome .result_wrap.editing .edit_result {
+li.task_wrap.outcome .outcome_wrap.editing .edit_result {
 	display: none;
 }
 li.task_wrap.outcome .purpose_wrap.editing .edit_purpose_done,
-li.task_wrap.outcome .result_wrap.editing .edit_result_done {
+li.task_wrap.outcome .outcome_wrap.editing .edit_result_done {
 	display: block;
 }
 li.task_wrap.outcome .purpose_wrap.editing .add_purpose,
-li.task_wrap.outcome .result_wrap.editing .edit_result_form {
+li.task_wrap.outcome .outcome_wrap.editing .edit_result_form {
 	display: block;
 }
 li.task_wrap.outcome .purpose_wrap.editing .purpose,
-li.task_wrap.outcome .result_wrap.editing .result_text  {
+li.task_wrap.outcome .outcome_wrap.editing .result_text  {
 	display: none;
 }
 
