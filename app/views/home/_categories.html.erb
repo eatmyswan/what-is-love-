@@ -30,7 +30,7 @@
   					<span class="file_field_cover"></span>
 					</span>
 						<%= f.text_field :title, :autocomplete => :off, :value => "New category...", :onfocus => '(this.value == "New category...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New category..." : this.value' %>
-						<%= f.hidden_field :master_title, :value => 'Personal' %>
+						<%= f.hidden_field :personal, :value => 'true' %>
 						<span class="cancel"></span>
 						<span class="edit_done"></span>
 					<% end %>
@@ -53,7 +53,7 @@
   					<span class="file_field_cover"></span>
 					</span>
 						<%= f.text_field :title, :autocomplete => :off, :value => "New category...", :onfocus => '(this.value == "New category...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New category..." : this.value' %>
-						<%= f.hidden_field :master_title, :value => 'Professional' %>
+						<%= f.hidden_field :professional, :value => 'true' %>
 						<span class="cancel"></span>
 						<span class="edit_done"></span>
 					<% end %>

@@ -1,2 +1,5 @@
-var category = '<%= escape_javascript(@group.master_title) %>';
-$('#'+category.toLowerCase()+' .new_category').after('<%= escape_javascript render(:partial => "category", :locals => { :category => @group, :active => false }) %>');
+<% if @group.personal == true %>
+	$('#personal .new_category').after('<%= escape_javascript render(:partial => "category", :locals => { :category => @group, :active => false }) %>');
+<% elsif @group.professional == true %>
+	$('#professional .new_category').after('<%= escape_javascript render(:partial => "category", :locals => { :category => @group, :active => false }) %>');
+<% end %>

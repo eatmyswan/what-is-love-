@@ -14,8 +14,8 @@ class TasksController < ApplicationController
     require 'time_diff'
     
     @task = Task.new
-    @personal_groups = Group.where(user_id: current_user.id).and(master_title: 'Personal')
-    @professional_groups = Group.where(user_id: current_user.id).and(master_title: 'Professional')
+    @personal_groups = Group.where(user_id: current_user.id).and(personal: true)
+    @professional_groups = Group.where(user_id: current_user.id).and(professional: true)
   end
   
   def new_from_cal
@@ -26,8 +26,8 @@ class TasksController < ApplicationController
   def edit
     require 'time_diff'
     @task = Task.find(params[:id])
-    @personal_groups = Group.where(user_id: current_user.id).and(master_title: 'Personal')
-    @professional_groups = Group.where(user_id: current_user.id).and(master_title: 'Professional')
+    @personal_groups = Group.where(user_id: current_user.id).and(personal: true)
+    @professional_groups = Group.where(user_id: current_user.id).and(professional: true)
   end
 
   def create
@@ -141,8 +141,8 @@ class TasksController < ApplicationController
   end
   
   def edit_group
-    @inbox = Group.where(user_id: current_user.id).and(master_title: nil).first
-    @groups = Group.where(user_id: current_user.id).and(:master_title.ne => nil)
+    @inbox = Group.where(user_id: current_user.id).and(personal: false).and(professional: false).first
+    @groups = Group.any_of({ personal: true }, { professional: true }).and(user_id: current_user.id)
     @task = Task.find(params[:id])
     respond_to do |format|
       format.html { render :layout => false }

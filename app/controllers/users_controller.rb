@@ -1,9 +1,15 @@
 class UsersController < ApplicationController
   
+  before_filter :authenticate_user!
+  
   def index
     @user = User.find(current_user.id)
-    @personal_groups = Group.where(user_id: current_user.id).and(master_title: 'Personal')
-    @professional_groups = Group.where(user_id: current_user.id).and(master_title: 'Professional')
+    @personal_groups = Group.where(user_id: current_user.id).and(personal: true)
+    @professional_groups = Group.where(user_id: current_user.id).and(professional: true)
+  end
+  
+  def show
+    @user = User.find(params[:id])
   end
   
   def update

@@ -1,5 +1,7 @@
 Rpm::Application.routes.draw do
   
+  devise_for :users
+
   root :to => "home#index"
   
   resources :tasks do
@@ -45,9 +47,7 @@ Rpm::Application.routes.draw do
   match 'task/update/:id' => 'tasks#update'
 
 
-  match 'auth/:provider/callback' => 'sessions#create'
-  match 'auth/failure' => 'sessions#failure'
-  match 'signout' => 'sessions#destroy', :as => :signout
+
   match 'group/icon/:id' => 'groups#icon'
   match 'groups/sort_groups' => 'groups#sort_groups'
   match 'groups/long_term/:id' => 'groups#long_term', :as => :group_long_term

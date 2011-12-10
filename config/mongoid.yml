@@ -10,13 +10,13 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  database: famous
+  database: timemaster
 
 test:
   <<: *defaults
-  database: famous_test
+  database: timemaster_test
 
 # set these environment variables on your prod server
 production:
   <<: *defaults
-  database: famous
+  database: timemaster

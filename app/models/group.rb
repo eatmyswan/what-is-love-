@@ -2,7 +2,8 @@ class Group
   include Mongoid::Document
   include Mongoid::Timestamps
   field :title, type: String
-  field :master_title, type: String, default: nil
+  field :personal, type: Boolean, default: false
+  field :professional, type: Boolean, default: false
   field :sort, type: Integer, default: 0
   field :icon, type: String, default: "icon_check"
   field :vision, type: String, default: nil

@@ -1,5 +1,5 @@
 <% content_for :top do %>
-		<% if @group.master_title %>
+		<% if @group.personal == true || @group.professional == true %>
 			<div class="cover"><%= image_tag @group.images.forward.first.image.thumb if @group.images.first %></div>
 			<div class="title"><%= raw @group.title %></div>
 			<div class="filters_wrap">

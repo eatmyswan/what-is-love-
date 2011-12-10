@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title> RPM </title>
+  <title> TimeMaster: Rapid Planning Method </title>
   <%= stylesheet_link_tag 'application' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
+	
+	<ul class="hmenu">
+    <%= render 'shared/navigation' %>
+  </ul>
+
 	<div id="nav">
 		<a id="main_tab" class="well left" href="/">My Life</a>
 		<a id="account_tab" class="well right">Steven Doyle</a>

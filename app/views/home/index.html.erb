@@ -1,18 +1,23 @@
-<% content_for :top do %>
-		<div class="cover"><%= image_tag current_user.twitter_img %></div>
-		<div class="title"><%= current_user.name %></div>
-		<div class="ribbon"></div>
-<% end %>
-
-
-<% content_for :page do %>
-	<div id="group">
-		<div id="vision_wrap">
-			<%= render :partial => '/groups/vision', :locals => { :group => current_user } %>
+<div id="header">
+	<div class="title">
+	</div>
+	<div id="invite_box">
+		<h2>Request your invitation to try out the beta!</h2>
+		<form>
+			<div class="input_wrap">
+				<input type="text" value="Your Name">
+			</div>
+			<div class="input_wrap">
+				<input type="text" value="Email Address">
+			</div>
+			<div class="submit">Request Invitation</div>
+		</form>
+	</div>
+</div>
+<div id="footer">
+	<div class="top">
+		<div class="copy">
+			Copyright &copy; 2011 Robbins Research International, Inc. All Rights Reserved.
 		</div>
 	</div>
-<% end %>
-
-
-<%= render 'pad' %>
-<%= render 'categories' %>
+</div>
