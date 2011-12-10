@@ -77,7 +77,7 @@ $('#day_plan_wrap.planning li.task_wrap').live("mouseover", function() {
 	if (!$(this).data("init")) {
 		$(this).data("init", true);
 		var outcome = $(this).hasClass('outcome_ready') ? true : false;
-		var title = $(this).find('.task').first().text();
+		var title = $(this).find('.task_title').first().text();
 		var must = $(this).find('.star').first().hasClass('active') ? true : false;
 		var complete = $(this).find('.checkbox').first().hasClass('active') ? true : false;
 		title = $.trim(title);

@@ -1782,6 +1782,7 @@
 				}
 				
                 var newCalEvent = $.extend(true, {}, calEvent, {start: eventDuration.start, end: eventDuration.end});
+
                 /*
 				var showAsSeparatedUser = options.showAsSeparateUsers && options.users && options.users.length;
 				if (showAsSeparatedUser) {
