@@ -25,7 +25,7 @@
 				<ul class="committed_wrap sortable day_drop" date="<%= day %>">
 					<% @tasks.each do |task| %>
 						<% if task.start.at_midnight() == day %>
-							<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'false' } %>
+							<%= render :partial => '/tasks/committed', :locals => { :task => task, :action_plan => 'false' } %>
 						<% end %>
 					<% end %>
 					<% @appts.each do |appt| %>

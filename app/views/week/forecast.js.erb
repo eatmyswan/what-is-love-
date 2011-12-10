@@ -76,14 +76,23 @@ $(document).ready(function() {
 			});
 		},
         eventRender : function(calEvent, $event) {
-			if (calEvent.readOnly == true) {
-				$event.addClass('readonly');
+			if (calEvent.readOnly == true) $event.addClass('readonly');
+			if (calEvent.end.getTime() < new Date().getTime()) $event.addClass('past_event');	
+			calEvent.outcome == true ? $event.addClass('outcome') : '';
+			calEvent.complete == true ? $event.addClass('complete') : ''; 
+			calculateMinD();
+			
+			if(calEvent.parent_id != null){
+				$event.find('.wc-time').after('<div class="wc-outcome"></div>');
+				$.get('/week/outcome/'+calEvent.parent_id,function(outcome){
+					$event.find('.wc-outcome').html( '<span class="mini_target"></span>' + outcome );
+				});
 			}
-			if (calEvent.end.getTime() < new Date().getTime()) {
-				$event.addClass('past_event');
+			if(calEvent.parent_id != null || calEvent.outcome == true){
+				$.get('/week/group/'+calEvent._id,function(group){
+					$event.find('.wc-title').after( group );
+				});
 			}
-			(calEvent.parent_id == null && calEvent.outcome == true) ? $event.addClass('outcome') : '';
-			calEvent.complete == true ? $event.addClass('complete') : '';
       	},
 		draggable : function(calEvent, $event) {
 			return calEvent.readOnly != true;
@@ -277,6 +286,7 @@ $(document).ready(function() {
 	
 	
 function calculateMinD(){
+
 	$('.day_drop').each(function(){
 		
 		var minD = 0;

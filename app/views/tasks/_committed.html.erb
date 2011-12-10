@@ -1,0 +1,53 @@
+<li id="<%= task.id.to_s %>" sort_id="task_<%= task.id.to_s %>" <%= "outcome_sort_id='task_#{ task.id.to_s }'" if task.parent_id == nil && task.outcome == true %> class="task_wrap sortable <%= 'must' if task.must == true %> <%= 'outcome_ready' if task.outcome == true && task.parent_id == nil %> <%= 'committed' if task.committed == true %> <%= 'scheduled' if task.scheduled == true %> <%= 'complete' if task.complete == true %>" start="<%= task.start %>" min_duration="<%= task.min_duration %>" group_id="<%= task.group.id.to_s if task.group %>" <%= "parent_id='#{ task.parent_id }'" if task.parent_id %> max_duration="<%= task.max_duration %>">
+	
+	<div class="outcome_wrap">
+		
+		<% if task.parent_id == nil %>
+			<span class="target <%= 'active' if task.outcome == true %>"></span>
+		<% end %>
+		<span class="star <%= 'active' if task.must == true %>"></span>
+		<span class="icon" rel="/task/edit_group/<%= task.id.to_s %>">
+		<% if task.group %>	
+			<%= task.group.images.forward.first ? ( image_tag task.group.images.forward.first.image.tiny ) : ( image_tag asset_path('inbox.png') ) %>
+		<% end %>
+		</span>
+		<span class="delete"></span>
+		
+		<span class="date">
+			<%= schedule_date(task.start) if task.start %>
+		</span>
+		<span class="duration">
+			<% if(task.outcome == false) %>
+				<%= min_duration(task.min_duration) if task.min_duration %>
+				<%= max_duration(task.max_duration) if task.max_duration > task.min_duration %>
+			<% else %>
+					<% min_duration = 0 %>
+					<% max_duration = 0 %>
+				<% task.group.tasks.where(parent_id: task.id).and(complete: false).each do |task| %>
+						<% min_duration = task.min_duration + min_duration %>
+						<% max_duration = (task.max_duration > task.min_duration) ? (task.max_duration + max_duration) : (task.min_duration + max_duration)  %>
+				<% end %>
+					<%= min_duration(min_duration) if min_duration > 0 %>
+					<%= max_duration(max_duration) if max_duration > min_duration %>
+			<% end %>
+		</span>
+		<span class="task drag result">
+		
+			<div class="result_text">
+				
+		
+				
+				<span class="task_number">
+					<% if task.parent_id %>
+						<% parent = Task.find(task.parent_id) %>
+						<%= parent.sort %>.<% end %><span class="task_sort"><%= "#{task.sort.to_i}" if task.sort > 0 %></span>
+				</span>
+				<span class="task_title">
+					<%= task.title %>
+				</span>
+			</div>
+		</span>
+
+	</div>
+
+</li> 
