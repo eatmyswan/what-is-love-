@@ -7,7 +7,7 @@ class WeekController < ApplicationController
   
   def outcome
     task = Task.find(params[:id])
-    render :text => "#{task.sort+1} #{task.title}"
+    render :text => "#{task.sort} #{task.title}"
   end
   
   def group
@@ -30,6 +30,7 @@ class WeekController < ApplicationController
     @start_date = Date.new(@date.year, @date.month, @date.day).beginning_of_week
     @end_date = @start_date + 6.days
     @plans = Task.where(:start.gte => @start_date, :start.lt => @end_date).and(parent_id: nil).and(plan: true).and(:group_id.ne => nil).order_by([:sort, :asc])
+    @inbox = Group.where(user_id: current_user.id).and(master_title: nil).first
     @tasks = Task.where(:start.gte => @start_date, :start.lt => @end_date).and(committed: true)
     @appts = Task.where(:start.gte => @start_date, :start.lt => @end_date).and(group_id: nil)
   end

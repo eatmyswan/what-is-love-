@@ -4,6 +4,7 @@
 		<div class="calendar_title">
 			<span class="big"><%= @start_date.strftime('%B %e') %> - <%= @end_date.strftime('%e, %Y') %></span>
 		</div>
+		<div id="edit_plan">Edit</div>
 		<div id="next_prev_wrap">
 			<%= link_to week_plan_path(@start_date - 7.days), :class => 'filter rounded_left', :remote => true do %>
 				<div class="prev"></div>

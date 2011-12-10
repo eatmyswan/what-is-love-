@@ -43,7 +43,7 @@
 			</form>
 			<div class="result_text">
 				<span class="task_number">
-					<%= "#{task.sort.to_i + 1}" if task.parent_id != nil || task.outcome == true %>
+					<%= "#{task.sort.to_i}" if task.sort > 0 %>
 				</span>
 				<%= task.title %>
 			</div>

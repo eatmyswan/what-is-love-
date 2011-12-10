@@ -50,6 +50,8 @@ $('#group_select li').live("click", function() {
 	
 });
 
+var stopCallback = true;
+
 $('#capture_wrap ul.sortable, #side_plan').live("mouseover", function() {
 	if (!$(this).data("init")) {
 		$(this).data("init", true);
@@ -66,41 +68,74 @@ $('#capture_wrap ul.sortable, #side_plan').live("mouseover", function() {
 				$(ui.helper).addClass('dragging_task');
 				datepickerDroppable();
 			},
-			stop: function(event,ui){
-				calculateResultCount();
-				var parentElement = ui.item[0].parentElement;
-				var groupId = $(parentElement).parents('.capture_group_wrap, .capture_group_wrap_inbox').first().attr('id');
-				var taskId = $(ui.item[0]).attr('id');
-				
-				if($(parentElement).hasClass('add_to_plan')){
-					$(ui.item[0]).removeClass('outcome');
-					$(ui.item[0]).find('.header').hide();
-					$.ajax({
-						url: "/tasks/" + taskId,
-						type: 'PUT',
-						data: $.param({task : { plan: 'true', outcome: 'true', parent_id: '' }})
-					});
-				} else {
-				
-					if($(parentElement).hasClass('action_plan')) {
-						var childParentId = $(parentElement).parents('li').first().attr('id');
+			receive: function(event,ui){
+				//update the sender
+				if(ui.sender){
+					if($(ui.sender).hasClass('action_plan')){
+						var order = $(ui.sender).sortable('serialize', {attribute: 'sort_id'});
+						var parent_id = $(ui.sender).parents('li').first().attr('id');
+						var group_id = $(ui.sender).parents('.capture_group_wrap_inbox, .capture_group_wrap').first().attr('id');
+						var new_group_id = $(ui.item[0].parentElement).parents('.capture_group_wrap_inbox, .capture_group_wrap').first().attr('id');
+						console.log(new_group_id);	
 						$.ajax({
-							url: "/tasks/" + taskId,
-							type: 'PUT',
-							data: $.param({task : { plan: 'false', parent_id: childParentId, group_id: groupId, scheduled: 'false', committed: 'false' }})
-						});
-					} else {
-						$.ajax({
-							url: "/tasks/" + taskId,
-							type: 'PUT',
-							data: $.param({task : { plan: 'false', parent_id: '', group_id: groupId, scheduled: 'false', committed: 'false' }})
+							url: "/tasks/"+ui.item[0].id, type: 'PUT',
+							data: $.param({task : { parent_id: '', group_id: new_group_id } }),
+							success: function(){
+								if(order.length > 0) sortOldBlock(order,parent_id,group_id);	
+							}
 						});
 					}
-				
+					else if ($(ui.sender).hasClass('add_to_plan')){
+						//remove from plan
+						$.ajax({
+							url: "/tasks/"+ui.item[0].id, type: 'PUT',
+							data: $.param({task : { plan: 'false', committed: 'false' }}),
+							success: function() {
+								var order = $(ui.sender).sortable('serialize', {attribute: 'sort_id'});
+								if(order.length > 0) sortBlocks(order);
+							}
+						});
+					} 
 				}
-				
+			},
+			remove: function(event,ui){
+				//update the receiver
+					var parentElement = ui.item[0].parentElement;
+					if ($(parentElement).hasClass('add_to_plan')){
+						$(ui.item[0]).removeClass('outcome');
+						$(ui.item[0]).find('.header').hide();
+						$.ajax({
+							url: "/tasks/"+ui.item[0].id, type: 'PUT',
+							data: $.param({task : { plan: 'true', committed: 'true' }, nothing: 'true'})
+						});
+					} 
+					else if(!$(parentElement).hasClass('action_plan')) {
+						var group_id = $(parentElement).parents('.capture_group_wrap_inbox, .capture_group_wrap').first().attr('id');
+						$.ajax({
+							url: "/tasks/"+ui.item[0].id, type: 'PUT',
+							data: $.param({task : { parent_id: '', group_id: group_id }})
+						});
+					}
+			},
+			stop: function(event,ui){
+				//use this for sorting inside outcome
+				//use this for going in outcome from same group
+				if(!ui.sender && stopCallback == true){
+					var parentElement = ui.item[0].parentElement;
+					if($(parentElement).hasClass('action_plan')){
+						console.log('update sort in new block');
+						var parent_id = $(parentElement).parents('li').first().attr('id');
+						var group_id = $(parentElement).parents('.capture_group_wrap_inbox, .capture_group_wrap').first().attr('id');
+						var order = $(parentElement).sortable('serialize', {attribute: 'sort_id'});
+						sortInsideBlock(order,parent_id,group_id);
+					} else if ($(parentElement).hasClass('add_to_plan')){
+						var order = $(parentElement).sortable('serialize', {attribute: 'sort_id'});
+						sortBlocks(order);
+					}
+				}
 				captureEmpty();	
 			}
+
 		});
 	}
 });
@@ -153,5 +188,38 @@ function calculateResultCount() {
 	var count = $('#side_plan').children().length;
 	$('.result_count_wrap .count').text(count);
 }
+
+function sortOldBlock(order,parent_id,group_id){
+	$.ajax({
+		url: "/tasks/sort", 
+		type: 'POST', 
+		data: order + '&parent_id=' + parent_id + '&group_id=' + group_id
+	});
+}
+function sortInsideBlock(order,parent_id,group_id){
+	$.ajax({
+		url: "/tasks/sort",
+		type: 'POST',
+		data: order + '&parent_id=' + parent_id + '&group_id=' + group_id
+	});
+}
+function sortBlocks(order){
+	$.ajax({
+		url: "/tasks/sort",
+		type: 'POST',
+		data: order,
+		success: function(){
+			renumberBlocks();
+		}
+	});
+}
+
+function renumberBlocks() {
+	$('#side_plan li.outcome_ready').each(function(index){
+		var count = index + 1;
+		$(this).find('.task_number').first().text(count);
+	});
+}
+
 
 

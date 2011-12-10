@@ -27,7 +27,7 @@ var stopCallback = true;
 $('#day_plan_wrap.editing ul.sortable').live("mouseover", function() {
 	if (!$(this).data("init")) {
 		$(this).data("init", true);
-		$(this).sortable({
+		$('ul.sortable').sortable({
 		    connectWith: "ul.sortable",
 		    placeholder: "drop_task",
 			tolerance: "pointer",

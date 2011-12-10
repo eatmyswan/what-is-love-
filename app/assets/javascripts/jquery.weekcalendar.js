@@ -111,7 +111,7 @@
           var displayTitleWithTime = calEvent.end.getTime() - calEvent.start.getTime() <= (one_hour / options.timeslotsPerHour);
           if (displayTitleWithTime) {
 			if(calEvent.outcome == true || calEvent.parent_id != null) {
-            	return calendar.weekCalendar('formatTime', calEvent.start) + ' ' + (calEvent.sort+1) + ' ' + calEvent.title;
+            	return calendar.weekCalendar('formatTime', calEvent.start) + ' ' + (calEvent.sort) + ' ' + calEvent.title;
 			} else {
 				return calendar.weekCalendar('formatTime', calEvent.start) + ' ' + calEvent.title;
 			}
@@ -125,10 +125,10 @@
         },
         eventBody: function(calEvent, calendar) {
 			if(calEvent.outcome == true) {
-				return '<span class="mini_target"></span>' + (calEvent.sort+1) + ' ' + calEvent.title;
+				return '<span class="mini_target"></span>' + (calEvent.sort) + ' ' + calEvent.title;
 			} 
 			else if (calEvent.parent_id != null) {
-				return (calEvent.sort+1) + ' ' + calEvent.title;
+				return (calEvent.sort) + ' ' + calEvent.title;
 			}
 			else {
 				return calEvent.title;

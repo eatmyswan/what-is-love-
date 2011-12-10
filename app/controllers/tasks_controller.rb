@@ -92,7 +92,7 @@ class TasksController < ApplicationController
     tasks = Task.find(params[:task])
     if(params[:parent_id])
       tasks.each do |task|
-        task.sort = params['task'].index(task.id.to_s)
+        task.sort = params['task'].index(task.id.to_s)+1
         task.parent_id = params[:parent_id]
         task.group_id = params[:group_id]
         task.save
@@ -102,7 +102,7 @@ class TasksController < ApplicationController
       render 'update'
     else
       tasks.each do |task|
-        task.sort = params['task'].index(task.id.to_s)
+        task.sort = params['task'].index(task.id.to_s)+1
         task.save
       end
       render :nothing => true
