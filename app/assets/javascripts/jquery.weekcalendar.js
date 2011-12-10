@@ -1773,6 +1773,8 @@
 				$calEvent.data('calEvent').end = eventDuration.end;
 				var calEvent = $calEvent.data('calEvent');
 				
+				console.log(calEvent);
+				
 				if($calEvent.hasClass('task_wrap')){
 					$('.wc-cal-event').each(function(){
 						if($(this).data('calEvent')._id == calEvent._id) $(this).remove();

@@ -54,13 +54,12 @@ $(document).ready(function() {
 			});
 		},
 		eventRender : function(calEvent, $event) {
+
 			if (calEvent.readOnly == true) $event.addClass('readonly');
 			if (calEvent.end.getTime() < new Date().getTime()) $event.addClass('past_event');	
 			calEvent.outcome == true ? $event.addClass('outcome') : '';
 			calEvent.complete == true ? $event.addClass('complete') : ''; 
 			calculateMinD();
-			
-			console.log($event);
 			
 			if(calEvent.parent_id != null){
 				$event.find('.wc-time').after('<div class="wc-outcome"></div>');
