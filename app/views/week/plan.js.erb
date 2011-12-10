@@ -40,17 +40,21 @@ $(document).ready(function() {
 				var nothing = 'true';
 				open = 'true';
 			} else {
-				if(ui.draggable.parents('.action_plan').length === 0){
-					open = 'true';
-				} else {
-					open = 'false';
-				}
-				var nothing = 'false';
+				
 				var id = $(ui.draggable).attr('id');
 				$('#week_committed').find('#'+id).remove();
 				var clone = $(ui.draggable).clone();
 				clone.find('.action_plan').html('');
+				if(ui.draggable.parents('.action_plan').length != 0){
+					var sort = parseInt(clone.find('.task_number').text());
+					var pSort = parseInt(ui.draggable.parents('.outcome').find('.task_number').first().text());
+					clone.find('.task_number').text(pSort+'.'+sort);
+				}
 				clone.prependTo(this).addClass('committed').removeClass('outcome').find('.header').hide();
+				
+				open = ui.draggable.parents('.action_plan').length === 0 ? 'true' : 'false';
+				var nothing = 'false';
+				
 			}
 
 			$.ajax({
