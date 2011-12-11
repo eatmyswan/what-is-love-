@@ -9,6 +9,16 @@ $(document).ready(function() {
 		var date = $('#hidden_date').val();
 		$.get('/day/schedule/'+date);
 	});
+	
+	$('#min_cal_forecast').live('click',function(){
+		var date = $('#hidden_date').val();
+		$.get('/week/forecast/'+date,{ size: "10"});
+	});
+	
+	$('#max_cal_forecast').live('click',function(){
+		var date = $('#hidden_date').val();
+		$.get('/week/forecast/'+date);
+	});
 
 	$('#prev').live('click', function() {
 		$('#forecast,#schedule,#side_schedule').weekCalendar('prev');

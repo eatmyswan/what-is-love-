@@ -8,6 +8,7 @@ class Image
   embedded_in :user
   embedded_in :group
   
+  
   validates_presence_of :image
   
   scope :forward, order_by([[:sort, :asc],[:created_at, :desc]])

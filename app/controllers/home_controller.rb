@@ -9,7 +9,6 @@ class HomeController < ApplicationController
     else
       render 'index', :layout => 'invite'
     end
-
   end
 
 end

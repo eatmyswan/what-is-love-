@@ -15,6 +15,8 @@ class Group
   embeds_many :images
 
   index :user_id
+  index :personal
+  index :professional
   
   scope :forward, order_by(:sort.asc)
   

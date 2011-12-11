@@ -27,6 +27,12 @@ class Task
   index :user_id
   index :group_id
   index :parent_id
+  index :sort
+  index :plan
+  index :week
+  index :outcome
+  index :scheduled
+  index :complete
   
   scope :unplanned, where(queued: false).and(scheduled: false).order_by([:sort, :asc])
   scope :incomplete, where(complete: false).and(parent_id: nil).order_by([:sort, :asc])

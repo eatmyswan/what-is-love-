@@ -162,3 +162,39 @@ border-right: 1px solid #7a6239;
 	background-position: -23px -16px;
 }
 
+#cal_size_wrap {
+	float: left;
+	margin: 21px 0 0 0;
+}
+#cal_size_wrap .filter {
+box-shadow: 0px 1px 1px #dad2c7;
+padding: 3px 10px 0;
+text-shadow: #222 0px 1px 2px;
+background: url(<%= asset_path 'mylife_filter_bg.png' %>) repeat-x top center #846942;
+border-left: 1px solid #655135;
+border-top: 1px solid #655135;
+border-bottom: 1px solid #655135;
+float: left;
+color: #dad2c7;
+display: block;
+cursor: pointer;
+height: 15px;
+font-size: 11px;
+z-index: 4;
+position: relative;
+}
+#cal_size_wrap .rounded_left {
+border-radius: 10px 0 0 10px;
+padding-left: 12px;
+}
+#cal_size_wrap .rounded_right {
+border-radius: 0 10px 10px 0;
+border-right: 1px solid #7a6239;
+padding-right: 12px;
+}
+#cal_size_wrap .active, 
+#cal_size_wrap .filter:hover {
+background: url(<%= asset_path 'mylife_filter_bg_active.png' %>) repeat-x top left #927543;
+color: white;
+}
+

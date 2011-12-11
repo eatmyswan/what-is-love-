@@ -11,7 +11,12 @@
 
 	
 	<div class="purpose_group">
-		<span class="img_wrap"><%= image_tag task.group.images.forward.first.image.tiny if task.group.images.forward.first %></span>
-		<span class="title_wrap"><%= task.group.title %></span>
+		<% if task.group.professional == true || task.group.personal == true %>
+			<span class="img_wrap"><%= image_tag task.group.images.forward.first.image.tiny if task.group.images.forward.first %></span>
+			<span class="title_wrap"><%= task.group.title %></span>
+		<% else %>
+			<span class="img_wrap" style="background: transparent; box-shadow: none;"><%= image_tag asset_path('inbox.png') %></span>
+			<span class="title_wrap">Action List</span>
+		<% end %>
 	</div>
 </div>

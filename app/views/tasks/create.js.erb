@@ -1,4 +1,4 @@
-$("#task_title").val('New task...').blur();
+$("#task_title").val('').focus();
 $('<%= escape_javascript render(:partial => 'task', :locals => { :task => @task, :action_plan => 'true' } ) %>').prependTo('.incomplete_task_list');
 
 var countText = $('#categories .active').find('.count_text').first();

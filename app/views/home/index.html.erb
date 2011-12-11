@@ -3,15 +3,15 @@
 	</div>
 	<div id="invite_box">
 		<h2>Request your invitation to try out the beta!</h2>
-		<form>
+		<%= form_for(Invite.new) do |f| %>
 			<div class="input_wrap">
-				<input type="text" value="Your Name">
+				<%= f.text_field :name, :autocomplete => :off, :value => "Your Name", :onfocus => '(this.value == "Your Name") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "Your Name" : this.value' %>
 			</div>
 			<div class="input_wrap">
-				<input type="text" value="Email Address">
+				<%= f.email_field :email, :autocomplete => :off, :value => "Email Address", :onfocus => '(this.value == "Email Address") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "Email Address" : this.value' %>
 			</div>
-			<div class="submit">Request Invitation</div>
-		</form>
+			<%= f.submit "Request Invitation", :class => 'submit' %>
+		<% end %>
 	</div>
 </div>
 <div id="footer">

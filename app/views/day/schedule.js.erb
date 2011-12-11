@@ -3,6 +3,10 @@ $('#day').addClass('active');
 $('#pad').replaceWith("<%= escape_javascript render('schedule')  %>");
 $('.categories_wrap').replaceWith("<%= escape_javascript render('side')  %>");
 
+<% if @size.to_i == 10 %>
+	$('#max_cal').removeClass('active');
+	$('#min_cal').addClass('active');
+<% end %>
 
 $(document).ready(function() {
 	

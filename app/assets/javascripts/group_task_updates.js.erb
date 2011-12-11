@@ -274,7 +274,7 @@ $('#incomplete .target.active').live('click', function(){
 		task.addClass('outcome').find('.header').first().slideDown(200);
 		
 		var pHeight = task.find('.purpose').height() + 10;
-		var rHeight = task.find('.result_text').height() + 10;
+		var rHeight = task.find('.result_text').height() + 20;
 		var height = pHeight > rHeight ? pHeight : rHeight;
 		height = height > 26 ? height : 26;
 		task.find('ul.action_plan').css({ 'min-height': height });

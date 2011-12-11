@@ -3,8 +3,8 @@ class TasksController < ApplicationController
   #before_filter :find_or_build_task, :except => [ :index, :create_bm ]
   
   def index
-    @incomplete_tasks = Task.where(group_id: nil).and(complete: false).order_by([:sort, :asc])
-    @complete_tasks = Task.where(group_id: nil).and(complete: true).order_by([:sort, :asc])
+    @incomplete_tasks = Task.where(group_id: nil).and(user_id: current_user.id).and(complete: false).order_by([:sort, :asc])
+    @complete_tasks = Task.where(group_id: nil).and(user_id: current_user.id).and(complete: true).order_by([:sort, :asc])
     respond_to do |format|
         format.js { render :layout => false }
     end

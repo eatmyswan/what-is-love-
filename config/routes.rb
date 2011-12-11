@@ -21,6 +21,8 @@ Rpm::Application.routes.draw do
     resources :goals
   end
   
+  resources :invites, :only => :create
+  
   match 'tasks/sort' => 'tasks#sort'
   
   match 'month/index/:start_date' => 'month#index', :as => :month
@@ -41,12 +43,8 @@ Rpm::Application.routes.draw do
   match 'day/side/:start_date' => 'day#side'
   match 'day/load_plan/:start_date' => 'day#load_plan'
   
-  
-  
   match 'tasks/sort' => 'tasks#sort'
   match 'task/update/:id' => 'tasks#update'
-
-
 
   match 'group/icon/:id' => 'groups#icon'
   match 'groups/sort_groups' => 'groups#sort_groups'

@@ -79,7 +79,9 @@ body#invite {
 	margin: 0 0 10px 0;
 	position: relative;
 }
-#invite #header #invite_box input[type="text"] {
+#invite #header #invite_box input[type="text"],
+#invite #header #invite_box input[type="email"],
+#invite #header #invite_box input[type="password"] {
 	background: transparent;
 	position: absolute;
 	left: 15px;
@@ -89,6 +91,7 @@ body#invite {
 	font-size: 16px;
 	color: #777;
 	font-weight: bold;
+	border: 0;
 }
 #invite #header #invite_box .submit {
 	float: right;
@@ -105,7 +108,15 @@ body#invite {
 	text-shadow: 0 1px 1px #000;
 	font-weight: bold;
 	margin: 5px 0 0 0;
+	font-family: Arial, sans-serif;
+	cursor: pointer;
 }
+#invite #header #invite_box .remember_wrap {
+	color: #FFF;
+	float: left;
+	margin: 15px 0 0 5px;
+}
+
 #invite #footer {
 	background: url(<%= asset_path 'home_footer_bg.png' %>) repeat top center transparent;
 	position: absolute;

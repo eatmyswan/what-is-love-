@@ -106,7 +106,7 @@ $('#capture_wrap ul.sortable, #side_plan').live("mouseover", function() {
 						$(ui.item[0]).find('.header').hide();
 						$.ajax({
 							url: "/tasks/"+ui.item[0].id, type: 'PUT',
-							data: $.param({task : { plan: 'true', committed: 'true' }, nothing: 'true'})
+							data: $.param({task : { plan: 'true', committed: 'true', outcome: 'true' }, nothing: 'true'})
 						});
 					} 
 					else if(!$(parentElement).hasClass('action_plan')) {

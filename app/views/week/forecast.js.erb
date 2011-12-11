@@ -3,6 +3,11 @@ $('#week').addClass('active');
 $('#pad').replaceWith("<%= escape_javascript render('forecast')  %>");
 $('.categories_wrap').replaceWith("<%= escape_javascript render('committed')  %>");
 
+<% if @size.to_i == 10 %>
+	$('#max_cal_forecast').removeClass('active');
+	$('#min_cal_forecast').addClass('active');
+<% end %>
+
 $(document).ready(function() {
 	
 	$('.day_drop').droppable({
@@ -47,7 +52,7 @@ $(document).ready(function() {
 		date: new Date(parseInt("<%= @start_date.year %>"),parseInt("<%= @start_date.month %>")-1,parseInt("<%= @start_date.day %>"),now.getHours()),
 		displayOddEven:true,
 		timeslotsPerHour : 4,
-		timeslotHeight : 7,
+		timeslotHeight : parseInt("<%= @size %>"),
 		allowCalEventOverlap : true,
 		overlapEventsSeparate: true,
 		firstDayOfWeek : 1,
@@ -70,6 +75,7 @@ $(document).ready(function() {
 			$('#day_capture').attr('href','/day/capture/'+dbDate(newDate));
 			$('#day_plan').attr('href','/day/plan/'+dbDate(newDate));
 			$('#day_schedule').attr('href','/day/schedule/'+dbDate(newDate));
+			$('#hidden_date').val(dbDate(newDate));
 			$.get('/week/side/' + newDate.toString('yyyy-MM-dd 00:00:00'), function(data){
 				$('.categories_wrap').replaceWith(data);
 				calculateMinD();

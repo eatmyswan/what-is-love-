@@ -11,7 +11,7 @@ $(document).ready(function() {
 
 		var pHeight = $("#<%= @task.id.to_s %>").find('.purpose').height() + 10;
 			if($('#day_plan_wrap').length == 1) pHeight = pHeight + 25;
-		var rHeight = $("#<%= @task.id.to_s %>").find('.result_text').height() + 10;
+		var rHeight = $("#<%= @task.id.to_s %>").find('.result_text').height() + 20;
 		var height = pHeight > rHeight ? pHeight : rHeight;
 		height = height > 26 ? height : 26;
 		$("#<%= @task.id.to_s %>").find('ul.action_plan').css({ 'min-height': height });
