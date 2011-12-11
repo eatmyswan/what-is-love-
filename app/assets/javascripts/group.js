@@ -64,7 +64,16 @@ $('#personal,#professional').live("mouseover", function() {
 			items: 'a',
 			axis: 'y',
 			forcePlaceholderSize: true,
-			tolerance: 'pointer'
+			tolerance: 'pointer',
+			containment: 'parent',
+			stop: function(){
+				var sort = $(this).sortable('serialize', {attribute: 'group_id'});
+				$.ajax({
+					url: "/groups/sort",
+					type: 'POST',
+					data: sort
+				});
+			}
 		});
 	}
 });

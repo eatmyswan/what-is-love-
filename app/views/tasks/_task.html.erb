@@ -56,9 +56,9 @@
 				</span>
 				<% if(task.outcome == true) %>
 					<div class="result_time">
-						<%= "<span class='result_time_title'>Must</span> #{min_duration(min_must_duration)} &nbsp;".html_safe if min_must_duration > 0 %>
-						<%= "<span class='result_time_title'>Total</span> #{min_duration(min_duration)}".html_safe if min_duration > 0 %>
-						<%= max_duration(max_duration) if max_duration > min_duration %>
+						<%= "<span class='result_time_wrap'><span class='result_time_title'>Must</span> #{duration(min_must_duration)}</span>".html_safe if min_must_duration > 0 %>
+						<%= "<span class='result_time_wrap'><span class='result_time_title'>Min</span> #{duration(min_duration)}</span>".html_safe if min_duration > 0 %>
+						<%= "<span class='result_time_title'>Max</span> #{duration(max_duration)}".html_safe if max_duration > min_duration %>
 					</div>
 				<% end %>
 			</div>

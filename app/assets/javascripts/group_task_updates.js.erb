@@ -189,19 +189,33 @@ $('#incomplete .star').live('click',function(){
 	var task = $(this).parents('li').first();
 	var taskId = task.attr('id');
 	if(star.hasClass('active')){
+		if($(this).parents('.action_plan').first().length > 0){
+			var parent = 'true';
+			var nothing = 'false';
+		} else {
+			var parent = 'false';
+			var nothing = 'true';
+		}
 		star.removeClass('active');
 		$.ajax({
 			url: "/tasks/" +  taskId,
 			type: 'PUT',
-			data: $.param({task : { must: 'false' }}),
+			data: $.param({task : { must: 'false' }, nothing: nothing, parent: parent}),
 			success: function() { }
 			});
 	} else {
+		if($(this).parents('.action_plan').first().length > 0){
+			var parent = 'true';
+			var nothing = 'false';
+		} else {
+			var parent = 'false';
+			var nothing = 'true';
+		}
 		star.addClass('active');
 		$.ajax({
 			url: "/tasks/" +  taskId,
 			type: 'PUT',
-			data: $.param({task : { must: 'true' }}),
+			data: $.param({task : { must: 'true' }, nothing: nothing, parent: parent}),
 			success: function() { }
 			});
 	}

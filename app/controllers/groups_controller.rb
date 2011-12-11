@@ -57,7 +57,7 @@ class GroupsController < ApplicationController
     render :nothing => true
   end
   
-  def sort_groups
+  def sort
     groups = Group.find(params[:group])
     groups.each do |group|
       group.sort = params['group'].index(group.id.to_s) + 1

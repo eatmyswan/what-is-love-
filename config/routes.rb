@@ -47,7 +47,7 @@ Rpm::Application.routes.draw do
   match 'task/update/:id' => 'tasks#update'
 
   match 'group/icon/:id' => 'groups#icon'
-  match 'groups/sort_groups' => 'groups#sort_groups'
+  match 'groups/sort' => 'groups#sort'
   match 'groups/long_term/:id' => 'groups#long_term', :as => :group_long_term
   match 'task/save_audio/:id' => 'tasks#save_audio'
   match 'task/:task_id/email/:email_id/mini_player' => 'emails#mini_player'

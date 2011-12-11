@@ -75,8 +75,7 @@ $('#capture_wrap ul.sortable, #side_plan').live("mouseover", function() {
 						var order = $(ui.sender).sortable('serialize', {attribute: 'sort_id'});
 						var parent_id = $(ui.sender).parents('li').first().attr('id');
 						var group_id = $(ui.sender).parents('.capture_group_wrap_inbox, .capture_group_wrap').first().attr('id');
-						var new_group_id = $(ui.item[0].parentElement).parents('.capture_group_wrap_inbox, .capture_group_wrap').first().attr('id');
-						console.log(new_group_id);	
+						var new_group_id = $(ui.item[0].parentElement).parents('.capture_group_wrap_inbox, .capture_group_wrap').first().attr('id');	
 						$.ajax({
 							url: "/tasks/"+ui.item[0].id, type: 'PUT',
 							data: $.param({task : { parent_id: '', group_id: new_group_id } }),
@@ -123,7 +122,6 @@ $('#capture_wrap ul.sortable, #side_plan').live("mouseover", function() {
 				if(!ui.sender && stopCallback == true){
 					var parentElement = ui.item[0].parentElement;
 					if($(parentElement).hasClass('action_plan')){
-						console.log('update sort in new block');
 						var parent_id = $(parentElement).parents('li').first().attr('id');
 						var group_id = $(parentElement).parents('.capture_group_wrap_inbox, .capture_group_wrap').first().attr('id');
 						var order = $(parentElement).sortable('serialize', {attribute: 'sort_id'});

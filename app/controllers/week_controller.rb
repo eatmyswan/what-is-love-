@@ -21,7 +21,7 @@ class WeekController < ApplicationController
     @start_date = Date.new(@date.year, @date.month, @date.day).beginning_of_week
     @end_date = @start_date + 6.days
     @inbox = Group.where(user_id: current_user.id).and(personal: false).and(professional: false).first
-    @groups = Group.any_of({ personal: true }, { professional: true }).and(user_id: current_user.id)
+    @groups = Group.any_of({ personal: true }, { professional: true }).and(user_id: current_user.id).order_by([:sort, :asc])
     @plans = Task.where(:start.gte => @start_date, :start.lt => @end_date).and(user_id: current_user.id).and(parent_id: nil).and(plan: true).and(:group_id.ne => nil).order_by([:sort, :asc])
   end
   

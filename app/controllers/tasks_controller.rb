@@ -51,8 +51,11 @@ class TasksController < ApplicationController
 
       if params[:json]
         render :json => @task
-      elsif (params[:nothing] == 'true') || params[:task][:complete] || params[:task][:must]
+      elsif params[:nothing] == 'true' || params[:task][:complete]
         render :nothing => true
+      elsif params[:parent] == 'true'
+        @task = Task.find(@task.parent_id)
+        @open = 'true'
       end
       
       if params[:task][:group_id]

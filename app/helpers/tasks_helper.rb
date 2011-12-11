@@ -32,14 +32,14 @@ module TasksHelper
     end
   end
   
-  def total_time(time)
-    hour = time.to_i / 60
-		min = time.to_i % 60
-		hour = hour.to_s
-		min = min.to_s
-		hour = hour.length == 1 ? '0' + hour : hour
-		min = min.length == 1 ? '0' + min : min
-		"#{hour}:#{min}"
+  def duration(min_duration)
+    if min_duration >= 60
+      h = min_duration / 60
+      m = min_duration % 60
+      m > 0 ? "#{sprintf '%02d', h}:#{sprintf '%02d', m}" : "#{sprintf '%02d', h}:00"
+    elsif min_duration > 0
+      "00:#{sprintf '%02d', min_duration}"
+    end
   end
 
 
