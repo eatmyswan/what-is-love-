@@ -221,7 +221,7 @@ function calculateMinD(){
 	var serialized = $('#side_schedule').weekCalendar('serializeEvents');
 	$(serialized).each(function(){
 		if(this.complete == false){
-			if(this.must == true)  minD = this.min_duration + minD;
+			if(this.must == true || this.readOnly == true)  minD = this.min_duration + minD;
 			minDTotal = this.min_duration + minDTotal;
 		}
 	});

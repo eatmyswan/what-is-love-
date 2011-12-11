@@ -246,8 +246,10 @@ $(document).ready(function() {
 	}
 	
 	function calculateAddedCount(){
-		var count = $('#week_committed .task_wrap').length + $('#week_committed .appt_wrap').length;
-		$('.result_count_wrap .count').text(count);
+		var outcomeCount = $('#week_committed .task_wrap.outcome_ready').length;
+		$('.result_count_wrap .outcome_count').text(outcomeCount);
+		var count = $('#week_committed .task_wrap').length + $('#week_committed .appt_wrap').length - outcomeCount;
+		$('.result_count_wrap .action_count').text(count);
 	}
 	
 	function calculateScheduledCount(){
