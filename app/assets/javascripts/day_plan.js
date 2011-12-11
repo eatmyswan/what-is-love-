@@ -6,6 +6,7 @@ $('#edit_plan').live('click', function(){
 		$('#day_plan_wrap').removeClass('planning');
 		$('#day_plan_wrap').addClass('editing');		
 		$('.task_wrap').draggable('disable');
+		$('.wc-day-column-inner').droppable('disable');
 		$('ul.sortable').sortable('enable');
 		$('#input_wrap').slideDown(200);
 		$('#edit_plan').addClass('active');
@@ -14,6 +15,7 @@ $('#edit_plan').live('click', function(){
 		$('#day_plan_wrap').removeClass('editing');
 		$('#day_plan_wrap').addClass('planning');
 		$('.task_wrap').draggable('enable');
+		$('.wc-day-column-inner').droppable('enable');
 		$('ul.sortable').sortable('disable');
 		$('#input_wrap').slideUp(200);
 		$('#edit_plan').removeClass('active');
