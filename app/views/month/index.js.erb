@@ -6,6 +6,19 @@ $('.categories_wrap').replaceWith("<%= escape_javascript render('side')  %>");
 
 $(document).ready(function() {
 	
+	
+	$( "#datepicker" ).datepicker({
+		showOtherMonths: true,
+		dateFormat: 'yy-mm-dd',
+		dayNamesMin: ['S','M','T','W','T','F','S'],
+		beforeShowDay: function(date){
+		
+			if(date.getDay() == 0) return [1,'droppable sunday'];
+			if(date.getDay() == 6) return [1,'droppable saturday'];
+			return [1,'droppable'];
+		}
+	});
+	
 		var date = new Date();
 		var d = date.getDate();
 		var m = date.getMonth();

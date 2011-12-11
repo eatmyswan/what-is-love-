@@ -6,7 +6,7 @@ class MonthController < ApplicationController
   end
   
   def index    
-    
+  
   end
 
 end
