@@ -129,6 +129,13 @@ $('#capture_wrap ul.sortable, #side_plan').live("mouseover", function() {
 					} else if ($(parentElement).hasClass('add_to_plan')){
 						var order = $(parentElement).sortable('serialize', {attribute: 'sort_id'});
 						sortBlocks(order);
+					} else {
+						var order = $('#capture_wrap ul.sortable').sortable('serialize', {attribute: 'sort_id'});
+							$.ajax({
+								url: "/tasks/capture_sort",
+								type: 'POST',
+								data: order
+							});
 					}
 				}
 				captureEmpty();	

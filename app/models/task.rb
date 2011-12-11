@@ -5,6 +5,7 @@ class Task
   field :must, type: Boolean, default: false
   field :complete, type: Boolean, default: false
   field :sort, type: Integer, default: 0
+  field :capture_sort, type: Integer, default: 0
   field :start, type: DateTime, default: nil
   field :end, type: DateTime, default: nil
   field :min_duration, type: Integer, default: 0
@@ -28,6 +29,7 @@ class Task
   index :group_id
   index :parent_id
   index :sort
+  index :capture_sort
   index :plan
   index :week
   index :outcome

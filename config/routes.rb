@@ -24,6 +24,7 @@ Rpm::Application.routes.draw do
   resources :invites, :only => :create
   
   match 'tasks/sort' => 'tasks#sort'
+  match 'tasks/capture_sort' => 'tasks#capture_sort'
   
   match 'month/index/:start_date' => 'month#index', :as => :month
   match 'month/json/:start_date' => 'month#json', :as => :month_json

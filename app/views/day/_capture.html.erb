@@ -37,7 +37,7 @@
 			<div id="incomplete">
 				<div id="<%= @inbox.id %>" class="capture_group_wrap_inbox">
 					<ul class="sortable incomplete_task_list">
-						<% @inbox.tasks.where(:start.gte => @start_date, :start.lt => @end_date).and(week: false).and(complete: false).and(parent_id: nil).and(plan: false).order_by([:sort, :asc]).each do |task,index| %>
+						<% @inbox.tasks.where(:start.gte => @start_date, :start.lt => @end_date).and(week: false).and(complete: false).and(parent_id: nil).and(plan: false).order_by([:capture_sort, :asc]).each do |task,index| %>
 							<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true' } %>
 						<% end %>
 					</ul>
@@ -50,7 +50,7 @@
 								<span class="title_wrap"><%= group.title %></span>
 							</div>
 							<ul class="sortable group_bottom_wrap">
-								<% group.tasks.where(:start.gte => @start_date, :start.lt => @end_date).and(week: false).and(complete: false).and(parent_id: nil).and(plan: false).order_by([:sort, :asc]).each do |task,index| %>
+								<% group.tasks.where(:start.gte => @start_date, :start.lt => @end_date).and(week: false).and(complete: false).and(parent_id: nil).and(plan: false).order_by([:capture_sort, :asc]).each do |task,index| %>
 									<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true' } %>
 								<% end %>
 							</ul>

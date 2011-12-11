@@ -112,6 +112,15 @@ class TasksController < ApplicationController
     end
   end
   
+  def capture_sort
+    tasks = Task.find(params[:task])
+    tasks.each do |task|
+      task.capture_sort = params['task'].index(task.id.to_s) + 1
+      task.save
+    end
+    render :nothing => true
+  end
+  
   def duration
     @task = Task.find(params[:id])
   end
