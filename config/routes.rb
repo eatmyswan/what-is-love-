@@ -25,9 +25,11 @@ Rpm::Application.routes.draw do
   
   match 'tasks/sort' => 'tasks#sort'
   match 'tasks/capture_sort' => 'tasks#capture_sort'
+  match 'tasks/mylife_sort' => 'tasks#mylife_sort'
+  match 'task/debug' => 'tasks#debug'
   
   match 'month/index/:start_date' => 'month#index', :as => :month
-  match 'month/json/:start_date' => 'month#json', :as => :month_json
+  match 'month/json/:start_date/:end_date' => 'month#json', :as => :month_json
 
   match 'week/capture/:start_date' => 'week#capture', :as => :week_capture
   match 'week/plan/:start_date' => 'week#plan', :as => :week_plan

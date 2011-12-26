@@ -2676,12 +2676,16 @@ function BasicEventRenderer() {
 	function draggableDayEvent(event, eventElement) {
 		var hoverListener = getHoverListener();
 		var dayDelta;
+		var width = $('.fc-day0').width();
+		var height = $('.fc-day0').height();
 		eventElement.draggable({
 			zIndex: 9,
 			delay: 50,
 			opacity: opt('dragOpacity'),
+			grid: [width, height],
 			revertDuration: opt('dragRevertDuration'),
 			start: function(ev, ui) {
+				//starting drag on monthh
 				trigger('eventDragStart', eventElement, event, ev, ui);
 				hideEvents(event, eventElement);
 				hoverListener.start(function(cell, origCell, rowDelta, colDelta) {
@@ -3999,10 +4003,7 @@ function AgendaEventRenderer() {
 									eventElement.width(colWidth - 10); // don't use entire width
 									setOuterHeight(
 										eventElement,
-										slotHeight * Math.round(
-											(event.end ? ((event.end - event.start) / MINUTE_MS) : opt('defaultEventMinutes'))
-											/ opt('slotMinutes')
-										)
+										slotHeight * Math.round((event.end ? ((event.end - event.start) / MINUTE_MS) : opt('defaultEventMinutes')) / opt('slotMinutes'))
 									);
 									eventElement.draggable('option', 'grid', [colWidth, 1]);
 									allDay = false;
@@ -4076,6 +4077,7 @@ function AgendaEventRenderer() {
 			opacity: opt('dragOpacity'),
 			revertDuration: opt('dragRevertDuration'),
 			start: function(ev, ui) {
+				
 				trigger('eventDragStart', eventElement, event, ev, ui);
 				hideEvents(event, eventElement);
 				origPosition = eventElement.position();

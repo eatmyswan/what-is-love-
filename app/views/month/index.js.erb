@@ -12,88 +12,127 @@ $(document).ready(function() {
 		dateFormat: 'yy-mm-dd',
 		dayNamesMin: ['S','M','T','W','T','F','S'],
 		beforeShowDay: function(date){
-		
 			if(date.getDay() == 0) return [1,'droppable sunday'];
 			if(date.getDay() == 6) return [1,'droppable saturday'];
 			return [1,'droppable'];
+		},
+		onChangeMonthYear: function(year, month, inst) { 
+			$('#calendar').fullCalendar('gotoDate', year, month-1);
+			var monthName = month_names[month-1];
+			$('.calendar_title .big').text(monthName + ' ' + year);
+		},
+		onSelect: function(){
+			return false;
 		}
 	});
 	
-		var date = new Date();
-		var d = date.getDate();
-		var m = date.getMonth();
-		var y = date.getFullYear();
-		
-		var calendar = $('#calendar').fullCalendar({
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'month,agendaWeek,agendaDay'
-			},
-			selectable: true,
-			selectHelper: true,
-			select: function(start, end, allDay) {
-				var title = prompt('Event Title:');
-				if (title) {
-					calendar.fullCalendar('renderEvent',
-						{
-							title: title,
-							start: start,
-							end: end,
-							allDay: allDay
-						},
-						true // make the event "stick"
-					);
-				}
-				calendar.fullCalendar('unselect');
-			},
-			editable: true,
-			events: [
-				{
-					title: 'All Day Event',
-					start: new Date(y, m, 1)
-				},
-				{
-					title: 'Long Event',
-					start: new Date(y, m, d-5),
-					end: new Date(y, m, d-2)
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: new Date(y, m, d-3, 16, 0),
-					allDay: false
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: new Date(y, m, d+4, 16, 0),
-					allDay: false
-				},
-				{
-					title: 'Meeting',
-					start: new Date(y, m, d, 10, 30),
-					allDay: false
-				},
-				{
-					title: 'Lunch',
-					start: new Date(y, m, d, 12, 0),
-					end: new Date(y, m, d, 14, 0),
-					allDay: false
-				},
-				{
-					title: 'Birthday Party',
-					start: new Date(y, m, d+1, 19, 0),
-					end: new Date(y, m, d+1, 22, 30),
-					allDay: false
-				},
-				{
-					title: 'Click for Google',
-					start: new Date(y, m, 28),
-					end: new Date(y, m, 29),
-					url: 'http://google.com/'
-				}
-			]
-		});
-		
+	var date = new Date();
+	var d = date.getDate();
+	var m = date.getMonth();
+	var y = date.getFullYear();
+	
+	var calendar = $('#calendar').fullCalendar({
+		header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay'
+		},
+		eventColor: '#C42438',
+		selectable: true,
+		select: function(start, end, allDay, jsEvent) {
+
+			$('#new_event .title').text(cluetipTitle(start,end));
+			$('#new_event .task_dbstart').val(db(start));
+			$('#new_event .task_dbend').val(db(end));
+			$('#new_event .task_min_duration').val('60');
+			
+			$('#cluetip').remove();
+			
+			$('<div id="cluetip"></div>').appendTo('body').css({
+				'position' : 'absolute',
+				'top' : jsEvent.pageY - 50,
+				'left': jsEvent.pageX,
+				'z-index' : 9999
+			});
+				
+			$('#cluetip').html($('#new_event').clone());
+			
+			$('.cancel_cluetip').live('click',function(){
+				$('#cluetip').remove();
+			});
+			
+		},
+		editable: true,
+		events: function(start, end, callback) {
+			var start = db(start);
+			var end = db(end);
+			$.getJSON("/month/json/"+start+"/"+end, function(result) {
+				callback(result);
+	   		});
+		},
+		eventClick: function(event, jsEvent, view){
+			$('#edit_event .title').text(cluetipTitle(event.start,event.end));
+			$('#edit_event .task_title').val(event.title);
+			$('#edit_event .task_id').val(event._id);
+			$('#edit_event .task_readonly').val(event.readOnly);
+			$('#edit_event .task_complete').val(event.complete);
+			$('#edit_event .task_dbstart').val(db(event.start));
+			$('#edit_event .task_dbend').val(db(event.end));
+			$('#edit_event .task_min_duration').val(event.min_duration);
+			
+			$('#cluetip').remove();
+			
+			$('<div id="cluetip"></div>').appendTo('body').css({
+				'position' : 'absolute',
+				'top' : jsEvent.pageY - 50,
+				'left': jsEvent.pageX,
+				'z-index' : 9999
+			});
+				
+			$('#cluetip').html($('#edit_event').clone());
+			
+			$('.cancel_cluetip').live('click',function(){
+				$('#cluetip').remove();
+			});
+		},
+		eventDrop: function() {
+			console.log('asdf');
+		}
 	});
+	
+});
+
+	function db(date){
+		var year = date.getFullYear();
+		var month = date.getMonth() + 1;
+			month = month.toString();
+			month = (month.length == 1) ? '0'+month : month;
+		var day = date.getDate().toString();
+			day = (day.length == 1) ? '0'+day : day;
+		var hour = date.getHours().toString();
+			hour = (hour.length == 1) ? '0'+hour : hour;
+		var minutes = date.getMinutes().toString();
+			minutes = (minutes.length == 1) ? '0'+minutes : minutes;
+		return year+'-'+month+'-'+day+' '+hour+':'+minutes+':00';
+	}
+	
+	function cluetipTitle(start,end) {
+		var year = start.getFullYear();
+		var month = start.getMonth();
+		var day = start.getDate().toString();
+		return month_names[month] + ' ' + day + ', ' + year;
+	}
+
+	var month_names = new Array ( );
+	month_names[month_names.length] = "January";
+	month_names[month_names.length] = "February";
+	month_names[month_names.length] = "March";
+	month_names[month_names.length] = "April";
+	month_names[month_names.length] = "May";
+	month_names[month_names.length] = "June";
+	month_names[month_names.length] = "July";
+	month_names[month_names.length] = "August";
+	month_names[month_names.length] = "September";
+	month_names[month_names.length] = "October";
+	month_names[month_names.length] = "November";
+	month_names[month_names.length] = "December";

@@ -25,6 +25,14 @@ $('#plan_wrap ul.sortable').live("mouseover", function() {
 					data: $.param({task : { parent_id: parent_id }, nothing: 'true' })
 				});
 				checkCount();
+			},
+			stop: function(event,ui){
+				var order = $('#incomplete').sortable('serialize', {attribute: 'sort_id'});
+				$.ajax({
+					url: "/tasks/mylife_sort",
+					type: 'POST',
+					data: order
+				});
 			}
 		});
 		

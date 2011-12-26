@@ -6,6 +6,7 @@ class Task
   field :complete, type: Boolean, default: false
   field :sort, type: Integer, default: 0
   field :capture_sort, type: Integer, default: 0
+  field :mylife_sort, type: Integer, default: 0
   field :start, type: DateTime, default: nil
   field :end, type: DateTime, default: nil
   field :min_duration, type: Integer, default: 0
@@ -30,6 +31,7 @@ class Task
   index :parent_id
   index :sort
   index :capture_sort
+  index :mylife_sort
   index :plan
   index :week
   index :outcome
@@ -37,7 +39,7 @@ class Task
   index :complete
   
   scope :unplanned, where(queued: false).and(scheduled: false).order_by([:sort, :asc])
-  scope :incomplete, where(complete: false).and(parent_id: nil).order_by([:sort, :asc])
+  scope :incomplete, where(complete: false).and(parent_id: nil).order_by([:mylife_sort, :asc])
   scope :complete, where(complete: true).and(parent_id: nil).order_by([:sort, :asc])
   
   validates_length_of :title, minimum: 1, message: "task cannot be blank."
@@ -53,6 +55,8 @@ class Task
     self.start = nil if self.start.blank?
     self.parent_id = nil if self.parent_id.blank?
     self.end = nil if self.end.blank?
+    self.min_duration = 0 if self.min_duration.blank?
+    self.max_duration = 0 if self.max_duration.blank?
   end
   
   def check_start

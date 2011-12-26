@@ -112,6 +112,15 @@ class TasksController < ApplicationController
     end
   end
   
+  def mylife_sort
+    tasks = Task.find(params[:task])
+    tasks.each do |task|
+      task.mylife_sort = params['task'].index(task.id.to_s) + 1
+      task.save
+    end
+    render :nothing => true
+  end
+  
   def capture_sort
     tasks = Task.find(params[:task])
     tasks.each do |task|
@@ -167,6 +176,14 @@ class TasksController < ApplicationController
     respond_to do |format|
       format.js { render :layout => false }
     end
+  end
+  
+  def debug
+    @task = Task.find("4eef9b12e9f0824378000034")
+
+    @task.destroy
+
+    render :nothing => true
   end
 
 end

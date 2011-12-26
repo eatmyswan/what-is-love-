@@ -22,14 +22,38 @@ $(document).ready(function() {
 
 	$('#prev').live('click', function() {
 		$('#forecast,#schedule,#side_schedule').weekCalendar('prev');
+		if($('#calendar').length == 1) { 
+			$('#calendar').fullCalendar('prev');
+			var month = $('#calendar').fullCalendar('getDate').getMonth();
+			var year = $('#calendar').fullCalendar('getDate').getFullYear();
+			var monthName = month_names[month];
+			$('.calendar_title .big').text(monthName + ' ' + year);
+			$('#datepicker').datepicker('setDate',$('#calendar').fullCalendar('getDate'));
+		}
 	});
 	
 	$('#next').live('click', function() {
 		$('#forecast,#schedule,#side_schedule').weekCalendar('next');
+		if($('#calendar').length == 1) { 
+			$('#calendar').fullCalendar('next');
+			var month = $('#calendar').fullCalendar('getDate').getMonth();
+			var year = $('#calendar').fullCalendar('getDate').getFullYear();
+			var monthName = month_names[month];
+			$('.calendar_title .big').text(monthName + ' ' + year);
+			$('#datepicker').datepicker('setDate',$('#calendar').fullCalendar('getDate'));
+		}
 	});
 	
 	$('#today').live('click', function() {
 		$('#forecast,#schedule,#side_schedule').weekCalendar('today');
+		if($('#calendar').length == 1) { 
+			$('#calendar').fullCalendar('today');
+			var month = $('#calendar').fullCalendar('getDate').getMonth();
+			var year = $('#calendar').fullCalendar('getDate').getFullYear();
+			var monthName = month_names[month];
+			$('.calendar_title .big').text(monthName + ' ' + year);
+			$('#datepicker').datepicker('setDate',$('#calendar').fullCalendar('getDate'));
+		}
 	});
 	
 	$('#cluetip #create_event').live('click',function(){
@@ -43,6 +67,7 @@ $(document).ready(function() {
 			data: $.param({task : { title: title, start: start, end: end, min_duration: minD, readOnly: 'true', scheduled: 'true' }, json: 'true'}),
 			success: function(data){
 				$(document).trigger('hideCluetip');
+				$('#cluetip').remove();
 				$('#forecast,#schedule,#side_schedule').weekCalendar('updateEvent', data);
 				if(($('#schedule').length == 1) || ($('#schedule_side').length == 1)) calculateMinD();
 				if($('#forecast').length == 1) {
@@ -52,6 +77,7 @@ $(document).ready(function() {
 						calculateMinDCommitted();
 					});
 				}
+				if($('#calendar').length == 1) $('#calendar').fullCalendar( 'refetchEvents' );
 			}
 		});
 	});
@@ -69,8 +95,10 @@ $(document).ready(function() {
 			data: $.param({task : { title: title, start: start, end: end, readOnly: readonly, complete: complete }, json: 'true'}),
 			success: function(data){
 				$(document).trigger('hideCluetip');
+				$('#cluetip').remove();
 				$('#forecast,#schedule,#side_schedule').weekCalendar('updateEvent', data);
 				if(($('#schedule').length == 1) || ($('#schedule_side').length == 1)) calculateMinD();
+				if($('#calendar').length == 1) $('#calendar').fullCalendar( 'refetchEvents' );
 			}
 		});
 	});
@@ -86,6 +114,7 @@ $(document).ready(function() {
 				data: $.param({task : { scheduled: 'false', readOnly: 'false' }, open: open }),
 				success: function(data){
 					$(document).trigger('hideCluetip');
+					$('#cluetip').remove();
 					$('#forecast,#schedule,#side_schedule').weekCalendar('removeEvent', taskId);
 					if(($('#schedule').length == 1) || ($('#schedule_side').length == 1)) calculateMinD();
 					if($('#forecast').length == 1) calculateScheduledCount();
@@ -99,11 +128,13 @@ $(document).ready(function() {
 				type: 'DELETE',
 				success: function(){
 					$(document).trigger('hideCluetip');
+					$('#cluetip').remove();
 					$('#forecast,#schedule,#side_schedule').weekCalendar('removeEvent', taskId);
 					if(($('#schedule').length == 1) || ($('#schedule_side').length == 1)) calculateMinD();
 					if($('#forecast').length == 1) $('#'+taskId).remove();
 					if($('#forecast').length == 1) calculateScheduledCount();
 					if($('#forecast').length == 1) calculateMinDCommitted();
+					if($('#calendar').length == 1) $('#calendar').fullCalendar( 'refetchEvents' );
 				}
 			});
 		}
