@@ -5,6 +5,12 @@
 		<% if task.parent_id == nil %>
 			<span class="target <%= 'active' if task.outcome == true %>"></span>
 		<% end %>
+		<% if task.luser_id %>
+			<span class="avatar">
+				<% luser = User.find(task.luser_id) %>
+				<%= image_tag luser.images.forward.first.image.tiny, :title => "#{luser.name} has accepted this" if luser.images.forward.first %>
+			</span>
+		<% end %>
 		<span class="star <%= 'active' if task.must == true %>"></span>
 		<span class="icon" rel="/task/edit_group/<%= task.id.to_s %>">
 		<% if task.group %>	

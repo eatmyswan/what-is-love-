@@ -2,11 +2,305 @@
 <html>
   <head>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+		<style>
+a {
+	text-decoration: none;
+}
+#email_logo {
+	margin: 30px auto 20px;
+	display: block;
+}
+#view_email_body {
+	font-family: Arial, sans-serif;
+	line-height: 1.0;
+	font-size: 14px;
+	color:#444;
+	background: #888480;
+	height: 100%;
+	width: 100%;
+}
+#view_email_wrap {
+	background: #FFFFFF;
+	margin: 0 auto 40px;
+	width: 540px;
+	padding: 30px;
+	border: 1px solid #686461;
+	box-shadow: 0 2px 8px #534f4d;
+}
+#view_email_wrap strong {
+	font-weight: bold;
+}
+#view_email_wrap .intro {
+	font-size: 16px;
+	line-height: 1.5;
+}
+#view_email_wrap .message {
+	margin: 10px 0;
+	overflow: hidden;
+}
+#view_email_wrap .message .img_wrap {
+	border-radius: 3px;
+	display: block;
+	float: left;
+	width: 40px;
+	height: 40px;
+	background: #EEE;
+	overflow: hidden;
+}
+#view_email_wrap .message .img_wrap img {
+	border-radius: 3px;
+}
+#view_email_wrap .message .msg_wrap {
+	margin: 0 100px 0 55px;
+	background: #ecf6ff;
+	border-radius: 5px;
+	border: 1px solid #d2e0ed;
+	padding: 10px;
+	min-height: 18px;
+	position: relative;
+}
+#view_email_wrap .message .msg_wrap span.nub {
+	background: url("http://c3403180.r80.cf0.rackcdn.com/email_msg_nub.png") no-repeat 0 0;
+	width: 9px;
+	height: 16px;
+	position: absolute;
+	display: block;
+	top: 11px;
+	left: -9px;
+}
+
+#view_email_wrap .leveraged_wrap {
+	margin: 20px 0 0 0;
+}
+#email_wrap  .action_wrap,
+#view_email_wrap .action_wrap {
+	display: block;
+	background: #FFF;
+	border: 1px solid #CCC;
+	border-radius: 3px;
+	position: relative;
+	min-height: 25px;
+}
+#email_wrap  .action_wrap .checkbox,
+#view_email_wrap .action_wrap .checkbox {
+	display: block;
+	float: left;
+	width: 15px;
+	height: 15px;
+	background: url("http://c3403180.r80.cf0.rackcdn.com/email_checkbox.png") no-repeat;
+	margin: 5px 4px 0 6px;
+}
+#email_wrap  .action_wrap .star,
+#view_email_wrap .action_wrap .star {
+	width: 15px;
+	height: 15px;
+	background: url("http://c3403180.r80.cf0.rackcdn.com/email_star.png") no-repeat;
+	float: left;
+	margin: 5px 4px 0 0;
+	display: block;
+}
+#email_wrap .action_wrap .delete {
+	width: 15px;
+	height: 15px;
+	background: url(<%= asset_path 'delete.png' %>) no-repeat;
+	float: right;
+	cursor: pointer;
+	opacity: 0.5;
+	margin: 6px 6px 0 0;
+	display: block;
+}
+#view_email_wrap .action_wrap .delete {
+	display: none !important;
+}
+#email_wrap  .action_wrap .title,
+#view_email_wrap .action_wrap .title {
+	display: block;
+	padding: 6px 28px;
+	font-size: 13px;
+}
+#view_email_wrap .buttons_wrap {
+	overflow: hidden;
+	margin: 20px 0 0 0;
+}
+#view_email_wrap .buttons_wrap #accept {
+	font-size: 18px;
+	font-weight: bold;
+	padding: 7px 15px;
+	color: #5e753a;
+	border-radius: 50px;
+	border: 1px solid #9dbb6e;
+	background: #cee8a4;
+	float: left;
+	text-shadow: 0 1px 1px #FFF;
+	cursor: pointer;
+}
+#view_email_wrap .buttons_wrap #reject {
+	font-size: 12px;
+	font-weight: bold;
+	padding: 5px 12px;
+	color: #333;
+	border-radius: 50px;
+	border: 1px solid #CCC;
+	background: #EEE;
+	float: left;
+	text-shadow: 0 1px 1px #FFF;
+	cursor: pointer;
+	margin: 6px 0 0 15px;
+}
+
+
+#view_email_wrap #player_wrap {
+    background: none repeat scroll 0 0 #CCCCCC;
+    position: relative;
+    width: 100%;
+	margin: 10px 0 0 0;
+}
+#view_email_wrap #email_body {
+	margin: 30px 0 20px 0;
+	font-size: 12px;
+	line-height: 1.4;
+}
+#view_email_wrap #email_meta {
+	font-size: 10px;
+	line-height: 1.8;
+	color: #555;
+	text-align: center;
+}
+.email_outcome {
+	display: block;
+	background: white;
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	position: relative;
+}
+.email_outcome .header {
+	background: #E12B34;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+	text-shadow: 0 1px 1px black;
+	font-size: 12px;
+	height: 25px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 0;
+	border-radius: 5px 5px 0 0;
+}
+.email_outcome .header .action_title {
+	position: absolute;
+	top: 7px;
+	left: 0;
+	right: 300px;
+}
+.email_outcome .header .outcome_title {
+	position: absolute;
+	top: 7px;
+	right: 150px;
+	width: 150px;
+}
+.email_outcome .header .purpose_title {
+	position: absolute;
+	top: 7px;
+	right: 0;
+	width: 150px;
+}
+.email_outcome .outcome_wrap {
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 150px;
+	width: 150px;
+	border-left: 1px solid #CCC;
+}
+.email_outcome .outcome_wrap .task_title {
+	margin: 25px 0 0 0;
+	padding: 5px;
+	font-size: 12px;
+}
+.email_outcome .actions_wrap {
+	margin: 0 300px 0 0;
+	padding: 5px;
+}
+.email_outcome .actions_wrap .action_list {
+	margin: 22px 0 5px 0;
+}
+.email_outcome .actions_wrap .action_list .action_wrap {
+	border: 0 !important;
+	border-bottom: 1px solid #CCC !important;
+	border-radius: 0 !important;
+}
+.email_outcome .purpose_wrap {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	width: 150px;
+	border-left: 1px solid #CCC;
+}
+.email_outcome .purpose_wrap .purpose {
+	margin: 25px 0 0 0;
+	padding: 5px;
+	font-size: 12px;
+}
+
+
+
+		
+		</style>
+
   </head>
-  <body>
-		<% if @email.audio.url %>
-			<p><%= @current_user.name %> has sent you a voice message: <a href="http://rapidplanapp.com/task/<%= @task.id.to_s %>/email/<%= @email.id.to_s %>/view_email"> Listen to Message </a></p>
-		<% end %>
-		<p><%= @email.body_html.gsub(/\n/, '<br>').html_safe %></p>
+  <body id="view_email_body">
+	
+	
+	
+	
+<img src="http://c3403180.r80.cf0.rackcdn.com/email_logo.png" id="email_logo">
+
+<div id="view_email_wrap">
+
+
+		<div class="intro">
+			<strong>Hello,</strong>
+			<br>
+			<strong><%= @email.user.name %></strong> has asked you to respond to the following: 
+			<br>
+		</div>
+		
+		<div class="message">
+			<div class="img_wrap">
+				<%= image_tag @email.user.images.forward.first.image.thumb if @email.user.images.first %>
+			</div>
+			<div class="msg_wrap">
+				<span class="nub"></span>
+				<%= @email.message %>
+				<% if @email.audio.url %>
+					<%= render :partial => '/emails/mini_player', :locals => { :email => @email } %>
+				<% end %>
+			</div>
+		</div>
+		
+		<form method="post" action="/email/accept/<%= @email.id.to_s %>">
+	
+			<div class="leveraged_wrap">
+				<% if @email.outcome == true %>
+					<%= render '/emails/outcome_view' %>
+				<% else %>
+					<%= render :partial => '/emails/task', :locals => { :task => @task } %>
+				<% end %>
+			</div>
+		
+			<div class="buttons_wrap">
+				<a id="accept" href="http://localhost:3000/email/<%= @email.id.to_s %>/view_email">Accept</a>
+				<a id="reject" href="http://localhost:3000/email/reject/<%= @email.id.to_s %>">Reject</a>
+			</div>
+		
+	</form>
+
+</div>
+	
 	</body>
 </html>

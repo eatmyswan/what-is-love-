@@ -22,9 +22,10 @@ class Task
 
   belongs_to :user
   belongs_to :group
-  embeds_many :emails
+  belongs_to :email
   embeds_many :notes
   has_many :reminders
+  belongs_to :luser, class_name: 'User', inverse_of: :ltasks
   
   index :user_id
   index :group_id
@@ -47,6 +48,7 @@ class Task
   before_save :check_start
   before_save :check_duration
   before_save :check_must
+  before_save :check_outcome
   before_save :nil_if_blank
   
   private
@@ -108,6 +110,13 @@ class Task
     if self.title.match(/\A\*/)
       self.must = true
       self.title.slice! '*'
+    end
+  end
+  
+  def check_outcome
+    if self.title.match(/\A\!/)
+      self.outcome = true
+      self.title.slice! '!'
     end
   end
   

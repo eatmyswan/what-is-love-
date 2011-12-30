@@ -111,6 +111,15 @@ $('#incomplete .email').live("mouseover", function() {
 		});
 	}
 });
+
+$('#email_wrap #load_outcome').live("click", function() {
+	var taskId = $(this).attr('pid');
+	$.get("/email/load_outcome/" +  taskId);
+});
+
+$('#email_wrap .action_wrap .delete').live("click", function() {
+	$(this).parent().remove();
+});
 	
 $('#email_wrap .modal_submit_wrap').live('click',function() {
 	$.fancybox.close();
@@ -364,15 +373,9 @@ $('#dialog_close').live('click', function() {
 
 });
 
-function load_email_audio(ids) {
-	ids = ids.split(' ');
-	$('#recorder').load('/task/' + ids[0] + '/email/' + ids[1] + '/mini_player');
-	$('#new_email').attr("action", '/email/update/' + ids[1]);
-	$('<input>').attr({
-    	type: 'hidden',
-    	name: 'task_id',
-		value: ids[0]
-	}).prependTo('#new_email');
+function load_email_audio(id) {
+	$('#recorder').load('/email/' + id + '/mini_player');
+	$('#new_email').attr("action", '/email/update/' + id);
 }
 
 function insert_note(note,taskId) {

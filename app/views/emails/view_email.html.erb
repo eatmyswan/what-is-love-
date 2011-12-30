@@ -1,19 +1,44 @@
-<div id="header">
-	<%= image_tag @sender.image_url %>
-	<h1><%= @sender.name %> has left you a voicemail</h1>
-</div>
 
-<% if @email.audio.url %>
-	<%= render :partial => '/emails/mini_player', :locals => { :email => @email } %>
-<% end %>
+<img src="http://c3403180.r80.cf0.rackcdn.com/email_logo.png" id="email_logo">
 
-<div id="email_body">
-	<h2><%= @email.subject %></h2>
-	<%= @email.body_html.gsub(/\n/, '<br>').html_safe %>
-</div>
+<div id="view_email_wrap">
 
-<div id="email_meta">
-	<strong>Sent to</strong> &nbsp;<%= @email.recipient %> &nbsp;&nbsp;
-	<strong>From</strong> &nbsp;<%= @email.sender %> &nbsp;&nbsp;
-	<strong>At</strong> &nbsp;<%= @email.updated_at.strftime('%m/%d/%Y %I:%M%p') %>
+
+		<div class="intro">
+			<strong>Hello,</strong>
+			<br>
+			<strong><%= @email.user.name %></strong> has asked you to respond to the following: 
+			<br>
+		</div>
+		
+		<div class="message">
+			<div class="img_wrap">
+				<%= image_tag @email.user.images.forward.first.image.thumb if @email.user.images.first %>
+			</div>
+			<div class="msg_wrap">
+				<span class="nub"></span>
+				<%= @email.message %>
+				<% if @email.audio.url %>
+					<%= render :partial => '/emails/mini_player', :locals => { :email => @email } %>
+				<% end %>
+			</div>
+		</div>
+		
+		<form method="post" action="/email/accept/<%= @email.id.to_s %>">
+	
+			<div class="leveraged_wrap">
+				<% if @email.outcome == true %>
+					<%= render 'outcome_view' %>
+				<% else %>
+					<%= render :partial => 'task', :locals => { :task => @task } %>
+				<% end %>
+			</div>
+		
+			<div class="buttons_wrap">
+				<input type="submit" id="accept" value="Accept">
+				<a id="reject" href="/email/reject/<%= @email.id.to_s %>">Reject</a>
+			</div>
+		
+	</form>
+
 </div>

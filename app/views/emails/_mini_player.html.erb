@@ -1,14 +1,10 @@
-<% if @email %>
-	<% email = @email %>
-<% end %>
-
-<input type="hidden" id="hidden_url" value="<%= email.audio.url %>">
-<input type="hidden" id="hidden_duration" value="<%= email.duration %>">
-<input type="hidden" id="hidden_id" value="<%= email.id.to_s %>">
+<input type="hidden" id="hidden_url" value="<%= @email.audio.url %>">
+<input type="hidden" id="hidden_duration" value="<%= @email.duration %>">
+<input type="hidden" id="hidden_id" value="<%= @email.id.to_s %>">
 
 <div id="player_wrap">
 	<span class="time_wrap">
-		<span class="time">0.00</span> / <span class="duration"><%= email.duration_time %></span>
+		<span class="time">0.00</span> / <span class="duration"><%= @email.duration_time %></span>
 	</span>
 	<div id="progress_wrap">
 		<div id="play_wrap">
@@ -21,10 +17,9 @@
 	</div>
 </div>
 
-<script src="<%= asset_path 'soundmanager2.js' %>"></script>
-
 <script>
 
+$(document).ready(function() {
 	
 	soundManager.onready(function() {	
 	var sound = soundManager.createSound({
@@ -98,4 +93,7 @@
 		});
 		
 	});
+	
+});
+
 </script>

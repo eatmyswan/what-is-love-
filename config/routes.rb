@@ -5,10 +5,11 @@ Rpm::Application.routes.draw do
   root :to => "home#index"
   
   resources :tasks do
-    resources :emails
     resources :notes, :only => :destroy
     resources :reminders, :only => :destroy
   end
+  
+  resources :emails
   
   resources :audios
   resources :users do
@@ -53,11 +54,16 @@ Rpm::Application.routes.draw do
   match 'groups/sort' => 'groups#sort'
   match 'groups/long_term/:id' => 'groups#long_term', :as => :group_long_term
   match 'task/save_audio/:id' => 'tasks#save_audio'
-  match 'task/:task_id/email/:email_id/mini_player' => 'emails#mini_player'
+  match 'email/:id/mini_player' => 'emails#mini_player'
   match 'email/update/:id' => 'emails#update'
   match 'emails/create_from_flash/:id' => 'emails#create_from_flash'
   match 'email/email_form/:id' => 'emails#email_form'
-  match 'task/:task_id/email/:email_id/view_email' => 'emails#view_email'
+  match 'email/load_outcome/:id' => 'emails#load_outcome'
+  
+  match 'email/accept/:email_id' => 'emails#accept'
+  match 'email/reject/:email_id' => 'emails#reject'
+  
+  match 'email/:id/view_email' => 'emails#view_email'
   match 'task/edit_notes/:id' => 'tasks#edit_notes'
   match 'task/edit_calendar/:id' => 'tasks#edit_calendar'
   match 'task/edit_group/:id' => 'tasks#edit_group'

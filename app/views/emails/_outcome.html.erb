@@ -1,0 +1,33 @@
+
+<input type="hidden" name="email[outcome]" value="true">
+
+<div class="email_outcome">
+	
+	<div class="outcome_wrap">
+		<div class="task_title">
+			<%= @task.title %>
+		</div>
+	</div>
+	
+	<div class="purpose_wrap">
+		<div class="purpose">
+			<%= @task.purpose %>
+		</div>
+	</div>
+	
+	<div class="header">
+		<span class="target outcome"></span>
+		<div class="action_title">MAP: Massive Action Plan</div>
+		<div class="outcome_title">Result / Outcome</div>
+		<div class="purpose_title">Purpose / Why</div>
+	</div>
+	
+	<div class="actions_wrap">
+		<div class="action_list">
+			<% @task.group.tasks.where(parent_id: @task.id).and(complete: false).order_by([:sort, :asc]).each do |task| %>				
+				<%= render :partial => '/emails/task', :locals => { :task => task } %>
+			<% end %>
+		</div>
+	</div>
+	
+</li> 
