@@ -278,12 +278,13 @@ a {
 				<span class="nub"></span>
 				<%= @email.message %>
 				<% if @email.audio.url %>
-					<%= render :partial => '/emails/mini_player', :locals => { :email => @email } %>
+				<div>
+					<a href="http://timemaster.com/email/<%= @email.id.to_s %>/view_email">Listen to Voice Message</a>
+				</div>
 				<% end %>
 			</div>
 		</div>
-		
-		<form method="post" action="/email/accept/<%= @email.id.to_s %>">
+
 	
 			<div class="leveraged_wrap">
 				<% if @email.outcome == true %>
@@ -294,11 +295,10 @@ a {
 			</div>
 		
 			<div class="buttons_wrap">
-				<a id="accept" href="http://localhost:3000/email/<%= @email.id.to_s %>/view_email">Accept</a>
-				<a id="reject" href="http://localhost:3000/email/reject/<%= @email.id.to_s %>">Reject</a>
+				<a id="accept" href="http://timemaster.com/email/<%= @email.id.to_s %>/view_email">Accept</a>
+				<a id="reject" href="http://timemaster.com/email/reject/<%= @email.id.to_s %>">Reject</a>
 			</div>
-		
-	</form>
+
 
 </div>
 	
