@@ -12,7 +12,7 @@ class User
   
   has_many :groups
   has_many :emails
-  has_many :ltasks, class_name: "tasks", inverse_of: :luser
+  has_many :ltasks, class_name: 'Task', inverse_of: :luser
   embeds_many :goals
   embeds_many :images
   
