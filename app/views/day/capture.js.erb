@@ -8,7 +8,7 @@ $(document).ready(function() {
 	
 	calculateResultCount();
 	
-	$( "#datepicker" ).datepicker({
+	$( "#datepicker.capture_datepicker" ).datepicker({
 		defaultDate: "<%= @start_date %>",
 		showOtherMonths: true,
 		dateFormat: 'yy-mm-dd',
@@ -26,7 +26,7 @@ $(document).ready(function() {
 			});
 		},
 		onChangeMonthYear: function(year, month, inst) { 
-			$('#datepicker').data("init", false);
+			$('#datepicker.capture_datepicker').data("init", false);
 		}
 	});
 

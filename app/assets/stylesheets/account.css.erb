@@ -1,0 +1,161 @@
+#account_bar {
+	background: #363230;
+	background: -webkit-gradient(linear, left top, left bottom, from(#3b3634), to(#34302e));
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	border-radius: 0 0 5px 5px;
+	border-bottom: 1px solid #1d1b1a;
+	box-shadow: 0 0 4px #1d1b1a;
+	padding: 7px 10px 0;
+	height: 30px;
+	z-index: 3;
+	text-align: center;
+}
+#account_bar .inner_highlight {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	box-shadow: inset 0 1px 0 #4f4945;
+	background: transparent;
+	border-radius: 0 0 5px 5px;
+	z-index: 3;
+}
+#account_bar .account_wrap {
+	display: block;
+	z-index: 4;
+	position: relative;
+	float: right;
+	cursor: pointer;
+	height: 20px;
+	color: #c4bebb;
+	text-shadow: #1d1b1a 0px 1px 2px;
+	padding: 2px;
+	border-radius: 3px;
+	box-shadow: 0px 1px 1px #5e5955;
+	background: #312d2b;
+	border: 1px solid #1d1b1a;
+}
+#account_bar .account_wrap .img {
+	float: left;
+	display: block;
+	width: 18px;
+	height: 18px;
+	background: #242120;
+	border-radius: 2px;
+	border: 1px solid #1D1B1A;
+	box-shadow: 0 1px 0 #4E4A46;
+	overflow: hidden;
+	position: relative;
+}
+#account_bar .account_wrap .img img {
+	width: 20px;
+	height: 20px;
+}
+#account_bar .account_wrap .name {
+	float: left;
+	font-size: 11px;
+	margin: 4px 6px 0 6px;
+}
+#account_bar .account_wrap.active,
+#account_bar .account_wrap:hover {
+	background: #0060B9;
+	background: -webkit-linear-gradient(top, #2A90EE 0%, #0060B9 100%);
+	box-shadow: inset 0 1px 0 #6FB7F9;
+	color: #FFF;
+}
+#account_bar .account_wrap.active .img,
+#account_bar .account_wrap:hover .img {
+	box-shadow: 0 1px 0 #6FB7F9;
+}
+#account_bar .account_wrap .account_popup {
+	display: none;
+	position: absolute;
+	bottom: 30px;
+	left: 0;
+	right: 0;
+	border-radius: 3px;
+	background: #E1E1E1;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+	padding: 2px 0;
+	overflow: hidden;
+}
+#account_bar .account_wrap .account_popup a {
+	display: block;
+	color: #333;
+	text-shadow: none;
+	padding: 5px;
+	font-size: 11px;
+	text-align: left;
+	cursor: pointer;
+	border-bottom: 1px solid #CCC;
+	border-top: 1px solid #FAFAFA;
+	position: relative;
+}
+#account_bar .account_wrap .account_popup a:last-child{
+	border-bottom: 1px solid transparent;
+}
+#account_bar .account_wrap .account_popup a:first-child{
+	border-top: 1px solid transparent;
+}
+#account_bar .account_wrap .account_popup a:hover {
+	border-bottom: 1px solid #00529F;
+	border-top: 1px solid #6FB7F9;
+	background: #0060B9 !important;
+	background: -webkit-linear-gradient(top, #2A90EE 0%, #0060B9 100%) !important;
+	color: #FFF;
+}
+
+#account_bar .active, 
+#account_bar .filter:hover {
+	background: url(<%= asset_path 'filter_active.png' %>) repeat-x top left #1773b4;
+	color: #FFF;
+}
+
+#account_bar #cal_btn {
+	width: 24px;
+	height: 25px;
+	float: left;
+	background: url(<%= asset_path 'cal_btn.png' %>) no-repeat 0 0 transparent;
+	cursor: pointer;
+	display: block;
+	position: relative;
+	z-index: 4;
+	margin: 0 4px 0 0;
+}
+#account_bar #cal_btn.active,
+#account_bar #cal_btn:hover {
+	background-position: 0 -27px;
+}
+
+#account_bar #notifications_btn {
+	width: 24px;
+	height: 25px;
+	float: left;
+	background: url(<%= asset_path 'notifications_btn.png' %>) no-repeat 0 0 transparent;
+	cursor: pointer;
+	display: block;
+	position: relative;
+	z-index: 4;
+}
+#account_bar #notifications_btn.active,
+#account_bar #notifications_btn:hover {
+	background-position: 0 -27px;
+}
+
+
+#account_bar #datepicker {
+	display: none;
+	position: absolute;
+	bottom: 37px;
+	left: 0;
+	right: 0;
+	z-index: 5;
+	padding: 5px 0 0 0;
+	margin: 0;
+	background: #363230;
+}
+

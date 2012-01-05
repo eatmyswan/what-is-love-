@@ -1,0 +1,23 @@
+<div id="account_bar">
+		<span class="inner_highlight"></span>
+		
+		<div id="cal_btn"></div>
+		<div id="notifications_btn"></div>
+		
+		<div class="account_wrap">
+			<div class="img">
+				<%= image_tag current_user.images.forward.first.image.thumb if current_user.images.first %>
+			</div>
+			<div class="name">
+				Steven Doyle
+			</div>
+			<div class="account_popup">
+				<%= link_to('Logout', destroy_user_session_path, :method=>'delete') %>        
+				<%= link_to('Edit Account', edit_user_registration_path, :id => 'edit_account') %>
+			</div>
+		</div>
+		
+		<div id="datepicker" class="acct_datepicker">
+		</div>
+		
+</div>

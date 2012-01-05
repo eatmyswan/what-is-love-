@@ -239,7 +239,7 @@ li.task_wrap .edit_task input[type="text"] {
 	padding: 1px 7px;
 }
 
-li.task_wrap.outcome .outcome_wrap {
+li.task_wrap.outcome > .outcome_wrap {
 	display: block;
 	position: absolute;
 	top: 0;
@@ -247,6 +247,7 @@ li.task_wrap.outcome .outcome_wrap {
 	right: 200px;
 	width: 200px;
 	border-left: 1px solid #CCC;
+	background: url(<%= asset_path 'big_target.png' %>) no-repeat center center transparent;
 }
 
 li.task_wrap.outcome ul.sortable {

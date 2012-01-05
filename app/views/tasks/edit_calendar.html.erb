@@ -1,58 +1,21 @@
 <div id="calendar_wrap" class="cluetip">
-	<div id="calendar_popup">
-		<div class="calendar_popup_left">
-			<div id="capture_datepicker"></div>
-			<div id="time">
-				<%= text_field_tag 'hour', nil, :placeholder => '00', :class => 'hour', :maxlength => '2' %>
-				<span class="colon">:</span>
-				<%= text_field_tag 'hour', nil, :placeholder => '00', :class => 'minute', :maxlength => '2' %>
-				<div class="pm">PM</div>
-			</div>
-			<div id="reset">Reset</div>
+	<div id="duration">
+		<div class="title">Duration</div>
+		<div class="duration_wrap" id="min">
+			<div class="sub_title">Min</div>
+			<%= text_field_tag 'hour', nil, :placeholder => '00', :class => 'hour', :maxlength => '2' %>
+			<span class="colon">:</span>
+			<%= text_field_tag 'hour', nil, :placeholder => '00', :class => 'minute', :maxlength => '2' %>
 		</div>
-		<div class="calendar_popup_right">
-			<div id="duration">
-				<div class="title">Duration</div>
-				<div class="duration_wrap" id="min">
-					<div class="sub_title">Min</div>
-					<%= text_field_tag 'hour', nil, :placeholder => '00', :class => 'hour', :maxlength => '2' %>
-					<span class="colon">:</span>
-					<%= text_field_tag 'hour', nil, :placeholder => '00', :class => 'minute', :maxlength => '2' %>
-				</div>
-				<div class="duration_wrap" id="max">
-					<div class="sub_title">Max</div>
-					<%= text_field_tag 'hour', nil, :placeholder => '00', :class => 'hour', :maxlength => '2' %>
-					<span class="colon">:</span>
-					<%= text_field_tag 'hour', nil, :placeholder => '00', :class => 'minute', :maxlength => '2' %>
-				</div>
-			</div>
-			<div id="reminders">
-				<div class="title">Reminders</div>
-				<div id="set_reminders">
-				</div>
-				<div id="add_reminder">Add reminder</div>
-			</div>
+		<div class="duration_wrap" id="max">
+			<div class="sub_title">Max</div>
+			<%= text_field_tag 'hour', nil, :placeholder => '00', :class => 'hour', :maxlength => '2' %>
+			<span class="colon">:</span>
+			<%= text_field_tag 'hour', nil, :placeholder => '00', :class => 'minute', :maxlength => '2' %>
 		</div>
-	</div>
-	<div id="reminders_popup">
-		<div class="header">
-			<div class="title">Set Reminder</div>
-			<div class="controls">
-				<span class="delete" id="cancel_reminder"></span>
-				<span class="done" id="set_reminder"></span>
-			</div>
-		</div>
-		<div id="reminder_datepicker"></div>
-			<div id="reminder_time">
-				<%= text_field_tag 'hour', nil, :placeholder => '00', :class => 'hour', :maxlength => '2' %>
-				<span class="colon">:</span>
-				<%= text_field_tag 'hour', nil, :placeholder => '00', :class => 'minute', :maxlength => '2' %>
-				<div class="pm">PM</div>
-			</div>
 	</div>
 </div>
 
-<input type="hidden" id="schedule_date">
 <input type="hidden" id="min_duration">
 <input type="hidden" id="max_duration">
 

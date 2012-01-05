@@ -6,8 +6,10 @@ class ApplicationController < ActionController::Base
   layout :layout_by_resource
 
   def layout_by_resource
-    if devise_controller?
+    if devise_controller? && !user_signed_in?
       "invite"
+    elsif devise_controller? && user_signed_in?
+      false
     else
       "application"
     end

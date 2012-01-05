@@ -105,6 +105,34 @@ $('#day_plan_wrap.planning li.task_wrap').live("mouseover", function() {
 	}
 });
 
+
+$('#day_plan_wrap .purpose_group').live("mouseover", function() {
+	if (!$(this).data("init")) {
+		$(this).data("init", true);
+		$(this).cluetip({
+			width: 170,
+			positionBy: 'fixed',
+			topOffset: 0,
+			leftOffset: -18,
+			activation: 'click',
+			cluezIndex: 9999,
+			waitImage: false,
+			arrows: false,
+			onHide: function() {
+				$('#group_select').remove();
+			},
+			onShow: function() {
+				$(document).bind('mousedown',function(e) {
+					if(($(e.target).parents('#group_select').length == 0) && (e.target.id != 'group_select') && $('#group_select').length > 0){
+						$(document).trigger('hideCluetip');	
+					}
+				});
+			}
+		});
+	}
+});
+
+
 function sortOldBlock(taskId,order,parent_id,group_id,new_order,new_parent_id,new_group_id){
 	stopCallback = false;
 	var nothing = new_parent_id ? 'true' : 'false';
@@ -149,6 +177,9 @@ function renumberBlocks() {
 		$(this).find('.task_number').first().text(count);
 	});
 }
+
+
+
 
 
 });

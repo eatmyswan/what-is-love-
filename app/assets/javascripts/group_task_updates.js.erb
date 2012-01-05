@@ -27,60 +27,23 @@ $('#incomplete .calendar').live("mouseover", function() {
 				$(document).bind('mousedown',function(e) {
 					if(($(e.target).parents('#calendar_wrap').length == 0) && (e.target.id != 'calendar_wrap') && $('#calendar_wrap').length > 0){
 						var taskId = $('li.editing').attr('id');
+						var parentVal = $('li.editing').parent().hasClass('action_plan') ? 'true' : 'false';
+						
 						$.ajax({
 							url: "/tasks/" +  taskId,
 							type: 'PUT',
-							data: $.param({task : { start: $('#schedule_date').val(), min_duration: $('#min_duration').val(), max_duration: $('#max_duration').val() }}),
+							data: $.param({task : { min_duration: $('#min_duration').val(), max_duration: $('#max_duration').val() }, parent : parentVal}),
 							success: function() { }
 						});
 						$(document).trigger('hideCluetip');	
 					}
 	    		});
-				var defaultDate = '';
-				var date = $('li.editing').attr('start');
 				var minDuration = $('li.editing').attr('min_duration');
 				var maxDuration = $('li.editing').attr('max_duration');
-				
-				if(date.length > 1){
-					defaultDate = date.substr(0,10);
-				}
-				$('#schedule_date').val(date);
+
 				$('#min_duration').val(minDuration);
 				$('#max_duration').val(maxDuration);
 									
-				$( "#capture_datepicker, #reminder_datepicker" ).datepicker({
-					dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-					goToCurrent: true,
-					dateFormat: 'yy-mm-dd',
-					defaultDate: defaultDate,
-   					onSelect: function(dateText, inst) { 
-						var hour = '00';
-						var minutes = '00';
-						if($('#schedule_date').val()){
-							var dateString = $('#schedule_date').val();
-							var hour = dateString.substr(11,2);
-							var minutes = dateString.substr(14,2);
-						}
-						if (hour.length < 2) {	hour = '0' + hour; }
-						if (minutes.length < 2) {	minutes = '0' + minutes; }
-						$('#schedule_date').val(dateText+' ' + hour + ':' + minutes + ':00');
-						$('#time').show();
-					}
-				});
-				if(defaultDate.length < 1){
-					$('.ui-datepicker-current-day').removeClass('ui-datepicker-current-day');
-					$('#time').hide();
-				} else {
-					var hour = parseInt(date.substr(11,2));
-					if(hour < 12){
-						$('#time .pm').text('AM');
-						$('#time').addClass('am');
-					}
-					if(hour > 12){ hour = hour - 12; }
-					if(hour == 00){ hour = 12; }
-					$('#time .hour').val(hour);
-					$('#time .minute').val(date.substr(14,2));
-				}
 				$('#min .hour').val(minDuration ? parseInt(parseInt(minDuration)/60) : '');
 				$('#min .minute').val(minDuration ? parseInt(parseInt(minDuration)%60) : '');
 				$('#max .hour').val(maxDuration ? parseInt(parseInt(maxDuration)/60) : '');
@@ -100,6 +63,7 @@ $('#incomplete .note').live("mouseover", function() {
 		});
 	}
 });
+
 
 $('#incomplete .email').live("mouseover", function() {
 	if (!$(this).data("init")) {
@@ -165,10 +129,11 @@ $('#group .checkbox').live('click',function(){
 		var outcomeId = task.parents('li').first().attr('id');
 		if(checkbox.hasClass('active')){
 				checkbox.removeClass('active');
+				
 				$.ajax({
 					url: "/tasks/" +  taskId,
 					type: 'PUT',
-					data: $.param({task : { complete: 'false' }}),
+					data: $.param({task : { complete: 'false' }, parent: 'true'}),
 					success: function() { 
 						task.fadeOut(300, function(){
 							task.appendTo('#'+outcomeId+'_incomplete').fadeTo(300, 1.0);
@@ -182,7 +147,7 @@ $('#group .checkbox').live('click',function(){
 				$.ajax({
 					url: "/tasks/" +  taskId,
 					type: 'PUT',
-					data: $.param({task : { complete: 'true' }}),
+					data: $.param({task : { complete: 'true' }, parent: 'true'}),
 					success: function() { 
 						task.fadeOut(300, function(){
 							task.prependTo('#'+outcomeId+'_complete').fadeTo(300,0.5);
@@ -231,27 +196,31 @@ $('#incomplete .star').live('click',function(){
 });
 
 $('#incomplete .delete').live('click',function(){
-	var task = $(this).parents('li').first();
-	var taskId = task.attr('id');
-	//delete all li's inside
-	var subTask = $(task).find('li');
-	$(subTask).each(function(){
-		subTaskId = $(this).attr('id');
-		$.ajax({
-			url: "/tasks/" +  subTaskId,
-			type: 'DELETE'
+	
+	var answer = confirm("Are you sure?")
+	if (answer){
+		var task = $(this).parents('li').first();
+		var taskId = task.attr('id');
+		//delete all li's inside
+		var subTask = $(task).find('li');
+		$(subTask).each(function(){
+			subTaskId = $(this).attr('id');
+			$.ajax({
+				url: "/tasks/" +  subTaskId,
+				type: 'DELETE'
+			});
 		});
-	});
-	$.ajax({
-		url: "/tasks/" +  taskId,
-		type: 'DELETE',
-		success: function() { 
-			if(!task.find('.checkbox').first().hasClass('active')){
-				decreaseCount();
+		$.ajax({
+			url: "/tasks/" +  taskId,
+			type: 'DELETE',
+			success: function() { 
+				if(!task.find('.checkbox').first().hasClass('active')){
+					decreaseCount();
+				}
+				task.fadeOut(200,function(){ task.remove(); });
 			}
-			task.fadeOut(200,function(){ task.remove(); });
-		}
-	});
+		});
+	}
 });
 
 $('#incomplete .edit').live('click',function(){
@@ -397,6 +366,7 @@ function editingDone() {
 	var task = $('li.editing:first');
 	var taskId = task.attr('id');
 	var taskText = task.find('input.edit_task_text').first().val();
+	var parentVal = task.parent().hasClass('action_plan') ? 'true' : 'false';
 	if(task.find('.target').hasClass('active')) {
 		var taskOutcome = "true";
 	} else {
@@ -406,10 +376,8 @@ function editingDone() {
 	$.ajax({
 		url: "/tasks/" +  taskId,
 		type: 'PUT',
-		data: $.param({task : { title: taskText, outcome: taskOutcome }}),
-		success: function() { 
-			}
-		});
+		data: $.param({task : { title: taskText, outcome: taskOutcome }, parent: parentVal})
+	});
 		
 	task.removeClass('editing');
 	task.find('.edit_task').addClass('no_disp');

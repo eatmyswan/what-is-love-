@@ -29,24 +29,33 @@ $('#capture_wrap ul.sortable .icon').live("mouseover", function() {
 $('#group_select li').live("click", function() {
 	var groupId = $(this).attr('id');
 	var taskId = $(this).parent().attr('taskId');
-	var oldGroupId = $('#'+taskId).parents('.capture_group_wrap').first().attr('id');
+	
+	if($('#day_plan_wrap')) {
+		$.ajax({
+			url: "/tasks/" +  taskId,
+			type: 'PUT',
+			data: $.param({task : { group_id: groupId }, open : 'true'})
+		});
+	} else {
+		var oldGroupId = $('#'+taskId).parents('.capture_group_wrap').first().attr('id');
+	
+		$.ajax({
+			url: "/tasks/" +  taskId,
+			type: 'PUT',
+			data: $.param({task : { group_id: groupId }}),
+			success: function() {
+				$('#'+groupId).show();
+				$('#'+taskId).fadeOut(300, function() {
+					$(this).appendTo('#'+groupId+' > ul').fadeIn(300, function() {
+						if ($('#'+oldGroupId+' ul').children().length == 0) $('#'+oldGroupId).hide();
+					});
+				});
+			}
+		});
+	}
 	
 	$(document).trigger('hideCluetip');	
 	$('#group_select').remove();
-	
-	$.ajax({
-		url: "/tasks/" +  taskId,
-		type: 'PUT',
-		data: $.param({task : { group_id: groupId }}),
-		success: function() {
-			$('#'+groupId).show();
-			$('#'+taskId).fadeOut(300, function() {
-				$(this).appendTo('#'+groupId+' > ul').fadeIn(300, function() {
-					if ($('#'+oldGroupId+' ul').children().length == 0) $('#'+oldGroupId).hide();
-				});
-			});
-		}
-	});
 	
 });
 
@@ -148,10 +157,10 @@ $('#capture_wrap ul.sortable, #side_plan').live("mouseover", function() {
 });
 
 function datepickerDroppable(){
-	if (!$('#datepicker').data("init")) {
+	if (!$('#datepicker.capture_datepicker').data("init")) {
 
-		$('#datepicker').data("init", true);
-		$('#datepicker .droppable').droppable({
+		$('#datepicker.capture_datepicker').data("init", true);
+		$('#datepicker.capture_datepicker .droppable').droppable({
 			accept: '.task_wrap',
 			tolerance: 'pointer',
 			over: function(event,ui){
