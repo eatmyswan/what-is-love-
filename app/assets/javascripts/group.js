@@ -16,15 +16,39 @@ $('#plan_wrap ul.sortable').live("mouseover", function() {
 			start: function(event,ui){
 				$(ui.helper).addClass('dragging_task');
 			},
+			receive: function(event,ui){
+				console.log('HERE');
+				//update the sender
+				if(ui.sender && $(ui.sender).hasClass('action_plan')){
+					var order = $(ui.sender).sortable('serialize', {attribute: 'sort_id'});
+					var parent_id = $(ui.sender).parents('li').first().attr('id');
+					$.ajax({
+						url: "/tasks/"+ui.item[0].id, type: 'PUT',
+						data: $.param({task : { parent_id: '' } }),
+						success: function(){
+							if(order.length > 0) { 
+								$.ajax({
+									url: "/tasks/mylife_sort",
+									type: 'POST',
+									data: order + '&parent_id=' + parent_id
+								});
+							}
+						}
+					});
+				}
+			},
 			update: function(event,ui){
-				var parent_id = $(ui.item[0].parentElement).parents('li').first().attr('id');
-				parent_id = parent_id ? parent_id : '';
-				$.ajax({
-					url: "/tasks/" + ui.item[0].id,
-					type: 'PUT',
-					data: $.param({task : { parent_id: parent_id }, nothing: 'true' })
-				});
-				checkCount();
+				var parentElement = ui.item[0].parentElement;
+				if($(parentElement).hasClass('action_plan')){
+					var parent_id = $(parentElement).parents('li').first().attr('id');
+					var order = $(parentElement).sortable('serialize', {attribute: 'sort_id'});
+					$.ajax({
+						url: "/tasks/mylife_sort",
+						type: 'POST',
+						data: order + '&parent_id=' + parent_id
+					});
+					checkCount();
+				}
 			},
 			stop: function(event,ui){
 				var order = $('#incomplete').sortable('serialize', {attribute: 'sort_id'});

@@ -1,5 +1,23 @@
 $(document).ready(function() {
 	
+soundManager.onready(function() {	
+	soundManager.createSound({
+		id: 'hallelujah',
+		url: "<%= asset_path 'hallelujah.mp3' %>",
+		onplay: function() {
+			soundManager.stopAll();
+		}
+	});
+	
+	soundManager.createSound({
+		id: 'rimshot',
+		url: "<%= asset_path 'rimshot.mp3' %>",
+		onplay: function() {
+			soundManager.stopAll();
+		}
+	});
+});
+		
 $(document).bind('mousedown',function(e) {
 	if(($(e.target).parents('li.editing').length == 0) && $('#calendar_wrap').length == 0){
 		if($('li.editing:first').length > 0){
@@ -111,6 +129,8 @@ $('#group .checkbox').live('click',function(){
 					}
 				});
 		} else {
+			task.hasClass('outcome_ready') ? soundManager.play('hallelujah') : soundManager.play('rimshot');
+
 			$('h3.page').show();
 			checkbox.addClass('active');
 			$.ajax({
@@ -142,6 +162,7 @@ $('#group .checkbox').live('click',function(){
 						}
 					});
 			} else {
+				soundManager.play('rimshot');
 				$('#'+outcomeId+' h3.outcome_complete').show();
 				checkbox.addClass('active');
 				$.ajax({

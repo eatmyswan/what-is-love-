@@ -114,11 +114,22 @@ class TasksController < ApplicationController
   
   def mylife_sort
     tasks = Task.find(params[:task])
-    tasks.each do |task|
-      task.mylife_sort = params['task'].index(task.id.to_s) + 1
-      task.save
+    if(params[:parent_id])
+      tasks.each do |task|
+        task.sort = params['task'].index(task.id.to_s)+1
+        task.parent_id = params[:parent_id]
+        task.save
+      end
+      @task = Task.find(params[:parent_id])
+      @open = 'true'
+      render 'update'
+    else
+      tasks.each do |task|
+        task.mylife_sort = params['task'].index(task.id.to_s) + 1
+        task.save
+      end
+      render :nothing => true
     end
-    render :nothing => true
   end
   
   def capture_sort
