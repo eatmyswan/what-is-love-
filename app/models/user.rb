@@ -5,6 +5,7 @@ class User
   field :vision, type: String
   field :purpose, type: String
   field :avatar, type: String
+  field :sound, type: Boolean, default: true
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable

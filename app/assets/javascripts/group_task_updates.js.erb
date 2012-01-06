@@ -112,6 +112,8 @@ $('#group .checkbox').live('click',function(){
 	var task = $(this).parents('li').first();
 	var taskId = task.attr('id');
 	
+	var soundOn = task.attr('sound');
+	
 	if(!task.parent().hasClass('in_outcome')){
 		
 		if(checkbox.hasClass('active')){
@@ -129,7 +131,9 @@ $('#group .checkbox').live('click',function(){
 					}
 				});
 		} else {
-			task.hasClass('outcome_ready') ? soundManager.play('hallelujah') : soundManager.play('rimshot');
+			if(soundOn == 'true') {
+				task.hasClass('outcome_ready') ? soundManager.play('hallelujah') : soundManager.play('rimshot');
+			}
 
 			$('h3.page').show();
 			checkbox.addClass('active');
@@ -162,7 +166,9 @@ $('#group .checkbox').live('click',function(){
 						}
 					});
 			} else {
-				soundManager.play('rimshot');
+				if(soundOn == 'true') {
+					soundManager.play('rimshot');
+				}
 				$('#'+outcomeId+' h3.outcome_complete').show();
 				checkbox.addClass('active');
 				$.ajax({
