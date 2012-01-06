@@ -3,8 +3,8 @@ ActionMailer::Base.smtp_settings = {
   :port                 => 587,
   :domain               => "timemaster.com",
   :authentication       => "plain",
-  :user_name            => "stevendoyledesign@gmail.com",
-  :password             => "SPD12c5!",
+  :user_name            => "timemasterrpm@gmail.com",
+  :password             => "Balboa12c5!",
   :enable_starttls_auto => true
 }
 
