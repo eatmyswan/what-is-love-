@@ -74,7 +74,7 @@ class Task
     elsif self.title.match("#nextmonth")
       self.start = Date.today.next_month
       self.title.slice! "#nextmonth"
-    elsif self.title.match(/#(\d+)days/)  
+    elsif m = self.title.match(/#(\d+)days/)  
       self.start = Date.today.beginning_of_day + m[1].to_i.days
       self.title.slice! m[0].to_s
     end
