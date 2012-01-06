@@ -9,7 +9,7 @@
 				<%= image_tag current_user.images.forward.first.image.thumb if current_user.images.first %>
 			</div>
 			<div class="name">
-				Steven Doyle
+				<%= current_user.name %>
 			</div>
 			<div class="account_popup">
 				<%= link_to('Logout', destroy_user_session_path, :method=>'delete') %>        
