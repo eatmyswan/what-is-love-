@@ -178,7 +178,10 @@
 
 #notifications {
 	margin-top: -1px;
-	min-height: 26px;
+	min-height: 53px;
+}
+#notifications.loading {
+	background: url(<%= asset_path 'fancybox_loading.gif' %>) 50% 6px no-repeat;
 }
 
 #notifications .category:first-child {
@@ -197,14 +200,13 @@
 	overflow: hidden;
 	position: relative;
 }
-#notifications .category .icon.alert { background-position: 0px    0px; }
-#notifications .category .icon.info  { background-position: 0px  -24px; }
-#notifications .category .icon.email { background-position: 0px  -48px; }
-
-
-#account_bar #notifications .category .title {
-	max-width: 164px;
-}
+#notifications .category .icon.alert
+	{ background-position: 0px 0px; }
+#notifications .category .icon.group-create,
+#notifications .category .icon.info
+	{ background-position: 0px -24px; }
+#notifications .category .icon.email
+	{ background-position: 0px -48px; }
 
 
 #notifications .category .time {

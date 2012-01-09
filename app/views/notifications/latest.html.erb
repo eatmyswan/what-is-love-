@@ -1,0 +1,11 @@
+<div id="notifications">
+
+<% @notifications.each do |n| %>
+  <a class="category">
+    <span class="icon <%= n.type %>"></span>
+    <span class="title"><%= notification_title(n.type, n.subject) %></span>
+    <span class="time"><%= time_ago_or_time_stamp(n.created_at) %></span>
+  </a>
+<% end %>
+
+</div>

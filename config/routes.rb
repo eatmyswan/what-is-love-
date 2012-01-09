@@ -1,5 +1,5 @@
 Rpm::Application.routes.draw do
-  
+
   devise_for :users
 
   root :to => "home#index"
@@ -68,6 +68,8 @@ Rpm::Application.routes.draw do
   match 'task/edit_calendar/:id' => 'tasks#edit_calendar'
   match 'task/edit_group/:id' => 'tasks#edit_group'
   match 'task/schedule_task/:id' => 'tasks#schedule_task'
+
+  match "notifications" => "notifications#latest"
   
   
   # The priority is based upon order of creation:

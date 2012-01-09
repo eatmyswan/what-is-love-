@@ -52,6 +52,12 @@ $('#notifications_btn').live('click', function() {
 		$(this).removeClass('active');
 	} else {
 		$(this).addClass('active');
+
+		// TODO [maybe]: poll for updates, periodically update time ago
+		$('#notifications').empty().addClass('loading');
+		$.get('/notifications', function (html) {
+			$('#notifications').replaceWith(html);
+		});
 	}
 	$( "#notifications_wrap" ).slideToggle();
 });	
