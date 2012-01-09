@@ -75,7 +75,6 @@ $('#capture_wrap ul.sortable, #side_plan').live("mouseover", function() {
 			scroll: false,
 			start: function(event,ui){
 				$(ui.helper).addClass('dragging_task');
-				datepickerDroppable();
 			},
 			receive: function(event,ui){
 				//update the sender
@@ -156,39 +155,7 @@ $('#capture_wrap ul.sortable, #side_plan').live("mouseover", function() {
 			
 });
 
-function datepickerDroppable(){
-	if (!$('#datepicker.capture_datepicker').data("init")) {
 
-		$('#datepicker.capture_datepicker').data("init", true);
-		$('#datepicker.capture_datepicker .droppable').droppable({
-			accept: '.task_wrap',
-			tolerance: 'pointer',
-			over: function(event,ui){
-				$('.dragging_task').css('opacity',0.3);
-				$(this).addClass('ui-datepicker-over');
-			},
-			out: function(event,ui){
-				$(this).removeClass('ui-datepicker-over');
-			},
-			drop: function(event,ui){
-
-				$('ul.sortable').sortable('cancel');
-				var taskId = ui.draggable.attr('id');
-				var date = $(this).attr('title');
-				ui.draggable.remove();
-				calculateResultCount();
-				$.ajax({
-					url: "/tasks/" + taskId,
-					type: 'PUT',
-					data: $.param({task : { start: date, scheduled: 'false' }}),
-					success: function(){
-						$('.ui-datepicker-over').removeClass('ui-datepicker-over');
-					}
-				});
-			}
-		});
-	}
-}
 
 function captureEmpty() {
 	if($('#side_plan').children().length == 0) {

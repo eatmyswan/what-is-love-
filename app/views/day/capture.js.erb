@@ -4,45 +4,9 @@ $('#pad').replaceWith("<%= escape_javascript render('capture')  %>");
 $('.categories_wrap').replaceWith("<%= escape_javascript render('side_plan')  %>");
 
 $(document).ready(function() {
-	
 	calculateResultCount();
-	
-	$( "#datepicker.capture_datepicker" ).datepicker({
-		defaultDate: "<%= @start_date %>",
-		showOtherMonths: true,
-		dateFormat: 'yy-mm-dd',
-		dayNamesMin: ['S','M','T','W','T','F','S'],
-		beforeShowDay: function(date){
-			var title = dbDate(date);
-			if(date.getDay() == 0) return [1,'droppable sunday',title];
-			if(date.getDay() == 6) return [1,'droppable saturday',title];
-			return [1,'droppable',title];
-		},
-		onSelect: function(dateText, inst){
-			$.ajax({
-				url: "/day/capture/" + dateText,
-				type: 'GET'
-			});
-		},
-		onChangeMonthYear: function(year, month, inst) { 
-			$('#datepicker.capture_datepicker').data("init", false);
-		}
-	});
-
-	
-
 });
 
-
-function dbDate(date){
-	var year = date.getFullYear();
-	var month = date.getMonth() + 1;
-		month = month.toString();
-		month = (month.length == 1) ? '0'+month : month;
-	var day = date.getDate().toString();
-		day = (day.length == 1) ? '0'+day : day;
-	return year+'-'+month+'-'+day;
-}
 
 function calculateResultCount() {
 	var count = $('#side_plan').children().length;
