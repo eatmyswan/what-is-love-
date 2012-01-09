@@ -64,9 +64,6 @@ $('#plan_wrap ul.sortable').live("mouseover", function() {
 			accept: ".task_wrap",
 			hoverClass: "drop_hover",
 			tolerance: "pointer",
-			over: function (e,ui){
-				console.log('over');
-			},
 			drop:function(event,ui){
 				console.log('drop');
 				ui.draggable.remove();

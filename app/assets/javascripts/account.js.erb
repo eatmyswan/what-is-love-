@@ -58,8 +58,8 @@ $('#notifications_btn').live('click', function() {
 });
 
 
-
 function droppable(){
+	
 
 		$('#datepicker.acct_datepicker .droppable').droppable({
 			accept: '.task_wrap',
@@ -67,12 +67,15 @@ function droppable(){
 			over: function(event,ui){
 				$('.dragging_task').css('opacity',0.3);
 				$(this).addClass('ui-datepicker-over');
+				$('.category').droppable('disable');
 			},
 			out: function(event,ui){
 				$(this).removeClass('ui-datepicker-over');
+				$('.category').droppable('enable');
 			},
 			drop: function(event,ui){
-				$('ul.sortable').sortable('cancel');
+				$('.category').droppable('enable');
+				$(ui.sender).sortable('cancel');
 				var taskId = ui.draggable.attr('id');
 				var date = $(this).attr('title');
 				$.ajax({

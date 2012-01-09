@@ -1,7 +1,7 @@
-class Image 
+class Notification 
   include Mongoid::Document
   include Mongoid::Timestamps
-  field :sort, type: Integer, default: 0
+  field :message, type: Integer, default: 0
   
   mount_uploader :image, ImageUploader
   
