@@ -23,26 +23,7 @@ $('#cal_btn').live('click', function() {
 		$(this).removeClass('active');
 		$( "#datepicker.acct_datepicker" ).slideToggle();
 	} else {
-		
-		
-		$( "#datepicker.acct_datepicker" ).datepicker({
-			showOtherMonths: true,
-			dateFormat: 'yy-mm-dd',
-			dayNamesMin: ['S','M','T','W','T','F','S'],
-			beforeShowDay: function(date){
-				var title = dbDate(date);
-				if(date.getDay() == 0) return [1,'droppable sunday',title];
-				if(date.getDay() == 6) return [1,'droppable saturday',title];
-				return [1,'droppable',title];
-			},
-			onChangeMonthYear: function(year, month, inst) { 
-				$('#datepicker.acct_datepicker').data("init", false);
-				droppable();
-			}
-		}).slideToggle();
-		
-		droppable();
-		
+		$( "#datepicker.acct_datepicker" ).slideToggle();		
 		$(this).addClass('active');
 	}
 });	
@@ -63,47 +44,3 @@ $('#notifications_btn').live('click', function() {
 });	
 	
 });
-
-
-function droppable(){
-	
-
-		$('#datepicker.acct_datepicker .droppable').droppable({
-			accept: '.task_wrap',
-			tolerance: 'pointer',
-			over: function(event,ui){
-				$('.dragging_task').css('opacity',0.3);
-				$(this).addClass('ui-datepicker-over');
-				$('.category').droppable('disable');
-			},
-			out: function(event,ui){
-				$(this).removeClass('ui-datepicker-over');
-				$('.category').droppable('enable');
-			},
-			drop: function(event,ui){
-				$('.category').droppable('enable');
-				$(ui.sender).sortable('cancel');
-				var taskId = ui.draggable.attr('id');
-				var date = $(this).attr('title');
-				$.ajax({
-					url: "/tasks/" + taskId,
-					type: 'PUT',
-					data: $.param({task : { start: date }}),
-					success: function(){
-						$('.ui-datepicker-over').removeClass('ui-datepicker-over');
-					}
-				});
-			}
-		});
-
-}
-
-function dbDate(date){
-	var year = date.getFullYear();
-	var month = date.getMonth() + 1;
-		month = month.toString();
-		month = (month.length == 1) ? '0'+month : month;
-	var day = date.getDate().toString();
-		day = (day.length == 1) ? '0'+day : day;
-	return year+'-'+month+'-'+day;
-}

@@ -9,61 +9,9 @@
 				<%= link_to 'Month', month_path(Date.today()), :id => 'month', :class => 'filter rounded_right', :remote => true %>
 			</div>
 		</div>
-		<div class="categories_wrap" id="plan_categories">
 	
-			<%= link_to group_path(@inbox.id.to_s), :class => 'category', :id => @inbox.id.to_s,:remote => true do %>
-				<span class="inbox_cover"></span>
-				<span class="title">Action List</span>
-				<span class="count"><span class="inner_shadow"></span><span class="count_text"><%= @inbox.tasks.incomplete.count %></span><span>
-			<% end %>
-			
-			<div class="title_bar">
-				<span class="title">Personal</span>
-				<span class="toggle_category" id="toggle_personal"></span>
-				<span class="add_category" id="add_personal"></span>
-			</div>
-			<div id="personal" class="connectedSortable">
-				<div class="category new_category" id="new_personal">
-					<%= form_for(Group.new, :remote => true) do |f| %>
-					<span class="cover">
-						<input type="file" name="image[image]">
-  					<span class="file_field_cover"></span>
-					</span>
-						<%= f.text_field :title, :autocomplete => :off, :value => "New category...", :onfocus => '(this.value == "New category...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New category..." : this.value' %>
-						<%= f.hidden_field :personal, :value => 'true' %>
-						<span class="cancel"></span>
-						<span class="edit_done"></span>
-					<% end %>
-				</div>
-				<% @personal.each do |category| %>
-					<%= render :partial => '/groups/category', :locals => { :category => category, :active => false } %>
-				<% end %>
-			</div>
-			
-			<div class="title_bar">
-				<span class="title">Professional</span>
-				<span class="toggle_category" id="toggle_professional"></span>
-				<span class="add_category" id="add_professional"></span>
-			</div>
-			<div id="professional" class="connectedSortable">
-				<div class="category new_category" id="new_professional">
-					<%= form_for(Group.new, :remote => true) do |f| %>
-					<span class="cover">
-						<input type="file" name="image[image]">
-  					<span class="file_field_cover"></span>
-					</span>
-						<%= f.text_field :title, :autocomplete => :off, :value => "New category...", :onfocus => '(this.value == "New category...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New category..." : this.value' %>
-						<%= f.hidden_field :professional, :value => 'true' %>
-						<span class="cancel"></span>
-						<span class="edit_done"></span>
-					<% end %>
-				</div>
-				<% @professional.each do |category| %>
-					<%= render :partial => '/groups/category', :locals => { :category => category, :active => false } %>
-				<% end %>
-			</div>
-			
-		</div>
+		<%= render '/home/categories_wrap' %>
+
 		
 		<%= render '/home/account' %>
 		
