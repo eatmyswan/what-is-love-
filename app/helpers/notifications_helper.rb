@@ -10,8 +10,6 @@ module NotificationsHelper
       else
         "#{subject.name} accepted \"#{target.title}\""
       end
-    when 'group-create'
-      "Created \"#{subject.title}\""
     else
       puts "UNKNOWN NOTIFICATION TYPE:"
       puts "  > type:#{type}; subject:#{subject.inspect}; target:#{target.inspect}"

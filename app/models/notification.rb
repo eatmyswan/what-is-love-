@@ -31,8 +31,6 @@ class Notification
     #   Subject: The rejecting user
     #   Target:  The task being rejected
     'lev-reject' => 1002,
-
-    'group-create' => 123
     }
   end
 

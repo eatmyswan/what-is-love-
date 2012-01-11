@@ -15,8 +15,6 @@ class Group
   embeds_many :goals
   embeds_many :images
 
-  after_create :notify_create
-
   index :user_id
   index :personal
   index :professional
@@ -24,14 +22,4 @@ class Group
   scope :forward, order_by(:sort.asc)
   
   validates_length_of :title, minimum: 1, message: "Group name cannot be blank."
-
-  protected
-
-  def notify_create
-    Notification.create \
-      :type => 'group-create',
-      :user => self.user,
-      :subject => self
-  end
-
 end
