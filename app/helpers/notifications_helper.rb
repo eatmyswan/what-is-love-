@@ -1,9 +1,20 @@
 module NotificationsHelper
 
-  def notification_title(type,subject)
+  def notification_title(type,subject,target)
     case type
+    when 'lev-send'
+      "Task emailed to #{subject.to_email}"
+    when 'lev-accept'
+      if subject == current_user
+        "You accepted \"#{target.title}\""
+      else
+        "#{subject.name} accepted \"#{target.title}\""
+      end
     when 'group-create'
       "Created \"#{subject.title}\""
+    else
+      puts "UNKNOWN NOTIFICATION TYPE:"
+      puts "  > type:#{type}; subject:#{subject.inspect}; target:#{target.inspect}"
     end
   end
 

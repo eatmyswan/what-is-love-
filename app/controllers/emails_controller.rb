@@ -27,7 +27,7 @@ class EmailsController < ApplicationController
     
     params[:task_id].each do |task_id|
       task = Task.find(task_id)
-      @email.tasks << task
+      @email.tasks << task if task.user_id == @email.user_id
     end
     
     if @email.outcome == true
@@ -39,6 +39,7 @@ class EmailsController < ApplicationController
     
     if @email.save
       UserMailer.leverage_task(@email, @task).deliver 
+      @email.user.notify('lev-send', @email, @task)
     end
     
     render :nothing => true
@@ -143,6 +144,8 @@ class EmailsController < ApplicationController
       end
       
       UserMailer.accept_task(outcome.user.email, current_user.name, outcome).deliver 
+      outcome_new.user.notify('lev-accept', outcome_new.user, outcome_new)
+      @email.user.notify('lev-accept', outcome_new.user, outcome_new)
     else 
       task = Task.find(params[:task_id][0])
       task_new = task.dup
@@ -155,6 +158,8 @@ class EmailsController < ApplicationController
       task.luser_id = current_user.id
       task.save
       UserMailer.accept_task(task.user.email, current_user.name, task).deliver 
+      task_new.user.notify('lev-accept', task_new.user, task_new)
+      @email.user.notify('lev-accept', task_new.user, task_new)
     end
     
   end
@@ -164,6 +169,7 @@ class EmailsController < ApplicationController
     @email.accepted = false
     @email.save
     UserMailer.reject_task(@email.user.email).deliver 
+    @email.user.notify('lev-reject', @email.tasks.first)
   end
   
 

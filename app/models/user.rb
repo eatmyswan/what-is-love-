@@ -19,6 +19,11 @@ class User
   embeds_many :images
   
   after_create :create_inbox
+
+  # Helper method to create notifications
+  def notify(type,subject,target=nil)
+    self.notifications.create :type => type, :subject => subject, :target => target
+  end
   
   protected
   def create_inbox
