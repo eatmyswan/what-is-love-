@@ -69,7 +69,7 @@ Rpm::Application.routes.draw do
   match 'task/edit_group/:id' => 'tasks#edit_group'
   match 'task/schedule_task/:id' => 'tasks#schedule_task'
 
-  match "notifications" => "notifications#latest"
+  get "notifications/latest" => "notifications#latest"
   
   
   # The priority is based upon order of creation:

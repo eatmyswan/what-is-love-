@@ -36,7 +36,7 @@ $('#notifications_btn').live('click', function() {
 
 		// TODO [maybe]: poll for updates, periodically update time ago
 		$('#notifications').empty().addClass('loading');
-		$.get('/notifications', function (html) {
+		$.get('/notifications/latest', function (html) {
 			$('#notifications').replaceWith(html);
 		});
 	}
