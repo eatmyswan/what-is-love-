@@ -14,15 +14,15 @@ class User
   has_many :groups
   has_many :emails
   has_many :ltasks, class_name: 'Task', inverse_of: :luser
-  has_many :notifications
+  has_many :notices
   embeds_many :goals
   embeds_many :images
   
   after_create :create_inbox
 
-  # Helper method to create notifications
+  # Helper method to create notices
   def notify(type,subject,target=nil)
-    self.notifications.create :type => type, :subject => subject, :target => target
+    self.notices.create :type => type, :subject => subject, :target => target
   end
   
   protected

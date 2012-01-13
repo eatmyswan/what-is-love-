@@ -131,18 +131,18 @@
 	background-position: 0 -27px;
 }
 
-#account_bar #notifications_btn {
+#account_bar #notices_btn {
 	width: 24px;
 	height: 25px;
 	float: left;
-	background: url(<%= asset_path 'notifications_btn.png' %>) no-repeat 0 0 transparent;
+	background: url(<%= asset_path 'notice_btn.png' %>) no-repeat 0 0 transparent;
 	cursor: pointer;
 	display: block;
 	position: relative;
 	z-index: 4;
 }
-#account_bar #notifications_btn.active,
-#account_bar #notifications_btn:hover {
+#account_bar #notices_btn.active,
+#account_bar #notices_btn:hover {
 	background-position: 0 -27px;
 }
 
@@ -172,46 +172,47 @@
 	background: transparent;
 }
 
-#notifications_wrap > .title_bar {
+#notices_wrap > .title_bar {
 	margin-top: 0;
 }
 
-#notifications {
+#notices {
 	margin-top: -1px;
 	min-height: 53px;
+	height: 512px;
 }
-#notifications.loading {
+#notices.loading {
 	background: url(<%= asset_path 'fancybox_loading.gif' %>) 50% 6px no-repeat;
 }
 
-#notifications .category:first-child {
+#notices .category:first-child {
 	border-top-color: none;
 }
-#notifications .category .icon {
+#notices .category .icon {
 	float: left;
 	display: block;
 	width: 24px;
 	height: 24px;
 	margin: 6px 8px 0 8px;
-	background: #242120 url(<%= asset_path 'notification_icons.png' %>) no-repeat;
+	background: #242120 url(<%= asset_path 'notice_icons.png' %>) no-repeat;
 	border-radius: 2px;
 	border: 1px solid #1d1b1a;
 	box-shadow: 0 1px 0 #4e4a46;
 	overflow: hidden;
 	position: relative;
 }
-#notifications .category .icon.lev-reject,
-#notifications .category .icon.alert
+#notices .category .icon.lev-reject,
+#notices .category .icon.alert
 	{ background-position: 0px 0px; }
-#notifications .category .icon.lev-accept,
-#notifications .category .icon.info
+#notices .category .icon.lev-accept,
+#notices .category .icon.info
 	{ background-position: 0px -24px; }
-#notifications .category .icon.lev-send,
-#notifications .category .icon.email
+#notices .category .icon.lev-send,
+#notices .category .icon.email
 	{ background-position: 0px -48px; }
 
 
-#notifications .category .time {
+#notices .category .time {
 	font-weight: bold;
 	color: #928C89;
 	font-size: 11px;

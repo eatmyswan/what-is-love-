@@ -2,7 +2,7 @@ $('.filters_wrap a').removeClass('active');
 $('#month').addClass('active');
 $('#pad').replaceWith("<%= escape_javascript render('calendar')  %>");
 $('.categories_wrap').replaceWith("<%= escape_javascript render('side')  %>");
-$('#cal_btn, #notifications_btn, #datepicker.acct_datepicker').hide();
+$('#cal_btn, #notices_btn, #datepicker.acct_datepicker').hide();
 
 $(document).ready(function() {
 	

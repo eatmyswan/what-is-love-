@@ -1,6 +1,6 @@
-module NotificationsHelper
+module NoticesHelper
 
-  def notification_title(type,subject,target)
+  def notice_title(type,subject,target)
     case type
     when 'lev-send'
       "Task emailed to #{subject.to_email}"
@@ -11,7 +11,7 @@ module NotificationsHelper
         "#{subject.name} accepted \"#{target.title}\""
       end
     else
-      puts "UNKNOWN NOTIFICATION TYPE:"
+      puts "UNKNOWN NOTICE TYPE:"
       puts "  > type:#{type}; subject:#{subject.inspect}; target:#{target.inspect}"
     end
   end

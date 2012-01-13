@@ -1,4 +1,4 @@
-class Notification
+class Notice
   include Mongoid::Document
   include Mongoid::Timestamps
   field :type_num, type: Integer, default: 0
@@ -6,11 +6,11 @@ class Notification
   # The user being notified
   belongs_to :user
 
-  # Each notification must have a subject
+  # Each notice must have a subject
   belongs_to :subject, :polymorphic => true
   validates :subject, :presence => true
 
-  # Some notification types involve the subject targeting an object
+  # Some notice types involve the subject targeting an object
   # We can't name it `object` because Mongoid gives a strong warning
   belongs_to :target, :polymorphic => true
 
@@ -35,11 +35,11 @@ class Notification
   end
 
   def type
-    Notification.types.select {|name,num| num == self.type_num }.first[0]
+    Notice.types.select {|name,num| num == self.type_num }.first[0]
   end
 
   def type=(type_str)
-    self.type_num = Notification.types[type_str] || 0
+    self.type_num = Notice.types[type_str] || 0
   end
 
 end

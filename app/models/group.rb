@@ -11,7 +11,6 @@ class Group
 
   belongs_to :user
   has_many :tasks
-  has_many :notifications, :as => :subject
   embeds_many :goals
   embeds_many :images
 
