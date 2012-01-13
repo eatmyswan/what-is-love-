@@ -35,12 +35,12 @@ $('#notices_btn').live('click', function() {
 		$(this).addClass('active');
 
 		// TODO [maybe]: poll for updates, periodically update time ago
-		$('#notices').empty().addClass('loading');
+		$('#notices_sidebar .notices').empty().addClass('loading');
 		$.get('/notices/latest', function (html) {
-			$('#notices').replaceWith(html);
+			$('#notices_sidebar .notices').replaceWith(html);
 		});
 	}
-	$( "#notices_wrap" ).slideToggle();
+	$("#notices_sidebar").slideToggle();
 });	
 	
 });

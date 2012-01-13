@@ -1,6 +1,10 @@
 <% content_for :top do %>
 		<div class="cover"><%= image_tag current_user.images.forward.first.image.thumb if current_user.images.first %></div>
 		<div class="title"><%= current_user.name %></div>
+    <div id="calendar_controls">
+      <%= link_to 'Plan', root_path, :id => 'day_capture', :class => 'filter rounded_left active', :remote => true %>
+      <%= link_to 'Latest Notifications', notice_panel_path, :id => 'notice_panel', :class => 'filter rounded_right', :remote => true %>
+    </div>
 		<div class="ribbon"></div>
 <% end %>
 

@@ -70,6 +70,7 @@ Rpm::Application.routes.draw do
   match 'task/schedule_task/:id' => 'tasks#schedule_task'
 
   get "notices/latest" => "notices#latest"
+  get "notices/latest/details" => "notices#latest_panel", :as => :notice_panel
   
   
   # The priority is based upon order of creation:

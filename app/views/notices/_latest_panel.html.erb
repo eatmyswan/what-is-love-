@@ -1,23 +1,11 @@
 
 <% content_for :top do %>
 
-    <div class="calendar_title">
-      <span class="big"><%= @start_date.strftime('%A') %></span>
-      <span class="small"><%= @start_date.strftime('%B %e, %Y') %></span>
-    </div>
-    <div id="next_prev_wrap">
-      <%= link_to day_capture_path(@start_date - 1.day), :class => 'filter rounded_left', :remote => true do %>
-        <div class="prev"></div>
-      <% end %>
-      <%= link_to 'Today', day_capture_path(Date.today()), :class => 'filter', :remote => true %>
-      <%= link_to day_capture_path(@start_date + 1.day), :class => 'filter rounded_right', :remote => true do %>
-        <div class="next"></div>
-      <% end %>
-    </div>
+    <div class="cover"><%= image_tag current_user.images.forward.first.image.thumb if current_user.images.first %></div>
+    <div class="title"><%= current_user.name %></div>
     <div id="calendar_controls">
-      <%= link_to 'Home', day_capture_path(@start_date), :id => 'day_capture', :class => 'filter rounded_left active', :remote => true %>
-      <%= link_to 'Latest Events', day_plan_path(@start_date), :id => 'day_plan', :class => 'filter', :remote => true %>
-      <%= link_to 'Schedule', day_schedule_path(@start_date), :id => 'day_schedule', :class => 'filter rounded_right', :remote => true %>
+      <%= link_to 'Plan', root_path, :id => 'my_life', :class => 'filter rounded_left', :remote => true %>
+      <%= link_to 'Latest Notifications', notice_panel_path, :id => 'notice_panel', :class => 'filter rounded_right active', :remote => true %>
     </div>
     <div class="ribbon"></div>
 
@@ -25,38 +13,16 @@
 
 <% content_for :page do %>
   <div id="group">
-    <div id="capture_wrap">
-      <div id="input_wrap">
-        <span class="inner_shadow"></span>
-        <%= form_for(Task.new, :remote => true) do |f| %>
-          <%= f.text_field :title, :autocomplete => :off, :value => "New task...", :onfocus => '(this.value == "New task...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New task..." : this.value' %>
-          <%= f.hidden_field :start, :value => @start_date %>
-          <%= f.hidden_field :group_id, :value => @inbox.id.to_s %>
-        <% end %>
+    <div id="notices_panel">
+
+    <% @notices.each do |n| %>
+      <div class="notice">
+        <span class="icon <%= n.type %>"></span>
+        <span class="title"><%= notice_title(n.type, n.subject, n.target) %></span>
+        <span class="time"><%= time_ago_or_time_stamp(n.created_at) %></span>
       </div>
-      <div id="incomplete">
-        <div id="<%= @inbox.id %>" class="capture_group_wrap_inbox">
-          <ul class="sortable incomplete_task_list">
-            <% @inbox.tasks.where(:start.gte => @start_date, :start.lt => @end_date).and(week: false).and(complete: false).and(parent_id: nil).and(plan: false).order_by([:capture_sort, :asc]).each do |task,index| %>
-              <%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true' } %>
-            <% end %>
-          </ul>
-        </div>
-      
-        <% @groups.each do |group| %>
-            <div id="<%= group.id %>" class="capture_group_wrap" style="<%= 'display: none;' if group.tasks.where(:start.gte => @start_date, :start.lt => @end_date).and(complete: false).and(parent_id: nil).and(scheduled: false).and(week: false).count == 0 %>">
-              <div class="group_top_wrap">
-                <span class="img_wrap"><%= image_tag group.images.forward.first.image.tiny if group.images.forward.first %></span>
-                <span class="title_wrap"><%= group.title %></span>
-              </div>
-              <ul class="sortable group_bottom_wrap">
-                <% group.tasks.where(:start.gte => @start_date, :start.lt => @end_date).and(week: false).and(complete: false).and(parent_id: nil).and(plan: false).order_by([:capture_sort, :asc]).each do |task,index| %>
-                  <%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true' } %>
-                <% end %>
-              </ul>
-            </div>
-        <% end %>
-      </div>
+    <% end %>
+
     </div>
   </div>
 <% end %>
