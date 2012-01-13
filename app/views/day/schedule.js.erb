@@ -9,8 +9,6 @@ $('.categories_wrap').replaceWith("<%= escape_javascript render('side')  %>");
 <% end %>
 
 $(document).ready(function() {
-	
-	attachDatepicker();
 
    var $calendar = $('#schedule');
 	var now = new Date();
@@ -45,7 +43,6 @@ $(document).ready(function() {
 			$.get('/day/side/' + newDate.toString('yyyy-MM-dd 00:00:00'), function(data){
 				$('.categories_wrap').replaceWith(data);
 				calculateMinD();
-				attachDatepicker();
 				$('#datepicker').datepicker('setDate',newDate);
 			});
 		},
@@ -169,28 +166,7 @@ $(document).ready(function() {
       }
    });
 
-   function attachDatepicker(){
-	
-		$( "#datepicker" ).datepicker({
-			defaultDate: "<%= @start_date %>",
-			showOtherMonths: true,
-			dateFormat: 'yy-mm-dd',
-			dayNamesMin: ['S','M','T','W','T','F','S'],
-			beforeShowDay: function(date){
-				var title = dbDate(date);
-				if(date.getDay() == 0) return [1,'droppable sunday',title];
-				if(date.getDay() == 6) return [1,'droppable saturday',title];
-				return [1,'droppable',title];
-			},
-			onSelect: function(dateText, inst){
-				$.ajax({
-					url: "/day/schedule/" + dateText,
-					type: 'GET'
-				});
-			}
-		});
-	
-	}
+
 	
 	function db(date){
 		var year = date.getFullYear();

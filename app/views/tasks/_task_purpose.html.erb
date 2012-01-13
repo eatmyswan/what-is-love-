@@ -5,7 +5,7 @@
 		<input type="text" value="<%= task.purpose %>" class="edit_task_text">
 	</form>
 	<div class="purpose">
-		<%= task.purpose %>
+		<%= task.purpose.html_safe if task.purpose %>
 	</div>
 	
 

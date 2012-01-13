@@ -5,6 +5,55 @@ $('.categories_wrap').replaceWith("<%= escape_javascript render('side_schedule')
 
 $(document).ready(function() {
 	
+	$('#datepicker .droppable').droppable({
+		accept: '.task_wrap',
+		tolerance: 'pointer',
+		over: function(event,ui){
+			$('.dragging_task').css('opacity',0.3);
+			$(this).addClass('ui-datepicker-over');
+			$('.category').droppable('disable');
+			$('.wc-day-column-inner').droppable('disable');
+		},
+		out: function(event,ui){
+			$(this).removeClass('ui-datepicker-over');
+			$('.category').droppable('enable');
+			$('.wc-day-column-inner').droppable('enable');
+		},
+		drop: function(event,ui){
+			$('.category').droppable('enable');
+			var taskId = ui.draggable.attr('id');
+			var date = $(this).attr('title');
+			$('#cal_date').val(date);
+			$('#cal_taskId').val(taskId);
+			
+			var left = ui.position.left - 90;
+			var top = ui.position.top - 140;
+			
+			if((left + 220) > $(document).width()) {
+				left = $(document).width() - 250;
+			}
+
+			$('#cal_popup').css({
+				'top' : top,
+				'left' : left
+			}).show();
+			
+			if($('#plan_wrap').length == 1) {
+				 $('ul.sortable').sortable('cancel');
+			}
+			if($('#capture_wrap').length == 1) {
+				$('ul.sortable').sortable('cancel');
+				ui.draggable.remove();
+				calculateResultCount();
+			}
+			if($('#day_plan_wrap').length == 1) {
+				ui.draggable.remove();
+				calculateResultCount();
+			}
+		}
+	});
+	
+	
 	$("li.task_wrap.outcome_ready").addClass('outcome');
 	$("li.task_wrap.outcome_ready > .header").show();
 	
@@ -52,6 +101,57 @@ $(document).ready(function() {
 				$("li.task_wrap.outcome_ready > .header").show();
 				minHeightOutcomes();
 			});
+			
+			$('#datepicker').datepicker('setDate',newDate);
+			
+			$('#datepicker .droppable').droppable({
+				accept: '.task_wrap',
+				tolerance: 'pointer',
+				over: function(event,ui){
+					$('.dragging_task').css('opacity',0.3);
+					$(this).addClass('ui-datepicker-over');
+					$('.category').droppable('disable');
+					$('.wc-day-column-inner').droppable('disable');
+				},
+				out: function(event,ui){
+					$(this).removeClass('ui-datepicker-over');
+					$('.category').droppable('enable');
+					$('.wc-day-column-inner').droppable('enable');
+				},
+				drop: function(event,ui){
+					$('.category').droppable('enable');
+					var taskId = ui.draggable.attr('id');
+					var date = $(this).attr('title');
+					$('#cal_date').val(date);
+					$('#cal_taskId').val(taskId);
+			
+					var left = ui.position.left - 90;
+					var top = ui.position.top - 140;
+			
+					if((left + 220) > $(document).width()) {
+						left = $(document).width() - 250;
+					}
+
+					$('#cal_popup').css({
+						'top' : top,
+						'left' : left
+					}).show();
+			
+					if($('#plan_wrap').length == 1) {
+						 $('ul.sortable').sortable('cancel');
+					}
+					if($('#capture_wrap').length == 1) {
+						$('ul.sortable').sortable('cancel');
+						ui.draggable.remove();
+						calculateResultCount();
+					}
+					if($('#day_plan_wrap').length == 1) {
+						ui.draggable.remove();
+						calculateResultCount();
+					}
+				}
+			});
+			
 		},
 		eventRender : function(calEvent, $event) {
 

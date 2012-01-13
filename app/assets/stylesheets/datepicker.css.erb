@@ -1,3 +1,33 @@
+#cal_popup {
+	position: absolute;
+	z-index: 9999;
+	background: rgba(0,0,0,0.8);
+	padding: 10px;
+	border-radius: 3px;
+	color: #FFF;
+	width: 200px;
+	border: 1px solid #000;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+	font-size: 12px;
+	display: none;
+}
+#cal_popup label,
+#cal_popup input  {
+	cursor: pointer;
+}
+#cal_popup .done {
+	background: url(/assets/filter_active.png) repeat-x top left #1773B4;
+	display: inline-block;
+	padding: 3px 10px 0;
+	border: 1px solid #1D1B1A;
+	text-shadow: #1D1B1A 0px 1px 2px;
+	height: 16px;
+	font-size: 11px;
+	cursor: pointer;
+	border-radius: 10px;
+	margin-top: 5px;
+}
+
 #datepicker {
 	margin: 0 10px;
 	border-top: 1px solid #3D3A39;

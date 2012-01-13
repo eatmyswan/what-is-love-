@@ -24,6 +24,19 @@ $(document).bind('mousedown',function(e) {
 			editingDone();
 		}
 	}
+	if($('#cal_popup').is(":visible")) {
+		if($(e.target).attr('id') != 'cal_popup' && $(e.target).parents('#cal_popup').length == 0) {
+			$('#cal_popup').hide();
+			$('#schedule_check_selects').hide();
+			$("#day_check").attr("checked", "checked");
+			$('.ui-datepicker-over').removeClass('ui-datepicker-over');
+		}
+	}
+	if($('#popup_outcome').length == 1) {
+		if($(e.target).attr('id') != 'popup_outcome' && $(e.target).parents('#popup_outcome').length == 0) {
+			$('#popup_outcome').remove();
+		}
+	}
 });
 	
 $('#incomplete .calendar').live("mouseover", function() {

@@ -5,6 +5,6 @@
 		<input type="text" value="<%= task.title %>" class="edit_task_text">
 	</form>
 	<div class="result_text">
-		<%= task.title %>
+		<%= task.title.html_safe %>
 	</div>
 </div>

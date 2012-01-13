@@ -15,7 +15,12 @@ $(document).ready(function() {
 			return [1,'droppable',title];
 		},
 		onSelect: function(dateText, inst){
-			if($('#capture_wrap').length == 1) $.get("/day/capture/" + dateText);
+			if($('#capture_wrap').length == 1 && $('#day').hasClass('active')) $.get("/day/capture/" + dateText);
+			if($('#capture_wrap').length == 1 && $('#week').hasClass('active')) $.get("/week/capture/" + dateText);
+			if($('#day_plan_wrap').length == 1 && $('#day').hasClass('active')) $.get("/day/plan/" + dateText);
+			if($('#day_plan_wrap').length == 1 && $('#week').hasClass('active')) $.get("/week/plan/" + dateText);
+			if($('#schedule').length == 1) $.get("/day/schedule/" + dateText);
+			if($('#forecast').length == 1) $.get("/week/forecast/" + dateText);
 		},
 		onChangeMonthYear: function(year, month, inst) { 
 			droppable();
@@ -23,6 +28,66 @@ $(document).ready(function() {
 	});
 	
 	droppable();
+	
+	$('#cal_popup .done').live('click', function() {
+		var where = $('input[name=group]:checked').val();
+		var hour = $('#date_hour').val();
+		var min = $('#date_minute').val();
+		var date = $('#cal_date').val();
+		var taskId = $('#cal_taskId').val();
+		var plan = 'false';
+		var week = 'false';
+		var scheduled = 'false';
+		var committed = 'false';
+		var nothing = 'false';
+		var start = '';
+		var end = '';
+		$('.ui-datepicker-over').removeClass('ui-datepicker-over');
+		if(where == 'dayCapture') {
+			start = date;
+			end = date;
+		}
+		if(where == 'dayPlan'){ 
+			plan = 'true';
+			start = date;
+			end = date;
+		}
+		if(where == 'weekCapture'){ 
+			week = 'true';
+			start = date;
+			end = date;
+		}
+		if(where == 'weekPlan') { 
+			week = 'true';
+			plan = 'true';
+			start = date;
+			end = date;
+		}
+		if(where == 'schedule') { 
+			plan = 'true';
+			scheduled = 'true';
+			committed = 'true';
+			start = date+' '+hour+':'+min+':00';
+			var hour = parseInt(hour) + 1;
+				hour = (hour.length == 1) ? '0'+hour : hour;
+			end = date+' '+hour+':'+min+':00';
+		}
+		if($('#capture_wrap').length == 1 || $('#day_plan_wrap').length == 1) nothing = 'true';
+		$.ajax({
+			url: "/tasks/" + taskId,
+			type: 'PUT',
+			data: $.param({task : { start: start, end: end, sort: '0', plan: plan, week: week, scheduled: scheduled, committed: committed }, nothing: nothing}),
+			success: function() {
+				$('#cal_popup').hide();
+				$('#schedule_check_selects').hide();
+				$("#day_check").attr("checked", "checked");
+			}
+		}); 
+	});
+	
+	$('#schedule_check').live('click', function() {
+		$('#schedule_check_selects').show();
+	});
 	
 });
 
@@ -43,48 +108,36 @@ function droppable() {
 			$('.category').droppable('enable');
 			var taskId = ui.draggable.attr('id');
 			var date = $(this).attr('title');
-			if($('#plan_wrap').length == 1) mylifeDrop(ui, taskId, date);
-			if($('#capture_wrap').length == 1) captureDrop(ui, taskId, date);
-			if($('#day_plan_wrap').length == 1) planDrop(ui, taskId, date);
-		}
-	});
-}
+			$('#cal_date').val(date);
+			$('#cal_taskId').val(taskId);
+			
+			var left = ui.position.left - 90;
+			var top = ui.position.top - 140;
+			
+			if((left + 220) > $(document).width()) {
+				left = $(document).width() - 250;
+			}
 
-function captureDrop(ui, taskId, date) {
-	$(ui.sender).sortable('cancel');
-	ui.draggable.remove();
-	calculateResultCount();
-	$.ajax({
-		url: "/tasks/" + taskId,
-		type: 'PUT',
-		data: $.param({task : { start: date, sort: '0' }}),
-		success: function(){
-			$('.ui-datepicker-over').removeClass('ui-datepicker-over');
-		}
-	});
-}
-
-function planDrop(ui, taskId, date) {
-	ui.draggable.remove();
-	calculateResultCount();
-	$.ajax({
-		url: "/tasks/" + taskId,
-		type: 'PUT',
-		data: $.param({task : { start: date, plan: 'true', sort: '0' }}),
-		success: function(){
-			$('.ui-datepicker-over').removeClass('ui-datepicker-over');
-		}
-	});
-}
-
-function mylifeDrop(ui, taskId, date){
-	$(ui.sender).sortable('cancel');
-	$.ajax({
-		url: "/tasks/" + taskId,
-		type: 'PUT',
-		data: $.param({task : { start: date }}),
-		success: function(){
-			$('.ui-datepicker-over').removeClass('ui-datepicker-over');
+			$('#cal_popup').css({
+				'top' : top,
+				'left' : left
+			}).show();
+			
+			if($('#plan_wrap').length == 1) {
+				 $('ul.sortable').sortable('cancel');
+			}
+			if($('#capture_wrap').length == 1) {
+				$('ul.sortable').sortable('cancel');
+				ui.draggable.remove();
+				calculateResultCount();
+			}
+			if($('#day_plan_wrap').length == 1) {
+				ui.draggable.remove();
+				calculateResultCount();
+			}
+			if($('#forecast').length == 1) {
+				ui.draggable.remove();
+			}
 		}
 	});
 }

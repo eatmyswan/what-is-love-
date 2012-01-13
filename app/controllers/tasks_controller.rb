@@ -189,6 +189,11 @@ class TasksController < ApplicationController
     end
   end
   
+  def load_outcome
+     @task = Task.find(params[:id])
+     render :layout => false
+  end
+  
   def debug
     @task = Task.find("4eef9b12e9f0824378000034")
 
