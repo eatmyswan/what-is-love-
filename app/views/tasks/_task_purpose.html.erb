@@ -2,7 +2,7 @@
 	<span class="edit_purpose"></span>
 	<span class="edit_purpose_done"></span>
 	<form class="add_purpose">
-		<input type="text" value="<%= task.purpose %>" class="edit_task_text">
+		<input type="text" value="<%= strip_tags(task.purpose) %>" class="edit_purpose_text">
 	</form>
 	<div class="purpose">
 		<%= task.purpose.html_safe if task.purpose %>
