@@ -35,6 +35,7 @@ module NoticesHelper
 
   def notice_title_detailed(notice)
     type, subject, target = notice.type, notice.subject, notice.target
+
     case type
     when 'lev-send'
       "You emailed the task #{task_link target} to #{subject.to_email}"
