@@ -69,6 +69,7 @@
 #vision_wrap .vision_group {
 	float: left;
 	width: 47%;
+	min-height: 160px;
 }
 #vision_wrap .vision_group.odd {
 	margin-right: 6%;
@@ -270,7 +271,8 @@
 	text-align: center;
 }
 
-#vision_wrap .add_buttons.loading #uploadify_wrap {
+#vision_wrap .add_buttons.loading #uploadify_wrap,
+#vision_wrap .add_buttons.loading #create_v_group {
 	position: absolute;
 	visibility: hidden;
 }
@@ -285,3 +287,17 @@
 	text-align: center;
 }
 
+#create_v_group {
+	display: inline-block;
+	margin: 50px 0 0 28px;
+}
+#create_v_group span {
+	width: 67px;
+	height: 91px;
+	background: url(<%= asset_path 'add_list.png' %>) no-repeat;
+	display: inline-block;
+}
+
+#new_v_group_wrap .modal_title {
+	width: 200px;
+}

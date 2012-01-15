@@ -54,6 +54,16 @@ $('.vision_image').live("mouseover", function() {
 	}
 });
 
+$('#create_v_group').live("mouseover", function() {
+	if (!$(this).data("init")) {
+		$(this).data("init", true);
+		$(this).fancybox({
+			showCloseButton : false,
+			overlayOpacity : 0.7
+			});
+	}
+});
+
 $('#vision_wrap .delete_img').live('click', function(){
 	var imgWrap = $(this).parents('.image_wrap').first();
 	imgWrap.fadeOut(300,function(){

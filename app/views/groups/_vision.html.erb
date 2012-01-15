@@ -30,14 +30,22 @@
 		<%= render :partial => '/images/image', :locals => { :image => image, :group => group } %>
 	<% end %>
 </div>
-<div id="vision_image_scrollbar"></div>
+<div class="jui-2">
+	<div id="vision_image_scrollbar"></div>
+</div>
 
 <div class="add_buttons">
 	<div id="uploadify_wrap">
 		<div id="queue"></div>
 		<div id="upload" class="image_wrap"></div>
+
+		<%= link_to new_user_or_group_vision_group_path(group), :id => 'create_v_group', :remote => true do %>
+		<span></span>
+		<% end %>
+
 		<%= uploadify_user if group.id.to_s == current_user.id.to_s %>
 		<%= uploadify_group if group.id.to_s != current_user.id.to_s %>
+
 	</div>
 	<div class="loader hidden">
 		<h2>Uploading Images...</h2>

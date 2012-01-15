@@ -2,38 +2,56 @@ class VisionGroupsController < ApplicationController
   
   
   def show
-    @group = VisionGroup.find(params[:id])
+    @v_group = VisionGroup.find(params[:id])
+    if params[:group_id]
+      @group = Group.find params[:group_id]
+    elsif params[:user_id]
+      @group = User.find params[:user_id]
+    end
+
     respond_to do |format|
         format.js { render :layout => false }
     end
   end
 
   def new
-    @group = VisionGroup.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @group }
+    @v_group = VisionGroup.new
+    if params[:group_id]
+      @group = Group.find params[:group_id]
+    elsif params[:user_id]
+      @group = User.find params[:user_id]
     end
+
+    render :layout => false
   end
 
   def edit
-    @group = VisionGroup.find(params[:id])
+    @v_group = VisionGroup.find(params[:id])
   end
 
   def create
-    @group = VisionGroup.new(params[:vision_group])
-    @group.user_id = current_user.id
-    @group.save
+    @v_group = VisionGroup.new(params[:vision_group])
 
+    if params[:group_id]
+      @group = Group.find params[:group_id]
+    elsif params[:user_id]
+      @group = @user = User.find(params[:user_id])
+    end
+    @v_group.idx = @group.vision_groups.count
+    @v_group.dreamer = @group
+    @v_group.save
+
+
+    template = 'groups/update'
+    template = 'users/update' if params[:user_id]
     respond_to do |format|
-      format.js { render :layout => false }
+      format.js { render :template => template, :layout => false }
     end
   end
 
   def update
-    @group = VisionGroup.find(params[:id])
-    @group.update_attributes(params[:vision_group])
+    @v_group = VisionGroup.find(params[:id])
+    @v_group.update_attributes(params[:vision_group])
     respond_to do |format|
       format.js { render :layout => false }
     end
@@ -55,11 +73,11 @@ class VisionGroupsController < ApplicationController
   end
   
   def icon
-    @group = VisionGroup.find(params[:id])
+    @v_group = VisionGroup.find(params[:id])
   end 
   
   def long_term
-    @group = VisionGroup.find(params[:id])
+    @v_group = VisionGroup.find(params[:id])
   end
 
 end

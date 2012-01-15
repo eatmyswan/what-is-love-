@@ -82,4 +82,12 @@ module ApplicationHelper
     }.gsub(/[\n ]+/, ' ').strip.html_safe
   end
 
+  def new_user_or_group_vision_group_path(user_or_group)
+    if user_or_group.is_a? User
+      new_user_vision_group_path user_or_group
+    else
+      new_group_vision_group_path user_or_group
+    end
+  end
+
 end

@@ -16,11 +16,11 @@ class VisionGoalsController < ApplicationController
   
   def destroy
     if params[:vision_group_id]
-      v_group = VisionGroup.find params[:vision_group_id]
+      group = VisionGroup.find params[:vision_group_id]
     elsif params[:user_id]
-      v_group = @user = User.find(params[:user_id])
+      group = @user = User.find(params[:user_id])
     end
-    goal = v_group.vision_goals.find params[:id]
+    goal = group.vision_goals.find params[:id]
     goal.destroy
     render :nothing => true
   end

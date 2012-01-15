@@ -1,17 +1,17 @@
-#email_wrap {
+.email_dialog {
 	width: 700px;
 	background: #ededed;
 	border-radius: 5px;
 	overflow: hidden;
 }
-#email_wrap .modal_title_wrap {
+.email_dialog .modal_title_wrap {
 	height: 42px;
 	border-radius:5px 5px 0 0;
 	background: url(<%= asset_path 'modal_title_bg.jpg' %>) repeat-x 0 0 #777;
 	border-bottom: 1px solid #8e8e8e;
 	overflow: hidden;
 }
-#email_wrap  .modal_title {
+.email_dialog  .modal_title {
 	font-size: 15px;
 	font-weight: bold;
 	color: #444;
@@ -21,19 +21,19 @@
 	width: 80px;
 	text-align: center;
 }
-#email_wrap .modal_cancel_wrap {
+.email_dialog .modal_cancel_wrap {
 	float: left;
 }
-#email_wrap .modal_submit_wrap {
+.email_dialog .modal_submit_wrap {
 	float: right;
 }
-#email_wrap .modal_submit_wrap .send {
+.email_dialog .modal_submit_wrap .send {
 	width: 62px;
 	height: 32px;
 	background: url(<%= asset_path 'sprite.png' %>) no-repeat -63px -277px transparent;
 	margin: 5px 5px 0 0;
 }
-#email_wrap #close_fancybox {
+.email_dialog #close_fancybox {
 	width: 62px;
 	height: 32px;
 	background: url(<%= asset_path 'sprite.png' %>) no-repeat 0 -277px transparent;
@@ -44,10 +44,10 @@
 
 
 
-#email_wrap #fields_wrap {
+.email_dialog #fields_wrap {
 	padding: 10px 15px;
 }
-#email_wrap label {
+.email_dialog label {
 	color: #333333;
     display: inline-block;
     font-size: 12px;
@@ -57,7 +57,7 @@
     vertical-align: top;
     width: 55px;
 }
-#email_wrap input[type="text"]{
+.email_dialog input[type="text"]{
 	border: 1px solid #dbdbdb;
 	background: #FFF;
 	padding: 5px 5px 4px;
@@ -65,7 +65,7 @@
 	width: 400px;
 	font-family: Arial, sans-serif;
 }
-#email_wrap textarea {
+.email_dialog textarea {
 	border: 1px solid #dbdbdb;
 	background: #FFF;
 	padding: 5px 5px 4px;
@@ -73,6 +73,6 @@
 	width: 400px;
 	height: 50px;
 }
-#email_wrap #recorder {
+.email_dialog #recorder {
 	display: inline-block;
 }
