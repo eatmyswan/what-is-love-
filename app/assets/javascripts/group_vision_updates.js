@@ -21,8 +21,8 @@ $('#plan').live('click',function(){
 });
 
 $('.add_goal').live('click',function(){
-	var what = $(this).attr('rel');
-	$('#'+what).slideDown(100);
+	var form_wrap = $(this).parent().parent().find('.form_wrap');
+	$(form_wrap).slideDown(100).find('[type=text]').focus();
 });
 
 $('.goals_wrap').sortable({

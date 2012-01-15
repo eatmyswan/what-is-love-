@@ -11,6 +11,7 @@ class Group
 
   belongs_to :user
   has_many :tasks
+  has_many :vision_groups, :as => :dreamer
   embeds_many :goals
   embeds_many :images
 

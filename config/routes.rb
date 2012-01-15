@@ -15,11 +15,17 @@ Rpm::Application.routes.draw do
   resources :users do
     resources :images
     resources :goals
+    resources :vision_groups
   end
   
   resources :groups do
     resources :images
     resources :goals
+    resources :vision_groups
+  end
+
+  resources :vision_groups do
+    resources :vision_goals
   end
   
   resources :invites, :only => :create

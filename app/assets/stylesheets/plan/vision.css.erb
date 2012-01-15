@@ -66,11 +66,14 @@
 	display: block;
 }
 
-#vision_wrap .quarter_goals {
+#vision_wrap .vision_group {
 	float: left;
 	width: 45%;
 }
-#vision_wrap .quarter_goals .add_goal, #vision_wrap .year_goals .add_goal {
+#vision_wrap .vision_group.odd {
+	margin-right: 40px;
+}
+#vision_wrap .vision_group .add_goal, #vision_wrap .year_goals .add_goal {
 	float: right;
 	font-size: 11px;
 	margin: 7px;
@@ -81,7 +84,7 @@
 #vision_wrap .add_goal:hover {
 	opacity: 1.0;
 }
-#vision_wrap .quarter_goals:hover .add_goal, #vision_wrap .year_goals:hover .add_goal {
+#vision_wrap .vision_group:hover .add_goal, #vision_wrap .year_goals:hover .add_goal {
 	display: block;
 }
 #vision_wrap .year_goals {
@@ -145,7 +148,7 @@
 	height: 20px;
 	margin: 0 0 10px 0;
 }
-#vision_wrap .form_wrap #goal_text {
+#vision_wrap .form_wrap #vision_goal_text {
 	display: block;
 	position: absolute;
 	top: 0;

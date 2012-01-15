@@ -15,6 +15,7 @@ class User
   has_many :emails
   has_many :ltasks, class_name: 'Task', inverse_of: :luser
   has_many :notices
+  has_many :vision_groups, :as => :dreamer
   embeds_many :goals
   embeds_many :images
   
