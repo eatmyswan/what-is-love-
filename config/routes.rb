@@ -77,6 +77,7 @@ Rpm::Application.routes.draw do
 
   match 'task/load_outcome/:id' => 'tasks#load_outcome'
 
+  post 'sort' => 'vision_groups#sort', :as => :vision_groups_sort
 
   get "notices/latest" => "notices#latest"
   get "notices/latest/details" => "notices#latest_panel", :as => :notice_panel

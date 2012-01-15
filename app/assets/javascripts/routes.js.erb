@@ -1,0 +1,22 @@
+// Create callable routes that conveniently takes parameters.
+// Example:
+//   var url = path.groupImages(groupId);
+// 
+(function () {
+
+  var route = function (route) {
+    return function () {
+      var path = unescape(route);
+      for (var i=0; i < arguments.length; i++) {
+        path = path.replace('{{'+ (i+1) +'}}', arguments[i]);
+      }
+      return path;
+    };
+  };
+
+  <% url = Rpm::Application.routes.url_helpers %>
+
+  window.paths = {
+    visionGroupsSort: route("<%= url.vision_groups_sort_path %>")
+  };
+})();

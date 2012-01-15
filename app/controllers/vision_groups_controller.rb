@@ -46,9 +46,9 @@ class VisionGroupsController < ApplicationController
   end
   
   def sort
-    groups = VisionGroup.find(params[:vision_group])
+    groups = current_user.vision_groups
     groups.each do |group|
-      group.idx = params['group'].index(group.id.to_s) + 1
+      group.idx = params['order'][group.id.to_s]
       group.save
     end
     render :nothing => true

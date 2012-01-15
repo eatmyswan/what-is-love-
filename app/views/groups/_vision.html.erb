@@ -21,7 +21,7 @@
 	</span>
 </div>
 
-<div class="goals_section">
+<div id="goals_section">
 	<%= render :partial => 'home/vision_group', :collection => group.vision_groups.asc(:idx), :locals => { :parent => group} %>
 </div>
 
@@ -36,3 +36,23 @@
 		<%= uploadify_group if group.id.to_s != current_user.id.to_s %>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$('#goals_section').sortable({
+		items: '.vision_group',
+		handle: '.handle',
+		helper: 'clone',
+
+		stop: function (event,ui) {
+			var idxHash = {};
+			$('#goals_section > *').each(function (idx, elem) {
+				idxHash[ $(elem).data('id') ] = idx;
+			});
+			$.ajax({
+				url: paths.visionGroupsSort(),
+				type: 'POST',
+				data: { order:idxHash }
+			});
+		}
+	});
+</script>
