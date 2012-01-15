@@ -44,34 +44,6 @@ $('#vision_wrap .editing form').live('submit', function() {
 	return false;
 });
 
-$('#vision_images').live("mouseover", function() {
-	if (!$(this).data("init")) {
-		$(this).data("init", true);
-		$(this).sortable({
-			items: '.sortable',
-			forcePlaceholderSize: true,
-			tolerance: 'pointer',
-			update: function(event,ui){
-				$('#vision_images > .sortable').each(function(index){
-					if($('#plan_wrap').length){
-						$.ajax({
-							url: "/groups/" + $(this).attr('rel') + "/images/" + $(this).attr('id'),
-							type: 'PUT',
-							data: $.param({image : { sort: index }})
-						});
-					} else {
-						$.ajax({
-							url: "/users/" + $(this).attr('rel') + "/images/" + $(this).attr('id'),
-							type: 'PUT',
-							data: $.param({image : { sort: index }})
-						});
-					}
-				});
-			}
-		});
-	}
-});
-
 $('.vision_image').live("mouseover", function() {
 	if (!$(this).data("init")) {
 		$(this).data("init", true);

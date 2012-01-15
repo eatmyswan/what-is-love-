@@ -23,8 +23,7 @@ module ApplicationHelper
    session_key_name = Rails.application.config.session_options[:key]
    %Q{
       <script type='text/javascript'>
-        $(document).ready(function() {
-          $('#upload').uploadify({
+        var _uploadifyOptions = {
             script          : '#{ user_images_path(current_user) }',
             fileDataName    : 'image[image]',
             uploader        : '#{ asset_path 'uploadify.swf' }',
@@ -46,8 +45,7 @@ module ApplicationHelper
               'authenticity_token'  : encodeURIComponent('#{u(form_authenticity_token)}')
             },
             onComplete      : function(a, b, c, response){ eval(response) }
-          });
-        });
+          };
       </script>
     }.gsub(/[\n ]+/, ' ').strip.html_safe
   end
@@ -56,8 +54,7 @@ module ApplicationHelper
     session_key_name = Rails.application.config.session_options[:key]
     %Q{
       <script type='text/javascript'>
-        $(document).ready(function() {
-          $('#upload').uploadify({
+        var _uploadifyOptions = {
             script          : '#{ group_path(@group) }',
             fileDataName    : 'image[image]',
             uploader        : '#{ asset_path 'uploadify.swf' }',
@@ -80,8 +77,7 @@ module ApplicationHelper
               '_method' : 'PUT'
             },
             onComplete      : function(a, b, c, response){ eval(response) }
-          });
-        });
+          };
       </script>
     }.gsub(/[\n ]+/, ' ').strip.html_safe
   end

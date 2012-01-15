@@ -149,8 +149,11 @@
 	display: block;
 }
 #vision_wrap #vision_images {
-	margin-right: -20px;
+	width: 80%;
+	margin: 0 auto;
+	border-top: 1px dashed #c3c3c3;
 }
+
 
 #vision_wrap .form_wrap {
 	position: relative;
@@ -175,9 +178,10 @@
 
 #vision_wrap #vision_images .image_wrap {
 	float: left;
-	margin: 0 40px 30px 0;
 	width: 190px;
 	height: 190px;
+	margin: 0;
+	padding: 0;
 }
 
 #vision_wrap #vision_images .image {
@@ -226,4 +230,58 @@
 }
 
 
+.ui-jcoverflip {
+  position: relative;
+}
+
+.ui-jcoverflip--item {
+  position: absolute;
+  display: block;
+}
+
+#vision_images {
+  height: 200px;
+  width: 630px;
+  margin-bottom: 50px;
+}
+
+#vision_images .ui-jcoverflip--title {
+	display: none !important;
+}
+
+#vision_images img {
+  display: block;
+  border: 0;
+  outline: none;
+}
+
+#vision_images a {
+  outline: none;
+}
+
+#vision_image_scrollbar.ui-widget-content {
+	border-color: #bcbcbc;
+}
+#vision_image_scrollbar .ui-slider-handle {
+	border-color: #777;
+}
+
+#vision_wrap .add_buttons {
+	text-align: center;
+}
+
+#vision_wrap .add_buttons.loading #uploadify_wrap {
+	position: absolute;
+	visibility: hidden;
+}
+#vision_wrap .add_buttons.loading .loader {
+	display: block;
+	color: #fff;
+	text-shadow: 0 1px 1px #000;
+	background: #C8A56B url(<%= asset_path 'fancybox_loading.gif' %>) no-repeat 50% 60px;
+	margin-top: 10px;
+	padding: 20px 20px 80px 20px;
+	border-radius: 5px;
+	text-align: center;
+}
 

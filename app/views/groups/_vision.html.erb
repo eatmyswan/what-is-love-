@@ -29,15 +29,31 @@
 	<% group.images.forward.each do |image| %>
 		<%= render :partial => '/images/image', :locals => { :image => image, :group => group } %>
 	<% end %>
+</div>
+<div id="vision_image_scrollbar"></div>
+
+<div class="add_buttons">
 	<div id="uploadify_wrap">
 		<div id="queue"></div>
 		<div id="upload" class="image_wrap"></div>
 		<%= uploadify_user if group.id.to_s == current_user.id.to_s %>
 		<%= uploadify_group if group.id.to_s != current_user.id.to_s %>
 	</div>
+	<div class="loader hidden">
+		<h2>Uploading Images...</h2>
+	</div>
 </div>
 
+
 <script type="text/javascript">
+	$.extend(_uploadifyOptions, {
+		multi: false,
+		onOpen: function () {
+			$('#vision_wrap .add_buttons').addClass('loading');
+		}
+	});
+  $('#upload').uploadify(_uploadifyOptions);
+
 	$('#goals_section').sortable({
 		items: '.vision_group',
 		handle: '.handle',
@@ -55,4 +71,43 @@
 			});
 		}
 	});
+
+	$('#vision_images').jcoverflip({
+		items: '.image_wrap',
+    current: <%= (group.images.forward.count / 2.0).floor %>,
+    beforeCss: function( el, container, offset ){
+      return [
+        $.jcoverflip.animationElement( el, { left: ( container.width( )/2 - 210 - 110*offset + 20*offset )+'px', bottom: '20px' }, { } ),
+        $.jcoverflip.animationElement( el.find( 'img' ), { width: Math.max(10,100-20*offset*offset) + 'px' }, {} )
+      ];
+    },
+    afterCss: function( el, container, offset ){
+      return [
+        $.jcoverflip.animationElement( el, { left: ( container.width( )/2 + 110 + 110*offset )+'px', bottom: '20px' }, { } ),
+        $.jcoverflip.animationElement( el.find( 'img' ), { width: Math.max(10,100-20*offset*offset) + 'px' }, {} )
+      ];
+    },
+    currentCss: function( el, container ){
+      return [
+        $.jcoverflip.animationElement( el, { left: ( container.width( )/2 - 100 )+'px', bottom: 0 }, { } ),
+        $.jcoverflip.animationElement( el.find( 'img' ), { width: '200px' }, { } )
+      ];
+    },
+    change: function(event, ui){
+      $('#vision_image_scrollbar').slider('value', ui.to);
+    }
+  });
+
+
+  $('#vision_image_scrollbar').slider({
+		max: <%= group.images.forward.count-1 %>,
+    value: <%= (group.images.forward.count / 2.0).floor %>,
+    step: 1,
+    slide: function(event, ui) {
+      if(event.originalEvent) {
+        var newVal = ui.value;
+        jQuery( '#vision_images' ).jcoverflip( 'current', newVal );
+      }
+    }
+  });
 </script>
