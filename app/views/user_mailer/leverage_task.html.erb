@@ -295,8 +295,8 @@ a {
 			</div>
 		
 			<div class="buttons_wrap">
-				<a id="accept" href="http://timemaster.com/email/<%= @email.id.to_s %>/view_email">Accept</a>
-				<a id="reject" href="http://timemaster.com/email/reject/<%= @email.id.to_s %>">Reject</a>
+				<a id="accept" href="<%= view_email_url @email %>">Accept</a>
+				<a id="reject" href="<%= reject_email_url @email %>">Reject</a>
 			</div>
 
 

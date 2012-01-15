@@ -60,10 +60,10 @@ Rpm::Application.routes.draw do
   match 'email/email_form/:id' => 'emails#email_form'
   match 'email/load_outcome/:id' => 'emails#load_outcome'
   
-  match 'email/accept/:email_id' => 'emails#accept'
-  match 'email/reject/:email_id' => 'emails#reject'
+  match 'email/accept/:email_id' => 'emails#accept', :as => :accept_email
+  match 'email/reject/:email_id' => 'emails#reject', :as => :reject_email
   
-  match 'email/:id/view_email' => 'emails#view_email'
+  match 'email/:id/view_email' => 'emails#view_email', :as => :view_email
   match 'task/edit_notes/:id' => 'tasks#edit_notes'
   match 'task/edit_calendar/:id' => 'tasks#edit_calendar'
   match 'task/edit_group/:id' => 'tasks#edit_group'
