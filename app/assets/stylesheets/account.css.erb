@@ -131,31 +131,99 @@
 	background-position: 0 -27px;
 }
 
-#account_bar #notifications_btn {
+#account_bar #notices_btn {
 	width: 24px;
 	height: 25px;
 	float: left;
-	background: url(<%= asset_path 'notifications_btn.png' %>) no-repeat 0 0 transparent;
+	background: url(<%= asset_path 'notice_btn.png' %>) no-repeat 0 0 transparent;
 	cursor: pointer;
 	display: block;
 	position: relative;
 	z-index: 4;
 }
-#account_bar #notifications_btn.active,
-#account_bar #notifications_btn:hover {
+#account_bar #notices_btn.active,
+#account_bar #notices_btn:hover {
 	background-position: 0 -27px;
 }
 
 
-#account_bar #datepicker {
-	display: none;
+#account_bar .slide_wrap {
 	position: absolute;
 	bottom: 37px;
 	left: 0;
 	right: 0;
 	z-index: 5;
-	padding: 5px 0 0 0;
+	padding: 0;
 	margin: 0;
 	background: #363230;
 }
 
+#account_bar .slide_wrap > div {
+	display: none;
+}
+
+#account_bar .category {
+	display: block;
+	height: 38px;
+	border-bottom: 1px solid #242220;
+	border-top: 1px solid #3c3734;
+	position: relative;
+	z-index: 3;
+	background: transparent;
+}
+
+#notices_sidebar > .title_bar {
+	margin-top: 0;
+}
+
+#notices_sidebar .notices {
+	margin-top: -1px;
+	min-height: 53px;
+	height: 512px;
+}
+#notices_sidebar .notices.loading {
+	background: url(<%= asset_path 'fancybox_loading.gif' %>) 50% 6px no-repeat;
+}
+
+#notices_sidebar .notice.category:first-child {
+	border-top-color: none;
+}
+
+#notices_sidebar .notice.category .time {
+	font-weight: bold;
+	color: #928C89;
+	font-size: 11px;
+	white-space: nowrap;
+	display: block;
+	padding-top: 2px;
+	margin: 10px 8px 0 0;
+	overflow: hidden;
+	height: 14px;
+	text-shadow: 0 1px 1px black;
+	text-align: center;
+	float: right;
+	position: relative;
+}
+
+.notice .icon {
+	float: left;
+	display: block;
+	width: 24px;
+	height: 24px;
+	margin: 6px 8px 0 8px;
+	background: #242120 url(<%= asset_path 'notice_icons.png' %>) no-repeat;
+	border-radius: 2px;
+	border: 1px solid #1d1b1a;
+	box-shadow: 0 1px 0 #4e4a46;
+	overflow: hidden;
+	position: relative;
+}
+.notice .icon.lev-reject,
+.notice .icon.alert
+	{ background-position: 0px 0px; }
+.notice .icon.lev-accept,
+.notice .icon.info
+	{ background-position: 0px -24px; }
+.notice .icon.lev-send,
+.notice .icon.email
+	{ background-position: 0px -48px; }

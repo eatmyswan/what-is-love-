@@ -28,12 +28,19 @@ $('#cal_btn').live('click', function() {
 	}
 });	
 
-$('#notifications_btn').live('click', function() {
+$('#notices_btn').live('click', function() {
 	if ($(this).hasClass('active')) {
 		$(this).removeClass('active');
 	} else {
 		$(this).addClass('active');
+
+		// TODO [maybe]: poll for updates, periodically update time ago
+		$('#notices_sidebar .notices').empty().addClass('loading');
+		$.get('/notices/latest', function (html) {
+			$('#notices_sidebar .notices').replaceWith(html);
+		});
 	}
+	$("#notices_sidebar").slideToggle();
 });	
 	
 });

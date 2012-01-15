@@ -2,7 +2,7 @@
 		<span class="inner_highlight"></span>
 		
 		<div id="cal_btn"></div>
-		<div id="notifications_btn"></div>
+		<div id="notices_btn"></div>
 		
 		<div class="account_wrap">
 			<div class="img">
@@ -16,8 +16,19 @@
 				<%= link_to('Edit Account', edit_user_registration_path, :id => 'edit_account') %>
 			</div>
 		</div>
-		
-		<div id="datepicker" class="acct_datepicker">
+
+		<div class="slide_wrap">
+			<div id="datepicker" class="acct_datepicker">
+			</div>
+
+			<div id="notices_sidebar">
+				<div class="title_bar">
+					<span class="title">Notifications</span>
+				</div>
+
+				<div class="notices"></div>
+
+			</div>
 		</div>
 
 		

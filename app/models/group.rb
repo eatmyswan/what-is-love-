@@ -21,5 +21,4 @@ class Group
   scope :forward, order_by(:sort.asc)
   
   validates_length_of :title, minimum: 1, message: "Group name cannot be blank."
-
 end
