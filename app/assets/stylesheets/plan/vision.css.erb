@@ -81,6 +81,14 @@
 	cursor: pointer;
 	visibility: hidden;
 }
+#vision_wrap .vision_group .trash {
+	width: 17px;
+	height: 17px;
+	background: url(<%= asset_path 'trash.png' %>) no-repeat;
+	cursor: pointer;
+	visibility: hidden;
+	float: right;
+}
 #vision_wrap .vision_group .content {
 	margin-left: 17px;
 }
@@ -96,6 +104,7 @@
 	opacity: 1.0;
 }
 #vision_wrap .vision_group:hover .add_goal,
+#vision_wrap .vision_group:hover .trash,
 #vision_wrap .vision_group:hover .handle {
 	display: block;
 	visibility: visible;

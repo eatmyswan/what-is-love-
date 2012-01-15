@@ -1,11 +1,14 @@
 <div class="vision_group <%= cycle('odd','even') %>" data-id="<%= vision_group.id.to_s %>">
+  <%= link_to vision_group, :method => :delete, :remote => :true do %>
+    <div class="trash"></div>
+  <% end %>
   <div class="handle"></div>
 
   <div class="content">
 
     <div class="title_wrap">
       <span class="title journal"><%= vision_group.title %></span>
-      <span class="add_goal">Add Result</span>
+      <span class="add_goal">Add Goal</span>
     </div>
 
     <div class="goals_wrap">

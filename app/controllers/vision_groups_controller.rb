@@ -58,9 +58,16 @@ class VisionGroupsController < ApplicationController
   end
 
   def destroy
-    group = VisionGroup.find(params[:id])
-    group.destroy
-    render :nothing => true
+    v_group = VisionGroup.find(params[:id])
+
+    @group = @user = v_group.dreamer
+    template = 'groups/update'
+    template = 'users/update' if @group.is_a? User
+    v_group.destroy
+
+    respond_to do |format|
+      format.js { render :template => template, :layout => false }
+    end
   end
   
   def sort
