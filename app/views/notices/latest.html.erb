@@ -1,5 +1,9 @@
 <div class="notices">
 
+  <%= link_to notice_panel_path, :class => 'notice category view-details active', :remote => true do %>
+    <span class="title">View All Notifications</span>
+  <% end %>
+
 <% @notices.each do |notice| %>
 
   <%= link_to notice_href(notice), :class => "notice category", :remote => true do %>
