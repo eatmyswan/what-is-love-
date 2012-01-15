@@ -173,7 +173,7 @@ class EmailsController < ApplicationController
     @email.accepted = false
     @email.save
     UserMailer.reject_task(@email.user.email).deliver 
-    @email.user.notify('lev-reject', @email.tasks.first)
+    @email.user.notify('lev-reject', current_user, @email.tasks.first)
   end
   
 

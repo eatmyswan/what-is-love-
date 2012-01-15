@@ -12,6 +12,8 @@ module NoticesHelper
       else
         "#{subject.name} accepted \"#{target.title}\""
       end
+    when 'lev-reject'
+      "#{subject.name} rejected \"#{target.title}\""
     else
       puts "UNKNOWN NOTICE TYPE:"
       puts "  > type:#{type}; subject:#{subject.inspect}; target:#{target.inspect}"
@@ -22,7 +24,7 @@ module NoticesHelper
     type, subject, target = notice.type, notice.subject, notice.target
 
     case type
-    when 'lev-send', 'lev-accept'
+    when 'lev-send', 'lev-accept', 'lev-reject'
       group_path(target.group)
     else
       puts "UNKNOWN NOTICE TYPE:"
@@ -42,6 +44,8 @@ module NoticesHelper
       else
         "#{subject.name} has accepted your task #{task_link target}"
       end
+    when 'lev-reject'
+      "#{subject.name} has rejected your task #{task_link target}"
     else
       puts "UNKNOWN NOTICE TYPE:"
       puts "  > type:#{type}; subject:#{subject.inspect}; target:#{target.inspect}"
