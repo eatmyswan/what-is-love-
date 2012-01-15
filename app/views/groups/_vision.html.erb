@@ -1,4 +1,5 @@
 <div class="section <%= 'editing' if group.vision.blank? %>">
+	<span class="vision_tab"></span>
 	<span class="text"><%= group.vision %></span>
 	<span class="edit"></span>
 	<span class="edit_done"></span>
@@ -11,6 +12,7 @@
 
 
 <div class="section <%= 'editing' if group.purpose.blank? %>">
+	<span class="force_tab"></span>
 	<div class="text"><%= group.purpose %></div>
 	<span class="edit"></span>
 	<span class="edit_done"></span>

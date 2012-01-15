@@ -1,9 +1,9 @@
 #vision_wrap {
-	padding: 30px 20px 20px;
+	padding: 30px 24px 20px 30px;
 }
 #vision_wrap .section {
 	min-height: 30px;
-	margin: 0 0 20px 0;
+	margin: 0 0 20px 18px;
 	position: relative;
 }
 #vision_wrap .section input {
@@ -237,6 +237,22 @@
 	width: 40px;
 	height: 32px;
 	background: url(<%= asset_path 'tape.png' %>) no-repeat;
+}
+
+#vision_wrap .vision_tab,
+#vision_wrap .force_tab {
+	position: absolute;
+	background: url(<%= asset_path 'vision_tabs.png' %>);
+	width: 63px;
+	height: 28px;
+	display: block;
+	left: -65px;
+	top: -4px;
+	z-index:9999999;
+}
+
+#vision_wrap .force_tab {
+	background-position: 0 -50px;
 }
 
 
