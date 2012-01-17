@@ -15,3 +15,7 @@
 <% end %>
 
 </div>
+<script type="text/javascript">
+var unreadCount = <%= @unread_count %>;
+$('#unread_count').text(''+unreadCount).toggle(unreadCount > 0);
+</script>
