@@ -1,5 +1,5 @@
 <div class="vision_group <%= cycle('odd','even') %>" data-id="<%= vision_group.id.to_s %>">
-  <%= link_to vision_group, :method => :delete, :remote => :true do %>
+  <%= link_to vision_group, :method => :delete, :confirm => 'Are you sure you want to delete this list?', :remote => :true do %>
     <div class="trash"></div>
   <% end %>
   <div class="handle"></div>
@@ -21,7 +21,7 @@
         <div class="goal">
           <span class="count journal"><%= index + 1 %></span> 
           <span class="text"><%= goal.text %></span>
-          <%= link_to '', [vision_group, goal], :class => 'delete', :method => :delete, :remote => :true %>
+          <%= link_to '', [vision_group, goal], :class => 'delete', :method => :delete, :confirm => 'Are you sure you want to delete this goal?', :remote => :true %>
         </div>
       <% end %>
     </div>
