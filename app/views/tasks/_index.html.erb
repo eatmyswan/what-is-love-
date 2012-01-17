@@ -9,7 +9,7 @@
 
 		<div id="input_wrap">
 			<%= form_for(Task.new, :remote => true) do |f| %>
-				<%= f.text_field :task, :autocomplete => :off, :value => "New task...", :onfocus => '(this.value == "New task...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New task..." : this.value' %>
+				<%= f.text_field :task, :autocomplete => :off, :value => "New Action...", :onfocus => '(this.value == "New Action...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New Action..." : this.value' %>
 				<%= f.hidden_field :group_id, :value => '' %>
 			<% end %>
 		</div>

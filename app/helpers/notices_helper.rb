@@ -5,7 +5,7 @@ module NoticesHelper
 
     case type
     when 'lev-send'
-      "Task emailed to #{subject.to_email}"
+      "Action emailed to #{subject.to_email}"
     when 'lev-accept'
       if subject == current_user
         "You accepted \"#{target.title}\""
@@ -38,15 +38,15 @@ module NoticesHelper
 
     case type
     when 'lev-send'
-      "You emailed the task #{task_link target} to #{subject.to_email}"
+      "You emailed the action #{task_link target} to #{subject.to_email}"
     when 'lev-accept'
       if subject == current_user
-        "You accepted the task: #{task_link target}"
+        "You accepted the action: #{task_link target}"
       else
-        "#{subject.name} has accepted your task #{task_link target}"
+        "#{subject.name} has accepted your action #{task_link target}"
       end
     when 'lev-reject'
-      "#{subject.name} has rejected your task #{task_link target}"
+      "#{subject.name} has rejected your action #{task_link target}"
     else
       puts "UNKNOWN NOTICE TYPE:"
       puts "  > type:#{type}; subject:#{subject.inspect}; target:#{target.inspect}"
