@@ -467,6 +467,12 @@ function decreaseCount(){
 	countText.text(count);
 }
 
+function scrollToTask (elem) {
+	var viewPane = $('#group');
+	var offset = elem.offset().top - viewPane.offset().top - viewPane.scrollTop();
+	viewPane.animate({scrollTop: offset - 10}, 1000);
+}
+
 function hideH3(){
 	if($('#complete > li').size() == 0){
 		$('h3.page').hide();

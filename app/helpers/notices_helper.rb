@@ -25,7 +25,7 @@ module NoticesHelper
 
     case type
     when 'lev-send', 'lev-accept', 'lev-reject'
-      group_path(target.group)
+      group_path(target.group, :task_id => target.id)
     else
       puts "UNKNOWN NOTICE TYPE:"
       puts "  > type:#{type}; subject:#{subject.inspect}; target:#{target.inspect}"
