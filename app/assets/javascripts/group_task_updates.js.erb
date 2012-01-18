@@ -332,10 +332,10 @@ $('#incomplete .add_purpose').live('submit',function(event){
 	$(this).parents('.purpose_wrap').removeClass('editing');
 	var taskId = $(this).parents('li').first().attr('id');
 	$(this).parents('li').first().find('.purpose').first().html(purpose);
-	$.ajax({
-		url: "/tasks/" +  taskId,
-		type: 'PUT',
-		data: $.param({task : { purpose: purpose }, open: 'true'})
+	$.post(paths.task(taskId), {
+		_method: 'PUT',
+		task: { purpose:purpose },
+		open: 'true',
 	});
 	return false;
 });
@@ -352,10 +352,10 @@ $('#incomplete .edit_result_form').live('submit',function(event){
 	}
 	
 	var taskId = $(this).parents('li').first().attr('id');
-	$.ajax({
-		url: "/tasks/" +  taskId,
-		type: 'PUT',
-		data: $.param({task : { title: result }, open: 'true'})
+	$.post(paths.task(taskId), {
+		_method: 'PUT',
+		task: { title:result },
+		open: 'true',
 	});
 	return false;
 });
