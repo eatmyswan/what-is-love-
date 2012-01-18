@@ -30,6 +30,13 @@ $('.goals_wrap').sortable({
 	axis: 'y'
 });
 
+$('#top .cover').live('hover', function () {
+	$('#top .gravatar_cover').show();
+});
+$('#top .gravatar_cover').live('mouseleave', function () {
+	$('#top .gravatar_cover').hide();
+});
+
 $('#vision_wrap .edit').live('click', function(){
 	$(this).parent().addClass('editing');
 });
