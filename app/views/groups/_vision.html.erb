@@ -31,6 +31,10 @@
 	<% group.images.forward.each do |image| %>
 		<%= image_tag image.image, :class => 'vision_image' %>
 	<% end %>
+
+	<% if group.images.forward.count == 0 %>
+		<%= image_tag current_user.gravatar_src(:size => 256) %>
+	<% end %>
 </div>
 <div class="jui-2">
 	<div id="vision_image_scrollbar"></div>

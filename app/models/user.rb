@@ -37,6 +37,16 @@ class User
     self.save
   end
 
+  def top_image_src
+    self.gravatar_src
+  end
+
+  def gravatar_src(options = {})
+    options = {:size => 40}.merge! options
+    id = Digest::MD5::hexdigest self.email.strip.downcase
+    url = "http://www.gravatar.com/avatar/#{id}.jpg?s=#{options[:size].to_s}&d=identicon"
+  end
+
   protected
   def create_inbox
     group = Group.new

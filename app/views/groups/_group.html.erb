@@ -1,6 +1,6 @@
 <% content_for :top do %>
 		<% if @group.personal == true || @group.professional == true %>
-			<div class="cover"><%= image_tag @group.images.forward.first.image.thumb if @group.images.first %></div>
+			<div class="cover"><%= image_tag @group.top_image_src if @group.images.first %></div>
 			<div class="title"><%= raw @group.title %></div>
 			<div class="filters_wrap">
 				<a id="plan" class="filter rounded_left active">Plan</a>
