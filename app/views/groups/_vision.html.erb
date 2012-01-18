@@ -27,9 +27,9 @@
 	<%= render :partial => 'home/vision_group', :collection => group.vision_groups.asc(:idx), :locals => { :parent => group} %>
 </div>
 
-<div id="vision_images">
+<div id="vision_gallery">
 	<% group.images.forward.each do |image| %>
-		<%= render :partial => '/images/image', :locals => { :image => image, :group => group } %>
+		<%= image_tag image.image, :class => 'vision_image' %>
 	<% end %>
 </div>
 <div class="jui-2">
@@ -82,42 +82,7 @@
 		}
 	});
 
-	$('#vision_images').jcoverflip({
-		items: '.image_wrap',
-    current: <%= (group.images.forward.count / 2.0).floor %>,
-    beforeCss: function( el, container, offset ){
-      return [
-        $.jcoverflip.animationElement( el, { left: ( container.width( )/2 - 210 - 110*offset + 20*offset )+'px', bottom: '20px' }, { } ),
-        $.jcoverflip.animationElement( el.find( 'img' ), { width: Math.max(10,100-20*offset*offset) + 'px' }, {} )
-      ];
-    },
-    afterCss: function( el, container, offset ){
-      return [
-        $.jcoverflip.animationElement( el, { left: ( container.width( )/2 + 110 + 110*offset )+'px', bottom: '20px' }, { } ),
-        $.jcoverflip.animationElement( el.find( 'img' ), { width: Math.max(10,100-20*offset*offset) + 'px' }, {} )
-      ];
-    },
-    currentCss: function( el, container ){
-      return [
-        $.jcoverflip.animationElement( el, { left: ( container.width( )/2 - 100 )+'px', bottom: 0 }, { } ),
-        $.jcoverflip.animationElement( el.find( 'img' ), { width: '200px' }, { } )
-      ];
-    },
-    change: function(event, ui){
-      $('#vision_image_scrollbar').slider('value', ui.to);
-    }
-  });
-
-
-  $('#vision_image_scrollbar').slider({
-		max: <%= group.images.forward.count-1 %>,
-    value: <%= (group.images.forward.count / 2.0).floor %>,
-    step: 1,
-    slide: function(event, ui) {
-      if(event.originalEvent) {
-        var newVal = ui.value;
-        jQuery( '#vision_images' ).jcoverflip( 'current', newVal );
-      }
-    }
+  $('#vision_gallery').galleria({
+      height: 400
   });
 </script>

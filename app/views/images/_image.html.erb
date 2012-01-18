@@ -1,9 +1,0 @@
-<div id="<%= image.id.to_s %>" class="image_wrap sortable" rel="<%= group.id.to_s %>">
-	<span class="image">
-		<span class="relative">
-			<%= image_tag image.image, :href => image.image, :class => 'vision_image' %>
-			<%= link_to '', [group, image], :class => 'delete_img', :method => :delete, :remote => :true %>
-			<span class="tape"></span>
-		</span>
-	</span>
-</div>
