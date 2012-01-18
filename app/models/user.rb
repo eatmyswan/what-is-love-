@@ -29,7 +29,8 @@ class User
   end
 
   def unread_notices
-    self.notices.where(:created_at => self.last_notice_view..DateTime.now)
+    self.notices.where(:created_at =>
+      (self.last_notice_view || self.created_at)..DateTime.now)
   end
 
   def read_notices!
