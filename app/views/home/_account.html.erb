@@ -3,7 +3,8 @@
 		
 		<div id="cal_btn"></div>
 		<div id="notices_btn"></div>
-		
+		<div id="unread_count" class="<%= 'hidden' if @unread_count == 0 %>"><%= @unread_count %></div>
+
 		<div class="account_wrap">
 			<div class="img">
 				<%= image_tag current_user.images.forward.first.image.thumb if current_user.images.first %>

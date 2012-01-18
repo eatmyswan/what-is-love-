@@ -6,6 +6,7 @@ class User
   field :purpose, type: String
   field :avatar, type: String
   field :sound, type: Boolean, default: true
+  field :last_notice_view, type: DateTime
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -25,7 +26,16 @@ class User
   def notify(type,subject,target=nil)
     self.notices.create :type => type, :subject => subject, :target => target
   end
-  
+
+  def unread_notices
+    self.notices.where(:created_at => self.last_notice_view..DateTime.now)
+  end
+
+  def read_notices!
+    self.last_notice_view = DateTime.now
+    self.save
+  end
+
   protected
   def create_inbox
     group = Group.new

@@ -3,6 +3,8 @@ class GroupsController < ApplicationController
   
   def show
     @group = Group.find(params[:id])
+    @is_outcome = params[:task_id] && Task.find(params[:task_id]).outcome == true
+
     respond_to do |format|
         format.js { render :layout => false }
     end

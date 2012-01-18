@@ -1,3 +1,12 @@
 $('#categories .category').removeClass('active');
 $('#<%= escape_javascript @group.id.to_s %>').addClass('active');
 $('#pad').replaceWith('<%= escape_javascript render(@group)  %>');
+
+
+$('#group').ready(function () {
+  var task = $('li#<%= params[:task_id] %>');
+  <% if @is_outcome %>
+    task.find('.target.active').click()
+  <% end %>
+  scrollToTask( task );
+});
