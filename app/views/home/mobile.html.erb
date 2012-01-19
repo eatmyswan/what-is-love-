@@ -1,0 +1,15 @@
+<div class="content-header">
+  <%= image_tag 'landing/mobile-page-title.png', :class => 'center' %>
+</div>
+
+<div id="super-promo">
+  <div id="mobile-promo-bg"></div>
+  <div id="mobile-form-container">
+    <%= form_for @invite, :remote => true do |f| %>
+      <div class="section"><%= f.text_field :name %></div>
+      <div class="section"><%= f.text_field :email %></div>
+      <div class="section"><input type="image" class="submit" src="<%= asset_path 'landing/mobile-submit-btn.png' %>" /></div>
+      <%= f.hidden_field :type %>
+    <% end %>
+  </div>
+</div>

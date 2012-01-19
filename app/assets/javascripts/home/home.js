@@ -5,42 +5,80 @@
 //= require ../fancybox
 //= require_directory .
 
-$(document).ready(function () {
-  $("#promo-bg2").hide();
-  $('#rollbox')
-    .mouseenter(function () {
-      $('#promo-bg2').fadeToggle("slow");
-      $('#promo-bg1').fadeToggle("slow");
-    })
-    .mouseleave(function () {
-      $('#promo-bg2').fadeToggle("slow");
-      $('#promo-bg1').fadeToggle("slow");
-    })
-  ;
-});
+(function () {
+  var fancyboxOptions = {
+    overlayColor: '#000',
+    overlayOpacity: 0.5,
+    showCloseButton: false,
+    autoDimensions: true,
+    width: 415,
+    transitionOut: 'none',
+    changeFade: 0
+  };
 
-$('[href="' + paths.newInvite() + '"]').live("mouseover", function () {
-  if (!$(this).data("init")) {
-    $(this).data("init", true);
-    $(this).fancybox({
-      overlayColor: '#000',
-      overlayOpacity: 0.5,
-      showCloseButton: false,
-      autoDimensions: true,
-      width: 'auto'
-    });
-  }
-});
-
-$('.new_invite').live('submit', function () {
-  var dialog = $(this).parent().addClass('loading');
-  $(this).bind('ajax:success', function (e,resp) {
-    dialog.replaceWith(resp);
-    $.fancybox.center();
+  $(document).ready(function () {
+    $("#promo-bg2").hide();
+    $('#rollbox')
+      .mouseenter(function () {
+        $('#promo-bg2').fadeToggle("slow");
+        $('#promo-bg1').fadeToggle("slow");
+      })
+      .mouseleave(function () {
+        $('#promo-bg2').fadeToggle("slow");
+        $('#promo-bg1').fadeToggle("slow");
+      })
+    ;
   });
-  return true;
-});
 
-$('.close-fancybox').live('click', function () {
-  $.fancybox.close();
-});
+  $(
+    '[href="' + paths.newInvite() + '"],' +
+    '[href="' + paths.ajaxLogin() + '"],' +
+    '[href="' + paths.newUserSession() + '"]'
+   )
+  .live("mouseover", function () {
+    if (!$(this).data("init")) {
+      $(this).data("init", true).fancybox(fancyboxOptions);
+    }
+  });
+
+
+  $('.new_invite').live('submit', function () {
+    $(this).parent().addClass('loading');
+
+    $(this).bind('ajax:success', function (e,resp) {
+      if ( $('#fancybox-wrap').is(':visible') ) {
+        $('#fancybox-wrap .dialog').replaceWith(resp);
+        $.fancybox.center();
+      }
+      else {
+        $.fancybox(resp, fancyboxOptions);
+      }
+    });
+    return true;
+  });
+
+  // Sign in form. I'm suspicious about the generated class.
+  $('.user_new').live('submit', function () {
+    $(this).parent().addClass('loading');
+
+    $(this).bind('ajax:success', function () {
+      console.log('redirect to refresh and stuff');
+      window.location = paths.root();
+    })
+    .bind('ajax:error', function () {
+      $(this)
+        .parent().removeClass('loading').end()
+        .find('.errorExplanation').show('pulsate', { times:3 })
+      ;
+    })
+    ;
+  });
+
+  $('.close-fancybox').live('click', function () {
+    $.fancybox.close();
+  });
+
+  $('.temp').click(function () { alert('hi'); });
+
+
+})();

@@ -1,8 +1,6 @@
 Rpm::Application.routes.draw do
 
-  unless Rails.env.production?
-    devise_for :users
-  end
+  devise_for :users, :controllers => { :sessions => "sessions" }
 
   root :to => "home#index"
 
@@ -15,12 +13,10 @@ Rpm::Application.routes.draw do
 
   resources :audios
 
-  unless Rails.env.production?
-    resources :users do
-      resources :images
-      resources :goals
-      resources :vision_groups
-    end
+  resources :users do
+    resources :images
+    resources :goals
+    resources :vision_groups
   end
 
   resources :groups do
@@ -34,6 +30,8 @@ Rpm::Application.routes.draw do
   end
 
   resources :invites, :only => [:new, :create]
+
+  get 'ajax_sign_in' => 'home#ajax_new', :as => :new_user_session_ajax
 
   get '/' => 'home#index', :as => :landing
   get 'tour' => 'home#tour', :as => :tour

@@ -1,3 +1,7 @@
+/* *
+ * Dialog.css
+ * These stylings are used in the landing pages (i.e. user is not logged in)
+ */
 
 #fancybox-content {
   -webkit-box-shadow: none;
@@ -25,22 +29,33 @@
     background: url(<%= asset_path 'landing/dialog-mid.png' %>) repeat-y;
     padding: 10px 40px;
     p, h3 { margin-bottom: 20px; }
+    a, a:visited { color: #076EC8; text-decoration: underline; }
   }
   label {
     font-size: 0.8em;
     color: #000;
     padding-left: 20px;
   }
-  input[type=text], input[type=email] {
+  .input {
     background: url(<%= asset_path 'landing/dialog-field.png' %>);
     height: 22px;
     width: 325px;
     padding: 2px 8px 9px 8px;
   }
+  .remember_wrap {
+    padding: 10px 8px;
+    label { padding-left: 4px; }
+  }
   input[type=submit], button {
     width: 80px;
-    height: 30px;
+    height: 28px;
+    padding-bottom: 2px;
     cursor: pointer;
+    background: url(<%= asset_path 'landing/dialog-button.png' %>) no-repeat;
+    color: #fff;
+    text-shadow: #1d1b1a 0px 1px 2px;
+    font-size: 0.8em;
+    font-weight: bold;
   }
   .loader {
     width: 42px;

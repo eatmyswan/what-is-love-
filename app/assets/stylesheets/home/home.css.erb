@@ -40,7 +40,7 @@ body#sign-in { background:url(<%= asset_path 'landing/red-chambray.jpg' %>) repe
     background-repeat: repeat-x;
     overflow:hidden;
     }
-body.index #wrapper, body.index #mobile #wrapper {
+body.index #wrapper, body.mobile #wrapper {
     background-image: url(<%= asset_path 'landing/footer-bg.jpg' %>), url(<%= asset_path 'landing/header-home-bg.jpg' %>);
     background-position: bottom left, top left;
     background-repeat: repeat-x;
@@ -93,7 +93,7 @@ body.tour #wrapper {
     margin-left:-115px;
     margin-bottom:30px;
 }
-#mobile #super-promo {
+body.mobile #super-promo {
     height:867px;
 }
 
@@ -139,14 +139,6 @@ body.tour #wrapper {
     width:1214px;
     height:867px;
     background:url(<%= asset_path 'landing/mobile-promo-bg.png' %>) no-repeat top center;
-}
-#mobile-form-container {
-    position:absolute;
-    top:360px;
-    left:490px;
-    width:230px;
-    height:250px;
-    overflow:hidden;
 }
 #footer {
     width:1009px;

@@ -13,6 +13,14 @@ class HomeController < ApplicationController
     end
   end
 
+  def ajax_new
+    if user_signed_in?
+      render 'sessions/ajax-sign-in', :layout => false
+    else
+      redirect_to new_user_session_path
+    end
+  end
+
   def tour
     @body_class = 'fs18'
   end
@@ -21,6 +29,7 @@ class HomeController < ApplicationController
   end
 
   def mobile
+    @invite = Invite.new :type => :mobile
   end
 
   def faq
