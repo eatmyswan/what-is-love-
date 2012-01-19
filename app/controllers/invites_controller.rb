@@ -10,15 +10,14 @@ class InvitesController < ApplicationController
 
   def create
     @invite = Invite.new(params[:invite])
-    if @invite.save
+
+    if @invite.type == 'desktop' && User.find_by_email(@invite.email)
+      @already_has_account = true
+      render 'new'
+    elsif @invite.save
       UserMailer.confirm_beta_request(@invite).deliver
       render 'create'
     else
-      if @invite.errors[:email] && @invite.errors[:email].include?('taken')
-        error_idx = @invite.errors[:email].index 'taken'
-        @invite.errors[:email].delete_at error_idx
-        @invite.errors[:you] = 'have already requested a beta invite'
-      end
       render 'new'
     end
   end

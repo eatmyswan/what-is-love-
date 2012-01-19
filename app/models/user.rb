@@ -28,6 +28,10 @@ class User
 
   after_create :create_inbox
 
+  def self.find_by_email(email)
+    User.where(:email => email).first
+  end
+
   # Helper method to create notices
   def notify(type,subject,target=nil)
     self.notices.create :type => type, :subject => subject, :target => target
