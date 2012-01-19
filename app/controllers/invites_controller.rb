@@ -7,12 +7,17 @@ class InvitesController < ApplicationController
   def new
     @invite = Invite.new
   end
-  
-  def create 
+
+  def create
     @invite = Invite.new(params[:invite])
     if @invite.save
       render 'create'
     else
+      if @invite.errors[:email] && @invite.errors[:email].include?('taken')
+        error_idx = @invite.errors[:email].index 'taken'
+        @invite.errors[:email].delete_at error_idx
+        @invite.errors[:you] = 'have already requested a beta invite'
+      end
       render 'new'
     end
   end
