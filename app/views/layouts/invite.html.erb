@@ -11,15 +11,15 @@
   <div id="container">
 
     <div id="header">
-      <a href="/index"><%= image_tag 'landing/logo.png', :class => 'fl' %></a>
-      <a href="/sign-in"><%= image_tag 'landing/sign-in.png', :class => 'fr' %></a>
+      <a href="<%= landing_path %>"><%= image_tag 'landing/logo.png', :class => 'fl' %></a>
+      <a href="#"><%= image_tag 'landing/sign-in.png', :class => 'fr' %></a>
       <a href="<%= new_invite_path %>"><%= image_tag 'landing/sign-up.png', :class => 'fr' %></a>
       <ul class="h-nav">
-        <li><a href="/">Home</a></li>
-        <li><a href="/tour">Tour</a></li>
-        <li><a href="/our-customers">Our Customers</a></li>
-        <li><a href="/mobile">Mobile</a></li>
-        <li><a href="/help-and-support">Help &amp; Support</a></li>
+        <li><a href="<%= landing_path %>">Home</a></li>
+        <li><a href="<%= tour_path %>">Tour</a></li>
+        <li><a href="<%= our_customers_path %>">Our Customers</a></li>
+        <li><a href="<%= mobile_path %>">Mobile</a></li>
+        <li><a href="<%= faq_path %>">Help &amp; Support</a></li>
       </ul>
     </div>
 
