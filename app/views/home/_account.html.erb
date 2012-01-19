@@ -1,19 +1,19 @@
 <div id="account_bar">
 		<span class="inner_highlight"></span>
-		
+
 		<div id="cal_btn"></div>
 		<div id="notices_btn"></div>
 		<div id="unread_count" class="<%= 'hidden' if @unread_count == 0 %>"><%= @unread_count %></div>
 
 		<div class="account_wrap">
 			<div class="img">
-				<%= image_tag current_user.images.forward.first.image.thumb if current_user.images.first %>
+				<%= image_tag current_user.gravatar_src(:size => 18) %>
 			</div>
 			<div class="name">
 				<%= current_user.name %>
 			</div>
 			<div class="account_popup">
-				<%= link_to('Logout', destroy_user_session_path, :method=>'delete') %>        
+				<%= link_to('Logout', destroy_user_session_path, :method=>'delete') %>
 				<%= link_to('Edit Account', edit_user_registration_path, :id => 'edit_account') %>
 			</div>
 		</div>
@@ -32,5 +32,5 @@
 			</div>
 		</div>
 
-		
+
 </div>
