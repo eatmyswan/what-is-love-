@@ -38,15 +38,18 @@ body#sign-in { background:url(<%= asset_path 'landing/red-chambray.jpg' %>) repe
     background-image: url(<%= asset_path 'landing/footer-bg.jpg' %>), url(<%= asset_path 'landing/header-bg.jpg' %>);
     background-position: bottom left, top left;
     background-repeat: repeat-x;
-    overflow:hidden;    
+    overflow:hidden;
     }
-    
-#home #wrapper, #mobile #wrapper {
+body.index #wrapper, body.index #mobile #wrapper {
     background-image: url(<%= asset_path 'landing/footer-bg.jpg' %>), url(<%= asset_path 'landing/header-home-bg.jpg' %>);
     background-position: bottom left, top left;
     background-repeat: repeat-x;
-    overflow:hidden;    
+    overflow:hidden;
     }
+
+body.tour #wrapper {
+    background-image: url(<%= asset_path 'landing/footer-bg.jpg' %>), url(<%= asset_path 'landing/header-bg.jpg' %>);
+}
 
 #container {
     margin:0 auto;
@@ -61,7 +64,7 @@ body#sign-in { background:url(<%= asset_path 'landing/red-chambray.jpg' %>) repe
     margin-left:70px;
     margin-top:15px;
 }
-.h-nav li { 
+.h-nav li {
     float:left;
     margin-right:15px;
     font-size:14px;
@@ -87,7 +90,7 @@ body#sign-in { background:url(<%= asset_path 'landing/red-chambray.jpg' %>) repe
     width:1214px;
     height:605px;
     margin-top:-165px;
-    margin-left:-115px;    
+    margin-left:-115px;
     margin-bottom:30px;
 }
 #mobile #super-promo {
@@ -147,7 +150,7 @@ body#sign-in { background:url(<%= asset_path 'landing/red-chambray.jpg' %>) repe
 }
 #footer {
     width:1009px;
-    height:326px;    
+    height:326px;
     margin-left:-48px;
     padding-left:48px;
     background: url(<%= asset_path 'landing/footer-bg.png' %>) no-repeat top left;
@@ -192,11 +195,11 @@ body#sign-in { background:url(<%= asset_path 'landing/red-chambray.jpg' %>) repe
 .tname {
     font-size:14px;
     font-weight:bold;
-    color:#fff;    
+    color:#fff;
 }
 .ttitle {
     font-size:12px;
-    color:#c9c9c9;    
+    color:#c9c9c9;
 }
 .tbold { font-weight:bold; color:#eee!important; }
 
@@ -206,7 +209,7 @@ ul.tmrock {
 ul.tmrock li {
     background:url(<%= asset_path 'landing/home_26.png' %>) no-repeat left center;
     padding-left:28px;
-    margin-bottom:30px;    
+    margin-bottom:30px;
 }
 
 .help ul li {
@@ -270,7 +273,7 @@ div.ccontent p:first-of-type {
     margin-top:-36px!important;
 }
 .ccontent p {
-    padding:5px 20px 5px 13px; 
+    padding:5px 20px 5px 13px;
 }
 .cname {
     font-size: 22px;

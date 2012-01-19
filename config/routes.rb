@@ -5,14 +5,14 @@ Rpm::Application.routes.draw do
   end
 
   root :to => "home#index"
-  
+
   resources :tasks do
     resources :notes, :only => :destroy
     resources :reminders, :only => :destroy
   end
-  
+
   resources :emails
-  
+
   resources :audios
 
   unless Rails.env.production?
@@ -22,7 +22,7 @@ Rpm::Application.routes.draw do
       resources :vision_groups
     end
   end
-  
+
   resources :groups do
     resources :images
     resources :goals
@@ -32,14 +32,18 @@ Rpm::Application.routes.draw do
   resources :vision_groups do
     resources :vision_goals
   end
-  
+
   resources :invites, :only => [:new, :create]
-  
+
+  get 'tour' => 'home#tour'
+  get 'our-customers' => 'home#our_customers'
+  get 'help-and-support' => 'home#faq'
+
   match 'tasks/sort' => 'tasks#sort'
   match 'tasks/capture_sort' => 'tasks#capture_sort'
   match 'tasks/mylife_sort' => 'tasks#mylife_sort'
   match 'task/debug' => 'tasks#debug'
-  
+
   match 'month/index/:start_date' => 'month#index', :as => :month
   match 'month/json/:start_date/:end_date' => 'month#json', :as => :month_json
 
@@ -51,13 +55,13 @@ Rpm::Application.routes.draw do
   match 'week/json/:start_date/:end_date' => 'week#json', :as => :week_json
   match 'week/outcome/:id' => 'week#outcome'
   match 'week/group/:id' => 'week#group'
-  
+
   match 'day/capture/:start_date' => 'day#capture', :as => :day_capture
   match 'day/plan/:start_date' => 'day#plan', :as => :day_plan
   match 'day/schedule/:start_date' => 'day#schedule', :as => :day_schedule
   match 'day/side/:start_date' => 'day#side'
   match 'day/load_plan/:start_date' => 'day#load_plan'
-  
+
   match 'tasks/sort' => 'tasks#sort'
   match 'task/update/:id' => 'tasks#update'
 
@@ -70,10 +74,10 @@ Rpm::Application.routes.draw do
   match 'emails/create_from_flash/:id' => 'emails#create_from_flash'
   match 'email/email_form/:id' => 'emails#email_form'
   match 'email/load_outcome/:id' => 'emails#load_outcome'
-  
+
   match 'email/accept/:email_id' => 'emails#accept', :as => :accept_email
   match 'email/reject/:email_id' => 'emails#reject', :as => :reject_email
-  
+
   match 'email/:id/view_email' => 'emails#view_email', :as => :view_email
   match 'task/edit_notes/:id' => 'tasks#edit_notes'
   match 'task/edit_calendar/:id' => 'tasks#edit_calendar'
@@ -86,8 +90,8 @@ Rpm::Application.routes.draw do
 
   get "notices/latest" => "notices#latest"
   get "notices/latest/details" => "notices#latest_panel", :as => :notice_panel
-  
-  
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
