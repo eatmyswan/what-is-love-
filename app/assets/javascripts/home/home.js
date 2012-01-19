@@ -4,13 +4,16 @@
 //= require ../routes
 //= require ../fancybox
 //= require_directory .
+
 (function () {
   var fancyboxOptions = {
     overlayColor: '#000',
     overlayOpacity: 0.5,
     showCloseButton: false,
     autoDimensions: true,
-    width: 415
+    width: 415,
+    transitionOut: 'none',
+    changeFade: 0
   };
 
   $(document).ready(function () {
@@ -27,12 +30,17 @@
     ;
   });
 
-  $('[href="' + paths.newInvite() + '"]').live("mouseover", function () {
+  $(
+    '[href="' + paths.newInvite() + '"],' +
+    '[href="' + paths.ajaxLogin() + '"],' +
+    '[href="' + paths.newUserSession() + '"]'
+   )
+  .live("mouseover", function () {
     if (!$(this).data("init")) {
-      $(this).data("init", true);
-      $(this).fancybox( $.extend({}, fancyboxOptions) );
+      $(this).data("init", true).fancybox(fancyboxOptions);
     }
   });
+
 
   $('.new_invite').live('submit', function () {
     $(this).parent().addClass('loading');
@@ -43,11 +51,27 @@
         $.fancybox.center();
       }
       else {
-        var options = $.extend({ content:resp }, fancyboxOptions);
-        $.fancybox(options);
+        $.fancybox(resp, fancyboxOptions);
       }
     });
     return true;
+  });
+
+  // Sign in form. I'm suspicious about the generated class.
+  $('.user_new').live('submit', function () {
+    $(this).parent().addClass('loading');
+
+    $(this).bind('ajax:success', function () {
+      console.log('redirect to refresh and stuff');
+      window.location = paths.root();
+    })
+    .bind('ajax:error', function () {
+      $(this)
+        .parent().removeClass('loading').end()
+        .find('.errorExplanation').show('pulsate', { times:3 })
+      ;
+    })
+    ;
   });
 
   $('.close-fancybox').live('click', function () {

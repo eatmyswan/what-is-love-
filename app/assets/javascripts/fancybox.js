@@ -143,7 +143,6 @@
 
 			if (selectedOpts.autoDimensions) {
 				if (selectedOpts.type == 'html' || selectedOpts.type == 'inline' || selectedOpts.type == 'ajax') {
-					selectedOpts.width = 'auto';
 					selectedOpts.height = 'auto';
 				} else {
 					selectedOpts.autoDimensions = false;	
@@ -297,7 +296,7 @@
 
 			tmp.wrapInner('<div style="width:' + w + ';height:' + h + ';overflow: ' + (selectedOpts.scrolling == 'auto' ? 'auto' : (selectedOpts.scrolling == 'yes' ? 'scroll' : 'hidden')) + ';position:relative;"></div>');
 
-			selectedOpts.width = tmp.width();
+			selectedOpts.width = selectedOpts.width === 'auto' ? tmp.width() : selectedOpts.width;
 			selectedOpts.height = tmp.height();
 
 			_show();
@@ -926,6 +925,7 @@
 
 	// Note: within an iframe use - parent.$.fancybox.close();
 	$.fancybox.close = function() {
+
 		if (busy || wrap.is(':hidden')) {
 			return;
 		}
@@ -955,7 +955,7 @@
 		wrap.stop();
 
 		function _cleanup() {
-			overlay.fadeOut('fast');
+			overlay.fadeOut(currentOpts.transitionOut == 'none' ? 0 : 'fast');
 
 			title.empty().hide();
 			wrap.hide();

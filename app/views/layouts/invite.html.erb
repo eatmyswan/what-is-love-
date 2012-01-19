@@ -11,7 +11,7 @@
 
     <div id="header">
       <a href="<%= landing_path %>"><%= image_tag 'landing/logo.png', :class => 'fl' %></a>
-      <a href="#"><%= image_tag 'landing/sign-in.png', :class => 'fr' %></a>
+      <a href="<%= new_user_session_ajax_path %>"><%= image_tag 'landing/sign-in.png', :class => 'fr' %></a>
       <a href="<%= new_invite_path %>"><%= image_tag 'landing/sign-up.png', :class => 'fr' %></a>
       <ul class="h-nav">
         <li><a href="<%= landing_path %>">Home</a></li>

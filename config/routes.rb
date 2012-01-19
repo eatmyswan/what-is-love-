@@ -1,6 +1,6 @@
 Rpm::Application.routes.draw do
 
-  devise_for :users
+  devise_for :users, :controllers => { :sessions => "sessions" }
 
   root :to => "home#index"
 
@@ -30,6 +30,8 @@ Rpm::Application.routes.draw do
   end
 
   resources :invites, :only => [:new, :create]
+
+  get 'ajax_sign_in' => 'home#ajax_new', :as => :new_user_session_ajax
 
   get '/' => 'home#index', :as => :landing
   get 'tour' => 'home#tour', :as => :tour
