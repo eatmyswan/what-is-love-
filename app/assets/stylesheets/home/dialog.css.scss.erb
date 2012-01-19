@@ -1,0 +1,51 @@
+
+#fancybox-content {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  div { overflow: hidden !important; }
+}
+
+#fancybox-wrap .dialog {
+  width: 415px;
+
+  .top, .content-end, .bottom {
+    background: url(<%= asset_path 'landing/dialog.png' %>);
+  }
+  .top { height: 92px; }
+  .content-end { height: 10px; background-position: 0 -95px; }
+  .bottom {
+    height: 45px;
+    padding: 8px 20px 0 20px;
+    background-position: 0 -105px;
+    text-align: right;
+  }
+
+  .content {
+    background: url(<%= asset_path 'landing/dialog-mid.png' %>) repeat-y;
+    padding: 10px 40px;
+    p, h3 { margin-bottom: 20px; }
+  }
+  label {
+    font-size: 0.8em;
+    color: #000;
+    padding-left: 20px;
+  }
+  input[type=text], input[type=email] {
+    background: url(<%= asset_path 'landing/dialog-field.png' %>);
+    height: 22px;
+    width: 325px;
+    padding: 2px 8px 9px 8px;
+  }
+  input[type=submit], button {
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+  }
+  ul {
+    padding-left: 10px;
+    margin-bottom: 10px;
+    li { margin: 5px 0; }
+  }
+  .errorExplanation { color: #880000; }
+}

@@ -1,0 +1,25 @@
+<div class="dialog">
+<%= form_for @invite, :remote => true do |f| %>
+
+  <div class="top"></div>
+  <div class="content">
+    <h3>Request a Beta Invite</h3>
+    <p> Time master is still in beta. Enter your email address below and
+        we will send your private log-in information as soon as a space
+        becomes available.</p>
+
+    <%= f.error_messages :header_message => false,
+            :message => "Please correct the following:" %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+  <div class="content-end"></div>
+  <div class="bottom">
+    <input type="submit" value="Submit" />
+  </div>
+
+<% end %>
+</div>

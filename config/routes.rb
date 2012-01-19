@@ -33,7 +33,7 @@ Rpm::Application.routes.draw do
     resources :vision_goals
   end
   
-  resources :invites, :only => :create
+  resources :invites, :only => [:new, :create]
   
   match 'tasks/sort' => 'tasks#sort'
   match 'tasks/capture_sort' => 'tasks#capture_sort'

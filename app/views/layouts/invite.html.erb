@@ -2,13 +2,18 @@
 <html>
 <head>
   <title> TimeMaster: Rapid Planning Method </title>
-  <%= stylesheet_link_tag 'application' %>
-  <%= javascript_include_tag 'application' %>
+  <%= stylesheet_link_tag 'home/home' %>
   <%= csrf_meta_tag %>
 </head>
-<body id="invite">
+<body id="home">
 	
 	<%= yield %>
+
+  <%= render 'home/templates' %>
 	
+  <%= javascript_include_tag 'home/home' %>
 </body>
+
+<style type="text/css">embed[type*="application/x-shockwave-flash"],embed[src*=".swf"],object[type*="application/x-shockwave-flash"],object[codetype*="application/x-shockwave-flash"],object[src*=".swf"],object[codebase*="swflash.cab"],object[classid*="D27CDB6E-AE6D-11cf-96B8-444553540000"],object[classid*="d27cdb6e-ae6d-11cf-96b8-444553540000"],object[classid*="D27CDB6E-AE6D-11cf-96B8-444553540000"]{ display: none !important;}</style>
+
 </html>

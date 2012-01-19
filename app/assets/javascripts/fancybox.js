@@ -451,7 +451,7 @@
 
 			content
 				.css({
-					'width' : final_pos.width - currentOpts.padding * 2,
+					'width' : selectedOpts.autoDimensions ? 'auto' : final_pos.width - currentOpts.padding * 2,
 					'height' : selectedOpts.autoDimensions ? 'auto' : final_pos.height - titleHeight - currentOpts.padding * 2
 				})
 				.html( tmp.contents() );
@@ -459,6 +459,9 @@
 			wrap
 				.css(final_pos)
 				.fadeIn( currentOpts.transitionIn == 'none' ? 0 : currentOpts.speedIn, _finish );
+			if (selectedOpts.autoDimensions) {
+				wrap.css('width', 'auto');
+			}
 		},
 
 		_format_title = function(title) {

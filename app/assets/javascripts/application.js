@@ -4,7 +4,7 @@
 //= require jquery.remotipart
 //= require swfobject
 //= require_self
-//= require_tree .
+//= require_directory .
 
 // Prevent the backspace key from navigating back.
 $(document).keydown(function (e) {
