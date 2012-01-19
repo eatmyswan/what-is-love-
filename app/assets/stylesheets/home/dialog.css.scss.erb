@@ -42,10 +42,23 @@
     height: 30px;
     cursor: pointer;
   }
+  .loader {
+    width: 42px;
+    height: 42px;
+    background: url(<%= asset_path 'fancybox_loading.gif' %>) no-repeat;
+    position: relative;
+    top: -6px;
+  }
   ul {
     padding-left: 10px;
     margin-bottom: 10px;
     li { margin: 5px 0; }
   }
   .errorExplanation { color: #880000; }
+}
+
+#fancybox-wrap .dialog.loading {
+  .bottom { text-align: center; }
+  input[type=submit] { display: none; }
+  .loader { display: inline-block; }
 }

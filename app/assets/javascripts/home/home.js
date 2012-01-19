@@ -33,9 +33,9 @@ $('[href="' + paths.newInvite() + '"]').live("mouseover", function () {
 });
 
 $('.new_invite').live('submit', function () {
-  var dialog = $(this).parent();
+  var dialog = $(this).parent().addClass('loading');
   $(this).bind('ajax:success', function (e,resp) {
-    dialog.html(resp);
+    dialog.replaceWith(resp);
     $.fancybox.center();
   });
   return true;

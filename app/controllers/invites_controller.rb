@@ -11,6 +11,7 @@ class InvitesController < ApplicationController
   def create
     @invite = Invite.new(params[:invite])
     if @invite.save
+      UserMailer.confirm_beta_request(@invite.email).deliver
       render 'create'
     else
       if @invite.errors[:email] && @invite.errors[:email].include?('taken')
