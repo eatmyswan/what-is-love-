@@ -48,6 +48,15 @@ class User
     url = "http://www.gravatar.com/avatar/#{id}.jpg?s=#{options[:size].to_s}&d=identicon"
   end
 
+  # backwards compatibility
+  alias :__created_at :created_at
+  def created_at
+    if self.__created_at.nil?
+      self.update_attribute :__created_at, DateTime.now
+    end
+    self.__created_at
+  end
+
   protected
   def create_inbox
     group = Group.new
