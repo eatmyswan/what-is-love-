@@ -4,7 +4,7 @@ Rpm::Application.routes.draw do
     devise_for :users
   end
 
-  root :to => "home#index", :as => :landing
+  root :to => "home#index"
 
   resources :tasks do
     resources :notes, :only => :destroy
@@ -35,6 +35,7 @@ Rpm::Application.routes.draw do
 
   resources :invites, :only => [:new, :create]
 
+  get '/' => 'home#index', :as => :landing
   get 'tour' => 'home#tour', :as => :tour
   get 'our-customers' => 'home#our_customers', :as => :our_customers
   get 'mobile' => 'home#mobile', :as => :mobile
