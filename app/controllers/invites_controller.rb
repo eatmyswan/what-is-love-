@@ -5,13 +5,13 @@ class InvitesController < ApplicationController
   end
 
   def new
-    @invite = Invite.new
+    @invite = Invite.new :type => :desktop
   end
 
   def create
     @invite = Invite.new(params[:invite])
     if @invite.save
-      UserMailer.confirm_beta_request(@invite.email).deliver
+      UserMailer.confirm_beta_request(@invite).deliver
       render 'create'
     else
       if @invite.errors[:email] && @invite.errors[:email].include?('taken')

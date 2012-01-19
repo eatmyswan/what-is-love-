@@ -21,6 +21,7 @@ class HomeController < ApplicationController
   end
 
   def mobile
+    @invite = Invite.new :type => :mobile
   end
 
   def faq

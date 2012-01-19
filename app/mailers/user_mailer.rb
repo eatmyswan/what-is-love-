@@ -2,9 +2,10 @@ class UserMailer < ActionMailer::Base
 
   default :from => "noreply@timemaster.com"
 
-  def confirm_beta_request(email_address)
+  def confirm_beta_request(invite)
+    @invite = invite
     mail(
-      :to => email_address,
+      :to => invite.email,
       :subject => "[RPM] Your Time Master RPM request was received"
     )
   end
