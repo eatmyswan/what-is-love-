@@ -24,6 +24,7 @@ class HomeController < ApplicationController
   end
 
   def faq
+    @body_class = 'fs14'
   end
 
 end

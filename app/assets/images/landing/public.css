@@ -1,8 +1,3 @@
-/*
-*= require ../fancybox
-*= require_directory .
-*/
-
 * { margin:0px; padding:0px; outline:none!important; text-decoration:none; border:0; vertical-align:top }
 body { line-height:1; background:#111; font-family: Helvetica, arial, sans-serif; color:#666; }
 ol,ul,li { list-style:none; }
@@ -31,25 +26,22 @@ h2 { font-family: Helvetica, arial, sans-serif; font-size:32px; margin:15px 0; f
 .col1 { float:left; width:48%; }
 .col2 { float:right; width:48%; }
 
-body#sign-in { background:url(<%= asset_path 'landing/red-chambray.jpg' %>) repeat; }
+body#sign-in { background:url(/assets/images/red-chambray.jpg) repeat; }
 
 #wrapper {
     background:#fff;
-    background-image: url(<%= asset_path 'landing/footer-bg.jpg' %>), url(<%= asset_path 'landing/header-bg.jpg' %>);
+    background-image: url(/assets/images/footer-bg.jpg), url(/assets/images/header-bg.jpg);
     background-position: bottom left, top left;
     background-repeat: repeat-x;
-    overflow:hidden;
+    overflow:hidden;    
     }
-body.index #wrapper, body.index #mobile #wrapper {
-    background-image: url(<%= asset_path 'landing/footer-bg.jpg' %>), url(<%= asset_path 'landing/header-home-bg.jpg' %>);
+    
+#home #wrapper, #mobile #wrapper {
+    background-image: url(/assets/images/footer-bg.jpg), url(/assets/images/header-home-bg.jpg);
     background-position: bottom left, top left;
     background-repeat: repeat-x;
-    overflow:hidden;
+    overflow:hidden;    
     }
-
-body.tour #wrapper {
-    background-image: url(<%= asset_path 'landing/footer-bg.jpg' %>), url(<%= asset_path 'landing/header-bg.jpg' %>);
-}
 
 #container {
     margin:0 auto;
@@ -64,7 +56,7 @@ body.tour #wrapper {
     margin-left:70px;
     margin-top:15px;
 }
-.h-nav li {
+.h-nav li { 
     float:left;
     margin-right:15px;
     font-size:14px;
@@ -90,7 +82,7 @@ body.tour #wrapper {
     width:1214px;
     height:605px;
     margin-top:-165px;
-    margin-left:-115px;
+    margin-left:-115px;    
     margin-bottom:30px;
 }
 #mobile #super-promo {
@@ -103,19 +95,19 @@ body.tour #wrapper {
     left:295px;
     width:700px;
     height:350px;
-    background:url(<%= asset_path 'landing/promo-watch.png' %>) no-repeat top left;
+    background:url(/assets/images/promo-watch.png) no-repeat top left;
 }
 #promo-bg2 {
     position:absolute;
     top:0;
     width:1214px;
     height:456px;
-    background:url(<%= asset_path 'landing/promo-bg2.png' %>) no-repeat top left;
+    background:url(/assets/images/promo-bg2.png) no-repeat top left;
 }
 #promo-bg1 {
     width:600px;
     height:349px;
-    background:url(<%= asset_path 'landing/promo-bg1.png' %>) no-repeat top left;
+    background:url(/assets/images/promo-bg1.png) no-repeat top left;
 }
 #promo-signup {
     position:absolute;
@@ -123,7 +115,7 @@ body.tour #wrapper {
     right:0;
     width:201px;
     height:53px;
-    background:url(<%= asset_path 'landing/promo_signup.png' %>) no-repeat top left;
+    background:url(/assets/images/promo_signup.png) no-repeat top left;
 }
 #promo-logo {
     position:absolute;
@@ -131,14 +123,14 @@ body.tour #wrapper {
     left:465px;
     width:300px;
     height:95px;
-    background:url(<%= asset_path 'landing/promo_logo.png' %>) no-repeat top left;
+    background:url(/assets/images/promo_logo.png) no-repeat top left;
 }
 #mobile-promo-bg {
     position:absolute;
     top:0;
     width:1214px;
     height:867px;
-    background:url(<%= asset_path 'landing/mobile-promo-bg.png' %>) no-repeat top center;
+    background:url(/assets/images/mobile-promo-bg.png) no-repeat top center;
 }
 #mobile-form-container {
     position:absolute;
@@ -150,22 +142,22 @@ body.tour #wrapper {
 }
 #footer {
     width:1009px;
-    height:326px;
+    height:326px;    
     margin-left:-48px;
     padding-left:48px;
-    background: url(<%= asset_path 'landing/footer-bg.png' %>) no-repeat top left;
+    background: url(/assets/images/footer-bg.png) no-repeat top left;
 }
 .f-btn {
     float:left;
     width:240px;
 }
 .f-btn:hover {
-    background: url(<%= asset_path 'landing/f-btn-a.png' %>) repeat-x top left;
+    background: url(/assets/images/f-btn-a.png) repeat-x top left;
 }
 
 /* More Content */
 .shadowdrop {
-    background:url(<%= asset_path 'landing/shadow.png' %>) no-repeat top center;
+    background:url(/assets/images/shadow.png) no-repeat top center;
 }
 .entry-box {
     padding-top:50px;
@@ -182,7 +174,7 @@ body.tour #wrapper {
     float:left;
     width:227px;
     height:508px;
-    background:url(<%= asset_path 'landing/box_08.png' %>) no-repeat top left;
+    background:url(/assets/images/box_08.png) no-repeat top left;
     color:#d9d9d9;
     margin-right:16px;
     overflow:hidden;
@@ -195,11 +187,11 @@ body.tour #wrapper {
 .tname {
     font-size:14px;
     font-weight:bold;
-    color:#fff;
+    color:#fff;    
 }
 .ttitle {
     font-size:12px;
-    color:#c9c9c9;
+    color:#c9c9c9;    
 }
 .tbold { font-weight:bold; color:#eee!important; }
 
@@ -207,23 +199,23 @@ ul.tmrock {
     margin:30px 0 0 115px;
 }
 ul.tmrock li {
-    background:url(<%= asset_path 'landing/home_26.png' %>) no-repeat left center;
+    background:url(/assets/images/home_26.png) no-repeat left center;
     padding-left:28px;
-    margin-bottom:30px;
+    margin-bottom:30px;    
 }
 
-body.faq #content ul li {
+.help ul li {
     margin-bottom:10px;
     line-height:1.3;
 }
-body.faq #content .answers ul {
+.answers ul {
     margin-top:25px;
 }
-body.faq #content .answers ul li {
+.answers ul li {
     margin-bottom:20px;
     line-height:1.3;
 }
-body.faq #content .answers a {
+.answers a {
     cursor: auto;
     font-size:18px;
     font-weight:bold;
@@ -253,7 +245,7 @@ p.bottomup { margin-top:-10px; }
     float:left;
     margin-left:-24px;
     padding-left:20px;
-    background:url(<%= asset_path 'landing/customer-bg.png' %>) no-repeat 20px 0;
+    background:url(/assets/images/customer-bg.png) no-repeat 20px 0;
     overflow:hidden;
 }
 .paperclip {
@@ -262,7 +254,7 @@ p.bottomup { margin-top:-10px; }
     left:10px;
     width:53px;
     height:107px;
-    background:url(<%= asset_path 'landing/paperclip.png' %>) no-repeat top left;
+    background:url(/assets/images/paperclip.png) no-repeat top left;
 }
 .ccontent {
     margin-top:11px;
@@ -273,7 +265,7 @@ div.ccontent p:first-of-type {
     margin-top:-36px!important;
 }
 .ccontent p {
-    padding:5px 20px 5px 13px;
+    padding:5px 20px 5px 13px; 
 }
 .cname {
     font-size: 22px;
@@ -306,4 +298,14 @@ div.ccontent p:first-of-type {
     text-shadow: 0 1px 2px #000000;
 }
 
-.hide { display: none; }
+
+
+
+
+
+
+
+
+
+
+
