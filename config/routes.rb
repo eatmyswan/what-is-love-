@@ -1,8 +1,6 @@
 Rpm::Application.routes.draw do
 
-  unless Rails.env.production?
-    devise_for :users
-  end
+  devise_for :users
 
   root :to => "home#index"
 
@@ -15,12 +13,10 @@ Rpm::Application.routes.draw do
 
   resources :audios
 
-  unless Rails.env.production?
-    resources :users do
-      resources :images
-      resources :goals
-      resources :vision_groups
-    end
+  resources :users do
+    resources :images
+    resources :goals
+    resources :vision_groups
   end
 
   resources :groups do
