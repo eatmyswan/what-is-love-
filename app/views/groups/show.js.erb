@@ -8,5 +8,5 @@ $('#group').ready(function () {
   <% if @is_outcome %>
     task.find('.target.active').click()
   <% end %>
-  scrollToTask( task );
+  scrollToTask( task, $('#group') );
 });
