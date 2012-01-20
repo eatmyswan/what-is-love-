@@ -1,11 +1,21 @@
 <div class="notices">
 
-<% @notices.each do |n| %>
-  <a class="notice category">
-    <span class="icon <%= n.type %>"></span>
-    <span class="title"><%= notice_title(n.type, n.subject, n.target) %></span>
-    <span class="time"><%= time_ago_or_time_stamp(n.created_at) %></span>
-  </a>
+  <%= link_to notice_panel_path, :class => 'notice category view-details active', :remote => true do %>
+    <span class="title">View All Notifications</span>
+  <% end %>
+
+<% @notices.each do |notice| %>
+
+  <%= link_to notice_href(notice), :class => "notice category", :remote => true do %>
+    <span class="icon <%= notice.type %>"></span>
+    <span class="title"><%= notice_title(notice) %></span>
+    <span class="time"><%= time_ago_or_time_stamp(notice.created_at) %></span>
+  <% end %>
+
 <% end %>
 
 </div>
+<script type="text/javascript">
+var unreadCount = <%= @unread_count %>;
+$('#unread_count').text(''+unreadCount).toggle(unreadCount > 0);
+</script>

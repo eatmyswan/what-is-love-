@@ -156,6 +156,19 @@ $('#capture_wrap ul.sortable, #side_plan').live("mouseover", function() {
 });
 
 
+$('.new_task')
+	.live('ajax:before', function () {
+		// Don't send blank titles
+	  return !!$('#task_title').val();
+	})
+	.live('ajax:beforeSend', function () {
+		// Value is already captured at this point, so clearing on
+		// the frontend won't change what is sent in the request.
+	  $('#task_title').val('');
+	  return true;
+	})
+;
+
 
 function captureEmpty() {
 	if($('#side_plan').children().length == 0) {

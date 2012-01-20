@@ -3,8 +3,11 @@ class ImagesController < ApplicationController
 
   def create
     @image.save
+
+    template = 'groups/update'
+    template = 'users/update' if @group.is_a? User
     respond_to do |format|
-      format.js { render :layout => false }
+      format.js { render template, :layout => false }
     end
   end
 
@@ -30,7 +33,7 @@ private
   
   def find_or_build_image
     if(params[:user_id])
-      @group = User.find(params[:user_id])
+      @user = @group = User.find(params[:user_id])
       @image = params[:id] ?  @group.images.find(params[:id]) :  @group.images.new(params[:image])
     elsif(params[:group_id])
       @group = Group.find(params[:group_id])

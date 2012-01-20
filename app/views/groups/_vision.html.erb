@@ -1,81 +1,92 @@
 <div class="section <%= 'editing' if group.vision.blank? %>">
+	<span class="vision_tab"></span>
 	<span class="text"><%= group.vision %></span>
 	<span class="edit"></span>
 	<span class="edit_done"></span>
 	<span class="vision_form">
 		<%= form_for group, :remote => true do |f| %>
-			<%= f.text_field :vision, :value => "What is your ultimate result / vision for this?", :onfocus => '(this.value == "What is your ultimate result / vision for this?") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "What is your ultimate result / vision for this?" : this.value' %>
+			<%= f.text_area :vision, :value => group.vision || "What is your ultimate result / vision for this?", :onfocus => '(this.value == "What is your ultimate result / vision for this?") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "What is your ultimate result / vision for this?" : this.value' %>
 		<% end %>
 	</span>
 </div>
 
 
 <div class="section <%= 'editing' if group.purpose.blank? %>">
+	<span class="force_tab"></span>
 	<div class="text"><%= group.purpose %></div>
 	<span class="edit"></span>
 	<span class="edit_done"></span>
 	<span class="purpose_form">
 		<%= form_for group, :remote => true do |f| %>
-			<%= f.text_field :purpose, :value => "What is your driving force behind this?", :onfocus => '(this.value == "What is your driving force behind this?") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "What is your driving force behind this?" : this.value' %>
+			<%= f.text_area :purpose, :value => group.purpose || "What is your driving force behind this?", :onfocus => '(this.value == "What is your driving force behind this?") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "What is your driving force behind this?" : this.value' %>
 			<% end %>
 	</span>
 </div>
 
-<div class="goals_section">
-	<div class="quarter_goals">
-		<div class="title_wrap">
-			<span class="title journal">90 Day Results</span>
-			<span class="add_goal" rel="quarter_goals_form">Add Result</span>
-		</div>
-		<div class="goals_wrap">
-			<div class="form_wrap no_disp" id="quarter_goals_form">
-				<%= form_for([group, Goal.new], :remote => true) do |f| %>
-					<%= f.text_field :text %>
-					<%= f.hidden_field :range, :value => '90' %>
-					<% end %>
-			</div>
-		
-			<% group.goals.where(range: '90').each_with_index do |goal, index| %>
-				<div class="goal">
-					<span class="count journal"><%= index + 1 %></span> 
-					<span class="text"><%= goal.text %></span>
-					<%= link_to '', [group, goal], :class => 'delete', :method => :delete, :remote => :true %>
-				</div>
-			<% end %>
-		</div>
-	</div>
-	
-	<div class="year_goals">
-		<div class="title_wrap">
-			<span class="title journal">One Year Results</span>
-			<span class="add_goal" rel="year_goals_form">Add Result</span>
-		</div>
-		<div class="goals_wrap">
-			<div class="form_wrap no_disp" id="year_goals_form">
-				<%= form_for([group, Goal.new], :remote => true) do |f| %>
-					<%= f.text_field :text %>
-					<%= f.hidden_field :range, :value => '365' %>
-				<% end %>
-			</div>
-			<% group.goals.where(range: '365').each_with_index do |goal, index| %>
-				<div class="goal">
-					<span class="count journal"><%= index + 1 %></span> 
-					<span class="text"><%= goal.text %></span>
-					<%= link_to '', [group, goal], :class => 'delete', :method => :delete, :remote => :true %>
-				</div>
-				<% end %>
-		</div>
-	</div>
+<div id="goals_section">
+	<%= render :partial => 'home/vision_group', :collection => group.vision_groups.asc(:idx), :locals => { :parent => group} %>
 </div>
 
-<div id="vision_images">
+<div id="vision_gallery">
 	<% group.images.forward.each do |image| %>
-		<%= render :partial => '/images/image', :locals => { :image => image, :group => group } %>
+		<%= image_tag image.image, :class => 'vision_image' %>
 	<% end %>
+
+	<% if group.images.forward.count == 0 %>
+		<%= image_tag 'default_gallery_pic.jpg', :alt => 'Add pictures below to create your own personal gallery.', :title => '' %>
+	<% end %>
+</div>
+<div class="jui-2">
+	<div id="vision_image_scrollbar"></div>
+</div>
+
+<div class="add_buttons">
 	<div id="uploadify_wrap">
 		<div id="queue"></div>
 		<div id="upload" class="image_wrap"></div>
+
+		<%= link_to new_user_or_group_vision_group_path(group), :id => 'create_v_group', :remote => true do %>
+		<span></span>
+		<% end %>
+
 		<%= uploadify_user if group.id.to_s == current_user.id.to_s %>
 		<%= uploadify_group if group.id.to_s != current_user.id.to_s %>
+
+	</div>
+	<div class="loader hidden">
+		<h2>Uploading Images...</h2>
 	</div>
 </div>
+
+
+<script type="text/javascript">
+	$.extend(_uploadifyOptions, {
+		multi: false,
+		onOpen: function () {
+			$('#vision_wrap .add_buttons').addClass('loading');
+		}
+	});
+  $('#upload').uploadify(_uploadifyOptions);
+
+	$('#goals_section').sortable({
+		items: '.vision_group',
+		handle: '.handle',
+		helper: 'clone',
+
+		stop: function (event,ui) {
+			var idxHash = {};
+			$('#goals_section > *').each(function (idx, elem) {
+				idxHash[ $(elem).data('id') ] = idx;
+			});
+			$.ajax({
+				url: paths.visionGroupsSort(),
+				type: 'POST',
+				data: { order:idxHash }
+			});
+		}
+	});
+
+  $('#vision_gallery').galleria({
+      height: 400
+  });
+</script>

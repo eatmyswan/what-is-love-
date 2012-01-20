@@ -1,0 +1,6 @@
+<div class="notice">
+  <span class="icon <%= notice.type %>"></span>
+  <div class="title"><%=raw notice_title_detailed(notice) %></div>
+  <div class="time"><%= time_ago_or_time_stamp(notice.created_at) %></div>
+  <div class="clearfix"></div>
+</div>

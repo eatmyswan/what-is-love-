@@ -2,13 +2,45 @@
 <html>
 <head>
   <title> TimeMaster: Rapid Planning Method </title>
-  <%= stylesheet_link_tag 'application' %>
-  <%= javascript_include_tag 'application' %>
+  <%= stylesheet_link_tag 'home/home' %>
   <%= csrf_meta_tag %>
 </head>
-<body id="invite">
-	
-	<%= yield %>
-	
+<body id="home" class="<%= params[:action] %> <%= @body_class %>">
+<div id="wrapper">
+  <div id="container">
+
+    <div id="header">
+      <a href="<%= landing_path %>"><%= image_tag 'landing/logo.png', :class => 'fl' %></a>
+      <a href="<%= new_user_session_ajax_path %>"><%= image_tag 'landing/sign-in.png', :class => 'fr' %></a>
+      <a href="<%= new_invite_path %>"><%= image_tag 'landing/sign-up.png', :class => 'fr' %></a>
+      <ul class="h-nav">
+        <li><a href="<%= landing_path %>">Home</a></li>
+        <li><a href="<%= tour_path %>">Tour</a></li>
+        <li><a href="<%= our_customers_path %>">Our Customers</a></li>
+        <li><a href="<%= mobile_path %>">Mobile</a></li>
+        <li><a href="<%= faq_path %>">Help &amp; Support</a></li>
+      </ul>
+    </div>
+
+    <div id="content">
+      <%= yield %>
+    </div>
+
+    <div id="footer">
+      <a href="/index"><div class="f-btn"><%= image_tag 'landing/footer_01.png', :class => 'center' %></div></a>
+      <a href="/mobile"><div class="f-btn"><%= image_tag 'landing/footer_02.png', :class => 'center' %></div></a>
+      <a href="/mobile"><div class="f-btn"><%= image_tag 'landing/footer_03.png', :class => 'center' %></div></a>
+      <a href="/mobile"><div class="f-btn"><%= image_tag 'landing/footer_04.png', :class => 'center' %></div></a>
+    </div>
+
+  </div>
+</div>
+
+  <%= render 'home/templates' %>
+
+  <%= javascript_include_tag 'home/home' %>
 </body>
+
+<style type="text/css">embed[type*="application/x-shockwave-flash"],embed[src*=".swf"],object[type*="application/x-shockwave-flash"],object[codetype*="application/x-shockwave-flash"],object[src*=".swf"],object[codebase*="swflash.cab"],object[classid*="D27CDB6E-AE6D-11cf-96B8-444553540000"],object[classid*="d27cdb6e-ae6d-11cf-96b8-444553540000"],object[classid*="D27CDB6E-AE6D-11cf-96B8-444553540000"]{ display: none !important;}</style>
+
 </html>

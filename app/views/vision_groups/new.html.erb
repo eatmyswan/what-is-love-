@@ -1,0 +1,22 @@
+<div id="new_v_group_wrap" class="email_dialog">
+  
+<%= form_for [@group, @v_group], :remote => true do |f| %>
+  
+  <div class="modal_title_wrap">
+      <div class="modal_cancel_wrap">
+        <div id="close_fancybox"><span class="no_disp">Cancel</span></div>
+      </div>
+      <div class="modal_submit_wrap">
+        <%= image_submit_tag('clear.gif', :class => 'send') %>
+      </div>
+      <div class="modal_title"> Create New Vision Group </div>
+  </div>
+  <div id="fields_wrap">
+    <div class="address_wrap">
+      <label>Title</label><%= f.text_field :title %>
+    </div>
+  </div>
+
+<% end %>
+
+</div>

@@ -1,19 +1,60 @@
 module NoticesHelper
 
-  def notice_title(type,subject,target)
+  def notice_title(notice)
+    type, subject, target = notice.type, notice.subject, notice.target
+
     case type
     when 'lev-send'
-      "Task emailed to #{subject.to_email}"
+      "Action emailed to #{subject.to_email}"
     when 'lev-accept'
       if subject == current_user
         "You accepted \"#{target.title}\""
       else
         "#{subject.name} accepted \"#{target.title}\""
       end
+    when 'lev-reject'
+      "#{subject.name} rejected \"#{target.title}\""
     else
       puts "UNKNOWN NOTICE TYPE:"
       puts "  > type:#{type}; subject:#{subject.inspect}; target:#{target.inspect}"
     end
+  end
+
+  def notice_href(notice)
+    type, subject, target = notice.type, notice.subject, notice.target
+
+    case type
+    when 'lev-send', 'lev-accept', 'lev-reject'
+      group_path(target.group, :task_id => target.id)
+    else
+      puts "UNKNOWN NOTICE TYPE:"
+      puts "  > type:#{type}; subject:#{subject.inspect}; target:#{target.inspect}"
+      root_path
+    end
+  end
+
+  def notice_title_detailed(notice)
+    type, subject, target = notice.type, notice.subject, notice.target
+
+    case type
+    when 'lev-send'
+      "You emailed the action #{task_link target} to #{subject.to_email}"
+    when 'lev-accept'
+      if subject == current_user
+        "You accepted the action: #{task_link target}"
+      else
+        "#{subject.name} has accepted your action #{task_link target}"
+      end
+    when 'lev-reject'
+      "#{subject.name} has rejected your action #{task_link target}"
+    else
+      puts "UNKNOWN NOTICE TYPE:"
+      puts "  > type:#{type}; subject:#{subject.inspect}; target:#{target.inspect}"
+    end
+  end
+
+  def task_link(task, title=nil)
+    link_to "#{title || task.title}", group_path(task.group), :remote => true
   end
 
   def time_ago_or_time_stamp(from_time, to_time = Time.now, detail = false)

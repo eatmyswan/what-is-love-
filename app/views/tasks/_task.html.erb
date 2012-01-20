@@ -3,16 +3,26 @@
 		<span class="checkbox <%= 'active' if task.complete == true %>"></span>
 		<% if task.parent_id == nil %>
 			<span class="target <%= 'active' if task.outcome == true %>"></span>
+			<% #avatars for groups that have leveraged tasks, do not show duplicate, limit to 4 avatars %>
+			<% if task.outcome == true %>
+				<% task.group.tasks.where(parent_id: task.id).and(complete: false).and(:luser_id.exists => true).order_by([:sort, :asc]).distinct(:luser_id).first(4).each do |luser_id| %>
+					<span class="avatar">
+						<% luser = User.find(luser_id) %>
+						<%= image_tag luser.gravatar_src(:size => 15), :title => "#{luser.name} has accepted this" %>
+					</span>
+				<% end %>
+			<% end %>
+			<% # END avatars for groups that have leveraged tasks %>
 		<% end %>
 		<% if task.luser_id %>
 			<span class="avatar">
 				<% luser = User.find(task.luser_id) %>
-				<%= image_tag luser.images.forward.first.image.tiny, :title => "#{luser.name} has accepted this" if luser.images.forward.first %>
+				<%= image_tag luser.gravatar_src(:size => 15), :title => "#{luser.name} has accepted this" %>
 			</span>
 		<% end %>
 		<span class="star <%= 'active' if task.must == true %>"></span>
 		<span class="icon" rel="/task/edit_group/<%= task.id.to_s %>">
-		<% if task.group %>	
+		<% if task.group %>
 			<% if task.group.professional == true || task.group.personal == true %>
 				<%= image_tag task.group.images.forward.first.image.tiny if task.group.images.forward.first %>
 			<% else %>
@@ -68,7 +78,7 @@
 				<% end %>
 			</div>
 		</span>
-		
+
 		<form class="edit_task no_disp" method="post" action="#">
 			<input type="text" value="<%= strip_tags(task.title) %>" class="edit_task_text">
 		</form>
@@ -87,16 +97,16 @@
 	<div class="actions_wrap">
 		<% if task.group %>
 			<% if action_plan == 'true' %>
-				<ul id="<%= task.id %>_incomplete" class="action_plan in_outcome sortable"> 
+				<ul id="<%= task.id %>_incomplete" class="action_plan in_outcome sortable">
 
 					<% task.group.tasks.where(parent_id: task.id).and(complete: false).order_by([:sort, :asc]).each do |task| %>
-				
+
 						<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'false' } %>
-				
+
 					<% end %>
-			
-				</ul> 
-		
+
+				</ul>
+
 				<ul id="<%= task.id %>_complete" class="in_outcome">
 					<% task.group.tasks.where(parent_id: task.id).and(complete: true).each do |task| %>
 						<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'false' } %>
@@ -105,4 +115,4 @@
 			<% end %>
 		<% end %>
 	</div>
-</li> 
+</li>

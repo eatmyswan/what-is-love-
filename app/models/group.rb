@@ -11,6 +11,7 @@ class Group
 
   belongs_to :user
   has_many :tasks
+  has_many :vision_groups, :as => :dreamer
   embeds_many :goals
   embeds_many :images
 
@@ -21,4 +22,8 @@ class Group
   scope :forward, order_by(:sort.asc)
   
   validates_length_of :title, minimum: 1, message: "Group name cannot be blank."
+
+  def top_image_src
+    self.images.forward.first.image.thumb
+  end
 end

@@ -145,7 +145,9 @@ class EmailsController < ApplicationController
       
       UserMailer.accept_task(outcome.user.email, current_user.name, outcome).deliver 
       outcome_new.user.notify('lev-accept', outcome_new.user, outcome_new)
-      @email.user.notify('lev-accept', outcome_new.user, outcome_new)
+      if @email.user != outcome_new.user
+        @email.user.notify('lev-accept', outcome_new.user, outcome)
+      end
     else 
       task = Task.find(params[:task_id][0])
       task_new = task.dup
@@ -159,7 +161,9 @@ class EmailsController < ApplicationController
       task.save
       UserMailer.accept_task(task.user.email, current_user.name, task).deliver 
       task_new.user.notify('lev-accept', task_new.user, task_new)
-      @email.user.notify('lev-accept', task_new.user, task_new)
+      if task_new.user != @email.user
+        @email.user.notify('lev-accept', task_new.user, task)
+      end
     end
     
   end
@@ -169,7 +173,7 @@ class EmailsController < ApplicationController
     @email.accepted = false
     @email.save
     UserMailer.reject_task(@email.user.email).deliver 
-    @email.user.notify('lev-reject', @email.tasks.first)
+    @email.user.notify('lev-reject', current_user, @email.tasks.first)
   end
   
 

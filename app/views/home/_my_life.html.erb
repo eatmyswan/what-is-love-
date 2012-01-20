@@ -1,8 +1,17 @@
 <% content_for :top do %>
-		<div class="cover"><%= image_tag current_user.images.forward.first.image.thumb if current_user.images.first %></div>
+    <a class="gravatar_cover pad_controls" href="http://gravatar.com" target="_blank">
+      <div class="filter gravatar">
+        <%= image_tag current_user.gravatar_src %>
+      </div>
+      <div class="filter rounded_right">
+        <p class="title">Click to Change at Gravatar.com</p>
+        <p class="subtitle">We're using <%= current_user.email %></p>
+      </div>
+    </a>
+		<div class="cover"><%= image_tag current_user.gravatar_src %></div>
 		<div class="title"><%= current_user.name %></div>
     <div id="calendar_controls">
-      <%= link_to 'Plan', root_path, :id => 'day_capture', :class => 'filter rounded_left active', :remote => true %>
+      <%= link_to 'Vision', root_path, :id => 'day_capture', :class => 'filter rounded_left active', :remote => true %>
       <%= link_to 'Latest Notifications', notice_panel_path, :id => 'notice_panel', :class => 'filter rounded_right', :remote => true %>
     </div>
 		<div class="ribbon"></div>

@@ -1,16 +1,12 @@
-<div id="header">
-	<div class="title">
-	</div>
-	<div id="invite_box">
-		<br><br><br><br>
-		<h2>Thank you <%= @invite.name %> for your request!
-			<br><br>We will send you and email when the beta is ready.</h2>
-	</div>
-</div>
-<div id="footer">
-	<div class="top">
-		<div class="copy">
-			Copyright &copy; 2011 Robbins Research International, Inc. All Rights Reserved.
-		</div>
-	</div>
+<div class="dialog">
+  <div class="top"></div>
+  <div class="content">
+    <h3>Thank you <%= @invite.name %>!</h3>
+	  <p>We will send you and email when the beta is ready.</p>
+  </div>
+  <div class="content-end"></div>
+  <div class="bottom">
+    <button type="button" class="close-fancybox">Close</button>
+  </div>
+
 </div>

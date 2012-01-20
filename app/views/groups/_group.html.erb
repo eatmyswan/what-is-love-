@@ -1,6 +1,6 @@
 <% content_for :top do %>
 		<% if @group.personal == true || @group.professional == true %>
-			<div class="cover"><%= image_tag @group.images.forward.first.image.thumb if @group.images.first %></div>
+			<div class="cover"><%= image_tag @group.top_image_src if @group.images.first %></div>
 			<div class="title"><%= raw @group.title %></div>
 			<div class="filters_wrap">
 				<a id="plan" class="filter rounded_left active">Plan</a>
@@ -19,15 +19,14 @@
 			<div id="input_wrap">
 				<span class="inner_shadow"></span>
 				<%= form_for(Task.new, :remote => true) do |f| %>
-					<%= f.text_field :title, :autocomplete => :off, :value => "New action...", :onfocus => '(this.value == "New action...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New action..." : this.value' %>
+					<%= f.text_field :title, :autocomplete => :off, :value => "New Action or Outcome...", :onfocus => '(this.value == "New Action or Outcome...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New Action or Outcome..." : this.value' %>
 					<%= f.hidden_field :group_id, :value => group.id %>
 				<% end %>
 			</div>
 
 			<ul id="incomplete" class="sortable incomplete_task_list">
 			<% @group.tasks.incomplete.each_with_index do |task, index| %>
-					<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true'} if !task.task_to_project_id %>
-					<%= render :partial => '/tasks/project', :locals => { :task => task } if task.task_to_project_id %>
+					<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true', :index => index } %>
 			<% end %>
 			</ul>
 			<h3 class="page <%= "no_disp" if @group.tasks.complete.count == 0 %>">Completed</h3>

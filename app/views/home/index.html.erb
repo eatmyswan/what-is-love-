@@ -1,23 +1,62 @@
-<div id="header">
-	<div class="title">
-	</div>
-	<div id="invite_box">
-		<h2>Request your invitation to try out the beta!</h2>
-		<%= form_for(Invite.new) do |f| %>
-			<div class="input_wrap">
-				<%= f.text_field :name, :autocomplete => :off, :value => "Your Name", :onfocus => '(this.value == "Your Name") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "Your Name" : this.value' %>
-			</div>
-			<div class="input_wrap">
-				<%= f.email_field :email, :autocomplete => :off, :value => "Email Address", :onfocus => '(this.value == "Email Address") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "Email Address" : this.value' %>
-			</div>
-			<%= f.submit "Request Invitation", :class => 'submit' %>
-		<% end %>
-	</div>
+<div class="content-header">
+  <%= image_tag 'landing/page-title-home.png', :class => 'page-title center' %>
 </div>
-<div id="footer">
-	<div class="top">
-		<div class="copy">
-			Copyright &copy; 2011 Robbins Research International, Inc. All Rights Reserved.
-		</div>
-	</div>
+
+<div id="super-promo">
+  <div id="promo-bg2" style="display: none; "></div>
+  <div id="rollbox">
+    <div id="promo-bg1" style="display: block; "></div>
+    <a href="<%= new_invite_path %>"><div id="promo-signup"></div>
+  </div>
+  <div id="promo-logo"></div>
 </div>
+
+<div class="entry-box shadowdrop">
+  <p class="center fs22">TimeMasterRPM eliminates “never-ending” to-do lists, reduces<br> your stress levels and gives you a suite of tools that will get you<br> crystal clear about what it is you really want in life &amp; how to get it.</p>
+</div>
+
+<div class="testimonial">
+
+  <div class="tbox">
+    <%= image_tag 'landing/home_14.png' %>
+    <p><span class="tname">Mary Anne O'Shea</span><br>
+    <span class="ttitle">Quality Consultant AT&amp;T</span></p>
+    <p><span class="tbold">I've never seen a more powerful tool in my 20 years at AT&amp;T</span>, for keeping us focused on our most important goals and outcomes- and for achieving a true sense of accomplishment, both professionally and personally.  Now I'm on a mission to implement RPM throughout my organization. <span class="tbold">There's absolutely nothing else like it!</span></p>
+  </div>
+
+  <div class="tbox">
+    <%= image_tag 'landing/johnh.jpg' %>
+    <p><span class="tname">John Hackleman</span><br>
+    <span class="ttitle">Professional MMA Trainer</span></p>
+    <p>I use the RPM system to help me run my business. When I was training Chuck Liddell for his title fight against Randy couture I used the  <span class="tbold">RPM project planner</span> to plan and organize all of his strategies and training right from the beginning of his training until his world title fight. <span class="tbold">Chuck Liddell beat Randy couture</span> and became the light heavyweight champion of the world.</p>
+  </div>
+
+  <div class="tbox">
+    <%= image_tag 'landing/frank.jpg' %>
+    <p><span class="tname">Frank Kern</span><br>
+    <span class="ttitle">Online Marketer</span></p>
+    <p>The <span class="tbold">Rapid Planning Method</span> system of planning was revolutionary in my business and continues to be. Not only did I make <span class="tbold">my first $1M from it</span> in a total of 54 minutes after promoting over two campaigns) ...I used it to create and teach my first ever seminar ...which I was terrified of UNTIL I listened to Tony Robbins <span class="tbold">"The Time of Your Life"</span> program and used the RPM planning methodology.</p>
+  </div>
+
+  <div class="tbox">
+    <%= image_tag 'landing/brianm.jpg' %>
+    <p><span class="tname">Brian Martin</span><br>
+    <span class="ttitle">Brand Connections</span></p>
+    <p>When I first learned of <span class="tbold">RPM</span>, my business was generating $500,000 in revenue. I immediately began applying the principals throughout the organization.</p> <p class="tbold">In less than seven years, I transacted that business twice for more than $230 Million.</p>
+  </div>
+
+</div>
+
+<a href="<%= tour_path %>"><%= image_tag 'landing/home_22.png', :class => 'space30 center' %></a>
+
+<div class="entry-box shadowdrop">
+  <h2 align="center">Why TimeMasterRPM will rock your life?</h2>
+  <ul class="tmrock fs18">
+    <li>Quickly break through the clutter of to-do's and figure out what matters most!</li>
+    <li>Do the things that will create the most impact in your life and business!</li>
+    <li>Tap into your own emotional drive by getting rid of tasks and shifting focus to real outcomes!</li>
+    <li>Keep track of your progress, learn from the past, and celebrate your achievements!</li>
+  </ul>
+</div>
+
+<a href="<%= new_invite_path %>"><%= image_tag 'landing/signup-free.png', :class => 'space30 center' %>

@@ -1,0 +1,30 @@
+<div class="vision_group <%= cycle('odd','even') %>" data-id="<%= vision_group.id.to_s %>">
+  <%= link_to vision_group, :method => :delete, :confirm => 'Are you sure you want to delete this list?', :remote => :true do %>
+    <div class="trash"></div>
+  <% end %>
+  <div class="handle"></div>
+
+  <div class="content">
+
+    <div class="title_wrap">
+      <span class="title journal"><%= vision_group.title %></span>
+      <span class="add_goal">Add Goal</span>
+    </div>
+
+    <div class="goals_wrap">
+      <div class="form_wrap no_disp">
+        <%= form_for([vision_group, VisionGoal.new], :remote => true) do |f| %>
+          <%= f.text_field :text %>
+        <% end %>
+      </div>
+      <% vision_group.vision_goals.each_with_index do |goal, index| %>
+        <div class="goal">
+          <span class="count journal"><%= index + 1 %></span> 
+          <span class="text"><%= goal.text %></span>
+          <%= link_to '', [vision_group, goal], :class => 'delete', :method => :delete, :confirm => 'Are you sure you want to delete this goal?', :remote => :true %>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>
