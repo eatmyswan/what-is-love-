@@ -25,9 +25,10 @@
 			</div>
 
 			<ul id="incomplete" class="sortable incomplete_task_list">
-			<% @group.tasks.incomplete.each_with_index do |task, index| %>
-					<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true', :index => index } %>
-			<% end %>
+				<% @group.tasks.incomplete.each_with_index do |task, index| %>
+						<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true'} if !task.task_to_project_id %>
+						<%= render :partial => '/tasks/project', :locals => { :task => task } if task.task_to_project_id %>
+				<% end %>
 			</ul>
 			<h3 class="page <%= "no_disp" if @group.tasks.complete.count == 0 %>">Completed</h3>
 			<ul id="complete">
