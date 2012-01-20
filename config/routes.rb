@@ -29,6 +29,8 @@ Rpm::Application.routes.draw do
   match 'tasks/mylife_sort' => 'tasks#mylife_sort'
   match 'task/debug' => 'tasks#debug'
   
+  match 'projects/index' => 'projects#index', :as => :projects
+  
   match 'month/index/:start_date' => 'month#index', :as => :month
   match 'month/json/:start_date/:end_date' => 'month#json', :as => :month_json
 

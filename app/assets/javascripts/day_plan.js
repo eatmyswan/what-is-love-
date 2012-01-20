@@ -78,19 +78,7 @@ $('#day_plan_wrap.editing ul.sortable').live("mouseover", function() {
 });
 
 $('#day_plan_wrap.planning li.task_wrap').live("mouseover", function() {
-	if (!$(this).data("init")) {
-		$(this).data("init", true);
-		var outcome = $(this).hasClass('outcome_ready') ? true : false;
-		var title = $(this).find('.task_title').first().text();
-		var must = $(this).find('.star').first().hasClass('active') ? true : false;
-		var complete = $(this).find('.checkbox').first().hasClass('active') ? true : false;
-		title = $.trim(title);
-		var min_duration = parseInt($(this).attr('min_duration'));
-		var sort = parseInt($(this).find('.task_number').first().text());
-		var group_id = $(this).attr('group_id');
-		var parent_id = $(this).parents('li').first().attr('id');
-		parent_id = parent_id ? parent_id : null;
-		$(this).data("calEvent", { _id: $(this).attr('id'), start: '', end: '', title: title, min_duration: min_duration, complete: complete, must: must, outcome: outcome, group_id: group_id, parent_id: parent_id, sort: sort });
+	if (!$(this).hasClass("ui-draggable")) {
 		$(this).draggable({ 
 			helper: 'clone',
 			appendTo: 'body',

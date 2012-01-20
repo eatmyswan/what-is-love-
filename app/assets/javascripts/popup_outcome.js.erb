@@ -1,0 +1,28 @@
+$('.wc-cal-event .mini_target, .committed .target').live('click', function(e){ 
+	$(document).trigger('hideCluetip');
+	if($('#popup_outcome').length == 0) {
+		$('body').append('<div id="popup_outcome"></div>');
+		var task = $(this).parents('.wc-cal-event, .task_wrap').first();
+		var id = (task.data('calEvent').outcome == false) ? task.data('calEvent').parent_id : task.data('calEvent')._id;
+		$('#popup_outcome').load('/task/load_outcome/'+ id,
+			function() {
+				$('#popup_outcome .task_wrap').first().addClass('outcome');
+				$('#popup_outcome .task_wrap').first().find('.header').first().show();
+				$('#popup_outcome').find('#'+task.data('calEvent')._id).first().addClass('highlight');
+				
+			}
+		).draggable();
+	}
+});
+
+$('#popup_outcome .action_plan .task_wrap').live('mouseover', function() {
+	$(this).draggable({
+		helper: 'clone',
+		appendTo: 'body',
+		revert: 'invalid',
+		cursorAt: { top: 17, left: 17 },
+		start: function(event,ui){
+			$(ui.helper).addClass('dragging_task');
+		}
+	});
+});

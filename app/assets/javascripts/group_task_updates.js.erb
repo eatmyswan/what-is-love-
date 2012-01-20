@@ -17,6 +17,28 @@ soundManager.onready(function() {
 		}
 	});
 });
+
+
+$('.task_wrap').live("mouseover", function() {
+	if (!$(this).data("attr")) {
+		$(this).data("attr", true);
+		var outcome = $(this).hasClass('outcome_ready') ? true : false;
+		var title = $(this).find('.task_title').first().text();
+			title = $.trim(title);
+		var must = $(this).find('.star').first().hasClass('active') ? true : false;
+		var complete = $(this).find('.checkbox').first().hasClass('active') ? true : false;
+		var min_duration = parseInt($(this).attr('min_duration'));
+		var sort = parseInt($(this).find('.task_number').first().text());
+			sort = isNaN(sort) ? 0 : sort;
+		var group_id = $(this).attr('group_id');
+		var parent_id = $(this).parents('li').first().attr('id');
+		parent_id = parent_id ? parent_id : null;
+		$(this).data("calEvent", { _id: $(this).attr('id'), start: '', end: '', title: title, min_duration: min_duration, complete: complete, must: must, outcome: outcome, group_id: group_id, parent_id: parent_id, sort: sort });
+	}
+});
+
+
+
 		
 $(document).bind('mousedown',function(e) {
 	if(($(e.target).parents('li.editing').length == 0) && $('#calendar_wrap').length == 0){
@@ -39,7 +61,7 @@ $(document).bind('mousedown',function(e) {
 	}
 });
 
-$('#incomplete .calendar').live("mouseover", function() {
+$('#incomplete .calendar, #popup_outcome .calendar').live("mouseover", function() {
 	if (!$(this).data("init")) {
 		$(this).data("init", true);
 		$(this).cluetip({
@@ -84,7 +106,7 @@ $('#incomplete .calendar').live("mouseover", function() {
 	}
 });
 
-$('#incomplete .note').live("mouseover", function() {
+$('#incomplete .note, #popup_outcome .note').live("mouseover", function() {
 	if (!$(this).data("init")) {
 		$(this).data("init", true);
 		$(this).fancybox({
@@ -95,7 +117,7 @@ $('#incomplete .note').live("mouseover", function() {
 	}
 });
 
-$('#incomplete .email').live("mouseover", function() {
+$('#incomplete .email, #popup_outcome .email').live("mouseover", function() {
 	if (!$(this).data("init")) {
 		$(this).data("init", true);
 		$(this).fancybox({
@@ -119,7 +141,7 @@ $('#email_wrap .modal_submit_wrap').live('click',function() {
 	$.fancybox.close();
 });
 
-$('#group .checkbox').live('click',function(){
+$('#group .checkbox, #popup_outcome .checkbox').live('click',function(){
 	var checkbox = $(this);
 	var task = $(this).parents('li').first();
 	var taskId = task.attr('id');
@@ -197,7 +219,7 @@ $('#group .checkbox').live('click',function(){
 	}
 });
 
-$('#incomplete .star').live('click',function(){
+$('#incomplete .star, #popup_outcome .star').live('click',function(){
 	var star = $(this);
 	var task = $(this).parents('li').first();
 	var taskId = task.attr('id');
@@ -234,7 +256,7 @@ $('#incomplete .star').live('click',function(){
 	}
 });
 
-$('#incomplete .delete').live('click',function(){
+$('#incomplete .delete, #popup_outcome .delete').live('click',function(){
 	
 	var answer = confirm("Are you sure?")
 	if (answer){
@@ -262,7 +284,7 @@ $('#incomplete .delete').live('click',function(){
 	}
 });
 
-$('#incomplete .edit').live('click',function(){
+$('#incomplete .edit, #popup_outcome .edit').live('click',function(){
 	$(this).hide();
 	var task = $(this).parents('li').first();
 	task.addClass('editing');
@@ -286,7 +308,7 @@ $('li.task_wrap.outcome .outcome_wrap .edit_result_done').live('click',function(
 	$(this).parents('.outcome_wrap').find('.edit_result_form').submit();
 });
 	
-$('#incomplete .edit_done').live('click', function() {
+$('#incomplete .edit_done, #popup_outcome .edit_done').live('click', function() {
 	editingDone();
 });
 
@@ -319,7 +341,7 @@ $('#incomplete .target.outcome').live('click', function(){
 	task.removeClass('outcome').find('.header').first().slideUp(200);		
 });
 
-$('#incomplete .add_purpose').live('submit',function(event){
+$('#incomplete .add_purpose, #popup_outcome .add_purpose').live('submit',function(event){
 	event.preventDefault();
 	
 	var purpose = $(this).find('input').val();
@@ -340,9 +362,9 @@ $('#incomplete .add_purpose').live('submit',function(event){
 	return false;
 });
 
-$('#incomplete .edit_result_form').live('submit',function(event){
+$('#incomplete .edit_result_form, #popup_outcome .edit_result_form').live('submit',function(event){
 	event.preventDefault();
-	$(this).parents('.result_wrap').removeClass('editing');
+	$(this).parents('.outcome_wrap').removeClass('editing');
 	var result = $(this).find('input').val();
 	
 	var selection = getSelected();
@@ -350,6 +372,8 @@ $('#incomplete .edit_result_form').live('submit',function(event){
 		boldSelection = '<strong>'+selection+'</strong>';
 		result = result.replace(selection, boldSelection);
 	}
+	
+	$(this).parents('li').first().find('.task_title').first().html(result);
 	
 	var taskId = $(this).parents('li').first().attr('id');
 	$.ajax({

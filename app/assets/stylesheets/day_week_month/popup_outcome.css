@@ -1,9 +1,20 @@
 #popup_outcome {
 	position: absolute;
-	width: 624px;
+	width: 660px;
+	margin-left: -330px;
+	left: 50%;
+	top: 20%;
 	min-height: 60px;
 	background: #FFF;
-	box-shadow: 0 2px 6px rgba(0,0,0,0.7);
-	border-radius: 5px;
-	z-index: 99999;
+	box-shadow: 0 1px 10px rgba(0,0,0,0.8);
+	border-radius: 6px;
+	z-index: 999;
+	border: 1px solid #AAA;
+	overflow: hidden;
+}
+#popup_outcome .outcome {
+	border-bottom: 0;
+}
+#popup_outcome .action_plan {
+	min-height: 100px;
 }

@@ -1,0 +1,10 @@
+$('#my_plan').live('click', function() {
+	$('#main_nav').hide();
+	$('#plan_nav').show();
+	$('#back_to_nav').show();
+});
+$('#back_to_nav').live('click', function() {
+	$('#plan_nav').hide();
+	$('#main_nav').show();
+	$('#back_to_nav').hide();
+});

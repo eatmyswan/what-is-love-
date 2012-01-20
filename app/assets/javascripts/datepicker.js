@@ -34,7 +34,10 @@ $(document).ready(function() {
 		var hour = $('#date_hour').val();
 		var min = $('#date_minute').val();
 		var date = $('#cal_date').val();
+		var minDur = parseInt($('#cal_minDur').val());
+			minDur = isNaN(minDur) ? 0 : minDur;
 		var taskId = $('#cal_taskId').val();
+		var parentId = $('#cal_parentId').val();
 		var plan = 'false';
 		var week = 'false';
 		var scheduled = 'false';
@@ -68,21 +71,46 @@ $(document).ready(function() {
 			scheduled = 'true';
 			committed = 'true';
 			start = date+' '+hour+':'+min+':00';
-			var hour = parseInt(hour) + 1;
-				hour = (hour.length == 1) ? '0'+hour : hour;
-			end = date+' '+hour+':'+min+':00';
+			minDur = (minDur == 0) ? 60 : parseInt(minDur);
+				var eHour = Math.floor(minDur/60);
+					eHour = (parseInt(hour) + eHour).toString();
+					eHour = (eHour.length == 1) ? '0'+ eHou.toString() : eHour;
+				var eMin = minDur%60;
+					eMin = (parseInt(min) + eMin).toString();
+					eMin = (eMin.length == 1) ? '0'+ eMin : eMin;
+			end = date+' '+eHour+':'+eMin+':00';
 		}
 		if($('#capture_wrap').length == 1 || $('#day_plan_wrap').length == 1) nothing = 'true';
-		$.ajax({
-			url: "/tasks/" + taskId,
-			type: 'PUT',
-			data: $.param({task : { start: start, end: end, sort: '0', plan: plan, week: week, scheduled: scheduled, committed: committed }, nothing: nothing}),
-			success: function() {
-				$('#cal_popup').hide();
-				$('#schedule_check_selects').hide();
-				$("#day_check").attr("checked", "checked");
-			}
-		}); 
+
+		//check if outcome block needs to be added to capture or plan
+		if(parentId.length > 0) {
+			$.ajax({
+				url: "/tasks/" + parentId,
+				type: 'PUT',
+				data: $.param({task : { plan: plan, week: week }, nothing: 'true'})
+			}); 
+			$.ajax({
+				url: "/tasks/" + taskId,
+				type: 'PUT',
+				data: $.param({task : { start: start, end: end, min_duration: minDur, sort: '0', scheduled: scheduled, committed: committed }, nothing: nothing}),
+				success: function() {
+					$('#cal_popup').hide();
+					$('#schedule_check_selects').hide();
+					$("#day_check").attr("checked", "checked");
+				}
+			}); 	
+		} else {
+			$.ajax({
+				url: "/tasks/" + taskId,
+				type: 'PUT',
+				data: $.param({task : { start: start, end: end, min_duration: minDur, sort: '0', plan: plan, week: week, scheduled: scheduled, committed: committed }, nothing: nothing}),
+				success: function() {
+					$('#cal_popup').hide();
+					$('#schedule_check_selects').hide();
+					$("#day_check").attr("checked", "checked");
+				}
+			}); 	
+		}
 	});
 	
 	$('#schedule_check').live('click', function() {
@@ -107,9 +135,13 @@ function droppable() {
 		drop: function(event,ui){
 			$('.category').droppable('enable');
 			var taskId = ui.draggable.attr('id');
+			var minDur = ui.draggable.attr('min_duration');
+			var parentId = ui.draggable.attr('parent_id');
 			var date = $(this).attr('title');
 			$('#cal_date').val(date);
 			$('#cal_taskId').val(taskId);
+			$('#cal_minDur').val(minDur);
+			$('#cal_parentId').val(parentId);
 			
 			var left = ui.position.left - 90;
 			var top = ui.position.top - 140;

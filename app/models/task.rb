@@ -26,6 +26,8 @@ class Task
   embeds_many :notes
   has_many :reminders
   belongs_to :luser, class_name: 'User', inverse_of: :ltasks
+  belongs_to :project
+  belongs_to :task_to_project, class_name: "Project", inverse_of: :project_from_task
   
   index :user_id
   index :group_id
@@ -114,7 +116,7 @@ class Task
   end
   
   def check_outcome
-    if self.title.match(/\A\!/)
+    if self.title.match(/\A\! /)
       self.outcome = true
       self.title.slice! '!'
     end

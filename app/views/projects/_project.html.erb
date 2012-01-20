@@ -1,0 +1,35 @@
+
+<% content_for :top do %>
+
+		<div class="cover"></div>
+		<div class="title">Project Nayme</div>
+		<div class="filters_wrap">
+			<a id="plan" class="filter rounded_left active">Plan</a>
+			<a id="vision" class="filter rounded_right">Forecast</a>
+		</div>
+		<div class="ribbon"></div>
+
+<% end %>
+
+<% content_for :page do %>
+	<div id="group">
+
+			<div id="input_wrap">
+				<span class="inner_shadow"></span>
+				<%= form_for(Task.new, :remote => true) do |f| %>
+					<%= f.text_field :title, :autocomplete => :off, :value => "New action...", :onfocus => '(this.value == "New action...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New action..." : this.value' %>
+					<%= f.hidden_field :project_id, :value => @project.id.to_s %>
+					<%= f.hidden_field :group_id, :value => @project.group_id.to_s %>
+				<% end %>
+			</div>
+			
+			<% @project.tasks.each do |task| %>
+				<div>
+					<%= task.title %>
+				</div>
+			<% end %>
+
+	</div>
+<% end %>
+
+<%= render '/home/pad' %>

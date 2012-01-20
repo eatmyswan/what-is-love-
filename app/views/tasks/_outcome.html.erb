@@ -1,4 +1,4 @@
-<li id="<%= task.id.to_s %>" parent_id="<%= task.parent_id.to_s %>" sort_id="task_<%= task.id.to_s %>" <%= "outcome_sort_id='task_#{ task.id.to_s }'" if task.parent_id == nil && task.outcome == true %> class="task_wrap sortable <%= 'must' if task.must == true %> <%= 'outcome_ready' if task.outcome == true && task.parent_id == nil %> <%= 'committed' if task.committed == true %> <%= 'scheduled' if task.scheduled == true %> <%= 'complete' if task.complete == true %>" start="<%= task.start %>" min_duration="<%= task.min_duration %>" group_id="<%= task.group.id.to_s if task.group %>" max_duration="<%= task.max_duration %>" sound="<%= current_user.sound %>">
+<li id="<%= task.id.to_s %>" class="task_wrap sortable <%= 'outcome_ready' if task.outcome == true && task.parent_id == nil %>" start="<%= task.start %>" min_duration="<%= task.min_duration %>" group_id="<%= task.group.id.to_s if task.group %>" max_duration="<%= task.max_duration %>" sound="<%= current_user.sound %>">
 	<div class="outcome_wrap">
 		<span class="checkbox <%= 'active' if task.complete == true %>"></span>
 		<% if task.parent_id == nil %>
@@ -74,35 +74,23 @@
 		</form>
 	</div>
 	<div class="purpose_wrap">
-		<% if task.group %>
-			<%= render :partial => '/tasks/task_purpose', :locals => { :task => task } %>
-		<% end %>
+		<%= render :partial => '/tasks/task_purpose', :locals => { :task => task } %>
 	</div>
 	<div class="header">
-		<span class="target outcome"></span>
 		<div class="action_title">MAP: Massive Action Plan</div>
 		<div class="outcome_title">Result / Outcome</div>
 		<div class="purpose_title">Purpose / Why</div>
 	</div>
 	<div class="actions_wrap">
-		<% if task.group %>
-			<% if action_plan == 'true' %>
-				<ul id="<%= task.id %>_incomplete" class="action_plan in_outcome sortable"> 
-
-					<% task.group.tasks.where(parent_id: task.id).and(complete: false).order_by([:sort, :asc]).each do |task| %>
-				
-						<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'false' } %>
-				
-					<% end %>
-			
-				</ul> 
-		
-				<ul id="<%= task.id %>_complete" class="in_outcome">
-					<% task.group.tasks.where(parent_id: task.id).and(complete: true).each do |task| %>
-						<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'false' } %>
-					<% end %>
-				</ul>
-			<% end %>
-		<% end %>
+			<ul id="<%= task.id %>_incomplete" class="action_plan in_outcome sortable"> 
+				<% task.group.tasks.where(parent_id: task.id).and(complete: false).order_by([:sort, :asc]).each do |task| %>
+					<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'false' } %>
+				<% end %>
+			</ul> 	
+			<ul id="<%= task.id %>_complete" class="in_outcome">
+				<% task.group.tasks.where(parent_id: task.id).and(complete: true).each do |task| %>
+					<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'false' } %>
+				<% end %>
+			</ul>
 	</div>
 </li> 

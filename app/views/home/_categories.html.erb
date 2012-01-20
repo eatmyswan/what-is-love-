@@ -2,9 +2,14 @@
 		<div class="inner_shadow"></div>
 		<div id="filter_bar">
 			<span class="inner_highlight"></span>
-			<div class="filters_wrap">
+			<div class="filters_wrap" id="main_nav">
 				<%= link_to 'My Life', root_path(), :id => 'plan', :class => 'filter rounded_left active', :remote => true %>
-				<%= link_to 'Day', day_capture_path(Date.today()), :id => 'day', :class => 'filter', :remote => true %>
+				<%= link_to 'My Plan', day_capture_path(Date.today()), :id => 'my_plan', :class => 'filter', :remote => true %>
+				<%= link_to 'My Projects', projects_path(), :id => 'projects', :class => 'filter rounded_right', :remote => true %>
+			</div>
+				<%= link_to '', root_path(), :id => 'back_to_nav', :remote => true %>
+			<div class="filters_wrap" id="plan_nav" style="display: none;">
+				<%= link_to 'Day', day_capture_path(Date.today()), :id => 'day', :class => 'filter rounded_left', :remote => true %>
 				<%= link_to 'Week', week_capture_path(Date.today()), :id => 'week', :class => 'filter', :remote => true %>
 				<%= link_to 'Month', month_path(Date.today()), :id => 'month', :class => 'filter rounded_right', :remote => true %>
 			</div>

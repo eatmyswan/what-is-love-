@@ -160,22 +160,6 @@ $(document).ready(function() {
 		}
 	});
 	
-	$('.wc-cal-event .mini_target').live('click', function(e){ 
-		$(document).trigger('hideCluetip');
-		if($('#popup_outcome').length == 0) {
-			$('body').append('<div id="popup_outcome"></div>');
-			$('#popup_outcome').css({
-				'top' : e.pageY - 20,
-				'left' : e.pageX - 630
-			}).load('/task/load_outcome/'+ $(this).parents('.wc-cal-event').data('calEvent')._id,
-				function() {
-					$('#popup_outcome .task_wrap').first().addClass('outcome');
-					$('#popup_outcome .task_wrap').first().find('.header').first().show();
-				}
-			);
-
-		}
-	});
 	
 	$('.wc-cal-event').live("mouseover", function() {
 		if (!$(this).data("init") && !$(this).hasClass('wc-new-cal-event')) {
