@@ -33,7 +33,8 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(params[:task])
     @task.user_id = current_user.id
-    @task.save
+    render :nothing => true unless @task.save
+
     if(params[:task][:end])
       render :json => @task
     else
