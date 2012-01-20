@@ -33,6 +33,16 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(params[:task])
     @task.user_id = current_user.id
+    
+    if @task.title.match(/\A\!P /)
+      @task.title.slice! '!P '
+      @task.task_to_project = Project.new
+      @task.task_to_project.title = @task.title
+      @task.task_to_project.group_id = @task.group_id
+      @task.task_to_project.user_id = @task.user_id
+      @task.task_to_project.save
+    end
+    
     render :nothing => true unless @task.save
 
     if(params[:task][:end])

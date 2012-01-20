@@ -39,6 +39,8 @@ Rpm::Application.routes.draw do
   get 'mobile' => 'home#mobile', :as => :mobile
   get 'help-and-support' => 'home#faq', :as => :faq
 
+  match 'projects/index' => 'projects#index', :as => :projects
+
   match 'tasks/sort' => 'tasks#sort'
   match 'tasks/capture_sort' => 'tasks#capture_sort'
   match 'tasks/mylife_sort' => 'tasks#mylife_sort'
