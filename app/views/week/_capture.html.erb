@@ -28,7 +28,7 @@
 			<div id="input_wrap">
 				<span class="inner_shadow"></span>
 				<%= form_for(Task.new, :remote => true) do |f| %>
-					<%= f.text_field :title, :autocomplete => :off, :value => "New Action...", :onfocus => '(this.value == "New Action...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New Action..." : this.value' %>
+					<%= f.text_field :title, :autocomplete => :off, :value => "New Action or Outcome...", :onfocus => '(this.value == "New Action or Outcome...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New Action or Outcome..." : this.value' %>
 					<%= f.hidden_field :start, :value => @start_date %>
 					<%= f.hidden_field :group_id, :value => @inbox.id.to_s %>
 					<%= f.hidden_field :week, :value => 'true' %>
