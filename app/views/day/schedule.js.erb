@@ -160,6 +160,7 @@ $(document).ready(function() {
 		var start = db(start);
 		var end = db(end);
 		$.getJSON("/week/json/"+start+"/"+end, function(result) {
+
 			callback(result);
 			
    		});

@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+
+/* THIS CODE BREAK DAILY SCHEDULE AND WEEKLY FORECAST
+
 Galleria.ready(function () {
 	var gallery = this;
 	this.bind('fullscreen_enter', function () {
@@ -10,6 +13,8 @@ Galleria.ready(function () {
 		$(document.body).removeClass('fullscreen-gallery');
 	});
 });
+
+*/
 
 $('.goal .delete').live('click',function(){
 	$(this).parent().fadeOut(300,function(){
