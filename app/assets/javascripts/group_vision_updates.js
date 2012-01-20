@@ -1,5 +1,16 @@
 $(document).ready(function() {
-	
+
+Galleria.ready(function () {
+	var gallery = this;
+	this.bind('fullscreen_enter', function () {
+		$(document.body).addClass('fullscreen-gallery');
+		console.log('Has class?',$(document.body).hasClass('fullscreen-gallery'),document.body);
+	});
+	this.bind('fullscreen_exit', function () {
+		$(document.body).removeClass('fullscreen-gallery');
+	});
+});
+
 $('.goal .delete').live('click',function(){
 	$(this).parent().fadeOut(300,function(){
 		$(this).remove();

@@ -33,7 +33,7 @@
 	<% end %>
 
 	<% if group.images.forward.count == 0 %>
-		<%= image_tag current_user.gravatar_src(:size => 256) %>
+		<%= image_tag 'default_gallery_pic.jpg', :alt => 'Add pictures below to create your own personal gallery.', :title => '' %>
 	<% end %>
 </div>
 <div class="jui-2">
