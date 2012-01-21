@@ -3,10 +3,6 @@ $('#<%= escape_javascript @group.id.to_s %>').addClass('active');
 $('#pad').replaceWith('<%= escape_javascript render(@group)  %>');
 
 
-$('#group').ready(function () {
-  var task = $('li#<%= params[:task_id] %>');
-  <% if @is_outcome %>
-    task.find('.target.active').click()
-  <% end %>
-  scrollToTask( task, $('#group') );
-});
+var task = $('li#<%= params[:task_id] || :none %>');
+task.find('.target.active').click();
+if (task.length) scrollToTask( task, $('#group') );

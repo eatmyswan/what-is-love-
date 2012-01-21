@@ -1,20 +1,18 @@
 if($('#day_plan_wrap').length === 0) {
-	$("#<%= @task.id.to_s %>").replaceWith("<%= escape_javascript render(:partial => 'task', :locals => { :task => @task, :action_plan => 'true' } ) %>");
+  $("#<%= @task.id.to_s %>").replaceWith("<%= escape_javascript render(:partial => 'task', :locals => { :task => @task, :action_plan => 'true' } ) %>");
 } else {
-	$("#day_plan_wrap #<%= @task.id.to_s %>").replaceWith("<%= escape_javascript render(:partial => 'task', :locals => { :task => @task, :action_plan => 'true' } ) %>");
+  $("#day_plan_wrap #<%= @task.id.to_s %>").replaceWith("<%= escape_javascript render(:partial => 'task', :locals => { :task => @task, :action_plan => 'true' } ) %>");
 }
 
-$(document).ready(function() {
-	if("<%= @open %>" == 'true'){
-		$("#<%= @task.id.to_s %>").addClass('outcome');
-		$("#<%= @task.id.to_s %> > .header").show();
+if(<%= @open || false %> === true) {
+  var task = $("li#<%= @task.id.to_s %>");
+  task.addClass('outcome').find('> .header').show();
 
-		var pHeight = $("#<%= @task.id.to_s %>").find('.purpose').height() + 10;
-			if($('#day_plan_wrap').length == 1) pHeight = pHeight + 25;
-		var rHeight = $("#<%= @task.id.to_s %>").find('.result_text').height() + 20;
-		var height = pHeight > rHeight ? pHeight : rHeight;
-		height = height > 26 ? height : 26;
-		$("#<%= @task.id.to_s %>").find('ul.action_plan').css({ 'min-height': height });
-		
-	}
-});
+  var pHeight = task.find('.purpose').height() + 10;
+  if($('#day_plan_wrap').length == 1) pHeight = pHeight + 25;
+
+  var rHeight = task.find('.result_text').height() + 20;
+  var height = pHeight > rHeight ? pHeight : rHeight;
+  height = height > 26 ? height : 26;
+  task.find('ul.action_plan').css({ 'min-height': height });
+}

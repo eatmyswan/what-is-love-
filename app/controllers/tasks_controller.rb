@@ -66,7 +66,7 @@ class TasksController < ApplicationController
         render :nothing => true
       elsif params[:parent] == 'true'
         @task = Task.find(@task.parent_id)
-        @open = 'true'
+        @open = true
       end
       
       if params[:task][:group_id]
@@ -112,7 +112,7 @@ class TasksController < ApplicationController
         task.save
       end
       @task = Task.find(params[:parent_id])
-      @open = 'true'
+      @open = true
       render 'update'
     else
       tasks.each do |task|
@@ -132,7 +132,7 @@ class TasksController < ApplicationController
         task.save
       end
       @task = Task.find(params[:parent_id])
-      @open = 'true'
+      @open = true
       render 'update'
     else
       tasks.each do |task|
