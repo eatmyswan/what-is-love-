@@ -1,20 +1,18 @@
 $(document).ready(function() {
 
 
-/* THIS CODE BREAK DAILY SCHEDULE AND WEEKLY FORECAST
-
-Galleria.ready(function () {
+Galleria.ready(function (a,b) {
 	var gallery = this;
-	this.bind('fullscreen_enter', function () {
+
+	gallery.bind('fullscreen_enter', function () {
 		$(document.body).addClass('fullscreen-gallery');
-		console.log('Has class?',$(document.body).hasClass('fullscreen-gallery'),document.body);
+		return true;
 	});
-	this.bind('fullscreen_exit', function () {
+	gallery.bind('fullscreen_exit', function () {
 		$(document.body).removeClass('fullscreen-gallery');
+		return true;
 	});
 });
-
-*/
 
 $('.goal .delete').live('click',function(){
 	$(this).parent().fadeOut(300,function(){

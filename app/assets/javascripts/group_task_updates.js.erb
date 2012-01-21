@@ -500,10 +500,14 @@ function decreaseCount(){
 	countText.text(count);
 }
 
-function scrollToTask (elem) {
-	var viewPane = $('#group');
-	var offset = elem.offset().top - viewPane.offset().top - viewPane.scrollTop();
-	viewPane.animate({scrollTop: offset - 10}, 1000);
+function scrollToTask ($elem,$viewPane,duration) {
+	var offset = $elem.offset().top - $viewPane.offset().top;
+	$viewPane.stop(true).animate({ scrollTop:'+='+(offset-10) }, duration || 1000);
+}
+
+function scrollBottomEdgeToTask ($elem,$viewPane,duration) {
+	var offset = $elem.offset().top - $viewPane.offset().top - $viewPane.height();
+	$viewPane.stop(true).animate({ scrollTop:'+='+(offset-10) }, duration || 1000);
 }
 
 function hideH3(){

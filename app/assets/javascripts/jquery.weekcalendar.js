@@ -1073,6 +1073,7 @@
                     } else {
                         $newEvent.css('height', height + (options.timeslotHeight - remainder));
                     }
+                    return true;
                   }).mouseup(function() {
 
                     $target.unbind('mousemove.newevent');
