@@ -14,7 +14,8 @@
 			</div>
 			<div class="account_popup">
 				<%= link_to('Logout', destroy_user_session_path, :method=>'delete') %>
-				<%= link_to('Edit Account', edit_user_registration_path, :id => 'edit_account') %>
+				
+				<%#APPARENTLY THIS DOESNT WORK IN PRODUCTION  = link_to('Edit Account', edit_user_registration_path, :id => 'edit_account') %>
 			</div>
 		</div>
 
