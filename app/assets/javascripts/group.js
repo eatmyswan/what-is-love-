@@ -5,7 +5,7 @@ $('#plan_wrap ul.sortable').live("mouseover", function() {
 		$(this).data("init", true);
 
 		$(this).sortable({
-			items: ".task_wrap",
+			items: ".task_wrap, .project_drop",
 		    connectWith: "ul.sortable",
 		    placeholder: "drop_task",
 
@@ -70,7 +70,7 @@ $('#plan_wrap ul.sortable').live("mouseover", function() {
 		});
 		TM.capture.bindSortableScrollPatch( $('#group'), $(this) );
 
-		$('.category').droppable({
+		$('#plan_categories .category').droppable({
 			accept: ".task_wrap",
 			hoverClass: "drop_hover",
 			tolerance: "pointer",
@@ -91,6 +91,28 @@ $('#plan_wrap ul.sortable').live("mouseover", function() {
 				});
 		    }
 		});
+		
+		$('.project_drop').droppable({
+			accept: ".task_wrap",
+			hoverClass: "drop_hover",
+			tolerance: "pointer",
+			drop:function(event,ui){
+				ui.draggable.remove();
+				var taskId = $(ui.draggable).attr('id');
+				var projectId = $(this).attr('project_id');
+
+				$.ajax({
+					url: "/tasks/" +  taskId,
+					type: 'PUT',
+					data: $.param({task : { project_id: projectId, parent_id: '' }}),
+					success: function() { 
+							checkCount();
+					}
+				}); 
+
+		    }
+		});
+		
 	}
 });
 
