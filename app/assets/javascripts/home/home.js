@@ -62,7 +62,6 @@
     $(this).parent().addClass('loading');
 
     $(this).bind('ajax:success', function () {
-      console.log('redirect to refresh and stuff');
       window.location = paths.root();
     })
     .bind('ajax:error', function () {

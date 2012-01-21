@@ -22,7 +22,7 @@ $('#plan_wrap ul.sortable').live("mouseover", function() {
 			},
 
 			receive: function(event,ui) {
-				console.log('HERE');
+				TM.log('HERE');
 				//update the sender
 				if(ui.sender && $(ui.sender).hasClass('action_plan')){
 					var order = $(ui.sender).sortable('serialize', {attribute: 'sort_id'});
@@ -75,7 +75,7 @@ $('#plan_wrap ul.sortable').live("mouseover", function() {
 			hoverClass: "drop_hover",
 			tolerance: "pointer",
 			drop:function(event,ui){
-				console.log('drop');
+				TM.log('drop');
 				ui.draggable.remove();
 				var taskId = $(ui.draggable).attr('id');
 				var catId = this.id;
