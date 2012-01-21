@@ -1,0 +1,17 @@
+<%= link_to project_path(project), :class => "category #{ 'active' if active == true }", :id => project.id.to_s, :group_id => "group_#{project.id.to_s}", :remote => true do %>
+		<span class="cover"><%= image_tag project.group.images.forward.first.image.thumb if project.group.images.first %></span>
+		<span class="title"><%= project.title %></span>
+		<span class="count"><span class="inner_shadow"></span><span class="count_text"><%= project.tasks.count %></span></span>
+		<span class="delete"></span>
+		<span class="edit"></span>
+		<span class="edit_done"></span>
+		
+		<span class="form">
+			<%= form_for(project, :remote => true) do |f| %>
+			<span class="cover">
+			</span>
+				<%= f.text_field :title, :autocomplete => :off, :value => project.title %>
+			<% end %>
+		</span>
+
+<% end %>

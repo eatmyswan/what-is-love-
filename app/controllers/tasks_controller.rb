@@ -34,7 +34,7 @@ class TasksController < ApplicationController
     @task = Task.new(params[:task])
     @task.user_id = current_user.id
     
-    if @task.title.match(/\A\!P /)
+    if @task.title.match(/\A\!P /) && !params[:task][:project_id]
       @task.title.slice! '!P '
       @task.task_to_project = Project.new
       @task.task_to_project.title = @task.title

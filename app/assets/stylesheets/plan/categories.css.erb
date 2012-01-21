@@ -145,7 +145,7 @@
 	overflow-y: auto;
 	z-index: 1;
 }
-#plan_categories .category {
+#categories .category {
 	display: block;
 	height: 38px;
 	border-bottom: 1px solid #242220;
@@ -227,7 +227,7 @@
 	background: transparent;
 	border-radius:10px;
 }
-#plan_categories .category .edit {
+#categories .category .edit {
 	width: 15px;
 	height: 15px;
 	background: url(<%= asset_path 'edit_white.png' %>) no-repeat;
@@ -237,10 +237,10 @@
 	margin: 12px 6px 0 0;
 	display: none;
 }
-#plan_categories .category .edit:hover {
+#categories .category .edit:hover {
 	opacity: 1.0;
 }
-#plan_categories .category .edit_done {
+#categories .category .edit_done {
 	width: 15px;
 	height: 15px;
 	background: url(<%= asset_path 'edit_done_white.png' %>) no-repeat;
@@ -250,10 +250,10 @@
 	margin: 12px 6px 0 0;
 	display: none;
 }
-#plan_categories .category .edit_done:hover {
+#categories .category .edit_done:hover {
 	opacity: 1.0;
 }
-#plan_categories .category .delete {
+#categories .category .delete {
 	width: 15px;
 	height: 15px;
 	background: url(<%= asset_path 'delete_white.png' %>) no-repeat;
@@ -263,19 +263,25 @@
 	margin: 12px 6px 0 0;
 	display: none;
 }
-#plan_categories .category .delete:hover {
+#categories .category .delete:hover {
 	opacity: 1.0;
 }
-#plan_categories .category:hover .edit {
+#categories .category:hover .edit {
 	display: block;
 }
-#plan_categories .category .form {
+#categories .category .form {
 	display: none;
 }
-#plan_categories  .category.editing .edit, #plan_categories .category.editing .cover, #plan_categories .category.editing .title, #plan_categories .category.editing .count {
+#categories  .category.editing .edit, 
+#categories .category.editing .cover,
+#categories .category.editing .title, 
+#categories .category.editing .count {
 	display: none;
 }
-#plan_categories .category.editing .form, #plan_categories .category.editing .edit_done, #plan_categories .category.editing .delete, #plan_categories .category.editing .form .cover {
+#categories .category.editing .form, 
+#categories .category.editing .edit_done, 
+#categories .category.editing .delete, 
+#categories .category.editing .form .cover {
 	display: block;
 }
 #day_categories li.task_wrap .date {

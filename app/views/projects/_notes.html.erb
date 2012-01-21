@@ -1,0 +1,6 @@
+<% @project.notes.each_with_index do |note| %>
+		<div class="note">
+			<%= note.note %> 
+			<%= link_to '', project_note_path(@project, note.id), :method => 'delete', :remote => true, :class => 'delete' %>
+		</div>
+<% end %>

@@ -30,6 +30,10 @@ Rpm::Application.routes.draw do
   end
 
   resources :invites, :only => [:new, :create]
+  
+  resources :projects do
+    resources :notes, :only => [:create, :destroy]
+  end
 
   get 'ajax_sign_in' => 'home#ajax_new', :as => :new_user_session_ajax
 
@@ -38,8 +42,6 @@ Rpm::Application.routes.draw do
   get 'our-customers' => 'home#our_customers', :as => :our_customers
   get 'mobile' => 'home#mobile', :as => :mobile
   get 'help-and-support' => 'home#faq', :as => :faq
-
-  match 'projects/index' => 'projects#index', :as => :projects
 
   match 'tasks/sort' => 'tasks#sort'
   match 'tasks/capture_sort' => 'tasks#capture_sort'
