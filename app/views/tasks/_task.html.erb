@@ -3,7 +3,7 @@
 		<span class="checkbox <%= 'active' if task.complete == true %>"></span>
 		<% if task.parent_id == nil %>
 			<span class="target <%= 'active' if task.outcome == true %>"></span>
-			<% #avatars for groups that have leveraged tasks, do not show duplicate, limit to 4 avatars %>
+			<%# begin avatars for groups that have leveraged tasks, do not show duplicate, limit to 4 avatars %>
 			<% if task.outcome == true %>
 				<% task.group.tasks.where(parent_id: task.id).and(complete: false).and(:luser_id.exists => true).order_by([:sort, :asc]).distinct(:luser_id).first(4).each do |luser_id| %>
 					<span class="avatar">
@@ -12,13 +12,15 @@
 					</span>
 				<% end %>
 			<% end %>
-			<% # END avatars for groups that have leveraged tasks %>
+			<%# end avatars for groups that have leveraged tasks %>
 		<% end %>
 		<% if task.luser_id %>
 			<span class="avatar">
 				<% luser = User.find(task.luser_id) %>
 				<%= image_tag luser.gravatar_src(:size => 15), :title => "#{luser.name} has accepted this" %>
 			</span>
+		<% elsif task.email.present? %>
+			<span class="avatar email_sent"></span>
 		<% end %>
 		<span class="star <%= 'active' if task.must == true %>"></span>
 		<span class="icon" rel="/task/edit_group/<%= task.id.to_s %>">
@@ -32,7 +34,7 @@
 		</span>
 		<span class="delete"></span>
 		<span class="edit"></span>
-		<span class="email" href="/email/email_form/<%= task.id.to_s %>"></span>
+		<span class="email"  href="/email/email_form/<%= task.id.to_s %>"></span>
 		<span class="note" href="/task/edit_notes/<%= task.id.to_s %>"  style="<%= 'display: block' if task.notes.count > 0 %>"></span>
 		<span class="calendar" rel="/task/edit_calendar/<%= task.id.to_s %>"></span>
 		<span class="edit_done"></span>

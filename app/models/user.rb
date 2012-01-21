@@ -61,7 +61,7 @@ class User
   alias :__created_at :created_at
   def created_at
     if self.__created_at.nil?
-      self.update_attribute :__created_at, DateTime.now
+      self.update_attribute :created_at, DateTime.now
     end
     self.__created_at
   end

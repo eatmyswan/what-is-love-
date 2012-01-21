@@ -2,7 +2,7 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require ../routes
-//= require ../fancybox
+//= require fancybox_patched-for-landing
 //= require_directory .
 
 (function () {

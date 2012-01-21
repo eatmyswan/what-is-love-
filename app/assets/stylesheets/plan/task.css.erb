@@ -9,12 +9,12 @@ li.task_wrap.outcome .result_time {
 	font-size: 11px;
 }
 li.task_wrap.outcome .result_time_wrap {
-	display: block; 
+	display: block;
 	float: left;
 	margin: 0 10px 0 0;
 }
 li.task_wrap.outcome .result_time .result_time_title {
-	font-weight: bold; 
+	font-weight: bold;
 	color: #777;
 }
 
@@ -27,7 +27,7 @@ li.task_wrap {
 	background: #FFF;
 	border-bottom: 1px solid #CCC;
 	border-radius: 3px;
-	margin-bottom: 3px; 
+	margin-bottom: 3px;
 	position: relative;
 	min-height: 25px;
 }
@@ -100,7 +100,12 @@ li.task_wrap .avatar {
 li.task_wrap .avatar .img {
 	border-radius: 3px;
 }
-li.task_wrap .task, 
+
+li.task_wrap .email_sent {
+	background: url(<%= asset_path 'email_sent.png' %>) no-repeat;
+}
+
+li.task_wrap .task,
 li.task_wrap.outcome li.task_wrap .task {
 	display: block;
 	padding: 6px 50px 6px 43px;
@@ -128,7 +133,7 @@ li.task_wrap .duration {
 	font-size: 11px;
 	color: #555;
 }
-li.task_wrap.editing .date, 
+li.task_wrap.editing .date,
 li.task_wrap.editing .duration,
 li.task_wrap.editing .icon {
 	display: none;
@@ -215,11 +220,11 @@ li.task_wrap .edit_done {
 	margin: 6px 8px 0 0;
 	display: none;
 }
-li.task_wrap.editing .target, 
-li.task_wrap.editing .edit_done, 
-li.task_wrap.editing .delete, 
-li.task_wrap.editing .email, 
-li.task_wrap.editing .note, 
+li.task_wrap.editing .target,
+li.task_wrap.editing .edit_done,
+li.task_wrap.editing .delete,
+li.task_wrap.editing .email,
+li.task_wrap.editing .note,
 li.task_wrap.editing .calendar {
 	display: block !important;
 }
@@ -284,12 +289,12 @@ li.task_wrap.outcome ul.in_outcome li.task_wrap .outcome_wrap .target,
 li.task_wrap.outcome ul.in_outcome li.task_wrap .outcome_wrap .edit_result {
 	display: none;
 }
-li.task_wrap .actions_wrap, 
+li.task_wrap .actions_wrap,
 li.task_wrap .purpose_wrap,
 li.task_wrap .edit_result_form {
 	display: none;
 }
-li.task_wrap.outcome .actions_wrap, 
+li.task_wrap.outcome .actions_wrap,
 li.task_wrap.outcome .purpose_wrap {
 	display: block;
 }
@@ -319,14 +324,14 @@ li.task_wrap.outcome .outcome_wrap.editing input {
 	font-size: 13px;
 	padding: 1px 7px;
 }
-li.task_wrap.outcome li.task_wrap .actions_wrap, 
+li.task_wrap.outcome li.task_wrap .actions_wrap,
 li.task_wrap.outcome li.task_wrap .purpose_wrap {
 	display: none;
 }
-li.task_wrap.outcome .checkbox, 
-li.task_wrap.outcome .target.active, 
-li.task_wrap.outcome .star, 
-li.task_wrap.outcome .edit, 
+li.task_wrap.outcome .checkbox,
+li.task_wrap.outcome .target.active,
+li.task_wrap.outcome .star,
+li.task_wrap.outcome .edit,
 li.task_wrap.outcome .delete {
 	display: none;
 }
@@ -373,11 +378,11 @@ li.task_wrap.outcome .outcome_wrap.editing .result_text  {
 	display: none;
 }
 
-li.task_wrap.outcome li.task_wrap .checkbox, 
+li.task_wrap.outcome li.task_wrap .checkbox,
 li.task_wrap.outcome li.task_wrap .star {
 	display: block;
 }
-li.task_wrap.outcome li.task_wrap:hover .edit, 
+li.task_wrap.outcome li.task_wrap:hover .edit,
 li.task_wrap.outcome li.task_wrap:hover .delete {
 	display: block;
 }
