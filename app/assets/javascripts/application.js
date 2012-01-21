@@ -3,6 +3,8 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require swfobject
+//= require lib/timemaster
+//= require_directory ./lib
 //= require_self
 //= require_directory .
 

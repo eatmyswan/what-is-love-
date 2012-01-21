@@ -1,10 +1,10 @@
 $(document).ready(function() {
-	
+
 $('#edit_plan').live('click', function(){
-	
+
 	if($('#day_plan_wrap').hasClass('planning')) {
 		$('#day_plan_wrap').removeClass('planning');
-		$('#day_plan_wrap').addClass('editing');		
+		$('#day_plan_wrap').addClass('editing');
 		$('.task_wrap').draggable('disable');
 		$('.wc-day-column-inner').droppable('disable');
 		$('ul.day_drop').droppable('disable');
@@ -25,12 +25,13 @@ $('#edit_plan').live('click', function(){
 	}
 
 });
-	
+
 var stopCallback = true;
-	
+
 $('#day_plan_wrap.editing ul.sortable').live("mouseover", function() {
 	if (!$(this).data("init")) {
 		$(this).data("init", true);
+
 		$('ul.sortable').sortable({
 		    connectWith: "ul.sortable",
 		    placeholder: "drop_task",
@@ -40,24 +41,27 @@ $('#day_plan_wrap.editing ul.sortable').live("mouseover", function() {
 			appendTo: "body",
 			cursorAt: { top: 17, left: 17 },
 			scroll: false,
-			start: function(event,ui){
+
+			start: function(event,ui) {
 				$(ui.helper).addClass('dragging_task');
 			},
-			stop: function(event,ui){
+
+			stop: function(event,ui) {
 				if(!ui.sender && stopCallback == true){
 					var parent_id = $(ui.item[0].parentElement).parents('li').first().attr('id');
 					var group_id = $(ui.item[0].parentElement).parents('li').first().attr('group_id');
 					if(parent_id) {
 						var order = $(ui.item[0].parentElement).sortable('serialize', {attribute: 'sort_id'});
 						sortInsideBlock(order,parent_id,group_id);
-					} 
-					else if ($(ui.item[0]).hasClass('outcome_ready')) {	
+					}
+					else if ($(ui.item[0]).hasClass('outcome_ready')) {
 						var order = $(this).sortable('serialize', {attribute: 'outcome_sort_id'});
 						sortBlocks(order);
 					}
 				}
 			},
-			update: function(event,ui){		
+
+			update: function(event,ui) {
 				if(ui.sender){
 					var taskId = ui.item[0].id;
 					var order = $(ui.sender).sortable('serialize', {attribute: 'sort_id'});
@@ -73,13 +77,15 @@ $('#day_plan_wrap.editing ul.sortable').live("mouseover", function() {
 					}
 				}
 			}
+
 		});
+		TM.capture.bindSortableScrollPatch( $('#group'), $(this) );
 	}
 });
 
 $('#day_plan_wrap.planning li.task_wrap').live("mouseover", function() {
 	if (!$(this).hasClass("ui-draggable")) {
-		$(this).draggable({ 
+		$(this).draggable({
 			helper: 'clone',
 			appendTo: 'body',
 			zIndex: 9999,
@@ -112,7 +118,7 @@ $('#day_plan_wrap .purpose_group').live("mouseover", function() {
 			onShow: function() {
 				$(document).bind('mousedown',function(e) {
 					if(($(e.target).parents('#group_select').length == 0) && (e.target.id != 'group_select') && $('#group_select').length > 0){
-						$(document).trigger('hideCluetip');	
+						$(document).trigger('hideCluetip');
 					}
 				});
 			}
@@ -130,8 +136,8 @@ function sortOldBlock(taskId,order,parent_id,group_id,new_order,new_parent_id,ne
 		data: $.param({task : { parent_id: '' }, nothing: nothing}),
 		success: function() {
 			$.ajax({
-				url: "/tasks/sort", 
-				type: 'POST', 
+				url: "/tasks/sort",
+				type: 'POST',
 				data: order + '&parent_id=' + parent_id + '&group_id=' + group_id,
 				success: function() {
 					stopCallback = true;

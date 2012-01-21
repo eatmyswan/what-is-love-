@@ -1,0 +1,7 @@
+if($("#<%= @project.id.to_s %>").hasClass('active')){
+	$("#<%= @project.id.to_s %>").replaceWith('<%= escape_javascript render(:partial => "/projects/category", :locals => { :project => @project, :active => true }) %>');
+} else {
+	$("#<%= @project.id.to_s %>").replaceWith('<%= escape_javascript render(:partial => "/projects/category", :locals => { :project => @project, :active => false }) %>');
+}
+
+$('#pad').replaceWith('<%= escape_javascript render(@project)  %>');

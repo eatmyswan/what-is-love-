@@ -2,7 +2,7 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require ../routes
-//= require ../fancybox
+//= require fancybox_patched-for-landing
 //= require_directory .
 
 (function () {
@@ -62,7 +62,6 @@
     $(this).parent().addClass('loading');
 
     $(this).bind('ajax:success', function () {
-      console.log('redirect to refresh and stuff');
       window.location = paths.root();
     })
     .bind('ajax:error', function () {

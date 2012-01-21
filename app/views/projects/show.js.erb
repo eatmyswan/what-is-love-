@@ -1,6 +1,9 @@
 $('.filters_wrap a').removeClass('active');
 $('#projects').addClass('active');
-$('#pad').replaceWith("<%= escape_javascript render('project')  %>");
+
+$('#plan_categories .category').removeClass('active');
+$('#<%= escape_javascript @project.id.to_s %>').addClass('active');
+$('#pad').replaceWith('<%= escape_javascript render(@project)  %>');
 $('.categories_wrap').replaceWith("<%= escape_javascript render('side')  %>");
 
 $("#<%= @project.id.to_s %>").addClass('active');
