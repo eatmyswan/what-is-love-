@@ -4,5 +4,6 @@ class Note
   field :note, type: String
 
   embedded_in :task, :inverse_of => :notes
+  embedded_in :project, :inverse_of => :notes
 
 end

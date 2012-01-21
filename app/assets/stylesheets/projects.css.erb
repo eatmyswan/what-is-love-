@@ -1,0 +1,62 @@
+#project_ult_block {
+	border: 1px solid #CCC;
+	overflow: hidden;
+	min-height: 100px;
+	position: relative;
+	border-radius: 5px;
+}
+#project_ult_block .outcome_wrap {
+	position: absolute;
+	top: 0;
+	right: 200px;
+	width: 199px;
+	height: 100%;
+	border-left: 1px solid #CCC;
+}
+#project_ult_block .outcome_wrap .outcome,
+#project_ult_block .purpose_wrap .purpose {
+	padding: 10px;
+}
+#project_ult_block .purpose_wrap {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 199px;
+	height: 100%;
+	border-left: 1px solid #CCC;
+}
+
+#project_ult_block .header {
+	display: block;
+	background: #CCC;
+	text-align:center;
+	padding: 5px 0;
+	font-weight: bold;
+	font-size: 12px;
+}
+#project_ult_block .notes_wrap .header {
+	margin-right: 400px;
+}
+
+#project_notes {
+	padding: 10px;
+	margin-right: 400px;
+}
+#project_notes .note {
+	padding: 5px 0;
+	border-bottom: 1px solid #CCC;
+	position: relative;
+}
+#project_notes .note .delete {
+	width: 15px;
+	height: 15px;
+	background: url(/assets/delete.png) no-repeat;
+	float: right;
+	cursor: pointer;
+	opacity: 0.5;
+	margin: 0 5px 0 0;
+	display: none;
+}
+#project_notes .note:hover .delete {
+	display: block;
+}

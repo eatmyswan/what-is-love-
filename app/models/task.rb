@@ -42,8 +42,12 @@ class Task
   index :complete
   
   scope :unplanned, where(queued: false).and(scheduled: false).order_by([:sort, :asc])
-  scope :incomplete, where(complete: false).and(parent_id: nil).order_by([:mylife_sort, :asc])
-  scope :complete, where(complete: true).and(parent_id: nil).order_by([:sort, :asc])
+  scope :incomplete, where(complete: false).and(project_id: nil).and(parent_id: nil).order_by([:mylife_sort, :asc])
+  scope :complete, where(complete: true).and(project_id: nil).and(parent_id: nil).order_by([:sort, :asc])
+  
+  scope :project_nonmusts, where(complete: false).and(task_to_project_id: nil).and(parent_id: nil).and(must: false).order_by([:mylife_sort, :asc])
+  scope :project_musts, where(complete: false).and(task_to_project_id: nil).and(parent_id: nil).and(must: true).order_by([:mylife_sort, :asc])
+  scope :project_complete, where(complete: true).order_by([:sort, :asc])
   
   validates_length_of :title, minimum: 1, message: "task cannot be blank."
   

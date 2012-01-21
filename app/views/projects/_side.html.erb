@@ -1,0 +1,14 @@
+<div class="categories_wrap">
+	
+
+	<div id="project_categories" class="connectedSortable">
+		<% @projects.each do |project| %>
+			<%= render :partial => '/projects/category', :locals => { :project => project, :active => false } %>
+		<% end %>
+	</div>
+
+	
+</div>
+
+
+

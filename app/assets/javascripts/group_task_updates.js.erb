@@ -36,9 +36,6 @@ $('.task_wrap').live("mouseover", function() {
 		$(this).data("calEvent", { _id: $(this).attr('id'), start: '', end: '', title: title, min_duration: min_duration, complete: complete, must: must, outcome: outcome, group_id: group_id, parent_id: parent_id, sort: sort });
 	}
 });
-
-
-
 		
 $(document).bind('mousedown',function(e) {
 	if(($(e.target).parents('li.editing').length == 0) && $('#calendar_wrap').length == 0){
@@ -157,10 +154,16 @@ $('#group .checkbox, #popup_outcome .checkbox').live('click',function(){
 				type: 'PUT',
 				data: $.param({task : { complete: 'false' }}),
 				success: function() { 
+					
 					task.fadeOut(300, function(){
-						task.appendTo('#incomplete').fadeTo(300, 1.0);
+						if(($('#must').length > 0) && task.find('.star').first().hasClass('active')){
+							task.appendTo('#must').fadeTo(300, 1.0);
+						} else {
+							task.appendTo('#incomplete').fadeTo(300, 1.0);
+						}
 						hideH3();
-						});
+					});
+					
 					increaseCount();
 					}
 				});
@@ -219,7 +222,7 @@ $('#group .checkbox, #popup_outcome .checkbox').live('click',function(){
 	}
 });
 
-$('#incomplete .star, #popup_outcome .star').live('click',function(){
+$('#incomplete .star, #popup_outcome .star, #must .star').live('click',function(){
 	var star = $(this);
 	var task = $(this).parents('li').first();
 	var taskId = task.attr('id');
@@ -230,6 +233,9 @@ $('#incomplete .star, #popup_outcome .star').live('click',function(){
 		} else {
 			var parent = 'false';
 			var nothing = 'true';
+			if($('#must').length > 0){
+				task.fadeOut(300, function(){ task.appendTo('#incomplete').fadeTo(300, 1.0); });
+			}
 		}
 		star.removeClass('active');
 		$.ajax({
@@ -245,6 +251,9 @@ $('#incomplete .star, #popup_outcome .star').live('click',function(){
 		} else {
 			var parent = 'false';
 			var nothing = 'true';
+			if($('#must').length > 0){
+				task.fadeOut(300, function(){ task.appendTo('#must').fadeTo(300, 1.0); });
+			}
 		}
 		star.addClass('active');
 		$.ajax({
@@ -499,7 +508,7 @@ function scrollToTask (elem) {
 
 function hideH3(){
 	if($('#complete > li').size() == 0){
-		$('h3.page').hide();
+		$('h3#complete_header').hide();
 	}
 }
 
