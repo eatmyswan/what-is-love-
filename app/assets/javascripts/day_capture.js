@@ -108,7 +108,7 @@ $('#capture_wrap ul.sortable, #side_plan').live("mouseover", function() {
 				}
 			},
 
-			change: TM.capture.sortableScrollable( $('#group') ),
+			change: TM.Capture.sortableScrollable( $('#group') ),
 
 			remove: function(event,ui) {
 				//update the receiver

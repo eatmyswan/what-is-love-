@@ -94,6 +94,7 @@ Rpm::Application.routes.draw do
 
   get "notices/latest" => "notices#latest"
   get "notices/latest/details" => "notices#latest_panel", :as => :notice_panel
+  get "notices/unread-count" => "notices#unread_count", :as => :unread_count
 
 
   # The priority is based upon order of creation:

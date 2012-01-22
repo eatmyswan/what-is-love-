@@ -42,7 +42,7 @@ class EmailsController < ApplicationController
       @email.user.notify('lev-send', @email, @task)
     end
     
-    render :nothing => true
+    render :layout => false
   end
   
   def create_from_flash

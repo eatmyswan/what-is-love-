@@ -83,7 +83,7 @@ $('#day_plan_wrap.editing ul.sortable').live("mouseover", function() {
 			}
 
 		});
-		TM.capture.bindSortableScrollPatch( $('#group'), $(this) );
+		TM.Capture.bindSortableScrollPatch( $('#group'), $(this) );
 	}
 });
 
