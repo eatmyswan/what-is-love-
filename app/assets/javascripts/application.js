@@ -3,7 +3,6 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require swfobject
-//= require lib/timemaster
 //= require lib/capture
 //= require lib/notices
 //= require_self

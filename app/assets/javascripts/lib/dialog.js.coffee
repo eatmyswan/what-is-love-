@@ -14,7 +14,14 @@ fancyboxOptions =
   changeFade: 0
 
 D = TM.Dialog =
-  getFancyboxOptions: -> $.extend {}, fancyboxOptions
+
+  # The url to redirect to after a user signs in.
+  redirectUrl: TM.path.root()
+  # The url to display after a successful signin.
+  # NOTE: Takes priority over redirectUrl
+  signinSuccessUrl: undefined
+
+  getFancyboxOptions: (options) -> $.extend {}, fancyboxOptions, options
 
   bindFancyboxUrl: (url) ->
     $(document).on 'mouseover', "[href=\"#{url}\"]", ->
@@ -23,20 +30,36 @@ D = TM.Dialog =
 
 $(document).ready ->
 
-  # Bind session-related urls
+  # Bind session and invite related urls
   TM.Dialog.bindFancyboxUrl( TM.path.ajaxLogin() );
   TM.Dialog.bindFancyboxUrl( TM.path.newUserSession() );
+  TM.Dialog.bindFancyboxUrl( TM.path.newInvite() );
 
-  # Bind ajax callbacks on session dialog submits.
+  # Bind ajax callbacks for sessions
   $(document).on 'submit', '.user_new', ->
     $(this).parent().addClass 'loading'
 
     $(this)
     .bind 'ajax:success', ->
-      window.location = TM.path.root()
+      if D.signinSuccessUrl
+        $.fancybox TM.Dialog.getFancyboxOptions { href:D.signinSuccessUrl }
+      else
+        window.location = D.redirectUrl
     .bind 'ajax:error', ->
       $(this).parent().removeClass('loading')
       $(this).find('.errorExplanation').show 'pulsate', times:3
+
+  # Bind ajax callbacks for beta invites
+  $(document).on 'submit', '.new_invite', ->
+    $(this).parent().addClass 'loading'
+
+    $(this).bind 'ajax:success', (e,resp) ->
+      if $('#fancybox-wrap').is ':visible'
+        $('#fancybox-wrap .dialog').replaceWith(resp)
+        $.fancybox.center()
+      else
+        $.fancybox resp, TM.Dialog.getFancyboxOptions()
+    return true
 
   # Bind session dialog closing.
   $(document).on 'click', '.close-fancybox', ->
