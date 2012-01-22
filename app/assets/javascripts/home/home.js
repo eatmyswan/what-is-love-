@@ -31,9 +31,9 @@
   });
 
   $(
-    '[href="' + paths.newInvite() + '"],' +
-    '[href="' + paths.ajaxLogin() + '"],' +
-    '[href="' + paths.newUserSession() + '"]'
+    '[href="' + TM.path.newInvite() + '"],' +
+    '[href="' + TM.path.ajaxLogin() + '"],' +
+    '[href="' + TM.path.newUserSession() + '"]'
    )
   .live("mouseover", function () {
     if (!$(this).data("init")) {
@@ -62,7 +62,7 @@
     $(this).parent().addClass('loading');
 
     $(this).bind('ajax:success', function () {
-      window.location = paths.root();
+      window.location = TM.path.root();
     })
     .bind('ajax:error', function () {
       $(this)
