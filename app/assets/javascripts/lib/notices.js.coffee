@@ -1,13 +1,15 @@
 
 # Inner-file shorthand reference to TM.Notices
 N = null
+_5_mins = 5 * 60 * 1000
 
 TM.Notices =
 
   updateUnreadCount: ->
-    return N.refresh() if N.isSidebarActive()
+    oldUnreadCount = parseInt $('#unread_count').text()
     $.get TM.path.unreadCount(), ({unreadCount}) ->
       $('#unread_count').text( unreadCount ).toggle(unreadCount > 0)
+      N.refresh() if N.isSidebarActive() && oldUnreadCount > unreadCount
 
   refreshEvent: (e) ->
     if $(this).hasClass 'active'
@@ -25,4 +27,11 @@ TM.Notices =
 
   isSidebarActive: -> $('#notices_sidebar').is ':visible'
 
+  togglePolling: (enabled) -> N._polling = enabled; N.poll()
+  poll: ->
+    return if N._polling == false
+    N.updateUnreadCount()
+    TM.delay _5_mins, N.poll
+
 N = TM.Notices
+$(document).ready -> N.togglePolling(true)
