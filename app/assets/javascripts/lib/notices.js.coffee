@@ -1,9 +1,7 @@
 
-# Inner-file shorthand reference to TM.Notices
-N = null
 _5_mins = 5 * 60 * 1000
 
-TM.Notices =
+N = TM.Notices =
 
   updateUnreadCount: ->
     oldUnreadCount = parseInt $('#unread_count').text()
@@ -33,5 +31,4 @@ TM.Notices =
     N.updateUnreadCount()
     TM.delay _5_mins, N.poll
 
-N = TM.Notices
 $(document).ready -> N.togglePolling(true)
