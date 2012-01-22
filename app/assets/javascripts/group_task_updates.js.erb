@@ -363,7 +363,7 @@ $('#incomplete .add_purpose, #popup_outcome .add_purpose').live('submit',functio
 	$(this).parents('.purpose_wrap').removeClass('editing');
 	var taskId = $(this).parents('li').first().attr('id');
 	$(this).parents('li').first().find('.purpose').first().html(purpose);
-	$.post(paths.task(taskId), {
+	$.post(TM.path.task(taskId), {
 		_method: 'PUT',
 		task: { purpose:purpose },
 		open: 'true',
@@ -385,7 +385,7 @@ $('#incomplete .edit_result_form, #popup_outcome .edit_result_form').live('submi
 	$(this).parents('li').first().find('.task_title').first().html(result);
 	
 	var taskId = $(this).parents('li').first().attr('id');
-	$.post(paths.task(taskId), {
+	$.post(TM.path.task(taskId), {
 		_method: 'PUT',
 		task: { title:result },
 		open: 'true',
