@@ -17,18 +17,13 @@
 		
 			<div id="project_ult_block">
 				<div class="notes_wrap">
-					<div class="header">Resources</div>
-					<div id="project_notes">
-						<%= render 'notes' %>
-						<br><br>
-						<%= form_for([@project, Note.new], :remote => true) do |f| %>
-								<%= f.text_field :note, :autocomplete => :off %>
-								<%= f.submit %>
-						<% end %>
-					</div>
+					<div class="header">Must Outcomes / Results / Milestones</div>
+					<ul id="project_notes" class="must_task_list sortable">
+
+					</ul>
 				</div>
 				<div class="outcome_wrap">
-					<div class="header">Project Outcome</div>
+					<div class="header">Ult Outcome / Result</div>
 					<div class="outcome">
 						<%= @project.outcome %>
 						<br><br>
@@ -39,7 +34,7 @@
 					</div>
 				</div>
 				<div class="purpose_wrap">
-					<div class="header">Project Purpose</div>
+					<div class="header">Ult Purpose / Why</div>
 					<div class="purpose">
 						<%= @project.purpose %>
 						<br><br>
@@ -52,8 +47,18 @@
 			</div>
 		
 		
+	
+			
+			<h3 class="page">Project Plan</h3>
+			
+			<ul id="must" class="sortable must_task_list">
+				<% @project.tasks.project_musts.each do |task| %>
+						<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true'} %>
+				<% end %>
+			</ul>
+			
 			<br><br>
-
+			
 			<div id="input_wrap">
 				<span class="inner_shadow"></span>
 				<%= form_for(Task.new, :remote => true) do |f| %>
@@ -63,16 +68,7 @@
 				<% end %>
 			</div>
 			
-			
-			<h3 class="page">Must Actions &amp; Results</h3>
-			
-			<ul id="must" class="sortable must_task_list">
-				<% @project.tasks.project_musts.each do |task| %>
-						<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true'} %>
-				<% end %>
-			</ul>
-			
-			<h3 class="page">Actions &amp; Results</h3>
+			<h3 class="page">Capture List</h3>
 		
 			<ul id="incomplete" class="sortable incomplete_task_list">
 				<% @project.tasks.project_nonmusts.each do |task| %>

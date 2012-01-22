@@ -16,8 +16,8 @@
 		</div>
 		<div id="calendar_controls">
 			<%= link_to 'Capture', week_capture_path(@start_date), :id => 'week_capture', :class => 'filter rounded_left', :remote => true %>
-			<%= link_to 'Plan', week_plan_path(@start_date), :id => 'week_plan', :class => 'filter', :remote => true %>
-			<%= link_to 'Forecast', week_forecast_path(@start_date), :id => 'week_forecast', :class => 'filter rounded_right active', :remote => true %>
+			<%= link_to 'Plan / Commit', week_plan_path(@start_date), :id => 'week_plan', :class => 'filter', :remote => true %>
+			<%= link_to 'Schedule', week_forecast_path(@start_date), :id => 'week_forecast', :class => 'filter rounded_right active', :remote => true %>
 		</div>
 		<div class="ribbon"></div>
 

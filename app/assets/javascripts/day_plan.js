@@ -12,6 +12,7 @@ $('#edit_plan').live('click', function(){
 		$('#input_wrap').slideDown(200);
 		$('#edit_plan').addClass('active');
 		$('#edit_plan').text('Done');
+		$('#plan_empty').hide();
 	} else {
 		$('#day_plan_wrap').removeClass('editing');
 		$('#day_plan_wrap').addClass('planning');
@@ -22,6 +23,9 @@ $('#edit_plan').live('click', function(){
 		$('#input_wrap').slideUp(200);
 		$('#edit_plan').removeClass('active');
 		$('#edit_plan').text('Edit')
+		if($('.task').length == 0){
+  		$('#plan_empty').show();
+		}
 	}
 
 });
