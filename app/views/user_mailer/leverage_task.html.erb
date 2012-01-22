@@ -272,7 +272,7 @@ a {
 		
 		<div class="message">
 			<div class="img_wrap">
-				<%= image_tag @email.user.images.forward.first.image.thumb if @email.user.images.first %>
+				<%= cat_icon @email.user %>
 			</div>
 			<div class="msg_wrap">
 				<span class="nub"></span>

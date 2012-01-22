@@ -47,10 +47,6 @@ class User
     self.save
   end
 
-  def top_image_src
-    self.gravatar_src
-  end
-
   def gravatar_src(options = {})
     options = {:size => 40}.merge! options
     id = Digest::MD5::hexdigest self.email.strip.downcase
