@@ -50,7 +50,7 @@ $('.new_group').live('submit',function(){
 	clearForm(newCategory);
 });
 
-$('#categories .category .edit').live('click',function(){
+$('#categories .category .edit').live('click',function(event){
 	event.preventDefault();
 	var category = $(this).parents('.category').first();
 	var categoryId = category.attr('id');
@@ -74,7 +74,7 @@ $('#plan_categories .category .delete').live('click',function(event){
 	$.ajax({
 		url: "/groups/" +  category.attr('id'),
 		type: 'DELETE',
-		success: function() { 
+		success: function() {
 			category.fadeOut();
 		}
 	});
@@ -87,7 +87,7 @@ $('#project_categories .category .delete').live('click',function(event){
 	$.ajax({
 		url: "/projects/" +  category.attr('id'),
 		type: 'DELETE',
-		success: function() { 
+		success: function() {
 			category.fadeOut();
 		}
 	});
