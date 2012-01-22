@@ -39,11 +39,11 @@ class User
 
   def unread_notices
     self.notices.where(:created_at =>
-      (self.last_notice_view || self.created_at)..DateTime.now)
+      (self.last_notice_view || self.created_at)..DateTime.now.utc)
   end
 
   def read_notices!
-    self.last_notice_view = DateTime.now
+    self.last_notice_view = DateTime.now.utc
     self.save
   end
 
@@ -61,7 +61,7 @@ class User
   alias :__created_at :created_at
   def created_at
     if self.__created_at.nil?
-      self.update_attribute :created_at, DateTime.now
+      self.update_attribute :created_at, DateTime.now.utc
     end
     self.__created_at
   end

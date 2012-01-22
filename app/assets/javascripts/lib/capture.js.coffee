@@ -1,4 +1,4 @@
-TM.capture =
+TM.Capture =
 
   # When a task is being dragged its placeholder follows the cursor.
   #  If that placeholder reaches a top or bottom edge, make the view pane

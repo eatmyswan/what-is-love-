@@ -43,7 +43,7 @@ $('#plan_wrap ul.sortable').live("mouseover", function() {
 				}
 			},
 
-			change: TM.capture.sortableScrollable( $('#group') ),
+			change: TM.Capture.sortableScrollable( $('#group') ),
 
 			update: function(event,ui) {
 				var parentElement = ui.item[0].parentElement;
@@ -68,7 +68,7 @@ $('#plan_wrap ul.sortable').live("mouseover", function() {
 				});
 			}
 		});
-		TM.capture.bindSortableScrollPatch( $('#group'), $(this) );
+		TM.Capture.bindSortableScrollPatch( $('#group'), $(this) );
 
 		$('#plan_categories .category').droppable({
 			accept: ".task_wrap",

@@ -79,8 +79,9 @@ Rpm::Application.routes.draw do
   match 'email/email_form/:id' => 'emails#email_form'
   match 'email/load_outcome/:id' => 'emails#load_outcome'
 
-  match 'email/accept/:email_id' => 'emails#accept', :as => :accept_email
-  match 'email/reject/:email_id' => 'emails#reject', :as => :reject_email
+  post 'email/accept/:email_id' => 'emails#accept', :as => :accept_email
+  post 'email/reject/:email_id' => 'emails#reject', :as => :reject_email
+  get 'email/after-signin' => 'emails#after_ajax_signin', :as => :view_email_after_signin
 
   match 'email/:id/view_email' => 'emails#view_email', :as => :view_email
   match 'task/edit_notes/:id' => 'tasks#edit_notes'
@@ -94,6 +95,7 @@ Rpm::Application.routes.draw do
 
   get "notices/latest" => "notices#latest"
   get "notices/latest/details" => "notices#latest_panel", :as => :notice_panel
+  get "notices/unread-count" => "notices#unread_count", :as => :unread_count
 
 
   # The priority is based upon order of creation:

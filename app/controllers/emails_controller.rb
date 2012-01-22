@@ -1,6 +1,6 @@
 class EmailsController < ApplicationController
   
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => :view_email
   skip_before_filter :verify_authenticity_token
   
   def index
@@ -42,7 +42,7 @@ class EmailsController < ApplicationController
       @email.user.notify('lev-send', @email, @task)
     end
     
-    render :nothing => true
+    render :layout => false
   end
   
   def create_from_flash
@@ -112,7 +112,11 @@ class EmailsController < ApplicationController
     end
     render '/emails/view_email', :layout => 'view_email'
   end
-  
+
+  def after_ajax_signin
+    render :layout => false
+  end
+
   def load_outcome
     @task = Task.find(params[:id])
   end

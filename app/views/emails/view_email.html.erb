@@ -7,10 +7,10 @@
 		<div class="intro">
 			<strong>Hello,</strong>
 			<br>
-			<strong><%= @email.user.name %></strong> has asked you to respond to the following: 
+			<strong><%= @email.user.name %></strong> has asked you to respond to the following:
 			<br>
 		</div>
-		
+
 		<div class="message">
 			<div class="img_wrap">
 				<%= image_tag @email.user.images.forward.first.image.thumb if @email.user.images.first %>
@@ -23,22 +23,24 @@
 				<% end %>
 			</div>
 		</div>
-		
-		<form method="post" action="/email/accept/<%= @email.id.to_s %>">
-	
-			<div class="leveraged_wrap">
-				<% if @email.outcome == true %>
-					<%= render 'outcome_view' %>
-				<% else %>
-					<%= render :partial => 'task', :locals => { :task => @task } %>
-				<% end %>
-			</div>
-		
-			<div class="buttons_wrap">
+
+
+		<div class="leveraged_wrap">
+			<% if @email.outcome == true %>
+				<%= render 'outcome_view' %>
+			<% else %>
+				<%= render :partial => 'task', :locals => { :task => @task } %>
+			<% end %>
+		</div>
+
+		<div class="buttons_wrap">
+			<form method="post" action="<%= accept_email_path @email %>">
 				<input type="submit" id="accept" value="Accept">
-				<a id="reject" href="/email/reject/<%= @email.id.to_s %>">Reject</a>
-			</div>
-		
-	</form>
+				<input type="hidden" name="<%= @email.outcome ? 'outcome_id' : 'task_id[]' %>" value="<%= @task.id.to_s %>" class="task_id">
+			</form>
+			<form method="post" action="<%= reject_email_path @email %>">
+				<input type="submit" id="reject" value="Reject">
+			</form>
+		</div>
 
 </div>
