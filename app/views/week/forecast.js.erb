@@ -137,7 +137,7 @@ $(document).ready(function() {
 			calculateMinD();
 			
 			if(calEvent.parent_id != null){
-				$event.find('.wc-time').after('<div class="wc-outcome"></div>');
+				$event.find('.wc-title').after('<div class="wc-outcome"></div>');
 				$.get('/week/outcome/'+calEvent.parent_id,function(outcome){
 					$event.find('.wc-outcome').html( '<span class="mini_target"></span>' + outcome );
 				});

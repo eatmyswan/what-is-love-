@@ -8,8 +8,8 @@ $('.wc-cal-event .mini_target, .committed .target').live('click', function(e){
 			function() {
 				$('#popup_outcome .task_wrap').first().addClass('outcome');
 				$('#popup_outcome .task_wrap').first().find('.header').first().show();
-				$('#popup_outcome').find('#'+task.data('calEvent')._id).first().addClass('highlight');
-				
+				var target = $('#popup_outcome').find('#'+task.data('calEvent')._id).first();
+				if(!target.hasClass('outcome_ready')) target.addClass('highlight');
 			}
 		).draggable();
 	}
