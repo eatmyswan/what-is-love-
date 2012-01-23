@@ -2,8 +2,14 @@
 <html>
 <head>
   <title> TimeMaster: Rapid Planning Method </title>
+
   <%= stylesheet_link_tag 'view_email', 'mini_player', 'email_outcome' %>
-  <%= javascript_include_tag 'jquery','jquery-ui','soundmanager2' %>
+  <%= stylesheet_link_tag 'fancybox' %>
+  <%= stylesheet_link_tag 'home/dialog' %>
+
+  <%= javascript_include_tag 'lib/timemaster' %>
+  <%= render 'shared/server-data' %>
+  <%= javascript_include_tag 'email/email' %>
   <%= csrf_meta_tag %>
 </head>
 <body id="view_email_body">

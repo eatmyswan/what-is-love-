@@ -5,7 +5,7 @@ class Group
   field :personal, type: Boolean, default: false
   field :professional, type: Boolean, default: false
   field :sort, type: Integer, default: 0
-  field :icon, type: String, default: "icon_check"
+  field :icon, type: String, default: "archive"
   field :vision, type: String, default: nil
   field :purpose, type: String, default: nil
 
@@ -23,7 +23,4 @@ class Group
   
   validates_length_of :title, minimum: 1, message: "Group name cannot be blank."
 
-  def top_image_src
-    self.images.forward.first.image.thumb
-  end
 end

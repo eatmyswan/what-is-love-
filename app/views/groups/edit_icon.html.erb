@@ -1,0 +1,29 @@
+<div id="edit_icon" class="email_dialog">
+
+<%= form_for @group, :remote => true do |f| %>
+
+  <div class="modal_title_wrap">
+      <div class="modal_cancel_wrap">
+        <div id="close_fancybox"><span class="no_disp">Cancel</span></div>
+      </div>
+      <div class="modal_submit_wrap">
+        <%= image_submit_tag('clear.gif', :class => 'send') %>
+      </div>
+      <div class="modal_title">Select an Icon</div>
+  </div>
+  <div id="fields_wrap">
+
+    <div class="icon_scroller">
+      <% icon_names.each do |icon| %>
+      <%= #image_tag "cat-icons/#{icon}_54px.png", :class => (icon == @group.icon) ? 'active' : ''
+      %>
+        <div class="cat-icon <%= icon %> <%= 'active' if icon == @group.icon %>" data-icon="<%= icon %>"></div>
+      <% end %>
+    </div>
+
+    <%= f.hidden_field :icon %>
+  </div>
+
+<% end %>
+
+</div>

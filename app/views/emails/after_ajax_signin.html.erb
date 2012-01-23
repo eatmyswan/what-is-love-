@@ -1,0 +1,18 @@
+<div class="dialog">
+
+  <div class="top"></div>
+  <div class="content">
+    <h3>Welcome, <%= current_user.name %></h3>
+
+    <p>Thank you for signing in. Please try accepting or rejecting again.</p>
+  </div>
+  <div class="content-end"></div>
+  <div class="bottom">
+    <button type="button" class="close-fancybox">Ok</button>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+TM.sdata.userSignedIn = true;
+</script>

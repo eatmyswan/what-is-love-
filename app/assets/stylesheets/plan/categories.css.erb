@@ -154,6 +154,10 @@
 	z-index: 3;
 	background: transparent;
 }
+#categories .category .clickable {
+	display: block;
+	height: 38px;
+}
 #categories .category .cover {
 	float: left;
 	display: block;
@@ -171,6 +175,9 @@
 	width: 100%;
 	border-radius: 2px;
 }
+#categories .category.editing .cover img {
+	cursor: pointer;
+}
 #categories .category .inbox_cover {
 	float: left;
 	display: block;
@@ -180,7 +187,7 @@
 	background: url(<%= asset_path 'inbox.png' %>) no-repeat;
 	border-radius: 2px;
 	overflow: hidden;
-	position: relative; 
+	position: relative;
 }
 #categories .category .title {
 	font-weight: bold;
@@ -195,7 +202,7 @@
 	overflow: hidden;
 	text-shadow: 0 1px 2px #000;
 	max-width: 140px;
-	
+
 }
 #categories .category .count {
 	background: #282623;
@@ -272,15 +279,16 @@
 #categories .category .form {
 	display: none;
 }
-#categories  .category.editing .edit, 
+#categories  .category.editing .edit,
 #categories .category.editing .cover,
-#categories .category.editing .title, 
+#categories .category.editing .title,
+#categories .category.editing .clickable,
 #categories .category.editing .count {
 	display: none;
 }
-#categories .category.editing .form, 
-#categories .category.editing .edit_done, 
-#categories .category.editing .delete, 
+#categories .category.editing .form,
+#categories .category.editing .edit_done,
+#categories .category.editing .delete,
 #categories .category.editing .form .cover {
 	display: block;
 }
@@ -390,4 +398,24 @@ width: 150px;
 	width: 275px !important;
 	height: 38px !important;
 	border-radius: 0;
+}
+
+#edit_icon .modal_title {
+	width: 120px;
+}
+#edit_icon .icon_scroller {
+	height: 300px;
+	overflow: scroll;
+	overflow-x: auto;
+}
+#edit_icon .cat-icon {
+	float: left;
+	border: 2px dashed transparent;
+	cursor: pointer;
+}
+#edit_icon .cat-icon:hover {
+	border-color: #555;
+}
+#edit_icon .cat-icon.active {
+	border-color: #000;
 }
