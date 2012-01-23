@@ -1,6 +1,7 @@
 class Notice
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Paranoia
   field :type_num, type: Integer, default: 0
   
   # The user being notified
@@ -32,6 +33,13 @@ class Notice
     #   Target:  The task being rejected
     'lev-reject' => 1002,
     }
+  end
+
+  def self.get(type,subject,target)
+    type_num = self.types[type] || 0
+    self.where(
+      :type_num => type_num, :subject_id => subject.id, :target_id => target.id
+    ).first
   end
 
   def type
