@@ -24,9 +24,7 @@ D = TM.Dialog =
   getFancyboxOptions: (options) -> $.extend {}, fancyboxOptions, options
 
   bindFancyboxUrl: (url) ->
-    $(document).on 'mouseover', "[href=\"#{url}\"]", ->
-      return if $(this).data 'init'
-      $(this).data('init', true).fancybox D.getFancyboxOptions()
+    TM.bindFancybox "[href=\"#{url}\"]", D.getFancyboxOptions()
 
 $(document).ready ->
 

@@ -65,24 +65,9 @@ $('#vision_wrap .editing form').live('submit', function() {
 	return false;
 });
 
-$('.vision_image').live("mouseover", function() {
-	if (!$(this).data("init")) {
-		$(this).data("init", true);
-		$(this).fancybox({
-			showCloseButton : false,
-			overlayOpacity : 0.7
-			});
-	}
-});
 
-$('#create_v_group').live("mouseover", function() {
-	if (!$(this).data("init")) {
-		$(this).data("init", true);
-		$(this).fancybox({
-			showCloseButton : false,
-			overlayOpacity : 0.7
-			});
-	}
+TM.bindFancybox('.vision_image, #create_v_group', {
+	overlayOpacity : 0.7
 });
 
 $('#vision_wrap .delete_img').live('click', function(){

@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
-  
-  
+
+
   def show
     @group = Group.find(params[:id])
     @is_outcome = params[:task_id] && Task.find(params[:task_id]).outcome == true
@@ -33,7 +33,7 @@ class GroupsController < ApplicationController
         @image.sort = 0
       end
       @group.images << @image
-      @group.save 
+      @group.save
     end
     respond_to do |format|
       format.js { render :layout => false }
@@ -46,7 +46,7 @@ class GroupsController < ApplicationController
     if (params[:image])
       @image = Image.new(params[:image])
       @group.images << @image
-      @group.save 
+      @group.save
     end
     respond_to do |format|
       format.js { render :layout => false }
@@ -58,7 +58,7 @@ class GroupsController < ApplicationController
     group.destroy
     render :nothing => true
   end
-  
+
   def sort
     groups = Group.find(params[:group])
     groups.each do |group|
@@ -67,11 +67,12 @@ class GroupsController < ApplicationController
     end
     render :nothing => true
   end
-  
-  def icon
+
+  def edit_icon
     @group = Group.find(params[:id])
-  end 
-  
+    render :layout => false
+  end
+
   def long_term
     @group = Group.find(params[:id])
   end

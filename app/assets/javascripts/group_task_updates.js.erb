@@ -103,27 +103,9 @@ $('#incomplete .calendar, #popup_outcome .calendar').live("mouseover", function(
 	}
 });
 
-$('#incomplete .note, #popup_outcome .note').live("mouseover", function() {
-	if (!$(this).data("init")) {
-		$(this).data("init", true);
-		$(this).fancybox({
-			'overlayColor' : '#000',
-			'overlayOpacity' : 0.5,
-			'showCloseButton' : false
-		});
-	}
-});
 
-$('#incomplete .email, #popup_outcome .email').live("mouseover", function() {
-	if (!$(this).data("init")) {
-		$(this).data("init", true);
-		$(this).fancybox({
-			'overlayColor' : '#000',
-			'overlayOpacity' : 0.5,
-			'showCloseButton' : false
-		});
-	}
-});
+TM.bindFancybox('#incomplete .note, #popup_outcome .note')
+TM.bindFancybox('#incomplete .email, #popup_outcome .email')
 
 $('#email_wrap #load_outcome').live("click", function() {
 	var taskId = $(this).attr('pid');

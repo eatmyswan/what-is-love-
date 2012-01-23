@@ -1,11 +1,7 @@
 module CategoryHelper
 
   def cat_icon(category)
-    if category.is_a? User
-      image_tag cat_icon_src(category)
-    else
-      image_tag cat_icon_src(category), :class => 'cat-icon'
-    end
+    image_tag cat_icon_src(category)
   end
 
   def cat_icon_src(category)
@@ -14,6 +10,10 @@ module CategoryHelper
     else
       asset_path "cat-icons/#{category.icon}_54px.png"
     end
+  end
+
+  def icon_names
+    CATEGORY_ICON_NAMES
   end
 
 end
