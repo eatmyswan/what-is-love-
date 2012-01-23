@@ -1,7 +1,7 @@
 
 <div class="category" id="<%= category.id.to_s %>">
 	<div class="top">
-		<span class="cover"><%= image_tag category.images.forward.first.image.thumb if category.images.first %></span>
+		<span class="cover"><%= cat_icon category %></span>
 		<span class="title"><%= category.title %></span>
 		<span class="count"><span class="inner_shadow"></span><span class="count_text"><%= category.tasks.incomplete.count %></span></span>
 	</div>

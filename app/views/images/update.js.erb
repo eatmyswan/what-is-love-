@@ -1,2 +1,2 @@
-$("#<%= @group.id.to_s %> .cover img").attr('src','<%= @group.images.forward.first.image.thumb %>');
-$('#top .cover img').attr('src','<%= @group.top_image_src %>');
+$("#<%= @group.id.to_s %> .cover img").attr('src','<%= cat_icon_src @group %>');
+$('#top .cover img').attr('src','<%= cat_icon_src @group %>');

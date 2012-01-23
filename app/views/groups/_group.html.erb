@@ -1,6 +1,10 @@
 <% content_for :top do %>
 		<% if @group.personal == true || @group.professional == true %>
-			<div class="cover"><%= image_tag @group.top_image_src if @group.images.first %></div>
+			<div class="cover">
+				<%= link_to edit_group_icon_path(@group) do %>
+					<%= cat_icon @group %>
+				<% end %>
+			</div>
 			<div class="title"><%= raw @group.title %></div>
 			<div class="filters_wrap">
 				<a id="plan" class="filter rounded_left active">Plan</a>
