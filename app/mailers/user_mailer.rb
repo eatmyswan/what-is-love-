@@ -13,6 +13,7 @@ class UserMailer < ActionMailer::Base
   def leverage_task(email, task)
     @email = email
     @task = task
+    @user_icon_src = @email.user.gravatar_src
     mail(:to => email.to_email, :subject => "TimeMaster - #{@email.user.name} has leveraged you" )
   end
 
