@@ -200,60 +200,6 @@
 	padding: 1px 7px;
 }
 
-
-#vision_wrap #vision_gallery .image_wrap {
-	float: left;
-	width: 190px;
-	height: 190px;
-	margin: 0;
-	padding: 0;
-}
-
-#vision_wrap #vision_gallery .image {
-	display: table-cell;
-	width: 190px;
-	height: 190px;
-	vertical-align: middle;
-	text-align: center;
-}
-#vision_wrap #vision_gallery .image .relative{
-	vertical-align: middle;
-	position: relative;
-	display: inline-block;
-}
-#vision_wrap #vision_gallery .image img {
-	margin: 0 auto;
-	display: block;
-	max-width: 190px;
-	max-height: 190px;
-	border: 5px solid #FFF;
-	box-shadow: 2px 2px 5px #888;
-}
-
-#vision_wrap #vision_gallery .image .delete_img {
-	position: absolute;
-	top: -8px;
-	right: -8px;
-	width: 22px;
-	height: 22px;
-	background: url(<%= asset_path 'delete_circle.png' %>) no-repeat;
-	display: none;
-}
-#vision_wrap #vision_gallery .image .delete_img:hover {
-	background-position: 0 -22px;
-}
-#vision_wrap #vision_gallery .image_wrap:hover .delete_img {
-	display: block;
-}
-#vision_wrap #vision_gallery .image_wrap .relative .tape {
-	position: absolute;
-	top: -8px;
-	left: -8px;
-	width: 40px;
-	height: 32px;
-	background: url(<%= asset_path 'tape.png' %>) no-repeat;
-}
-
 #vision_wrap .vision_tab,
 #vision_wrap .force_tab {
 	position: absolute;
@@ -268,43 +214,6 @@
 
 #vision_wrap .force_tab {
 	background-position: 0 -50px;
-}
-
-
-.ui-jcoverflip {
-  position: relative;
-}
-
-.ui-jcoverflip--item {
-  position: absolute;
-  display: block;
-}
-
-#vision_gallery {
-  border-top: 1px dashed #c3c3c3;
-  margin-bottom: 20px;
-  padding-top: 20px;
-}
-
-#vision_gallery .ui-jcoverflip--title {
-	display: none !important;
-}
-
-#vision_gallery img {
-  display: block;
-  border: 0;
-  outline: none;
-}
-
-#vision_gallery a {
-  outline: none;
-}
-
-#vision_image_scrollbar.ui-widget-content {
-	border-color: #bcbcbc;
-}
-#vision_image_scrollbar .ui-slider-handle {
-	border-color: #777;
 }
 
 #vision_wrap .add_buttons {
