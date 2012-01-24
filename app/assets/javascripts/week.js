@@ -106,12 +106,12 @@ $(document).ready(function() {
 	$('#cluetip #delete_event').live('click',function(){
 		var taskId = $('#cluetip #edit_event .task_id').val();
 		var groupId = $('#cluetip #edit_event .group_id').val();
-		var open = $('#cluetip #edit_event .task_open').val();
+
 		if(groupId) {
 			$.ajax({
 				url: "/tasks/" + taskId,
 				type: 'PUT',
-				data: $.param({task : { scheduled: 'false', readOnly: 'false' }, open: open }),
+				data: $.param({task : { scheduled: 'false', readOnly: 'false' }, open: 'false' }),
 				success: function(data){
 					$(document).trigger('hideCluetip');
 					$('#cluetip').remove();
