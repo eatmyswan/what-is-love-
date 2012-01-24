@@ -40,7 +40,6 @@
 			<% else %>
 				<%= render :partial => 'task', :locals => { :task => @task } %>
 			<% end %>
-			<input type="hidden" name="task_id[]" value="<%= @task.id.to_s %>" class="task_id">
 		</div>
 	</div>
 	

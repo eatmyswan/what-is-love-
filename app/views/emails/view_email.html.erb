@@ -25,22 +25,26 @@
 		</div>
 
 
-		<div class="leveraged_wrap">
-			<% if @email.outcome == true %>
-				<%= render 'outcome_view' %>
-			<% else %>
-				<%= render :partial => 'task', :locals => { :task => @task } %>
-			<% end %>
-		</div>
+		<form method="post" action="<%= accept_email_path @email %>">
+			<div class="leveraged_wrap">
+				<% if @email.outcome == true %>
+					<%= render 'outcome_view' %>
+				<% else %>
+					<%= render :partial => 'task', :locals => { :task => @task } %>
+				<% end %>
+			</div>
+
+			<div class="buttons_wrap">
+				<input type="submit" id="accept" value="Accept">
+			</div>
+		</form>
 
 		<div class="buttons_wrap">
-			<form method="post" action="<%= accept_email_path @email %>">
-				<input type="submit" id="accept" value="Accept">
-				<input type="hidden" name="<%= @email.outcome ? 'outcome_id' : 'task_id[]' %>" value="<%= @task.id.to_s %>" class="task_id">
-			</form>
 			<form method="post" action="<%= reject_email_path @email %>">
 				<input type="submit" id="reject" value="Reject">
 			</form>
 		</div>
+
+		<div class="clearfix"></div>
 
 </div>
