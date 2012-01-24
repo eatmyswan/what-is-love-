@@ -74,7 +74,7 @@ $(document).ready(function() {
 			minDur = (minDur == 0) ? 60 : parseInt(minDur);
 				var eHour = Math.floor(minDur/60);
 					eHour = (parseInt(hour) + eHour).toString();
-					eHour = (eHour.length == 1) ? '0'+ eHou.toString() : eHour;
+					eHour = (eHour.length == 1) ? '0'+ eHour.toString() : eHour;
 				var eMin = minDur%60;
 					eMin = (parseInt(min) + eMin).toString();
 					eMin = (eMin.length == 1) ? '0'+ eMin : eMin;
@@ -100,6 +100,7 @@ $(document).ready(function() {
 				}
 			}); 	
 		} else {
+			console.log('here');
 			$.ajax({
 				url: "/tasks/" + taskId,
 				type: 'PUT',

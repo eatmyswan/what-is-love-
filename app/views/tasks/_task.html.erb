@@ -26,7 +26,7 @@
 		<span class="icon" rel="/task/edit_group/<%= task.id.to_s %>">
 		<% if task.group %>
 			<% if task.group.professional == true || task.group.personal == true %>
-				<%= cat_icon task.group %>
+				<%= image_tag task.group.images.forward.first.image.tiny if task.group.images.forward.first %>
 			<% else %>
 				<%= image_tag asset_path('inbox.png') %>
 			<% end %>

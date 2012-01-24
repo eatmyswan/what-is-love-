@@ -46,7 +46,7 @@
 				<% @groups.each do |group| %>
 						<div id="<%= group.id %>" class="capture_group_wrap" style="<%= 'display: none;' if group.tasks.where(:start.gte => @start_date, :start.lt => @end_date).and(complete: false).and(parent_id: nil).count == 0 %>">
 							<div class="group_top_wrap">
-								<span class="img_wrap"><%= cat_icon group %></span>
+								<span class="img_wrap"><%= image_tag group.images.forward.first.image.tiny if group.images.forward.first %></span>
 								<span class="title_wrap"><%= group.title %></span>
 							</div>
 							<ul class="sortable group_bottom_wrap">

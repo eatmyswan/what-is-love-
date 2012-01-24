@@ -30,7 +30,7 @@ $('#group_select li').live("click", function() {
 	var groupId = $(this).attr('id');
 	var taskId = $(this).parent().attr('taskId');
 
-	if($('#day_plan_wrap')) {
+	if($('#day_plan_wrap').length > 0) {
 		$.ajax({
 			url: "/tasks/" +  taskId,
 			type: 'PUT',

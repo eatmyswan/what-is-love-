@@ -50,9 +50,13 @@ $('.new_group').live('submit',function(){
 	clearForm(newCategory);
 });
 
-$('#categories .category .edit').live('click',function(event){
+$('#plan_categories .category .edit').live('click',function(){
 	event.preventDefault();
-	$(this).parents('.category').first().addClass('editing');
+	var category = $(this).parents('.category').first();
+	var categoryId = category.attr('id');
+	var categoryClass = category.attr('class');
+	var href = category.attr('href');
+	category.replaceWith($('<div href="'+href+'" class="'+ categoryClass +' editing" id="'+categoryId+'">' + category.html() + '</div>'));
 	return false;
 });
 
@@ -60,9 +64,10 @@ $('#plan_categories .category .edit_done').live('click',function(){
 	$('.edit_group').trigger('submit');
 });
 
-$('#project_categories .category .edit_done').live('click',function(){
-	$('.edit_project').trigger('submit');
+$('#plan_categories .edit_group').live('submit',function(){
+
 });
+
 
 $('#plan_categories .category .delete').live('click',function(event){
 	event.preventDefault();
@@ -70,27 +75,12 @@ $('#plan_categories .category .delete').live('click',function(event){
 	$.ajax({
 		url: "/groups/" +  category.attr('id'),
 		type: 'DELETE',
-		success: function() {
+		success: function() { 
 			category.fadeOut();
 		}
 	});
 	return false;
 });
-
-$('#project_categories .category .delete').live('click',function(event){
-	event.preventDefault();
-	var category = $(this).parents('.category').first();
-	$.ajax({
-		url: "/projects/" +  category.attr('id'),
-		type: 'DELETE',
-		success: function() {
-			category.fadeOut();
-		}
-	});
-	return false;
-});
-
-TM.bindFancybox('a[href^="' + TM.path.editGroupIconPath('"][href$="') + '"]');
 
 function clearForm(newCategory){
 	$(newCategory).find('input[type=file]').val('');

@@ -1,0 +1,63 @@
+$(document).ready(function() {
+
+$('#incomplete .calendar, #popup_outcome .calendar').live("mouseover", function() {
+	if (!$(this).data("init")) {
+		$(this).data("init", true);
+		$(this).cluetip({
+			width: 120,
+			positionBy: 'fixed',
+			topOffset: 15,
+			leftOffset: -50,
+			activation: 'click',
+			cluezIndex: 9999,
+			waitImage: false,
+			arrows: false,
+			onHide: function() {
+				$('#calendar_wrap').remove();
+			},
+			onShow: function() {
+				$(document).bind('mousedown',function(e) {
+					if(($(e.target).parents('#calendar_wrap').length == 0) && (e.target.id != 'calendar_wrap') && $('#calendar_wrap').length > 0){
+						var taskId = $('li.editing').attr('id');
+						var parentVal = $('li.editing').parent().hasClass('action_plan') ? 'true' : 'false';
+						
+						$.ajax({
+							url: "/tasks/" +  taskId,
+							type: 'PUT',
+							data: $.param({task : { min_duration: getMin(), max_duration: getMax() }, parent : parentVal}),
+							success: function() { }
+						});
+						$(document).trigger('hideCluetip');	
+					}
+	    		});
+				var minDuration = $('li.editing').attr('min_duration');
+				var maxDuration = $('li.editing').attr('max_duration');
+									
+				$('#min .hour').val(minDuration ? parseInt(parseInt(minDuration)/60) : '');
+				$('#min .minute').val(minDuration ? parseInt(parseInt(minDuration)%60) : '');
+				$('#max .hour').val(maxDuration ? parseInt(parseInt(maxDuration)/60) : '');
+				$('#max .minute').val(maxDuration ? parseInt(parseInt(maxDuration)%60) : '');
+			}
+		});
+	}
+});
+
+});
+
+function getMin(){
+	var hour = parseInt($('#min .hour').val());
+		hour = isNaN(hour) ? 0 : hour;
+	var minute = parseInt($('#min .minute').val());
+		minute = isNaN(minute) ? 0 : minute;
+	return (hour * 60) + minute;
+}
+
+function getMax(){
+	var hour = parseInt($('#max .hour').val());
+		hour = isNaN(hour) ? 0 : hour;
+	var minute = parseInt($('#max .minute').val());
+		minute = isNaN(minute) ? 0 : minute;
+	return (hour * 60) + minute;
+}
+
+

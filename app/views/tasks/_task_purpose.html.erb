@@ -12,7 +12,7 @@
 	
 	<div class="purpose_group" rel="/task/edit_group/<%= task.id.to_s %>">
 		<% if task.group.professional == true || task.group.personal == true %>
-			<span class="img_wrap"><%= cat_icon task.group %></span>
+			<span class="img_wrap"><%= image_tag task.group.images.forward.first.image.tiny if task.group.images.forward.first %></span>
 			<span class="title_wrap"><%= task.group.title %></span>
 		<% else %>
 			<span class="img_wrap" style="background: transparent; box-shadow: none;"><%= image_tag asset_path('inbox.png') %></span>

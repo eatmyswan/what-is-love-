@@ -58,54 +58,10 @@ $(document).bind('mousedown',function(e) {
 	}
 });
 
-$('#incomplete .calendar, #popup_outcome .calendar').live("mouseover", function() {
-	if (!$(this).data("init")) {
-		$(this).data("init", true);
-		$(this).cluetip({
-			width: 330,
-			positionBy: 'fixed',
-			topOffset: 26,
-			leftOffset: -150,
-			activation: 'click',
-			cluezIndex: 9999,
-			waitImage: false,
-			arrows: false,
-			onHide: function() {
-				$('#calendar_wrap').remove();
-			},
-			onShow: function() {
-				$(document).bind('mousedown',function(e) {
-					if(($(e.target).parents('#calendar_wrap').length == 0) && (e.target.id != 'calendar_wrap') && $('#calendar_wrap').length > 0){
-						var taskId = $('li.editing').attr('id');
-						var parentVal = $('li.editing').parent().hasClass('action_plan') ? 'true' : 'false';
-						
-						$.ajax({
-							url: "/tasks/" +  taskId,
-							type: 'PUT',
-							data: $.param({task : { min_duration: $('#min_duration').val(), max_duration: $('#max_duration').val() }, parent : parentVal}),
-							success: function() { }
-						});
-						$(document).trigger('hideCluetip');	
-					}
-	    		});
-				var minDuration = $('li.editing').attr('min_duration');
-				var maxDuration = $('li.editing').attr('max_duration');
-
-				$('#min_duration').val(minDuration);
-				$('#max_duration').val(maxDuration);
-									
-				$('#min .hour').val(minDuration ? parseInt(parseInt(minDuration)/60) : '');
-				$('#min .minute').val(minDuration ? parseInt(parseInt(minDuration)%60) : '');
-				$('#max .hour').val(maxDuration ? parseInt(parseInt(maxDuration)/60) : '');
-				$('#max .minute').val(maxDuration ? parseInt(parseInt(maxDuration)%60) : '');
-			}
-		});
-	}
-});
 
 
-TM.bindFancybox('#incomplete .note, #popup_outcome .note')
-TM.bindFancybox('#incomplete .email, #popup_outcome .email')
+TM.bindFancybox('#incomplete .note, #popup_outcome .note');
+TM.bindFancybox('#incomplete .email, #popup_outcome .email');
 
 $('#email_wrap #load_outcome').live("click", function() {
 	var taskId = $(this).attr('pid');
@@ -355,7 +311,7 @@ $('#incomplete .add_purpose, #popup_outcome .add_purpose').live('submit',functio
 
 $('#incomplete .edit_result_form, #popup_outcome .edit_result_form').live('submit',function(event){
 	event.preventDefault();
-	$(this).parents('.outcome_wrap').removeClass('editing');
+	
 	var result = $(this).find('input').val();
 	
 	var selection = getSelected();
@@ -363,7 +319,7 @@ $('#incomplete .edit_result_form, #popup_outcome .edit_result_form').live('submi
 		boldSelection = '<strong>'+selection+'</strong>';
 		result = result.replace(selection, boldSelection);
 	}
-	
+	$(this).parents('.outcome_wrap').removeClass('editing');
 	$(this).parents('li').first().find('.task_title').first().html(result);
 	
 	var taskId = $(this).parents('li').first().attr('id');

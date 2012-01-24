@@ -1,8 +1,8 @@
 var must = "<%= @task.must %>";
 
 
-if(($('#must').length > 0) && must == 'true'){
-	$("<%= escape_javascript render(:partial => 'task', :locals => { :task => @task, :action_plan => 'true' } ) %>").prependTo('#must');
+if(($('#project_must').length > 0) && must == 'true'){
+	$("<%= escape_javascript render(:partial => 'task', :locals => { :task => @task, :action_plan => 'true' } ) %>").prependTo('#project_must');
 } else {
 	$("<%= escape_javascript render(:partial => 'task', :locals => { :task => @task, :action_plan => 'true' } ) %>").prependTo('.incomplete_task_list');
 }
