@@ -4,8 +4,8 @@
 		<div class="cover"></div>
 		<div class="title"><%= @project.title %></div>
 		<div class="filters_wrap">
-			<a id="plan" class="filter rounded_left active">Plan</a>
-			<a id="vision" class="filter rounded_right">Forecast</a>
+			<a id="project_plan" class="filter rounded_left active">Plan</a>
+			<a id="project_forecast" class="filter rounded_right">Forecast</a>
 		</div>
 		<div class="ribbon"></div>
 
@@ -18,29 +18,36 @@
 			<div id="project_ult_block">
 				<div class="notes_wrap">
 					<div class="header">Must Outcomes / Results / Milestones</div>
-					<ul id="project_notes" class="must_task_list sortable">
-
+					<ul id="project_must_must" class="must_must_task_list sortable">
+						<% @project.tasks.project_must_musts.each do |task| %>
+								<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true'} %>
+						<% end %>
 					</ul>
 				</div>
-				<div class="outcome_wrap">
+				<div class="block_outcome_wrap">
 					<div class="header">Ult Outcome / Result</div>
 					<div class="outcome">
-						<%= @project.outcome %>
-						<br><br>
+						<span class="edit"></span>
+						
+						<div class="outcome_text">
+							<%= @project.outcome %>
+						</div>
 						<%= form_for(@project, :remote => true) do |f| %>
 								<%= f.text_field :outcome, :autocomplete => :off %>
-								<%= f.submit %>
+								<span class="edit_done"></span>
 						<% end %>
 					</div>
 				</div>
-				<div class="purpose_wrap">
+				<div class="block_purpose_wrap">
 					<div class="header">Ult Purpose / Why</div>
 					<div class="purpose">
-						<%= @project.purpose %>
-						<br><br>
+						<span class="edit"></span>
+						<div class="purpose_text">
+							<%= @project.purpose %>
+						</div>
 						<%= form_for(@project, :remote => true) do |f| %>
 								<%= f.text_field :purpose, :autocomplete => :off %>
-								<%= f.submit %>
+								<span class="edit_done"></span>
 						<% end %>
 					</div>
 				</div>
@@ -51,7 +58,7 @@
 			
 			<h3 class="page">Project Plan</h3>
 			
-			<ul id="must" class="sortable must_task_list">
+			<ul id="project_must" class="sortable must_task_list">
 				<% @project.tasks.project_musts.each do |task| %>
 						<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true'} %>
 				<% end %>
@@ -83,6 +90,10 @@
 						<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'true'} %>
 				<% end %>
 			</ul>
+		</div>
+	
+		<div id="project_forecast_wrap" style="display: none;">
+			<%= image_tag 'BBD_forecast.jpg' %>
 		</div>
 	</div>
 <% end %>

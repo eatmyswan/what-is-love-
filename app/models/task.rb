@@ -3,6 +3,7 @@ class Task
   include Mongoid::Timestamps
   field :title, type: String
   field :must, type: Boolean, default: false
+  field :must_must, type: Boolean, default: false
   field :complete, type: Boolean, default: false
   field :sort, type: Integer, default: 0
   field :capture_sort, type: Integer, default: 0
@@ -46,7 +47,8 @@ class Task
   scope :complete, where(complete: true).and(project_id: nil).and(parent_id: nil).order_by([:sort, :asc])
   
   scope :project_nonmusts, where(complete: false).and(task_to_project_id: nil).and(parent_id: nil).and(must: false).order_by([:mylife_sort, :asc])
-  scope :project_musts, where(complete: false).and(task_to_project_id: nil).and(parent_id: nil).and(must: true).order_by([:mylife_sort, :asc])
+  scope :project_musts, where(complete: false).and(task_to_project_id: nil).and(parent_id: nil).and(must: true).and(must_must: false).order_by([:mylife_sort, :asc])
+  scope :project_must_musts, where(complete: false).and(task_to_project_id: nil).and(parent_id: nil).and(must: true).and(must_must: true).order_by([:mylife_sort, :asc])
   scope :project_complete, where(complete: true).order_by([:sort, :asc])
   
   validates_length_of :title, minimum: 1, message: "task cannot be blank."

@@ -4,24 +4,88 @@
 	min-height: 100px;
 	position: relative;
 	border-radius: 5px;
+	background: #FFF;
 }
-#project_ult_block .outcome_wrap {
+#project_ult_block .block_outcome_wrap {
 	position: absolute;
 	top: 0;
-	right: 200px;
-	width: 199px;
+	right: 150px;
+	width: 149px;
 	height: 100%;
 	border-left: 1px solid #CCC;
+	background: url(/assets/big_target.png) no-repeat center center transparent;
 }
-#project_ult_block .outcome_wrap .outcome,
-#project_ult_block .purpose_wrap .purpose {
+#project_ult_block .block_outcome_wrap input[type="text"],
+#project_ult_block .block_purpose_wrap input[type="text"] {
+	width: 92px;
+	background: white;
+	border: 1px solid #CCC;
+	border-radius: 10px;
+	box-shadow: inset 0 1px 2px #CCC;
+	font-family: Arial, sans-serif;
+	font-size: 13px;
+	padding: 1px 7px;
+	display:inline-block;
+}
+#project_ult_block .block_outcome_wrap .outcome,
+#project_ult_block .block_purpose_wrap .purpose {
 	padding: 10px;
 }
-#project_ult_block .purpose_wrap {
+#project_ult_block .block_outcome_wrap .edit,
+#project_ult_block .block_purpose_wrap .edit {
+	width: 15px;
+	height: 15px;
+	background: url(/assets/edit.png) no-repeat;
+	cursor: pointer;
+	opacity: 0.5;
+	display: none;
+	float: right;
+	margin: 1px 0 0 0;
+}
+#project_ult_block .block_outcome_wrap:hover .edit,
+#project_ult_block .block_purpose_wrap:hover .edit {
+	display: block;
+}
+#project_ult_block .block_outcome_wrap.editing .edit,
+#project_ult_block .block_purpose_wrap.editing .edit {
+	display: none;
+}
+#project_ult_block .block_outcome_wrap .edit_done,
+#project_ult_block .block_purpose_wrap .edit_done {
+	width: 15px;
+	height: 15px;
+	background: url(<%= asset_path 'edit_done.png' %>) no-repeat;
+	cursor: pointer;
+	opacity: 0.5;
+	display: none;
+	float: right;
+	margin: 1px 0 0 0;
+}
+#project_ult_block .block_outcome_wrap.editing .edit_done:hover,
+#project_ult_block .block_purpose_wrap.editing .edit_done:hover {
+	opacity: 1.0;
+}
+#project_ult_block .block_outcome_wrap.editing .edit_done,
+#project_ult_block .block_purpose_wrap.editing .edit_done {
+	display: inline-block;
+}
+#project_ult_block .block_outcome_wrap form,
+#project_ult_block .block_purpose_wrap form {
+	display: none;
+}
+#project_ult_block .block_outcome_wrap.editing form,
+#project_ult_block .block_purpose_wrap.editing form {
+	display: block;
+}
+#project_ult_block .block_outcome_wrap.editing .outcome_text,
+#project_ult_block .block_purpose_wrap.editing .purpose_text {
+	display: none;
+}
+#project_ult_block .block_purpose_wrap {
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 199px;
+	width: 149px;
 	height: 100%;
 	border-left: 1px solid #CCC;
 }
@@ -37,28 +101,23 @@
 	padding: 6px 0 0 0;
 }
 #project_ult_block .notes_wrap .header {
-	margin-right: 400px;
+	margin-right: 300px;
 }
 
-#project_notes {
+#project_must_must {
 	padding: 10px;
-	margin-right: 400px;
+	margin-right: 300px;
+	min-height: 30px;
 }
-#project_notes .note {
-	padding: 5px 0;
-	border-bottom: 1px solid #CCC;
-	position: relative;
+#project_must {
+	min-height: 30px;
 }
-#project_notes .note .delete {
-	width: 15px;
-	height: 15px;
-	background: url(/assets/delete.png) no-repeat;
-	float: right;
-	cursor: pointer;
-	opacity: 0.5;
-	margin: 0 5px 0 0;
-	display: none;
+#project_wrap #incomplete {
+	min-height: 30px;
 }
-#project_notes .note:hover .delete {
-	display: block;
+
+#project_forecast_wrap {
+	overflow: scroll;
+	width: 100%;
+	height: 100%;
 }

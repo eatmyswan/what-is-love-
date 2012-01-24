@@ -138,8 +138,8 @@ $('#group .checkbox, #popup_outcome .checkbox').live('click',function(){
 				success: function() { 
 					
 					task.fadeOut(300, function(){
-						if(($('#must').length > 0) && task.find('.star').first().hasClass('active')){
-							task.appendTo('#must').fadeTo(300, 1.0);
+						if(($('#project_must').length > 0) && task.find('.star').first().hasClass('active')){
+							task.appendTo('#project_must').fadeTo(300, 1.0);
 						} else {
 							task.appendTo('#incomplete').fadeTo(300, 1.0);
 						}
@@ -204,7 +204,7 @@ $('#group .checkbox, #popup_outcome .checkbox').live('click',function(){
 	}
 });
 
-$('#incomplete .star, #popup_outcome .star, #must .star').live('click',function(){
+$('#incomplete .star, #popup_outcome .star, #project_must .star').live('click',function(){
 	var star = $(this);
 	var task = $(this).parents('li').first();
 	var taskId = task.attr('id');
@@ -215,7 +215,7 @@ $('#incomplete .star, #popup_outcome .star, #must .star').live('click',function(
 		} else {
 			var parent = 'false';
 			var nothing = 'true';
-			if($('#must').length > 0){
+			if($('#project_must').length > 0){
 				task.fadeOut(300, function(){ task.appendTo('#incomplete').fadeTo(300, 1.0); });
 			}
 		}
@@ -233,8 +233,8 @@ $('#incomplete .star, #popup_outcome .star, #must .star').live('click',function(
 		} else {
 			var parent = 'false';
 			var nothing = 'true';
-			if($('#must').length > 0){
-				task.fadeOut(300, function(){ task.appendTo('#must').fadeTo(300, 1.0); });
+			if($('#project_must').length > 0){
+				task.fadeOut(300, function(){ task.appendTo('#project_must').fadeTo(300, 1.0); });
 			}
 		}
 		star.addClass('active');
@@ -313,7 +313,7 @@ $('#incomplete .editing .target').live('click',function(){
 	$(this).toggleClass('active');
 });
 	
-$('#incomplete .target.active').live('click', function(){
+$('#incomplete .target.active, #project_must .target.active').live('click', function(){
 	var task = $(this).parents('li').first();
 	if(!task.hasClass('editing') && !$(this).hasClass('outcome')){
 		task.addClass('outcome').find('.header').first().slideDown(200);
@@ -327,7 +327,7 @@ $('#incomplete .target.active').live('click', function(){
 	} 
 });
 
-$('#incomplete .target.outcome').live('click', function(){
+$('#incomplete .target.outcome, #project_must .target.outcome').live('click', function(){
 	var task = $(this).parents('li').first();
 	task.removeClass('outcome').find('.header').first().slideUp(200);		
 });

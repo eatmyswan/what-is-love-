@@ -1,4 +1,5 @@
-$('.wc-cal-event .mini_target, .committed .target').live('click', function(e){ 
+$('.wc-cal-event .mini_target, #day_drop_wrap .target').live('click', function(e){ 
+	
 	$(document).trigger('hideCluetip');
 	if($('#popup_outcome').length == 0) {
 		$('body').append('<div id="popup_outcome"></div>');
