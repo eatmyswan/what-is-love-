@@ -12,7 +12,7 @@
 	<% @groups.each do |group| %>
 		<li id="<%= group.id.to_s %>" class="<%= 'active' if group.id == @task.group.id %>">
 			<span class="img_wrap">
-				<%=  image_tag group.images.forward.first.image.tiny if group.images.forward.first %>
+				<%= cat_icon group %>
 			</span>
 			<span class="title">
 				<%= group.title %>

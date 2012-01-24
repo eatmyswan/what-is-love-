@@ -1,5 +1,5 @@
 <li id="<%= task.id.to_s %>" project_id="<%= task.task_to_project_id %>" class="sortable project_drop" sort_id="task_<%= task.id.to_s %>">
-	<div>
+	<div class="project_title">
 		<%= task.task_to_project.title %>
 		<%= link_to 'Enter', project_path(task.task_to_project_id), :remote => true %>
 	</div>

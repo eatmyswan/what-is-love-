@@ -142,11 +142,11 @@ $(document).ready(function() {
 					$event.find('.wc-outcome').html( '<span class="mini_target"></span>' + outcome );
 				});
 			}
-			if(calEvent.parent_id != null || calEvent.outcome == true){
-				$.get('/week/group/'+calEvent._id,function(group){
-					$event.find('.wc-title').after( group );
-				});
-			}
+			
+			$.get('/week/group/'+calEvent._id,function(group){
+				$event.find('.wc-title').after( group );
+			});
+			
       	},
 		draggable : function(calEvent, $event) {
 			return calEvent.readOnly != true;
