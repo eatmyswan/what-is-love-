@@ -17,7 +17,7 @@ gem 'omniauth', '~> 0.3.2'
 gem 'time_diff'
 gem 'swf_fu', '>=1.3.4', :git => 'git://github.com/rodrigob/swf_fu'
 gem 'ruby-mp3info', '~> 0.6.16'
-gem 'devise'
+gem 'devise', '~> 1.5.3'
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
