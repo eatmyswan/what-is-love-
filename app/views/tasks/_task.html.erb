@@ -3,67 +3,16 @@
 		<span class="checkbox <%= 'active' if task.complete == true %>"></span>
 		<% if task.parent_id == nil %>
 			<span class="target <%= 'active' if task.outcome == true %>"></span>
-			<%# begin avatars for groups that have leveraged tasks, do not show duplicate, limit to 4 avatars %>
-			<% if task.outcome == true %>
-				<% task.group.tasks.where(parent_id: task.id).and(complete: false).and(:luser_id.exists => true).order_by([:sort, :asc]).distinct(:luser_id).first(4).each do |luser_id| %>
-					<span class="avatar">
-						<% luser = User.find(luser_id) %>
-						<%= image_tag luser.gravatar_src(:size => 15), :title => "#{luser.name} has accepted this" %>
-					</span>
-				<% end %>
-			<% end %>
-			<%# end avatars for groups that have leveraged tasks %>
-		<% end %>
-		<% if task.luser_id %>
-			<span class="avatar">
-				<% luser = User.find(task.luser_id) %>
-				<%= image_tag luser.gravatar_src(:size => 15), :title => "#{luser.name} has accepted this" %>
-			</span>
-		<% elsif task.email.present? %>
-			<span class="avatar email_sent"></span>
 		<% end %>
 		<span class="star <%= 'active' if task.must == true %>"></span>
-		<span class="icon" rel="/task/edit_group/<%= task.id.to_s %>">
-		<% if task.group %>
-			<% if task.group.professional == true || task.group.personal == true %>
-				<%= image_tag task.group.images.forward.first.image.tiny if task.group.images.forward.first %>
-			<% else %>
-				<%= image_tag asset_path('inbox.png') %>
-			<% end %>
-		<% end %>
-		</span>
 		<span class="delete"></span>
 		<span class="edit"></span>
-		<span class="email"  href="/email/email_form/<%= task.id.to_s %>"></span>
-		<span class="note" href="/task/edit_notes/<%= task.id.to_s %>"  style="<%= 'display: block' if task.notes.count > 0 %>"></span>
-		<span class="calendar" rel="/task/edit_calendar/<%= task.id.to_s %>"></span>
 		<span class="edit_done"></span>
 		<span class="date">
 			<%= schedule_date(task.start) if task.start %>
 		</span>
-		<span class="duration">
-			<% if(task.outcome == false) %>
-				<%= min_duration(task.min_duration) if task.min_duration %>
-				<%= max_duration(task.max_duration) if task.max_duration > task.min_duration %>
-			<% else %>
-					<% min_must_duration = 0 %>
-					<% min_duration = 0 %>
-					<% max_duration = 0 %>
-				<% task.group.tasks.where(parent_id: task.id).and(complete: false).each do |task| %>
-						<% min_must_duration = task.min_duration + min_must_duration if task.must == true %>
-						<% min_duration = task.min_duration + min_duration %>
-						<% max_duration = (task.max_duration > task.min_duration) ? (task.max_duration + max_duration) : (task.min_duration + max_duration)  %>
-				<% end %>
-					<%= min_duration(min_duration) if min_duration > 0 %>
-					<%= max_duration(max_duration) if max_duration > min_duration %>
-			<% end %>
-		</span>
+
 		<span class="task drag result">
-			<span class="edit_result"></span>
-			<span class="edit_result_done"></span>
-			<form class="edit_result_form">
-				<input type="text" value="<%= strip_tags(task.title) %>" class="edit_result_text">
-			</form>
 			<div class="result_text">
 				<span class="task_number">
 					<%= "#{task.sort.to_i}" if task.sort > 0 %>
@@ -71,13 +20,6 @@
 				<span class="task_title">
 					<%= task.title.html_safe %>
 				</span>
-				<% if(task.outcome == true) %>
-					<div class="result_time">
-						<%= "<span class='result_time_wrap'><span class='result_time_title'>Must</span> #{duration(min_must_duration)}</span>".html_safe if min_must_duration > 0 %>
-						<%= "<span class='result_time_wrap'><span class='result_time_title'>Min</span> #{duration(min_duration)}</span>".html_safe if min_duration > 0 %>
-						<%= "<span class='result_time_title'>Max</span> #{duration(max_duration)}".html_safe if max_duration > min_duration %>
-					</div>
-				<% end %>
 			</div>
 		</span>
 
@@ -85,30 +27,21 @@
 			<input type="text" value="<%= strip_tags(task.title) %>" class="edit_task_text">
 		</form>
 	</div>
+	
 	<div class="purpose_wrap">
 		<% if task.group %>
 			<%= render :partial => '/tasks/task_purpose', :locals => { :task => task } %>
 		<% end %>
 	</div>
-	<div class="header">
-		<span class="target outcome"></span>
-		<div class="action_title">MAP: Massive Action Plan</div>
-		<div class="outcome_title">Result / Outcome</div>
-		<div class="purpose_title">Purpose / Why</div>
-	</div>
+	
 	<div class="actions_wrap">
 		<% if task.group %>
 			<% if action_plan == 'true' %>
 				<ul id="<%= task.id %>_incomplete" class="action_plan in_outcome sortable">
-
 					<% task.group.tasks.where(parent_id: task.id).and(complete: false).order_by([:sort, :asc]).each do |task| %>
-
 						<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'false' } %>
-
 					<% end %>
-
 				</ul>
-
 				<ul id="<%= task.id %>_complete" class="in_outcome">
 					<% task.group.tasks.where(parent_id: task.id).and(complete: true).each do |task| %>
 						<%= render :partial => '/tasks/task', :locals => { :task => task, :action_plan => 'false' } %>
@@ -117,4 +50,5 @@
 			<% end %>
 		<% end %>
 	</div>
+	
 </li>

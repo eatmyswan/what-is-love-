@@ -1,23 +1,4 @@
 $(document).ready(function() {
-	
-soundManager.onready(function() {	
-	soundManager.createSound({
-		id: 'hallelujah',
-		url: "<%= asset_path 'hallelujah.mp3' %>",
-		onplay: function() {
-			soundManager.stopAll();
-		}
-	});
-	
-	soundManager.createSound({
-		id: 'rimshot',
-		url: "<%= asset_path 'rimshot.mp3' %>",
-		onplay: function() {
-			soundManager.stopAll();
-		}
-	});
-});
-
 
 $('.task_wrap').live("mouseover", function() {
 	if (!$(this).data("attr")) {
@@ -80,8 +61,7 @@ $('#group .checkbox, #popup_outcome .checkbox').live('click',function(){
 	var checkbox = $(this);
 	var task = $(this).parents('li').first();
 	var taskId = task.attr('id');
-	
-	var soundOn = task.attr('sound');
+
 	
 	if(!task.parent().hasClass('in_outcome')){
 		
@@ -106,9 +86,7 @@ $('#group .checkbox, #popup_outcome .checkbox').live('click',function(){
 					}
 				});
 		} else {
-			if(soundOn == 'true') {
-				task.hasClass('outcome_ready') ? soundManager.play('hallelujah') : soundManager.play('rimshot');
-			}
+
 
 			$('h3.page').show();
 			checkbox.addClass('active');
@@ -141,9 +119,7 @@ $('#group .checkbox, #popup_outcome .checkbox').live('click',function(){
 						}
 					});
 			} else {
-				if(soundOn == 'true') {
-					soundManager.play('rimshot');
-				}
+
 				$('#'+outcomeId+' h3.outcome_complete').show();
 				checkbox.addClass('active');
 				$.ajax({
@@ -269,24 +245,21 @@ $('#incomplete .editing .target').live('click',function(){
 	$(this).toggleClass('active');
 });
 	
-$('#incomplete .target.active, #project_must .target.active').live('click', function(){
+$('#incomplete .target.active').live('click', function(){
 	var task = $(this).parents('li').first();
-	if(!task.hasClass('editing') && !$(this).hasClass('outcome')){
-		task.addClass('outcome').find('.header').first().slideDown(200);
-		
+	if(!task.hasClass('editing') && !task.hasClass('outcome')){	
+		task.addClass('outcome');
 		var pHeight = task.find('.purpose').height() + 10;
 		var rHeight = task.find('.result_text').height() + 20;
 		var height = pHeight > rHeight ? pHeight : rHeight;
 		height = height > 26 ? height : 26;
 		task.find('ul.action_plan').css({ 'min-height': height });
-
-	} 
+	} else {
+		task.removeClass('outcome');
+	}
 });
 
-$('#incomplete .target.outcome, #project_must .target.outcome').live('click', function(){
-	var task = $(this).parents('li').first();
-	task.removeClass('outcome').find('.header').first().slideUp(200);		
-});
+
 
 $('#incomplete .add_purpose, #popup_outcome .add_purpose').live('submit',function(event){
 	event.preventDefault();

@@ -1,9 +1,3 @@
-<div id="account_bar">
-		<span class="inner_highlight"></span>
-
-		<div id="cal_btn"></div>
-		<div id="notices_btn"></div>
-		<div id="unread_count" class="<%= 'hidden' if @unread_count == 0 %>"><%= @unread_count %></div>
 
 		<div class="account_wrap">
 			<div class="img">
@@ -13,9 +7,10 @@
 				<%= current_user.name %>
 			</div>
 			<div class="account_popup">
+				<%= link_to('My Life', root_path) %>
+				<%= link_to('Edit Account', edit_user_registration_path, :id => 'edit_account') %>
+				<a href="mailto:feedback@growthtap.com">Feedback</a>
 				<%= link_to('Logout', destroy_user_session_path, :method=>'delete') %>
-				
-				<%#APPARENTLY THIS DOESNT WORK IN PRODUCTION  = link_to('Edit Account', edit_user_registration_path, :id => 'edit_account') %>
 			</div>
 		</div>
 
@@ -32,6 +27,3 @@
 
 			</div>
 		</div>
-
-
-</div>

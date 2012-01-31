@@ -10,10 +10,6 @@
     </a>
 		<div class="cover"><%= image_tag current_user.gravatar_src %></div>
 		<div class="title"><%= current_user.name %></div>
-    <div class="filters_wrap">
-      <%= link_to 'Vision', root_path, :id => 'day_capture', :class => 'filter rounded_left active', :remote => true %>
-      <%= link_to 'Latest Notifications', notice_panel_path, :id => 'notice_panel', :class => 'filter rounded_right', :remote => true %>
-    </div>
 		<div class="ribbon"></div>
 <% end %>
 

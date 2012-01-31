@@ -5,7 +5,11 @@
 		<input type="text" value="<%= strip_tags(task.purpose) %>" class="edit_purpose_text">
 	</form>
 	<div class="purpose">
-		<%= task.purpose.html_safe if task.purpose %>
+		<% if task.purpose %>
+			<%= task.purpose.html_safe %>
+		<% else %>
+			Why do you want this?
+		<% end %>
 	</div>
 	
 

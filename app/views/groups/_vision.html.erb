@@ -1,24 +1,24 @@
 <div class="section <%= 'editing' if group.vision.blank? %>">
-	<span class="vision_tab"></span>
+
 	<span class="text"><%= group.vision %></span>
 	<span class="edit"></span>
 	<span class="edit_done"></span>
 	<span class="vision_form">
 		<%= form_for group, :remote => true do |f| %>
-			<%= f.text_area :vision, :value => group.vision || "What is your ultimate result / vision for this?", :onfocus => '(this.value == "What is your ultimate result / vision for this?") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "What is your ultimate result / vision for this?" : this.value' %>
+			<%= f.text_area :vision, :value => group.vision || "What do you want?", :onfocus => '(this.value == "What do you want?") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "What do you want?" : this.value' %>
 		<% end %>
 	</span>
 </div>
 
 
 <div class="section <%= 'editing' if group.purpose.blank? %>">
-	<span class="force_tab"></span>
+
 	<div class="text"><%= group.purpose %></div>
 	<span class="edit"></span>
 	<span class="edit_done"></span>
 	<span class="purpose_form">
 		<%= form_for group, :remote => true do |f| %>
-			<%= f.text_area :purpose, :value => group.purpose || "What is your driving force behind this?", :onfocus => '(this.value == "What is your driving force behind this?") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "What is your driving force behind this?" : this.value' %>
+			<%= f.text_area :purpose, :value => group.purpose || "Why do you want it?", :onfocus => '(this.value == "Why do you want it?") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "Why do you want it?" : this.value' %>
 			<% end %>
 	</span>
 </div>

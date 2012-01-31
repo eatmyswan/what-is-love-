@@ -1,6 +1,6 @@
 Rpm::Application.routes.draw do
 
-  devise_for :users, :controllers => { :sessions => "sessions" }
+  devise_for :users
 
   root :to => "home#index"
 
@@ -10,8 +10,6 @@ Rpm::Application.routes.draw do
   end
 
   resources :emails
-
-  resources :audios
 
   resources :users do
     resources :images
@@ -31,71 +29,18 @@ Rpm::Application.routes.draw do
 
   resources :invites, :only => [:new, :create]
   
-  resources :projects do
-    resources :notes, :only => [:create, :destroy]
-  end
-
-  get 'ajax_sign_in' => 'home#ajax_new', :as => :new_user_session_ajax
-
-  get '/' => 'home#index', :as => :landing
-  get 'tour' => 'home#tour', :as => :tour
-  get 'our-customers' => 'home#our_customers', :as => :our_customers
-  get 'mobile' => 'home#mobile', :as => :mobile
-  get 'help-and-support' => 'home#faq', :as => :faq
 
   match 'tasks/sort' => 'tasks#sort'
   match 'tasks/capture_sort' => 'tasks#capture_sort'
   match 'tasks/mylife_sort' => 'tasks#mylife_sort'
-  match 'task/debug' => 'tasks#debug'
-
-  match 'month/index/:start_date' => 'month#index', :as => :month
-  match 'month/json/:start_date/:end_date' => 'month#json', :as => :month_json
-
-  match 'week/capture/:start_date' => 'week#capture', :as => :week_capture
-  match 'week/plan/:start_date' => 'week#plan', :as => :week_plan
-  match 'week/forecast/:start_date' => 'week#forecast', :as => :week_forecast
-  match 'week/side/:start_date' => 'week#side'
-  match 'week/load_plan/:start_date' => 'week#load_plan'
-  match 'week/json/:start_date/:end_date' => 'week#json', :as => :week_json
-  match 'week/outcome/:id' => 'week#outcome'
-  match 'week/group/:id' => 'week#group'
-
-  match 'day/capture/:start_date' => 'day#capture', :as => :day_capture
-  match 'day/plan/:start_date' => 'day#plan', :as => :day_plan
-  match 'day/schedule/:start_date' => 'day#schedule', :as => :day_schedule
-  match 'day/side/:start_date' => 'day#side'
-  match 'day/load_plan/:start_date' => 'day#load_plan'
 
   match 'tasks/sort' => 'tasks#sort'
   match 'task/update/:id' => 'tasks#update'
 
-  get 'group/icon/:id/edit' => 'groups#edit_icon', :as => :edit_group_icon
   match 'groups/sort' => 'groups#sort'
   match 'groups/long_term/:id' => 'groups#long_term', :as => :group_long_term
-  match 'task/save_audio/:id' => 'tasks#save_audio'
-  match 'email/:id/mini_player' => 'emails#mini_player'
-  match 'email/update/:id' => 'emails#update'
-  match 'emails/create_from_flash/:id' => 'emails#create_from_flash'
-  match 'email/email_form/:id' => 'emails#email_form'
-  match 'email/load_outcome/:id' => 'emails#load_outcome'
-
-  post 'email/accept/:email_id' => 'emails#accept', :as => :accept_email
-  post 'email/reject/:email_id' => 'emails#reject', :as => :reject_email
-  get 'email/after-signin' => 'emails#after_ajax_signin', :as => :view_email_after_signin
-
-  match 'email/:id/view_email' => 'emails#view_email', :as => :view_email
-  match 'task/edit_notes/:id' => 'tasks#edit_notes'
-  match 'task/edit_calendar/:id' => 'tasks#edit_calendar'
-  match 'task/edit_group/:id' => 'tasks#edit_group'
-  match 'task/schedule_task/:id' => 'tasks#schedule_task'
-
-  match 'task/load_outcome/:id' => 'tasks#load_outcome'
 
   post 'sort' => 'vision_groups#sort', :as => :vision_groups_sort
-
-  get "notices/latest" => "notices#latest"
-  get "notices/latest/details" => "notices#latest_panel", :as => :notice_panel
-  get "notices/unread-count" => "notices#unread_count", :as => :unread_count
 
 
   # The priority is based upon order of creation:
