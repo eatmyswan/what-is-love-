@@ -4,8 +4,6 @@
 //= require jquery.remotipart
 //= require swfobject
 //= require lib/capture
-//= require lib/notices
-//= require lib/icons
 //= require_self
 //= require_directory .
 
