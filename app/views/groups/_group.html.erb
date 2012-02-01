@@ -1,10 +1,6 @@
 <% content_for :top do %>
 		<% if @group.personal == true || @group.professional == true %>
-			<div class="cover">
-				<%= link_to edit_group_icon_path(@group) do %>
-					<%= cat_icon @group %>
-				<% end %>
-			</div>
+			<div class="cover"><%= image_tag @group.images.forward.first.image.thumb if @group.images.first %></div>
 			<div class="title"><%= raw @group.title %></div>
 			<div class="filters_wrap">
 				<a id="plan" class="filter rounded_left active">Plan</a>
@@ -12,7 +8,7 @@
 			</div>
 		<% else %>
 			<div class="cover_inbox"></div>
-			<div class="title">Action List</div>
+			<div class="title">Inbox</div>
 		<% end %>
 		<div class="ribbon"></div>
 <% end %>
@@ -23,7 +19,7 @@
 			<div id="input_wrap">
 				<span class="inner_shadow"></span>
 				<%= form_for(Task.new, :remote => true) do |f| %>
-					<%= f.text_field :title, :autocomplete => :off, :value => "New Action or Outcome...", :onfocus => '(this.value == "New Action or Outcome...") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "New Action or Outcome..." : this.value' %>
+					<%= f.text_field :title, :autocomplete => :off, :value => "Action Items and Things I want to Do", :onfocus => '(this.value == "Action Items and Things I want to Do") ? this.value = "" : this.value', :onblur => '(this.value == "") ? this.value = "Action Items and Things I want to Do" : this.value' %>
 					<%= f.hidden_field :group_id, :value => group.id %>
 				<% end %>
 			</div>

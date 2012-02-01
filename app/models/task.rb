@@ -54,7 +54,6 @@ class Task
   validates_length_of :title, minimum: 1, message: "task cannot be blank."
   
   before_save :check_start
-  before_save :check_duration
   before_save :check_must
   before_save :check_outcome
   before_save :nil_if_blank

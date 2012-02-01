@@ -30,6 +30,7 @@ li.task_wrap {
 	margin-bottom: 3px;
 	position: relative;
 	min-height: 25px;
+	overflow:hidden;
 }
 li.task_wrap .task_number {
 	float: left;
@@ -44,7 +45,7 @@ li.task_wrap .target {
 	width: 15px;
 	height: 15px;
 	margin: 5px 2px 0 0;
-	background: url(<%= asset_path 'target.png' %>) no-repeat;
+	background: url(<%= asset_path 'target_arrows.png' %>) no-repeat;
 	cursor: pointer;
 }
 li.task_wrap.outcome .target {
@@ -244,38 +245,24 @@ li.task_wrap .edit_task input[type="text"] {
 	padding: 1px 7px;
 }
 
-li.task_wrap.outcome > .outcome_wrap {
-	display: block;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	right: 200px;
-	width: 200px;
-	border-left: 1px solid #CCC;
-	background: url(<%= asset_path 'big_target.png' %>) no-repeat center center transparent;
-}
 
 li.task_wrap.outcome ul.sortable {
 	min-height: 26px;
 }
 li.task_wrap.outcome .actions_wrap {
-	margin: 0 400px 0 0;
+	margin: 0 200px 0 0;
 	padding: 10px;
-}
-li.task_wrap.outcome .actions_wrap ul.action_plan {
-	padding-top: 25px;
+	border-top: 1px solid #CCC;
 }
 
-li.task_wrap.outcome .outcome_wrap .task {
-	padding-top: 35px;
-}
 li.task_wrap.outcome .purpose_wrap {
 	position: absolute;
-	top: 0;
+	top: 25px;
 	bottom: 0;
 	right: 0;
 	width: 200px;
 	border-left: 1px solid #CCC;
+	border-top: 1px solid #CCC;
 }
 li.task_wrap.outcome ul.in_outcome li.task_wrap .outcome_wrap{
 	display: block;
@@ -299,7 +286,7 @@ li.task_wrap.outcome .purpose_wrap {
 	display: block;
 }
 li.task_wrap.outcome .purpose_wrap .purposes {
-	margin: 35px 10px 0;
+	margin: 10px 10px 0;
 }
 li.task_wrap.outcome .purpose_wrap .purpose {
 	margin: 0 0 10px 0;
@@ -326,13 +313,6 @@ li.task_wrap.outcome .outcome_wrap.editing input {
 }
 li.task_wrap.outcome li.task_wrap .actions_wrap,
 li.task_wrap.outcome li.task_wrap .purpose_wrap {
-	display: none;
-}
-li.task_wrap.outcome .checkbox,
-li.task_wrap.outcome .target.active,
-li.task_wrap.outcome .star,
-li.task_wrap.outcome .edit,
-li.task_wrap.outcome .delete {
 	display: none;
 }
 li.task_wrap.outcome .purpose_wrap .edit_purpose,
@@ -391,9 +371,6 @@ li.task_wrap.outcome li.task_wrap.editing .target {
 }
 li.task_wrap.outcome li.task_wrap.editing .edit_task input[type="text"]{
 	left: 44px;
-}
-li.task_wrap.outcome .task {
-	padding: 10px;
 }
 
 

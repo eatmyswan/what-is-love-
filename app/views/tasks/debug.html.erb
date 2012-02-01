@@ -1,0 +1,25 @@
+
+<div style="background: white; padding: 20px;">
+	
+<% @tasks.each do |task| %>
+
+	<div style="border-bottom: 1px solid #CCCCCC; padding: 10px; margin: 10px;">
+		<% if task.outcome == true %>
+			<%= task.user.name %>: 
+			<%= task.title %>
+			<div style="margin: 0 0 0 50px; border-left: 1px solid blue;">
+				<% Task.where(parent_id: task.id).each do |task| %>
+					<div style="border-bottom: 1px solid #CCCCCC; padding: 10px; margin: 10px;">
+						<%= task.title %>
+					</div>
+				<% end %>
+			</div>
+		<% else %>
+			<%= task.user.name %>: 
+			<%= task.title %>
+		<% end %>
+	</div>
+
+<% end %>
+
+</div>

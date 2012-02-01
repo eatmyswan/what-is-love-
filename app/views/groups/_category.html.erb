@@ -1,26 +1,20 @@
-<div id="<%= category.id.to_s %>" class="category <%= 'active' if active == true %>" group_id="group_<%= category.id.to_s %>">
-
-	<%= link_to group_path(category.id.to_s), :class => 'clickable', :remote => true do %>
-		<span class="cover"><%= cat_icon category %></span>
+<%= link_to group_path(category.id.to_s), :class => "category #{ 'active' if active == true }", :id => category.id.to_s, :group_id => "group_#{category.id.to_s}", :remote => true do %>
+		<span class="cover"><%= image_tag category.images.forward.first.image.thumb if category.images.first %></span>
 		<span class="title"><%= category.title %></span>
 		<span class="count"><span class="inner_shadow"></span><span class="count_text"><%= category.tasks.incomplete.count %></span></span>
+		<span class="delete"></span>
 		<span class="edit"></span>
-	<% end %>
-
-	<span class="form">
-		<%= form_for(category, :remote => true) do |f| %>
-
-			<span class="delete"></span>
-			<span class="edit_done"></span>
-
+		<span class="edit_done"></span>
+		
+		<span class="form">
+			<%= form_for(category, :remote => true) do |f| %>
 			<span class="cover">
-				<%= link_to edit_group_icon_path(category) do %>
-					<%= cat_icon category %>
-				<% end %>
 				<input type="hidden" name="cover">
+				<input type="file" name="image[image]">
+				<span class="file_field_cover"></span>
 			</span>
-			<%= f.text_field :title, :autocomplete => :off, :value => category.title %>
-		<% end %>
-	</span>
+				<%= f.text_field :title, :autocomplete => :off, :value => category.title %>
+			<% end %>
+		</span>
 
-</div>
+<% end %>

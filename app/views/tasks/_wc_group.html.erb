@@ -1,6 +1,6 @@
 <div class="wc-group">
 	<% if @group.personal == true || @group.professional == true %>
-		<span class="img_wrap"><%= cat_icon @group %></span>
+		<span class="img_wrap"><%= image_tag @group.images.forward.first.image.tiny if @group.images.forward.first %></span>
 		<span class="title_wrap"><%= @group.title %></span>
 	<% else %>
 		<span class="img_wrap" style="background: transparent; box-shadow: none;"><%= image_tag asset_path('inbox.png') %></span>

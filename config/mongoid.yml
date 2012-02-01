@@ -10,13 +10,13 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  database: timemaster
+  database: rpmcopy
 
 test:
   <<: *defaults
-  database: timemaster_test
+  database: rpmcopy_test
 
 # set these environment variables on your prod server
 production:
   <<: *defaults
-  database: timemaster
+  database: rpmcopy
