@@ -31,7 +31,10 @@
 	width: 62px;
 	height: 32px;
 	background: url(<%= asset_path 'sprite.png' %>) no-repeat -63px -277px transparent;
-	margin: 5px 5px 0 0;
+	/* some other overreaching style is messing with margin and padding,
+	   hence the !importants */
+	margin: 5px 5px 0 0 !important;
+	padding: 0 !important;
 }
 .email_dialog #close_fancybox {
 	width: 62px;

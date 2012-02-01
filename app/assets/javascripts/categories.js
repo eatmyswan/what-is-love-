@@ -50,13 +50,9 @@ $('.new_group').live('submit',function(){
 	clearForm(newCategory);
 });
 
-$('#plan_categories .category .edit').live('click', function (event) {
+$('#categories .category .edit').live('click', function (event) {
 	event.preventDefault();
-	var category = $(this).parents('.category').first();
-	var categoryId = category.attr('id');
-	var categoryClass = category.attr('class');
-	var href = category.attr('href');
-	category.replaceWith($('<div href="'+href+'" class="'+ categoryClass +' editing" id="'+categoryId+'">' + category.html() + '</div>'));
+	$(this).parents('.category').first().addClass('editing');
 	return false;
 });
 
@@ -81,6 +77,8 @@ $('#plan_categories .category .delete').live('click',function(event){
 	});
 	return false;
 });
+
+TM.bindFancybox('a[href^="' + TM.path.editGroupIcon('"][href$="') + '"]');
 
 function clearForm(newCategory){
 	$(newCategory).find('input[type=file]').val('');
