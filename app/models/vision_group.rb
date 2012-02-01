@@ -1,7 +1,7 @@
 class VisionGroup
   include Mongoid::Document
   include Mongoid::Timestamps
-  belongs_to :dreamer, :polymorphic => true
+  belongs_to :group
   embeds_many :vision_goals
 
   field :title, type: String

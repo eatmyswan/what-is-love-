@@ -12,11 +12,11 @@
 		<% end %>
 		<span class="star <%= 'active' if task.must == true %>"></span>
 		<span class="icon" rel="/task/edit_group/<%= task.id.to_s %>">
-		<% if task.group %>	
-			<% if task.group.professional == true || task.group.personal == true %>
-				<%= image_tag task.group.images.forward.first.image.tiny if task.group.images.forward.first %>
-			<% else %>
+		<% if task.group %>
+			<% if task.group.type == 'inbox' %>
 				<%= image_tag asset_path('inbox.png') %>
+			<% else %>
+				<%= image_tag task.group.images.forward.first.image.tiny if task.group.images.forward.first %>
 			<% end %>
 		<% end %>
 		</span>

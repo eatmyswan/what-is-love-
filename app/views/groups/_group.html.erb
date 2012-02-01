@@ -1,5 +1,8 @@
 <% content_for :top do %>
-		<% if @group.personal == true || @group.professional == true %>
+		<% if @group.type == 'inbox' %>
+			<div class="cover_inbox"></div>
+			<div class="title">Inbox</div>
+		<% else %>
 			<div class="cover">
         <%= link_to edit_group_icon_path(@group) do %>
           <%= cat_icon @group %>
@@ -10,9 +13,6 @@
 				<a id="plan" class="filter rounded_left active">Plan</a>
 				<a id="vision" class="filter rounded_right">Vision</a>
 			</div>
-		<% else %>
-			<div class="cover_inbox"></div>
-			<div class="title">Inbox</div>
 		<% end %>
 		<div class="ribbon"></div>
 <% end %>

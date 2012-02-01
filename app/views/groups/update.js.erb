@@ -1,4 +1,7 @@
-if($("#<%= @group.id.to_s %>").hasClass('active')){
+if ( <%= @group.type == 'my_life' %> ) {
+  $("#vision_wrap").html('<%= escape_javascript render(:partial => "/groups/vision", :locals => { :group => @group }) %>');
+}
+else if ( $("#<%= @group.id.to_s %>").hasClass('active') ) {
 	$('#top .title').text("<%= raw @group.title %>");
 	$("#vision_wrap").html('<%= escape_javascript render(:partial => "/groups/vision", :locals => { :group => @group }) %>');
 	$("#<%= @group.id.to_s %>").replaceWith('<%= escape_javascript render(:partial => "/groups/category", :locals => { :category => @group, :active => true }) %>');

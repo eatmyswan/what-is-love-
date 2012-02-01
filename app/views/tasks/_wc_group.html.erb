@@ -1,10 +1,10 @@
 <div class="wc-group">
-	<% if @group.personal == true || @group.professional == true %>
-		<span class="img_wrap"><%= cat_icon @group %></span>
-		<span class="title_wrap"><%= @group.title %></span>
+	<% if @group.type == 'inbox' %>
+    <span class="img_wrap" style="background: transparent; box-shadow: none;"><%= image_tag asset_path('inbox.png') %></span>
+    <span class="title_wrap">Action List</span>
 	<% else %>
-		<span class="img_wrap" style="background: transparent; box-shadow: none;"><%= image_tag asset_path('inbox.png') %></span>
-		<span class="title_wrap">Action List</span>
+    <span class="img_wrap"><%= cat_icon @group %></span>
+    <span class="title_wrap"><%= @group.title %></span>
 	<% end %>
 </div>
 

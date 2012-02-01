@@ -3,8 +3,6 @@ class User
   include Mongoid::Timestamps
 
   field :name, type: String
-  field :vision, type: String
-  field :purpose, type: String
   field :avatar, type: String
   field :sound, type: Boolean, default: true
   field :last_notice_view, type: DateTime
@@ -19,11 +17,10 @@ class User
   has_many :emails
   has_many :ltasks, class_name: 'Task', inverse_of: :luser
   has_many :notices
-  has_many :vision_groups, :as => :dreamer
   embeds_many :goals
   embeds_many :images
 
-  after_create :create_inbox
+  after_create :create_default_groups
 
   def self.find_by_email(email)
     User.where(:email => email).first
@@ -59,12 +56,18 @@ class User
     self.__created_at
   end
 
+  def inbox
+    self.groups.where(:type => 'inbox').first
+  end
+
+  def my_life
+    self.groups.where(:type => 'my_life').first
+  end
+
   protected
-  def create_inbox
-    group = Group.new
-    group.title = 'Action List'
-    group.user_id = self.id
-    group.save
+  def create_default_groups
+    self.groups.create :type => 'my_life', :title => 'My Life'
+    self.groups.create :type => 'inbox',   :title => 'Action List'
   end
 
 end

@@ -17,7 +17,7 @@
 <% content_for :page do %>
 	<div id="group">
 		<div id="vision_wrap">
-			<%= render :partial => '/groups/vision', :locals => { :group => current_user } %>
+			<%= render :partial => '/groups/vision', :locals => { :group => current_user.my_life } %>
 		</div>
 	</div>
 <% end %>
