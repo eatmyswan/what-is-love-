@@ -122,7 +122,7 @@ $('#personal,#professional').live("mouseover", function() {
 		$(this).data("init", true);
 		$(this).sortable({
 			connectWith: '.connectedSortable',
-			items: 'a',
+			items: '.category',
 			axis: 'y',
 			forcePlaceholderSize: true,
 			tolerance: 'pointer',
