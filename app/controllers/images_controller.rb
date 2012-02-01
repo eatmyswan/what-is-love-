@@ -3,11 +3,8 @@ class ImagesController < ApplicationController
 
   def create
     @image.save
-
-    template = 'groups/update'
-    template = 'users/update' if @group.is_a? User
     respond_to do |format|
-      format.js { render template, :layout => false }
+      format.js { render @template, :layout => false }
     end
   end
 
@@ -25,7 +22,7 @@ class ImagesController < ApplicationController
   def destroy
     @image.destroy
     respond_to do |format|
-      format.js { render :layout => false }
+      format.js { render @template, :layout => false }
     end
   end
 
@@ -35,9 +32,11 @@ private
     if(params[:user_id])
       @user = @group = User.find(params[:user_id])
       @image = params[:id] ?  @group.images.find(params[:id]) :  @group.images.new(params[:image])
+      @template = 'users/update'
     elsif(params[:group_id])
       @group = Group.find(params[:group_id])
       @image = params[:id] ?  @group.images.find(params[:id]) :  @group.images.new(params[:image])
+      @template = 'groups/update'
     end
   end
   

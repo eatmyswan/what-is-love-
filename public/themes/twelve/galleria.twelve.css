@@ -36,7 +36,8 @@
 .galleria-s1,
 .galleria-s2,
 .galleria-s3,
-.galleria-s4 {
+.galleria-s4,
+.galleria-s5 {
     background: url(separator.png);
     height: 29px;
     width: 2px;
@@ -53,6 +54,10 @@
     right: 58px;
     left: auto;
 }
+.galleria-s5 {
+    right: 87px;
+    left: auto;
+}
 .galleria-progress {
     height: 2px;
     position: absolute;
@@ -67,6 +72,7 @@
 }
 .galleria-thumblink,
 .galleria-fullscreen,
+.galleria-delete,
 .galleria-play,
 .galleria-popout {
     width: 29px;
@@ -78,6 +84,7 @@
     cursor: pointer;
 }
 .galleria-fullscreen,
+.galleria-delete,
 .galleria-popout {
     left: auto;
     right: 0;
@@ -87,6 +94,11 @@
 .galleria-popout {
     background-image: url(popout.png);
     right: 30px;
+    background-position: 50% 50%;
+}
+.galleria-delete {
+    background-image: url(trash.png);
+    right: 59px;
     background-position: 50% 50%;
 }
 .galleria-play {
@@ -104,6 +116,8 @@
 .galleria-container.touch .galleria-fullscreen:active,
 .galleria-container.notouch .galleria-play:hover,
 .galleria-container.touch .galleria-play:active,
+.galleria-container.notouch .galleria-delete:hover,
+.galleria-container.touch .galleria-delete:active,
 .galleria-container.notouch .galleria-popout:hover,
 .galleria-container.touch .galleria-popout:active { background-color: #000 }
 .galleria-thumbnails-container {
@@ -144,7 +158,7 @@
     height: 29px;
     line-height: 29px;
     left: 70px;
-    right: 70px;
+    right: 100px;
     bottom: 1px;
     color: #bbb;
 }
