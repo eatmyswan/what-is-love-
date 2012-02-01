@@ -4,6 +4,8 @@
   <title> GrowthTap </title>
   <%= stylesheet_link_tag 'application' %>
 
+  <%= javascript_include_tag 'lib/timemaster' %>
+  <%= render 'shared/server-data' %>
   <%= javascript_include_tag 'application' %>
 
   <%= javascript_include_tag '/themes/twelve/galleria.twelve.min.js' %>
@@ -13,6 +15,23 @@
 	
 	<%= yield %>
 	
+		<div id="cal_popup">
+			<input type="radio" id="day_check" name="group" value="dayCapture" checked> <label for="day_check">Day Capture</label> <br><br>
+			<input type="radio" id="day_plan_check" name="group" value="dayPlan"> <label for="day_plan_check">Day Plan</label> <br><br>
+			<input type="radio" id="week_check" name="group" value="weekCapture"> <label for="week_check">Week Capture</label> <br><br>
+			<input type="radio" id="week_plan_check" name="group" value="weekPlan"> <label for="week_plan_check">Week Plan</label> <br><br>
+			<input type="radio" id="schedule_check" name="group" value="schedule"> <label for="schedule_check">Schedule</label> &nbsp; 
+			<span id="schedule_check_selects" style="display: none;">
+				<%= select_time(Time.now, :ampm => true, :minute_step => 5) %>
+			</span>
+			<br>
+			<span class="done">Done</span>
+			<input type="hidden" id="cal_where">
+			<input type="hidden" id="cal_date">
+			<input type="hidden" id="cal_taskId">
+			<input type="hidden" id="cal_minDur">
+			<input type="hidden" id="cal_parentId">
+		</div>
 		
 </body>
 </html>
