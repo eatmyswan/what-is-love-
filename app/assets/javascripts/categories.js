@@ -50,7 +50,7 @@ $('.new_group').live('submit',function(){
 	clearForm(newCategory);
 });
 
-$('#plan_categories .category .edit').live('click',function(){
+$('#plan_categories .category .edit').live('click', function (event) {
 	event.preventDefault();
 	var category = $(this).parents('.category').first();
 	var categoryId = category.attr('id');
