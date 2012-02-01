@@ -48,6 +48,10 @@ li.task_wrap .target {
 	background: url(<%= asset_path 'target_arrows.png' %>) no-repeat;
 	cursor: pointer;
 }
+#group li.task_wrap .target {
+	/* namespaced so it doesn't affect emails */
+	display: block;
+}
 li.task_wrap.outcome .target {
 	display: block;
 }

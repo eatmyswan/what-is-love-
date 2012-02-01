@@ -241,10 +241,16 @@ $('form.edit_task').live('submit',function(event){
 	return false;
 });
 
+$('#incomplete .target.inactive').live('click', function () {
+	$(this).siblings('.edit').first().trigger('click');
+	$('#incomplete .editing .target').toggleClass('active');
+	$(this).siblings('form').first().trigger('submit');
+});
+
 $('#incomplete .editing .target').live('click',function(){
 	$(this).toggleClass('active');
 });
-	
+
 $('#incomplete .target.active').live('click', function(){
 	var task = $(this).parents('li').first();
 	if(!task.hasClass('editing') && !task.hasClass('outcome')){	

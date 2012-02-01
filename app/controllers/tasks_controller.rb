@@ -50,6 +50,7 @@ class TasksController < ApplicationController
 
     if params[:task]
       @task.update_attributes(params[:task])
+      @open ||= params[:task][:outcome]
 
       if params[:json]
         render :json => @task
