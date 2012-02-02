@@ -14,7 +14,6 @@ Rpm::Application.routes.draw do
   resources :audios
 
   scope :users do
-    resources :images
     resources :goals
     resources :vision_groups
   end
