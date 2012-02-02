@@ -3,8 +3,4 @@
 db/*.sqlite3
 log/*.log
 tmp/
-Gemfile.lock
 .sass-cache/
-public/assets/
-app/.DS_Store
-app/assets/.DS_Store

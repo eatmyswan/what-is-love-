@@ -18,5 +18,7 @@ test:
 
 # set these environment variables on your prod server
 production:
-  <<: *defaults
+  uri: <%= ENV['MONGOHQ_URL'] %>
+  use_utc: false
+  use_activesupport_time_zone: true
   database: rpmcopy
