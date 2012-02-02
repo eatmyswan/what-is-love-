@@ -19,6 +19,8 @@ gem 'swf_fu', '>=1.3.4', :git => 'git://github.com/rodrigob/swf_fu'
 gem 'ruby-mp3info', '~> 0.6.16'
 gem 'devise', '~> 1.5.3'
 
+gem 'typus', :git => 'git://github.com/mindeavor/typus'
+
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
   gem 'coffee-rails', '~> 3.1.1'

@@ -1,3 +1,6 @@
+require 'typus/orm/active_record/user/instance_methods'
+require 'typus/orm/active_record/user/instance_methods_more'
+
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -12,6 +15,10 @@ class User
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
+  # Typus attributes
+  field :typus_role, type: String, default: 'user'
+  field :status, type: String, default: true
+  # ----
 
   has_many :groups
   has_many :emails
@@ -54,6 +61,16 @@ class User
   def my_life
     self.groups.where(:type => 'my_life').first
   end
+
+  # # # # # # # # # #
+  # Typus adaption  #
+  include Typus::Orm::ActiveRecord::User::InstanceMethods
+  include Typus::Orm::ActiveRecord::User::InstanceMethodsMore
+  def role
+    self.typus_role
+  end
+  # /Typus adaption #
+  # # # # # # # # # #
 
   protected
   def create_default_groups

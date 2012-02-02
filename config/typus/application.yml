@@ -1,0 +1,10 @@
+
+User:
+  fields:
+    default: email, name, last_sign_in_at, sign_in_count, last_sign_in_ip
+    form: email, name, typus_role
+  order_by:
+  relationships:
+  filters: created_at
+  search: email
+  application: growthtap
