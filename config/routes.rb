@@ -13,7 +13,7 @@ Rpm::Application.routes.draw do
 
   resources :audios
 
-  resources :users do
+  scope :users do
     resources :images
     resources :goals
     resources :vision_groups

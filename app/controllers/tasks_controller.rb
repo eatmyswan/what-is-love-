@@ -14,8 +14,6 @@ class TasksController < ApplicationController
     require 'time_diff'
     
     @task = Task.new
-    @personal_groups = Group.where(user_id: current_user.id).and(personal: true)
-    @professional_groups = Group.where(user_id: current_user.id).and(professional: true)
   end
   
   def new_from_cal
@@ -26,8 +24,6 @@ class TasksController < ApplicationController
   def edit
     require 'time_diff'
     @task = Task.find(params[:id])
-    @personal_groups = Group.where(user_id: current_user.id).and(personal: true)
-    @professional_groups = Group.where(user_id: current_user.id).and(professional: true)
   end
 
   def create

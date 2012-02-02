@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   def index
     if user_signed_in?
       @inbox = current_user.inbox
-      @personal = Group.where(user_id: current_user.id).and(type:'cat').order_by([:sort, :asc])
+      @personal = current_user.groups.personal.order_by([:sort, :asc])
       render 'my_life', :layout => 'application'
     else
       render 'index'
