@@ -47,15 +47,6 @@ class User
     url = "http://www.gravatar.com/avatar/#{id}.jpg?s=#{options[:size].to_s}&d=identicon"
   end
 
-  # backwards compatibility
-  alias :__created_at :created_at
-  def created_at
-    if self.__created_at.nil?
-      self.update_attribute :created_at, DateTime.now.utc
-    end
-    self.__created_at
-  end
-
   def inbox
     self.groups.where(:type => 'inbox').first
   end
